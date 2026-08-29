@@ -42,7 +42,7 @@ $heroTitleMarkup = preg_replace('/(Berprestasi\.?)(\s*)$/u', '<span class="hero-
 ?>
 
 <div class="home-page">
-<section class="home-hero" aria-labelledby="hero-title"<?php if ($heroImage): ?> style="--hero-image: url('<?= esc($heroImage) ?>')"<?php endif; ?>>
+<section class="home-hero" aria-labelledby="hero-title"<?php if ($heroImage): ?> style="--hero-bg-image: url('<?= esc($heroImage) ?>')"<?php endif; ?>>
     <div class="theme-container home-hero-grid">
         <div class="home-hero-copy">
             <?php if (!empty($hero_badge)): ?><p class="hero-kicker"><?= esc($hero_badge) ?></p><?php endif; ?>
