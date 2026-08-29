@@ -31,7 +31,7 @@ function hydratePlaygroundShell() {
     const email = document.querySelector('[data-demo-email]');
     if (email) { email.href = `mailto:${state.contact_email || ''}`; email.textContent = state.contact_email || ''; }
     const logo = document.querySelector('[data-demo-logo]');
-    if (logo) logo.src = state.site_logo_url || '/logo-reference.png';
+    if (logo) logo.src = state.site_logo_url || 'https://barka.silirdev.com/media_library/images/logo.png';
     setLink('[data-demo-spmb]', state.spmb_url, 'SPMB Online');
     setLink('[data-demo-spmb-header]', state.spmb_url, 'SPMB Online');
     setLink('[data-demo-social-facebook]', state.social_facebook, 'f');
