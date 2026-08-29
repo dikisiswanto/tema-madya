@@ -3173,3 +3173,603 @@ body.nav-open .mobile-nav { opacity: 1; visibility: visible; transform: translat
     .home-page .testimonial-feature blockquote { @apply text-[.86rem]; }
   }
 }
+
+/* RC10.12.14 — Hybrid SPA rich-section parity with component-rich-section.png. */
+@layer components {
+  .rich-section { @apply py-8 md:py-10 lg:py-12; }
+  .rich-layout { @apply grid gap-6 lg:grid-cols-[11rem_minmax(0,1fr)] lg:gap-8; }
+  .rich-main { @apply min-w-0; }
+  .rich-sidebar { @apply min-w-0; }
+  .rich-sidebar-nav { @apply sticky top-24 overflow-hidden rounded-md border border-line bg-white p-1 shadow-soft; }
+  .rich-sidebar-nav a { @apply flex min-h-9 items-center gap-2 rounded px-3 text-[.68rem] text-muted transition-colors; }
+  .rich-sidebar-nav a span:first-child { @apply grid size-4 shrink-0 place-items-center text-brand; }
+  .rich-sidebar-nav a span:first-child svg { @apply size-3.5; }
+  .rich-sidebar-nav a small { @apply ml-auto text-[.58rem] text-muted; }
+  .rich-sidebar-nav a.is-active, .rich-sidebar-nav a:hover { @apply bg-brand text-white; }
+  .rich-sidebar-nav a.is-active span:first-child { @apply text-white; }
+
+  .rich-main > section + section { @apply mt-8; }
+  .rich-section-label { @apply mb-3 flex items-center justify-between; }
+  .rich-section-label h2 { @apply m-0 font-display text-[1.1rem] font-semibold tracking-[-.02em] text-brand; }
+  .rich-program-grid { @apply grid gap-3 md:grid-cols-3; }
+  .rich-program-card { @apply min-w-0 rounded-md border border-line bg-white p-4 shadow-soft transition-[transform,box-shadow,border-color] duration-200; }
+  .rich-program-card:hover { @apply -translate-y-0.5 border-slate-300 shadow-float; }
+  .rich-card-icon { @apply grid size-9 place-items-center rounded border border-brand/15 bg-brand-soft text-brand; }
+  .rich-card-icon svg { @apply size-4; }
+  .rich-program-card h3, .rich-program-card h2 { @apply mt-4 mb-0 font-display text-[1.05rem] font-semibold leading-tight text-brand; }
+  .rich-program-card p { @apply mt-2 text-[.7rem] leading-6 text-muted; }
+  .rich-program-card .text-link { @apply mt-5 inline-flex text-[.64rem]; }
+  .rich-program-secondary { @apply mt-8; }
+  .rich-program-split { @apply grid gap-3 lg:grid-cols-[1fr_.9fr]; }
+  .rich-program-list { @apply divide-y divide-line rounded-md border border-line bg-white; }
+  .rich-program-row { @apply grid min-w-0 grid-cols-[2.3rem_minmax(0,1fr)_auto] items-center gap-3 p-4; }
+  .rich-program-row h3 { @apply m-0 font-display text-[.9rem] font-semibold text-brand; }
+  .rich-program-row p { @apply mt-1 text-[.65rem] leading-5 text-muted; }
+  .rich-program-row .text-link { @apply text-[.58rem]; }
+  .rich-program-image { @apply relative min-h-48 overflow-hidden rounded-md bg-slate-100; }
+  .rich-program-image img { @apply absolute inset-0 size-full object-cover; }
+  .rich-program-image::after { content:""; @apply absolute inset-0 bg-gradient-to-t from-brand-deep/90 via-brand-deep/15 to-transparent; }
+  .rich-program-image figcaption { @apply absolute inset-x-4 bottom-4 z-10 flex items-end justify-between gap-3 text-white; }
+  .rich-program-image figcaption strong { @apply max-w-[18ch] font-display text-[1rem] leading-tight; }
+
+  .rich-feature-image { @apply mt-6 overflow-hidden rounded-md border border-line bg-slate-100; }
+  .rich-feature-image img { @apply block aspect-[16/7] w-full object-cover; }
+  .identity-copy h2 { @apply m-0 font-display text-[clamp(1.5rem,3vw,2.35rem)] leading-tight tracking-[-.03em] text-brand; }
+  .identity-copy > p { @apply mt-3 max-w-3xl text-[.78rem] leading-6 text-muted; }
+  .identity-table { @apply mt-6 overflow-hidden rounded-md border border-line bg-white; }
+  .identity-table h3 { @apply m-0 border-b border-line px-4 py-3 font-display text-[.9rem] text-brand; }
+  .identity-table > div { @apply grid grid-cols-[7rem_minmax(0,1fr)] gap-3 border-b border-line px-4 py-2 text-[.65rem]; }
+  .identity-table > div:last-child { @apply border-b-0; }
+  .identity-table span { @apply text-muted; }
+  .identity-table strong { @apply font-medium text-ink; }
+
+  .rich-toolbar { @apply mb-4 flex flex-wrap items-center justify-between gap-3; }
+  .rich-filters { @apply flex flex-wrap gap-2; }
+  .rich-filters button, .rich-selects select, .rich-month { @apply min-h-8 rounded border border-line bg-white px-3 text-[.62rem] font-semibold text-muted; }
+  .rich-filters button.is-active, .rich-filters button:hover { @apply border-brand bg-brand text-white; }
+  .rich-search { @apply flex min-w-[13rem] overflow-hidden rounded border border-line bg-white; }
+  .rich-search input { @apply min-w-0 flex-1 border-0 px-3 py-2 text-[.65rem] outline-none; }
+  .rich-search button { @apply grid size-8 place-items-center bg-brand text-white; }
+  .rich-search svg { @apply size-3.5; }
+  .rich-selects { @apply flex gap-2; }
+  .rich-people-grid { @apply grid grid-cols-2 gap-3 md:grid-cols-4; }
+  .rich-person-card { @apply relative m-0 overflow-hidden rounded-md border border-line bg-white shadow-soft; }
+  .rich-person-card img { @apply block aspect-[1/1.12] w-full bg-slate-100 object-cover object-top; }
+  .rich-person-card figcaption { @apply p-3; }
+  .rich-person-card strong { @apply block text-[.72rem] font-bold text-brand; }
+  .rich-person-card span { @apply mt-1 block text-[.58rem] text-muted; }
+  .rich-achievement-grid { @apply grid gap-3 md:grid-cols-3; }
+  .rich-achievement-card { @apply min-w-0 overflow-hidden rounded-md border border-line bg-white shadow-soft; }
+  .rich-achievement-card img { @apply block aspect-[4/2.5] w-full object-cover; }
+  .rich-achievement-card > div { @apply p-3; }
+  .rich-achievement-card .meta { @apply text-[.56rem] font-bold uppercase tracking-[.08em] text-muted; }
+  .rich-achievement-card h2 { @apply mt-2 mb-0 font-display text-[.95rem] leading-tight text-brand; }
+  .rich-achievement-card p { @apply mt-2 text-[.62rem] leading-5 text-muted; }
+  .rich-achievement-card small { @apply mt-2 block text-[.58rem] font-semibold text-accent; }
+
+  .rich-event-list { @apply overflow-hidden rounded-md border border-line bg-white; }
+  .rich-event-row { @apply grid grid-cols-[2.7rem_minmax(0,1fr)_auto] items-center gap-3 border-b border-line p-3 last:border-b-0; }
+  .rich-event-row time { @apply grid size-10 place-items-center rounded border border-accent/20 bg-accent/10 text-brand; }
+  .rich-event-row time b { @apply font-display text-[1.05rem] leading-none; }
+  .rich-event-row time span { @apply mt-0.5 text-[.47rem] font-bold text-accent; }
+  .rich-event-row h2 { @apply m-0 font-display text-[.85rem] font-semibold text-brand; }
+  .rich-event-row p { @apply mt-1 text-[.58rem] leading-5 text-muted; }
+  .rich-event-tag { @apply rounded bg-brand-soft px-2 py-1 text-[.5rem] font-semibold text-brand; }
+
+  .rich-gallery-grid { @apply grid grid-cols-2 gap-2 md:grid-cols-12 md:grid-rows-[8rem_8rem_8rem]; }
+  .rich-gallery-item { @apply relative m-0 min-w-0 overflow-hidden rounded-md bg-slate-100; }
+  .rich-gallery-item img { @apply block size-full object-cover transition-transform duration-500; }
+  .rich-gallery-item:hover img { @apply scale-[1.025]; }
+  .rich-gallery-item figcaption { @apply absolute inset-x-2 bottom-2 rounded bg-white/90 px-2 py-1 text-[.55rem] text-ink; }
+  .rich-gallery-item-0 { @apply md:col-span-7 md:row-span-2; }
+  .rich-gallery-item-1 { @apply md:col-span-5; }
+  .rich-gallery-item-2 { @apply md:col-span-2; }
+  .rich-gallery-item-3 { @apply md:col-span-3; }
+  .rich-gallery-item-4 { @apply md:col-span-5; }
+  .rich-gallery-item-5, .rich-gallery-item-6, .rich-gallery-item-7 { @apply md:col-span-3; }
+
+  .rich-testimonial-grid { @apply grid gap-3 md:grid-cols-2; }
+  .rich-testimonial { @apply m-0 rounded-md border border-line bg-white p-5 shadow-soft; }
+  .rich-testimonial blockquote { @apply m-0 font-display text-[1.15rem] leading-[1.35] text-brand; }
+  .rich-testimonial figcaption { @apply mt-5 flex items-center gap-3 border-t border-line pt-4; }
+  .rich-testimonial img { @apply size-9 rounded-full object-cover; }
+  .rich-testimonial strong { @apply block text-[.68rem] text-brand; }
+  .rich-testimonial small { @apply mt-0.5 block text-[.56rem] text-muted; }
+
+  .rich-faq-layout { @apply grid gap-5 lg:grid-cols-[10rem_minmax(0,1fr)]; }
+  .rich-faq-nav { @apply h-fit rounded-md border border-line bg-white p-1; }
+  .rich-faq-nav button { @apply flex w-full items-center justify-between rounded px-3 py-2 text-left text-[.6rem] text-muted; }
+  .rich-faq-nav button.is-active, .rich-faq-nav button:hover { @apply bg-brand text-white; }
+  .rich-faq-nav small { @apply opacity-70; }
+  .rich-faq-list { @apply overflow-hidden rounded-md border border-line bg-white; }
+  .rich-faq-list details { @apply border-b border-line last:border-b-0; }
+  .rich-faq-list summary { @apply flex cursor-pointer list-none items-center justify-between gap-4 px-4 py-4 font-display text-[.78rem] font-semibold text-brand; }
+  .rich-faq-list summary::-webkit-details-marker { display:none; }
+  .rich-faq-list summary svg { @apply size-3.5 shrink-0 text-accent; }
+  .rich-faq-list details[open] summary svg { @apply rotate-45; }
+  .rich-faq-list details p { @apply m-0 px-4 pb-4 text-[.65rem] leading-6 text-muted; }
+  .rich-help { @apply mt-5 flex flex-wrap items-center gap-3 rounded-md bg-brand-soft p-4; }
+  .rich-help > span { @apply text-brand; }
+  .rich-help > span svg { @apply size-5; }
+  .rich-help div { @apply min-w-0 flex-1; }
+  .rich-help strong { @apply block text-[.7rem] text-brand; }
+  .rich-help small { @apply mt-1 block text-[.58rem] text-muted; }
+
+  .rich-pager { @apply mt-5 flex justify-center gap-1.5; }
+  .rich-pager button { @apply grid size-7 place-items-center rounded border border-line bg-white text-[.58rem] text-muted; }
+  .rich-pager button.is-active, .rich-pager button:hover { @apply border-brand bg-brand text-white; }
+}
+
+@media (max-width: 699px) {
+  .rich-sidebar-nav { @apply static; }
+  .rich-layout { @apply gap-4; }
+  .rich-program-grid, .rich-achievement-grid { @apply grid-cols-1; }
+  .rich-program-split { @apply grid-cols-1; }
+  .rich-program-image { @apply min-h-56; }
+  .rich-toolbar { @apply items-stretch; }
+  .rich-search { @apply w-full min-w-0; }
+  .rich-gallery-grid { @apply grid-cols-2 grid-rows-[7rem_7rem_7rem_7rem]; }
+  .rich-gallery-item-0 { grid-column:1 / -1; grid-row:span 2; }
+  .rich-gallery-item-1, .rich-gallery-item-2, .rich-gallery-item-3, .rich-gallery-item-4, .rich-gallery-item-5, .rich-gallery-item-6, .rich-gallery-item-7 { grid-column:span 1; grid-row:span 1; }
+  .rich-event-row { @apply grid-cols-[2.5rem_minmax(0,1fr)]; }
+  .rich-event-tag { @apply col-start-2 w-fit; }
+}
+
+
+/* RC10.12.15 — rich component visual parity with component-rich-section.png.
+   Canonical layer: preserve Madya's existing tokens/rail while tightening the
+   internal geometry to the supplied reference. */
+@layer components {
+  .page-hero { @apply min-h-[12.5rem] lg:min-h-[13.5rem]; }
+  .page-hero-inner { @apply py-7 md:py-8 lg:py-9; }
+  .page-hero-inner .breadcrumb { @apply mb-4 text-[.72rem] leading-5; }
+  .page-hero-inner .eyebrow { @apply text-[.7rem] font-semibold uppercase tracking-[.08em]; }
+  .page-hero-inner h1 { @apply mt-2 max-w-[18ch] text-[clamp(2rem,4vw,3.35rem)] leading-[.96] tracking-[-.04em]; }
+  .page-hero-inner > p:last-child { @apply mt-3 max-w-[58ch] text-[.8rem] leading-6; }
+
+  .rich-section { @apply py-7 md:py-9 lg:py-10; }
+  .rich-layout { @apply gap-5 lg:grid-cols-[11rem_minmax(0,1fr)] lg:gap-6; }
+  .rich-sidebar-nav { @apply rounded-lg; }
+  .rich-sidebar-nav a { @apply min-h-9 px-3 text-[.75rem]; }
+  .rich-sidebar-nav a small { @apply text-[.65rem]; }
+
+  .rich-main > section + section { @apply mt-6; }
+  .rich-section-label { @apply mb-3; }
+  .rich-section-label h2 { @apply text-[1.12rem] md:text-[1.22rem]; }
+  .rich-program-grid { @apply gap-3; }
+  .rich-program-card { @apply rounded-lg p-4; }
+  .rich-program-card h3, .rich-program-card h2 { @apply mt-3 text-[1rem]; }
+  .rich-program-card p { @apply mt-2 text-[.75rem] leading-6; }
+  .rich-program-card .text-link { @apply mt-4 text-[.68rem]; }
+  .rich-card-icon { @apply size-8 rounded-md; }
+  .rich-card-icon svg { @apply size-3.5; }
+  .rich-program-secondary { @apply mt-6; }
+  .rich-program-split { @apply gap-3; }
+  .rich-program-row { @apply grid-cols-[2.1rem_minmax(0,1fr)_auto] gap-3 p-3.5; }
+  .rich-program-row h3 { @apply text-[.9rem]; }
+  .rich-program-row p { @apply text-[.7rem] leading-5; }
+  .rich-program-row .text-link { @apply text-[.65rem]; }
+  .rich-program-image { @apply min-h-48 rounded-lg; }
+
+  .identity-copy h2 { @apply text-[clamp(1.35rem,2.5vw,1.9rem)]; }
+  .identity-copy > p { @apply text-[.78rem] leading-6; }
+  .profile-points { @apply mt-5 grid gap-2.5 md:grid-cols-3; }
+  .profile-point { @apply rounded-md border border-line bg-white p-3 shadow-soft; }
+  .profile-point strong { @apply block font-display text-[.85rem] font-semibold text-brand; }
+  .profile-point span { @apply mt-1 block text-[.68rem] leading-5 text-muted; }
+  .rich-feature-image { @apply mt-4 rounded-lg; }
+  .rich-feature-image img { @apply aspect-[16/6] object-cover; }
+  .identity-table { @apply mt-5 rounded-lg; }
+  .identity-table h3 { @apply px-4 py-2.5 text-[.86rem]; }
+  .identity-table > div { @apply py-1.5 text-[.68rem]; }
+
+  .rich-toolbar { @apply mb-4 gap-3; }
+  .rich-filters { @apply gap-2; }
+  .rich-filters button, .rich-selects select, .rich-month { @apply min-h-9 rounded-md px-3 text-[.68rem]; }
+  .rich-search { @apply min-w-[13rem] rounded-md; }
+  .rich-search input { @apply text-[.7rem]; }
+  .rich-search button { @apply size-8; }
+
+  .rich-people-grid { @apply gap-3; }
+  .rich-person-card { @apply rounded-lg; }
+  .rich-person-card img { @apply aspect-[1/1.1]; }
+  .rich-person-card figcaption { @apply p-2.5; }
+  .rich-person-card strong { @apply text-[.78rem]; }
+  .rich-person-card span { @apply text-[.65rem]; }
+
+  .rich-achievement-grid { @apply gap-3; }
+  .rich-achievement-card { @apply rounded-lg; }
+  .rich-achievement-card img { @apply aspect-[4/2.35]; }
+  .rich-achievement-card > div { @apply p-3.5; }
+  .rich-achievement-card .meta { @apply text-[.62rem]; }
+  .rich-achievement-card h2 { @apply text-[1rem]; }
+  .rich-achievement-card p { @apply text-[.72rem] leading-6; }
+  .rich-achievement-card small { @apply text-[.64rem]; }
+
+  .rich-event-list { @apply rounded-lg; }
+  .rich-event-row { @apply grid-cols-[2.8rem_minmax(0,1fr)_auto] gap-3 px-3.5 py-3; }
+  .rich-event-row time { @apply size-10 rounded-md; }
+  .rich-event-row time b { @apply text-[1rem]; }
+  .rich-event-row time span { @apply text-[.58rem]; }
+  .rich-event-row h2 { @apply text-[.9rem]; }
+  .rich-event-row p { @apply text-[.68rem] leading-5; }
+  .rich-event-tag { @apply text-[.6rem]; }
+
+  /* The supplied rich-section reference uses a calm 4-column gallery.
+     Avoid the previous 12-column span arithmetic, which left irregular gaps
+     when the CMS returned fewer than eight items. */
+  .rich-gallery-grid { @apply grid grid-cols-2 gap-2 md:grid-cols-4 md:grid-rows-2; }
+  .rich-gallery-item, .rich-gallery-item-0, .rich-gallery-item-1, .rich-gallery-item-2, .rich-gallery-item-3, .rich-gallery-item-4, .rich-gallery-item-5, .rich-gallery-item-6, .rich-gallery-item-7 { @apply col-span-1 row-span-1; }
+  .rich-gallery-item img { @apply aspect-[4/3] object-cover; }
+  .rich-gallery-item figcaption { @apply text-[.62rem]; }
+
+  .rich-testimonial-grid { @apply gap-3; }
+  .rich-testimonial { @apply rounded-lg p-4; }
+  .rich-testimonial blockquote { @apply text-[1rem] leading-[1.45]; }
+  .rich-testimonial strong { @apply text-[.72rem]; }
+  .rich-testimonial small { @apply text-[.62rem]; }
+
+  .rich-faq-layout { @apply gap-4 lg:grid-cols-[10rem_minmax(0,1fr)]; }
+  .rich-faq-nav { @apply rounded-lg; }
+  .rich-faq-nav button { @apply text-[.68rem]; }
+  .rich-faq-list { @apply rounded-lg; }
+  .rich-faq-list summary { @apply px-4 py-3.5 text-[.82rem]; }
+  .rich-faq-list details p { @apply text-[.7rem] leading-6; }
+  .rich-help { @apply rounded-lg p-3.5; }
+  .rich-help strong { @apply text-[.74rem]; }
+  .rich-help small { @apply text-[.64rem]; }
+  .rich-pager button { @apply size-8 text-[.65rem]; }
+}
+
+@media (max-width: 699px) {
+  .page-hero { @apply min-h-[11.5rem]; }
+  .page-hero-inner { @apply py-6; }
+  .rich-gallery-grid { @apply grid-cols-2 grid-rows-3; }
+  .rich-gallery-item, .rich-gallery-item-0, .rich-gallery-item-1, .rich-gallery-item-2, .rich-gallery-item-3, .rich-gallery-item-4, .rich-gallery-item-5, .rich-gallery-item-6, .rich-gallery-item-7 { @apply col-span-1 row-span-1; }
+  .rich-event-row { @apply grid-cols-[2.5rem_minmax(0,1fr)]; }
+  .rich-event-tag { @apply col-start-2; }
+}
+
+
+/* RC10.12.16 — large-screen readability floor for rich SPA pages. */
+@layer components {
+  @media (min-width: 1200px) {
+    .rich-main { font-size: 1rem; }
+    .rich-main .rich-sidebar-nav a { @apply text-[.75rem]; }
+    .rich-main .rich-sidebar-nav a small { @apply text-[.65rem]; }
+    .rich-main .rich-program-card p,
+    .rich-main .identity-copy > p,
+    .rich-main .rich-achievement-card p,
+    .rich-main .rich-event-row p,
+    .rich-main .rich-faq-list details p { @apply text-[.75rem] leading-6; }
+    .rich-main .rich-person-card strong { @apply text-[.8rem]; }
+    .rich-main .rich-person-card span { @apply text-[.68rem]; }
+    .rich-main .rich-achievement-card h2 { @apply text-[1.02rem]; }
+    .rich-main .rich-event-row h2 { @apply text-[.92rem]; }
+    .rich-main .rich-event-tag { @apply text-[.62rem]; }
+    .rich-main .rich-gallery-item figcaption { @apply text-[.64rem] leading-5; }
+    .rich-main .rich-testimonial blockquote { @apply text-[1.08rem]; }
+    .rich-main .rich-testimonial strong { @apply text-[.74rem]; }
+    .rich-main .rich-testimonial small { @apply text-[.64rem]; }
+    .rich-main .rich-faq-nav button { @apply text-[.7rem]; }
+    .rich-main .rich-faq-list summary { @apply text-[.84rem]; }
+    .rich-main .rich-help strong { @apply text-[.76rem]; }
+    .rich-main .rich-help small { @apply text-[.66rem]; }
+    .rich-main .rich-pager button { @apply size-8 text-[.66rem]; }
+  }
+
+  @media (max-width: 699px) {
+    .rich-main .rich-program-card p,
+    .rich-main .identity-copy > p,
+    .rich-main .rich-achievement-card p,
+    .rich-main .rich-event-row p,
+    .rich-main .rich-faq-list details p { @apply text-[.7rem] leading-5; }
+    .rich-main .rich-person-card strong { @apply text-[.74rem]; }
+    .rich-main .rich-person-card span { @apply text-[.62rem]; }
+    .rich-main .rich-achievement-card h2 { @apply text-[.95rem]; }
+    .rich-main .rich-event-row h2 { @apply text-[.84rem]; }
+    .rich-main .rich-faq-list summary { @apply text-[.78rem]; }
+  }
+}
+
+
+/* RC10.12.17 — rich-page typography and action affordance pass. */
+@layer components {
+  .rich-main,
+  .rich-sidebar,
+  .rich-section-label,
+  .rich-toolbar { font-size: 1rem; }
+
+  .rich-sidebar-nav a { @apply min-h-10 px-3 text-[.76rem] leading-5; }
+  .rich-sidebar-nav a small { @apply text-[.68rem] leading-5; }
+
+  .rich-section-label h2 { @apply text-[1.2rem] leading-tight; }
+
+  .rich-program-card h3,
+  .rich-program-card h2 { @apply text-[1.08rem] leading-tight; }
+  .rich-program-card p { @apply text-[.78rem] leading-6; }
+  .rich-program-card .text-link { @apply mt-4 min-h-9 px-1 text-[.74rem] leading-5; }
+
+  .rich-program-row h3 { @apply text-[.96rem] leading-tight; }
+  .rich-program-row p { @apply text-[.74rem] leading-5; }
+  .rich-program-row .text-link { @apply min-h-9 px-1 text-[.72rem] leading-5; }
+
+  .rich-person-card strong { @apply text-[.82rem] leading-5; }
+  .rich-person-card span { @apply text-[.7rem] leading-5; }
+
+  .rich-achievement-card .meta { @apply text-[.66rem] leading-5; }
+  .rich-achievement-card h2 { @apply text-[1.04rem] leading-tight; }
+  .rich-achievement-card p { @apply text-[.76rem] leading-6; }
+  .rich-achievement-card small { @apply text-[.68rem] leading-5; }
+
+  .rich-event-row h2 { @apply text-[.94rem] leading-tight; }
+  .rich-event-row p { @apply text-[.72rem] leading-5; }
+  .rich-event-row time b { @apply text-[1.05rem]; }
+  .rich-event-row time span { @apply text-[.6rem] leading-4; }
+  .rich-event-tag { @apply min-h-7 px-2 text-[.66rem] leading-5; }
+
+  .rich-gallery-item figcaption { @apply px-2.5 py-1.5 text-[.68rem] leading-5; }
+
+  .rich-testimonial blockquote { @apply text-[1.1rem] leading-[1.45]; }
+  .rich-testimonial strong { @apply text-[.76rem] leading-5; }
+  .rich-testimonial small { @apply text-[.68rem] leading-5; }
+
+  .rich-faq-nav button { @apply min-h-9 text-[.72rem] leading-5; }
+  .rich-faq-list summary { @apply min-h-12 text-[.86rem] leading-5; }
+  .rich-faq-list details p { @apply text-[.74rem] leading-6; }
+  .rich-help strong { @apply text-[.78rem] leading-5; }
+  .rich-help small { @apply text-[.68rem] leading-5; }
+
+  .rich-main .text-link {
+    @apply inline-flex min-h-9 items-center gap-2 rounded-sm px-1.5 text-[.74rem] font-semibold leading-5;
+  }
+  .rich-main .text-link svg { @apply size-4 shrink-0; transition: transform .2s var(--ease); }
+  .rich-main .text-link:hover svg { transform: translateX(3px); }
+
+  .rich-main .button {
+    @apply min-h-10 gap-2 px-4 py-2 text-[.76rem] leading-5;
+  }
+  .rich-main .button svg { @apply size-4 shrink-0; }
+
+  @media (min-width: 1200px) {
+    .rich-sidebar-nav a { @apply min-h-10 text-[.78rem]; }
+    .rich-sidebar-nav a small { @apply text-[.7rem]; }
+    .rich-section-label h2 { @apply text-[1.24rem]; }
+    .rich-program-card p { @apply text-[.8rem]; }
+    .rich-program-card .text-link { @apply text-[.76rem]; }
+    .rich-program-row h3 { @apply text-[1rem]; }
+    .rich-program-row p { @apply text-[.76rem]; }
+    .rich-program-row .text-link { @apply text-[.74rem]; }
+    .rich-person-card strong { @apply text-[.84rem]; }
+    .rich-person-card span { @apply text-[.72rem]; }
+    .rich-achievement-card .meta { @apply text-[.68rem]; }
+    .rich-achievement-card h2 { @apply text-[1.06rem]; }
+    .rich-achievement-card p { @apply text-[.78rem]; }
+    .rich-event-row h2 { @apply text-[.98rem]; }
+    .rich-event-row p { @apply text-[.74rem]; }
+    .rich-event-tag { @apply text-[.68rem]; }
+    .rich-gallery-item figcaption { @apply text-[.7rem]; }
+    .rich-testimonial blockquote { @apply text-[1.12rem]; }
+    .rich-testimonial strong { @apply text-[.78rem]; }
+    .rich-testimonial small { @apply text-[.7rem]; }
+    .rich-faq-nav button { @apply text-[.74rem]; }
+    .rich-faq-list summary { @apply text-[.88rem]; }
+    .rich-faq-list details p { @apply text-[.76rem]; }
+    .rich-help strong { @apply text-[.8rem]; }
+    .rich-help small { @apply text-[.7rem]; }
+    .rich-main .text-link { @apply min-h-10 text-[.76rem]; }
+    .rich-main .text-link svg { @apply size-[1.05rem]; }
+    .rich-main .button { @apply min-h-11 text-[.8rem]; }
+  }
+
+  @media (max-width: 699px) {
+    .rich-sidebar-nav a { @apply min-h-9 text-[.72rem]; }
+    .rich-sidebar-nav a small { @apply text-[.64rem]; }
+    .rich-section-label h2 { @apply text-[1.08rem]; }
+    .rich-program-card p { @apply text-[.72rem] leading-5; }
+    .rich-program-card .text-link { @apply min-h-9 text-[.72rem]; }
+    .rich-program-row h3 { @apply text-[.9rem]; }
+    .rich-program-row p { @apply text-[.68rem] leading-5; }
+    .rich-program-row .text-link { @apply min-h-9 text-[.7rem]; }
+    .rich-person-card strong { @apply text-[.76rem]; }
+    .rich-person-card span { @apply text-[.64rem]; }
+    .rich-achievement-card h2 { @apply text-[.98rem]; }
+    .rich-achievement-card p { @apply text-[.7rem] leading-5; }
+    .rich-event-row h2 { @apply text-[.86rem]; }
+    .rich-event-row p { @apply text-[.68rem] leading-5; }
+    .rich-event-tag { @apply min-h-7 text-[.62rem]; }
+    .rich-gallery-item figcaption { @apply text-[.64rem]; }
+    .rich-testimonial blockquote { @apply text-[1rem]; }
+    .rich-faq-nav button { @apply text-[.68rem]; }
+    .rich-faq-list summary { @apply text-[.8rem]; }
+    .rich-faq-list details p { @apply text-[.7rem] leading-5; }
+    .rich-main .text-link { @apply min-h-9 text-[.7rem]; }
+    .rich-main .text-link svg { @apply size-4; }
+    .rich-main .button { @apply min-h-10 px-3 text-[.74rem]; }
+  }
+}
+
+/* RC10.12.18 — global typography scale audit.
+ * Desktop content must remain readable at normal viewing distances.
+ * This pass intentionally raises only content/label typography; display headings
+ * and icon geometry keep their existing scale. Mobile remains compact by design.
+ */
+@layer components {
+  :root {
+    --type-body: .9375rem;
+    --type-body-sm: .8125rem;
+    --type-meta: .75rem;
+    --type-label: .6875rem;
+  }
+
+  /* Shared shell */
+  .site-topbar { @apply text-[.72rem] leading-5; }
+  .brand-copy strong { @apply text-[1rem]; }
+  .brand-copy small { @apply text-[.72rem] leading-5; }
+  .desktop-nav-link,
+  .desktop-nav-trigger { @apply text-[.82rem]; }
+  .nav-chevron { @apply text-[.72rem]; }
+  .nav-cta { @apply text-[.78rem]; }
+
+  .eyebrow,
+  .section-kicker,
+  .hero-kicker { @apply text-[.72rem] leading-5; }
+  .text-link { @apply text-[.82rem] leading-5; }
+  .button { @apply text-[.82rem]; }
+
+  /* Homepage content */
+  .quick-service strong { @apply text-[.8rem] leading-5; }
+  .quick-service small { @apply text-[.7rem] leading-5; }
+  .home-stat-item span { @apply text-[.78rem] leading-5; }
+  .principal-message .section-kicker { @apply text-[.7rem]; }
+  .principal-description { @apply text-[.78rem] leading-6; }
+  .principal-message strong { @apply text-[.82rem] leading-5; }
+  .principal-message > span { @apply text-[.7rem] leading-5; }
+  .principal-facts b { @apply text-[.65rem] leading-4; }
+  .principal-facts span { @apply text-[.64rem] leading-4; }
+
+  .section-head-row .text-link { @apply text-[.78rem] leading-5; }
+  .program-showcase-body h3 { @apply text-[.8rem] leading-5; }
+  .program-showcase-body p { @apply text-[.72rem] leading-5; }
+  .subsection-label { @apply text-[.72rem] leading-5; }
+  .subsection-label a { @apply text-[.68rem] leading-5; }
+  .extra-inline-list span { @apply text-[.64rem] leading-4; }
+  .teacher-card strong { @apply text-[.76rem] leading-5; }
+  .teacher-card span { @apply text-[.66rem] leading-5; }
+  .achievement-list-row strong { @apply text-[.8rem] leading-5; }
+  .achievement-list-row small,
+  .achievement-list-row time { @apply text-[.68rem] leading-5; }
+  .featured-news-home > div > span { @apply text-[.62rem] leading-4; }
+  .featured-news-home small { @apply text-[.64rem] leading-5; }
+  .news-home-side strong { @apply text-[.76rem] leading-5; }
+  .news-home-side small { @apply text-[.64rem] leading-5; }
+  .agenda-item time span { @apply text-[.62rem] leading-4; }
+  .agenda-item h3 { @apply text-[.78rem] leading-5; }
+  .agenda-item p { @apply text-[.64rem] leading-5; }
+  .testimonial-feature blockquote { @apply text-[.9rem] leading-7; }
+  .testimonial-person strong { @apply text-[.76rem] leading-5; }
+  .testimonial-person small { @apply text-[.64rem] leading-5; }
+  .document-home-row strong { @apply text-[.8rem] leading-5; }
+  .document-home-row small { @apply text-[.66rem] leading-5; }
+  .spmb-home-banner p:not(.section-kicker) { @apply text-[.75rem] leading-6; }
+  .spmb-home-banner .button { @apply text-[.75rem]; }
+  .contact-strip-grid b { @apply text-[.76rem] leading-5; }
+  .contact-strip-grid small { @apply text-[.66rem] leading-5; }
+
+  /* Rich hybrid SPA */
+  .rich-sidebar-nav a { @apply text-[.8rem] leading-5; }
+  .rich-sidebar-nav a small { @apply text-[.7rem] leading-5; }
+  .rich-program-card p,
+  .rich-program-row p,
+  .rich-achievement-card p,
+  .rich-event-row p,
+  .rich-faq-list details p { @apply text-[.8rem] leading-6; }
+  .rich-program-card .text-link,
+  .rich-program-row .text-link { @apply text-[.78rem] leading-5; }
+  .rich-program-row h3 { @apply text-[1rem] leading-5; }
+  .rich-person-card strong { @apply text-[.86rem] leading-5; }
+  .rich-person-card span { @apply text-[.74rem] leading-5; }
+  .rich-achievement-card .meta { @apply text-[.7rem] leading-5; }
+  .rich-achievement-card h2 { @apply text-[1.08rem] leading-tight; }
+  .rich-achievement-card small { @apply text-[.7rem] leading-5; }
+  .rich-event-row h2 { @apply text-[1rem] leading-tight; }
+  .rich-event-row time b { @apply text-[1.08rem]; }
+  .rich-event-row time span { @apply text-[.64rem] leading-4; }
+  .rich-event-tag { @apply text-[.7rem] leading-5; }
+  .rich-gallery-item figcaption { @apply text-[.72rem] leading-5; }
+  .rich-testimonial blockquote { @apply text-[1.14rem] leading-[1.45]; }
+  .rich-testimonial strong { @apply text-[.8rem] leading-5; }
+  .rich-testimonial small { @apply text-[.7rem] leading-5; }
+  .rich-faq-nav button { @apply text-[.76rem] leading-5; }
+  .rich-faq-list summary { @apply text-[.9rem] leading-5; }
+  .rich-help strong { @apply text-[.82rem] leading-5; }
+  .rich-help small { @apply text-[.7rem] leading-5; }
+  .rich-pager button { @apply text-[.7rem]; }
+
+  /* Other content-heavy pages */
+  .card-meta { @apply text-[.72rem] leading-5; }
+  .program-index { @apply text-[.75rem] leading-5; }
+  .program-summary { @apply text-[.9rem] leading-6; }
+  .article-meta { @apply text-[.72rem] leading-5; }
+  .news-filter a { @apply text-[.7rem] leading-5; }
+  .news-home-side,
+  .sidebar-news span { @apply leading-5; }
+  .sidebar-news span { @apply text-[.72rem]; }
+  .sidebar-news small { @apply text-[.66rem] leading-5; }
+  .sidebar-links a { @apply text-[.68rem] leading-5; }
+  .tag-list a { @apply text-[.64rem] leading-5; }
+  .widget h2 { @apply text-[.78rem] leading-5; }
+  .form-field label { @apply text-[.72rem] leading-5; }
+  input, textarea, select { @apply text-[.78rem] leading-5; }
+
+  /* Footer: this was one of the most compressed areas in the theme. */
+  .footer-brand strong { @apply text-[1.08rem] leading-5; }
+  .footer-brand small { @apply text-[.68rem] leading-5; }
+  .footer-intro > p { @apply text-[.78rem] leading-6; }
+  .footer-intro address { @apply text-[.74rem] leading-6; }
+  .footer-title { @apply text-[.78rem] leading-5; }
+  .footer-links a,
+  .footer-links span { @apply text-[.72rem] leading-5; }
+  .footer-bottom .theme-container { @apply text-[.68rem]; }
+  .footer-bottom p,
+  .footer-bottom a { @apply text-[.68rem] leading-5; }
+
+  @media (min-width: 1200px) {
+    /* Desktop body copy should not read like micro UI. */
+    .home-page .section-head-row h2 { @apply text-[2rem]; }
+    .home-page .program-showcase-body p { @apply text-[.74rem]; }
+    .home-page .news-home-side strong { @apply text-[.78rem]; }
+    .home-page .news-home-side small { @apply text-[.66rem]; }
+    .home-page .agenda-item h3 { @apply text-[.8rem]; }
+    .home-page .agenda-item p { @apply text-[.68rem]; }
+
+    .rich-section-label h2 { @apply text-[1.28rem]; }
+    .rich-program-card p,
+    .rich-program-row p,
+    .rich-achievement-card p,
+    .rich-event-row p,
+    .rich-faq-list details p { @apply text-[.82rem]; }
+    .rich-person-card strong { @apply text-[.88rem]; }
+    .rich-person-card span { @apply text-[.76rem]; }
+    .rich-achievement-card h2 { @apply text-[1.1rem]; }
+    .rich-event-row h2 { @apply text-[1.02rem]; }
+    .rich-faq-list summary { @apply text-[.92rem]; }
+
+    .footer-grid-rich { @apply text-[.875rem]; }
+    .footer-intro > p { @apply text-[.8rem]; }
+    .footer-intro address { @apply text-[.76rem]; }
+    .footer-links a,
+    .footer-links span { @apply text-[.75rem]; }
+    .footer-title { @apply text-[.8rem]; }
+    .footer-bottom .theme-container,
+    .footer-bottom p,
+    .footer-bottom a { @apply text-[.7rem]; }
+  }
+
+  @media (max-width: 699px) {
+    /* Keep mobile compact, but never return to the old micro-text floor. */
+    .site-topbar { @apply text-[.64rem]; }
+    .desktop-nav-link,
+    .desktop-nav-trigger { @apply text-[.78rem]; }
+    .quick-service strong { @apply text-[.74rem]; }
+    .quick-service small { @apply text-[.66rem]; }
+    .home-stat-item span { @apply text-[.72rem]; }
+    .principal-description { @apply text-[.72rem] leading-5; }
+    .teacher-card strong { @apply text-[.72rem]; }
+    .teacher-card span { @apply text-[.62rem]; }
+    .rich-program-card p,
+    .rich-achievement-card p,
+    .rich-event-row p,
+    .rich-faq-list details p { @apply text-[.72rem] leading-5; }
+    .rich-person-card strong { @apply text-[.78rem]; }
+    .rich-person-card span { @apply text-[.66rem]; }
+    .rich-gallery-item figcaption { @apply text-[.66rem]; }
+    .footer-intro > p { @apply text-[.72rem] leading-5; }
+    .footer-intro address { @apply text-[.7rem] leading-5; }
+    .footer-links a,
+    .footer-links span { @apply text-[.68rem] leading-5; }
+    .footer-title { @apply text-[.74rem]; }
+    .footer-bottom p,
+    .footer-bottom a { @apply text-[.64rem]; }
+  }
+}
