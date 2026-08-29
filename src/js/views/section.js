@@ -21,12 +21,12 @@ export default function renderSection(route, state, container) {
 function pageHeader(route, state) {
     const fallback = routeMeta[route] || routeMeta.profile;
     const configured = state.section_settings?.[route] || {};
-    const eyebrow = fallback[0];
+    const eyebrow = route === 'profile' ? '' : fallback[0];
     const title = configured.title || fallback[1];
     const description = configured.subtitle || fallback[2];
     const image = state.about?.hero_image || state.hero_image || state.about?.image || '';
     const crumb = title;
-    return `<header class="page-hero page-hero-has-image"${image ? ` style="--page-hero-image:url('${escapeHtml(image)}')"` : ''}><div class="page-hero-backdrop" aria-hidden="true"></div><div class="theme-container page-hero-inner"><nav class="breadcrumb" aria-label="Jejak navigasi"><a href="/">Beranda</a><span aria-hidden="true">›</span><span>${escapeHtml(eyebrow)}</span><span aria-hidden="true">›</span><span aria-current="page">${escapeHtml(crumb)}</span></nav><p class="eyebrow">${escapeHtml(eyebrow)}</p><h1>${escapeHtml(title)}</h1><p>${escapeHtml(description)}</p></div></header>`;
+    return `<header class="page-hero page-hero-has-image"${image ? ` style="--page-hero-image:url('${escapeHtml(image)}')"` : ''}><div class="page-hero-backdrop" aria-hidden="true"></div><div class="theme-container page-hero-inner"><nav class="breadcrumb" aria-label="Jejak navigasi"><a href="/">Beranda</a><span aria-hidden="true">›</span><span>${escapeHtml(eyebrow)}</span><span aria-hidden="true">›</span><span aria-current="page">${escapeHtml(crumb)}</span></nav>${eyebrow ? `<p class="eyebrow">${escapeHtml(eyebrow)}</p>` : ''}<h1>${escapeHtml(title)}</h1><p>${escapeHtml(description)}</p></div></header>`;
 }
 
 function richLayout(route, state, content) {
@@ -37,27 +37,42 @@ function renderProfile(state) {
     const about = state.about || {};
     const principal = state.principal || {};
     const highlights = Array.isArray(about.highlights) ? about.highlights : [];
-    const contentTitle = about.content_title || 'Mengenal sekolah lebih dekat.';
-    const paragraphs = [about.content_1, about.content_2].filter(Boolean);
-    const highlightCards = highlights.map((item, i) => `<div class="profile-point"><span class="rich-card-icon">${iconMarkup(['badge-check','book-open','graduation-cap','library'][i % 4])}</span><strong>${escapeHtml(item)}</strong></div>`).join('');
-    const principalCard = (principal.name || principal.quote || principal.photo) ? `<section class="profile-principal"><div class="profile-principal-copy"><p class="eyebrow">Sambutan Kepala Sekolah</p><h2>${escapeHtml(principal.name || 'Kepala Sekolah')}</h2>${principal.role ? `<span>${escapeHtml(principal.role)}</span>` : ''}${principal.quote ? `<blockquote>“${escapeHtml(principal.quote)}”</blockquote>` : ''}${principal.education || principal.years_of_service ? `<div class="profile-principal-meta">${principal.education ? `<span>${escapeHtml(principal.education)}</span>` : ''}${principal.years_of_service ? `<span>${escapeHtml(principal.years_of_service)}</span>` : ''}</div>` : ''}</div>${principal.photo ? `<figure><img src="${escapeHtml(principal.photo)}" alt="${escapeHtml(principal.name || 'Kepala Sekolah')}" loading="lazy" decoding="async"></figure>` : ''}</section>` : '';
-    const identityRows = [
-        ['Nama Sekolah', state.site_name],
-        ['NPSN', about.npsn],
-        ['Akreditasi', [about.accreditation, about.accreditation_label].filter(Boolean).join(' · ')],
-        ['Alamat', state.contact_address],
-        ['Telepon', state.contact_phone],
-        ['Email', state.contact_email],
+    const contentTitle = about.content_title || 'Sekilas Tentang ' + (state.site_name || 'Sekolah');
+    const paragraphs = [about.content_1, about.content_2, about.description].filter(Boolean).slice(0, 2);
+    const values = highlights.slice(0, 5);
+    const downloads = Array.isArray(state.downloads) ? state.downloads.filter(item => Number(item.show ?? 1) !== 0).slice(0, 3) : [];
+    const relatedPages = [
+        { label: 'Visi & Misi', href: '#profile', icon: 'target' },
+        { label: 'Program Unggulan', href: '#programs', icon: 'book-open' },
+        { label: 'Tenaga Pengajar', href: '#teachers', icon: 'users-round' },
+        { label: 'Prestasi', href: '#achievements', icon: 'trophy' },
+        { label: 'Fasilitas', href: '#profile', icon: 'building-2' },
     ];
-    const content = `<main class="rich-main profile-main">
-        <section class="profile-intro"><div class="identity-copy"><p class="eyebrow">Profil Sekolah</p><h2>${escapeHtml(contentTitle)}</h2>${paragraphs.map(text => `<p>${escapeHtml(text)}</p>`).join('')}${about.visi ? `<div class="identity-vision"><span>Visi</span><p>${escapeHtml(about.visi)}</p></div>` : ''}</div>${about.image ? `<figure class="rich-feature-image"><img src="${escapeHtml(about.image)}" alt="Lingkungan ${escapeHtml(state.site_name || 'sekolah')}" loading="lazy" decoding="async"></figure>` : ''}</section>
-        ${highlightCards ? `<section class="profile-highlights"><div class="rich-section-label"><h2>Keunggulan Sekolah</h2></div><div class="profile-points">${highlightCards}</div></section>` : ''}
+    const sidebar = `<aside class="static-page-sidebar rich-sidebar">
+        <section class="static-sidebar-card">
+            <h2>Halaman Lainnya</h2>
+            <nav class="static-sidebar-links" aria-label="Halaman terkait">${relatedPages.map(item => `<a href="${item.href}"><i data-lucide="${item.icon}" aria-hidden="true"></i><span>${escapeHtml(item.label)}</span></a>`).join('')}</nav>
+        </section>
+        ${downloads.length ? `<section class="static-sidebar-card"><div class="static-sidebar-heading"><h2>Dokumen Terkait</h2></div><div class="static-document-list">${downloads.map(item => `<a href="${escapeHtml(item.url || '#')}" target="_blank" rel="noopener noreferrer"><span class="static-document-icon"><i data-lucide="file-text" aria-hidden="true"></i></span><span><strong>${escapeHtml(item.title || 'Dokumen')}</strong><small>${escapeHtml(item.file_size || '')}</small></span><i data-lucide="download" aria-hidden="true"></i></a>`).join('')}</div><a class="static-sidebar-more" href="/downloads">Lihat semua dokumen ${iconMarkup('arrow-right')}</a></section>` : ''}
+        <section class="static-help-card"><div><p class="eyebrow">Butuh bantuan?</p><h2>Informasi yang Anda perlukan?</h2><p>Hubungi kanal resmi sekolah jika Anda membutuhkan informasi lebih lanjut.</p><a class="button" href="/contact">Hubungi Kami ${iconMarkup('arrow-right')}</a></div><i data-lucide="messages-square" aria-hidden="true"></i></section>
+        <section class="static-newsletter-card"><p class="eyebrow">Tetap terhubung</p><h2>Dapatkan Informasi Terbaru</h2><p>Berlangganan untuk mendapatkan update berita dan informasi sekolah.</p><form action="#" onsubmit="return false"><input type="email" placeholder="Masukkan email Anda" aria-label="Masukkan email Anda"><button class="button button-accent" type="submit" aria-label="Berlangganan">${iconMarkup('arrow-right')}</button></form></section>
+    </aside>`;
+    const identityRows = [
+        ['Nama Sekolah', state.site_name], ['NPSN', about.npsn], ['Akreditasi', [about.accreditation, about.accreditation_label].filter(Boolean).join(' · ')],
+        ['Alamat', state.contact_address], ['Telepon', state.contact_phone], ['Email', state.contact_email],
+    ];
+    const principalCard = (principal.name || principal.quote || principal.photo) ? `<section class="profile-principal"><div class="profile-principal-copy"><p class="eyebrow">Sambutan Kepala Sekolah</p><h2>${escapeHtml(principal.name || 'Kepala Sekolah')}</h2>${principal.role ? `<span>${escapeHtml(principal.role)}</span>` : ''}${principal.quote ? `<blockquote>“${escapeHtml(principal.quote)}”</blockquote>` : ''}</div>${principal.photo ? `<figure><img src="${escapeHtml(principal.photo)}" alt="${escapeHtml(principal.name || 'Kepala Sekolah')}" loading="lazy" decoding="async"></figure>` : ''}</section>` : '';
+    const valueCards = values.map((item, i) => `<article class="profile-value-card"><span class="rich-card-icon">${iconMarkup(['badge-check','award','users-round','lightbulb','heart-handshake'][i % 5])}</span><strong>${escapeHtml(item)}</strong></article>`).join('');
+    const main = `<main class="rich-main profile-main static-page-main">
+        <section class="static-content-intro"><p class="eyebrow">Profil Sekolah</p><h2>${escapeHtml(contentTitle)}</h2>${paragraphs.map(text => `<p>${escapeHtml(text)}</p>`).join('')}${about.image ? `<figure class="static-feature-image"><img src="${escapeHtml(about.image)}" alt="Lingkungan ${escapeHtml(state.site_name || 'sekolah')}" loading="lazy" decoding="async"></figure>` : ''}</section>
+        ${about.visi ? `<section class="static-info-card"><div class="static-info-icon">${iconMarkup('eye')}</div><div><h2>Visi</h2><p>${escapeHtml(about.visi)}</p></div></section>` : ''}
+        ${about.misi ? `<section class="static-info-card static-mission-card"><div class="static-info-icon">${iconMarkup('target')}</div><div><h2>Misi</h2><div class="static-mission-copy"><p>${escapeHtml(about.misi)}</p></div></div></section>` : ''}
+        ${valueCards ? `<section class="static-values"><div class="rich-section-label"><h2>Nilai-Nilai Kami</h2></div><div class="profile-value-grid">${valueCards}</div></section>` : ''}
         ${principalCard}
         <section class="identity-table"><div class="rich-section-label"><h2>Identitas Sekolah</h2></div>${identityRows.map(([k,v]) => `<div><span>${escapeHtml(k)}</span><strong>${escapeHtml(v || '—')}</strong></div>`).join('')}</section>
     </main>`;
-    return pageHeader('profile', state) + richLayout('profile', state, content);
+    return pageHeader('profile', state) + `<section class="section static-page-section"><div class="theme-container static-page-layout">${main}${sidebar}</div></section>`;
 }
-
 function renderPrograms(state) {
     const items = state.programs || [];
     const extras = state.extracurriculars || [];

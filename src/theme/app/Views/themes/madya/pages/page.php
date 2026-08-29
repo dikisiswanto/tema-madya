@@ -1,13 +1,64 @@
 <?= $this->include('themes/madya/layouts/header') ?>
-<?= $this->include('themes/madya/components/page-header', ['eyebrow' => 'Informasi sekolah', 'title' => $page['title'] ?? 'Halaman', 'description' => $page['excerpt'] ?? '', 'breadcrumbs' => [['label' => $page['title'] ?? 'Halaman']]]) ?>
-<section class="section"><div class="theme-container article-layout">
-    <article>
-        <?php if (!empty($page['image'])): ?><figure class="article-cover"><img src="<?= esc($page['image']) ?>" width="<?= esc($page['image_width'] ?? 1600) ?>" height="<?= esc($page['image_height'] ?? 1000) ?>" alt="<?= esc($page['title'] ?? '') ?>" loading="lazy" decoding="async"></figure><?php endif; ?>
-        <div class="article-prose"><?= $page['content'] ?? '' ?></div>
-    </article>
-    <aside class="article-side">
-        <?php if (!empty($all_pages)): ?><div class="widget"><h2>Jelajahi</h2><div class="sidebar-links"><?php foreach ($all_pages as $item): if (($item['id'] ?? null) == ($page['id'] ?? null)) continue; ?><a href="<?= base_url(ltrim((string)($item['slug'] ?? ''), '/')) ?>"><?= esc($item['title'] ?? '') ?></a><?php endforeach; ?></div></div><?php endif; ?>
-        <?php if (!empty($recent_news)): ?><div class="widget"><h2>Berita terbaru</h2><div class="sidebar-news"><?php foreach ($recent_news as $post): ?><a href="<?= base_url('news/' . rawurlencode((string)($post['slug'] ?? ''))) ?>"><span><?= esc($post['title']) ?></span></a><?php endforeach; ?></div></div><?php endif; ?>
-    </aside>
-</div></section>
+<?php
+$pageTitle = $page['title'] ?? 'Halaman';
+$pageExcerpt = $page['excerpt'] ?? '';
+$banner = '';
+if (is_array($page_banners ?? null)) {
+    $banner = $page_banners[$page['slug'] ?? ''] ?? $page_banners['page'] ?? '';
+}
+$banner = $banner ?: ($page['image'] ?? '');
+$relatedDocuments = is_array($downloads ?? null) ? $downloads : [];
+if (!$relatedDocuments && class_exists('App\\Models\\DownloadModel')) {
+    try { $relatedDocuments = (new \App\Models\DownloadModel())->getVisible(); } catch (\Throwable $e) { $relatedDocuments = []; }
+}
+$relatedDocuments = array_slice($relatedDocuments, 0, 3);
+?>
+<?= $this->include('themes/madya/components/page-header', ['eyebrow' => '', 'title' => $pageTitle, 'description' => $pageExcerpt, 'image' => $banner, 'breadcrumbs' => [['label' => $pageTitle]]]) ?>
+<section class="section static-page-section">
+    <div class="theme-container static-page-layout">
+        <article class="static-page-main">
+            <div class="static-content-intro">
+                <div class="article-prose"><?= $page['content'] ?? '' ?></div>
+            </div>
+            <?php if (!empty($page['image'])): ?>
+                <figure class="static-feature-image"><img src="<?= esc($page['image']) ?>" width="<?= esc($page['image_width'] ?? 1600) ?>" height="<?= esc($page['image_height'] ?? 1000) ?>" alt="<?= esc($pageTitle) ?>" loading="lazy" decoding="async"></figure>
+            <?php endif; ?>
+        </article>
+        <aside class="static-page-sidebar">
+            <?php if (!empty($all_pages)): ?>
+            <section class="static-sidebar-card">
+                <h2>Halaman Lainnya</h2>
+                <nav class="static-sidebar-links" aria-label="Halaman lainnya">
+                    <?php foreach ($all_pages as $item): if (($item['id'] ?? null) == ($page['id'] ?? null)) continue; ?>
+                        <a href="<?= base_url('pages/' . rawurlencode((string)($item['slug'] ?? ''))) ?>"><i data-lucide="file-text" aria-hidden="true"></i><span><?= esc($item['title'] ?? '') ?></span></a>
+                    <?php endforeach; ?>
+                </nav>
+            </section>
+            <?php endif; ?>
+            <?php if ($relatedDocuments): ?>
+            <section class="static-sidebar-card">
+                <h2>Dokumen Terkait</h2>
+                <div class="static-document-list">
+                    <?php foreach ($relatedDocuments as $item): ?>
+                    <a href="<?= esc($item['url'] ?? '#') ?>" target="_blank" rel="noopener noreferrer">
+                        <span class="static-document-icon"><i data-lucide="file-text" aria-hidden="true"></i></span>
+                        <span><strong><?= esc($item['title'] ?? 'Dokumen') ?></strong><small><?= esc($item['file_size'] ?? '') ?></small></span>
+                        <i data-lucide="download" aria-hidden="true"></i>
+                    </a>
+                    <?php endforeach; ?>
+                </div>
+                <a class="static-sidebar-more" href="<?= base_url('downloads') ?>">Lihat semua dokumen <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+            </section>
+            <?php endif; ?>
+            <section class="static-help-card">
+                <div><p class="eyebrow">Butuh Bantuan?</p><h2>Masih ada pertanyaan?</h2><p>Jika Anda memiliki pertanyaan atau informasi yang ingin disampaikan, jangan ragu menghubungi kami.</p><a class="button" href="<?= base_url('contact') ?>">Hubungi Kami <i data-lucide="arrow-right" aria-hidden="true"></i></a></div>
+                <i data-lucide="messages-square" aria-hidden="true"></i>
+            </section>
+            <section class="static-newsletter-card">
+                <p class="eyebrow">Tetap Terhubung</p><h2>Dapatkan Informasi Terbaru</h2><p>Berlangganan newsletter untuk mendapatkan update berita dan informasi terbaru.</p>
+                <form action="#" method="post" onsubmit="return false"><label class="sr-only" for="static-newsletter-email">Email</label><input id="static-newsletter-email" type="email" placeholder="Masukkan email Anda" autocomplete="email"><button class="button button-accent" type="submit" aria-label="Berlangganan"><i data-lucide="arrow-right" aria-hidden="true"></i></button></form>
+            </section>
+        </aside>
+    </div>
+</section>
 <?= $this->include('themes/madya/layouts/footer') ?>

@@ -1,10 +1,77 @@
 <?= $this->include('themes/madya/layouts/header') ?>
-<?php $banner=!empty($page_banners)?(json_decode($page_banners,true)['downloads']??[]):[]; $allItems=[]; foreach (($categories??[]) as $group) foreach ($group as $item) $allItems[]=$item; $categoryCount=count($categories??[]); ?>
-<?= $this->include('themes/madya/components/page-header', ['eyebrow'=>$banner['badge']??'Pusat Dokumen', 'title'=>$banner['title']??'Dokumen Resmi', 'description'=>$banner['subtitle']??'Formulir, panduan, dan dokumen resmi sekolah dalam satu tempat.', 'image'=>$allItems[0]['image']??'', 'breadcrumbs'=>[['label'=>'Dokumen']]]) ?>
-<section class="section"><div class="theme-container">
-    <div class="download-stat-grid"><div class="download-stat"><strong><?= count($allItems) ?></strong><span>Total dokumen</span></div><div class="download-stat"><strong><?= $categoryCount ?></strong><span>Kategori</span></div><div class="download-stat"><strong><?= count(array_filter($allItems, static fn($i)=>strtolower((string)($i['extension']??pathinfo((string)($i['url']??''),PATHINFO_EXTENSION)))==='pdf')) ?></strong><span>Dokumen PDF</span></div><div class="download-stat"><strong>—</strong><span>Dokumen populer</span></div></div>
-    <div class="downloads-toolbar"><form class="news-search" method="get" action="<?= base_url('downloads') ?>"><label class="sr-only" for="download-search">Cari dokumen</label><input id="download-search" name="search" placeholder="Cari dokumen…"><button class="button" type="submit">Cari</button></form><select aria-label="Urutkan dokumen"><option>Terbaru</option><option>Nama A-Z</option></select></div>
-    <div class="download-layout"><div><?php if ($categories): foreach ($categories as $category=>$items): ?><section class="document-group"><div class="document-group-heading"><div><p class="eyebrow">Koleksi</p><h2><?= esc($category ?: 'Dokumen lainnya') ?></h2></div><span><?= count($items) ?> berkas</span></div><div class="document-list"><?php foreach ($items as $item): ?><?= $this->include('themes/madya/components/content/download-item', ['item'=>$item]) ?><?php endforeach; ?></div></section><?php endforeach; else: ?><?= $this->include('themes/madya/components/ui/empty-state', ['message'=>'Belum ada dokumen yang tersedia untuk diunduh.']) ?><?php endif; ?></div>
-    <aside class="download-sidebar"><h2>Kategori</h2><?php foreach ($categories as $category=>$items): ?><a href="#"><?= esc($category ?: 'Dokumen lainnya') ?><span><?= count($items) ?></span></a><?php endforeach; ?><a href="<?= base_url('contact') ?>">Butuh bantuan?</a></aside></div>
-</div></section>
+<?php
+$banner = [];
+if (!empty($page_banners)) {
+    $decoded = is_string($page_banners) ? json_decode($page_banners, true) : $page_banners;
+    $banner = is_array($decoded) ? ($decoded['downloads'] ?? []) : [];
+}
+$heroImage = $banner['image'] ?? base_url(($theme_asset_base ?? 'themes/madya/assets') . '/generated/hero-campus.jpg');
+$allItems = [];
+foreach (($categories ?? []) as $group) foreach ($group as $item) $allItems[] = $item;
+$categoryCount = count($categories ?? []);
+$downloadSearch = trim((string)($_GET['search'] ?? ''));
+$downloadSort = (string)($_GET['sort'] ?? 'recent');
+if ($downloadSearch !== '') {
+    $needle = mb_strtolower($downloadSearch);
+    foreach ($categories as $cat => $catItems) {
+        $categories[$cat] = array_values(array_filter($catItems, static function ($item) use ($needle) {
+            return str_contains(mb_strtolower((string)($item['title'] ?? '')), $needle) || str_contains(mb_strtolower((string)($item['description'] ?? '')), $needle);
+        }));
+        if (!$categories[$cat]) unset($categories[$cat]);
+    }
+}
+if ($downloadSort === 'name') {
+    foreach ($categories as &$catItems) { usort($catItems, static fn($a, $b) => strcasecmp((string)($a['title'] ?? ''), (string)($b['title'] ?? ''))); }
+    unset($catItems);
+}
+$categorySlugs = []; foreach (array_keys($categories ?? []) as $categoryName) { $categorySlugs[$categoryName] = trim(preg_replace('/[^a-z0-9]+/i', '-', strtolower((string)$categoryName)), '-'); }
+$pdfCount = count(array_filter($allItems, static fn($i) => strtoupper((string)($i['extension'] ?? pathinfo((string)($i['url'] ?? ''), PATHINFO_EXTENSION))) === 'PDF'));
+$otherCount = max(0, count($allItems) - $pdfCount);
+?>
+<?= $this->include('themes/madya/components/page-header', [
+    'eyebrow' => $banner['badge'] ?? 'Pusat Download',
+    'title' => $banner['title'] ?? 'Pusat Download',
+    'description' => $banner['subtitle'] ?? 'Unduh berbagai dokumen penting, formulir, panduan, dan informasi resmi sekolah.',
+    'image' => $heroImage,
+    'breadcrumbs' => [['label' => 'Download']],
+]) ?>
+
+<section class="downloads-reference-section section">
+    <div class="theme-container">
+        <div class="download-stat-grid download-stat-grid-reference">
+            <div class="download-stat"><span class="download-stat-icon"><i data-lucide="files" aria-hidden="true"></i></span><span><strong><?= count($allItems) ?></strong><small>Total Dokumen</small></span></div>
+            <div class="download-stat"><span class="download-stat-icon"><i data-lucide="folder-open" aria-hidden="true"></i></span><span><strong><?= $categoryCount ?></strong><small>Kategori</small></span></div>
+            <div class="download-stat"><span class="download-stat-icon"><i data-lucide="file-down" aria-hidden="true"></i></span><span><strong><?= $pdfCount ?></strong><small>Dokumen PDF</small></span></div>
+            <div class="download-stat"><span class="download-stat-icon"><i data-lucide="files" aria-hidden="true"></i></span><span><strong><?= $otherCount ?></strong><small>Format Lain</small></span></div>
+        </div>
+
+        <div class="download-content-grid">
+            <main class="download-main-column">
+                <div class="download-toolbar-reference">
+                    <div><h2>Semua Dokumen</h2><p>Dokumen resmi sekolah yang tersedia untuk diunduh.</p></div>
+                    <form class="download-search-reference" method="get" action="<?= base_url('downloads') ?>"><label class="sr-only" for="download-search">Cari dokumen</label><input id="download-search" name="search" value="<?= esc($downloadSearch) ?>" placeholder="Cari dokumen..."><select name="sort" aria-label="Urutkan dokumen"><option value="recent"<?= $downloadSort === 'recent' ? ' selected' : '' ?>>Terbaru</option><option value="name"<?= $downloadSort === 'name' ? ' selected' : '' ?>>Nama A-Z</option></select><button type="submit" aria-label="Cari dokumen"><i data-lucide="search" aria-hidden="true"></i></button></form>
+                </div>
+                <?php if ($categories): foreach ($categories as $category => $items): ?>
+                    <section class="document-group document-group-reference" id="doc-<?= esc($categorySlugs[$category] ?? 'category') ?>">
+                        <div class="document-group-heading"><div><p class="eyebrow">Koleksi</p><h2><?= esc($category ?: 'Dokumen lainnya') ?></h2></div><span><?= count($items) ?> dokumen</span></div>
+                        <div class="document-list-reference">
+                            <?php foreach ($items as $item): ?>
+                                <?php $ext = strtoupper((string)($item['extension'] ?? pathinfo((string)($item['url'] ?? ''), PATHINFO_EXTENSION) ?: 'PDF')); $icon = $ext === 'PDF' ? 'file-type' : ($ext === 'XLS' || $ext === 'XLSX' ? 'file-spreadsheet' : ($ext === 'DOC' || $ext === 'DOCX' ? 'file-text' : 'file')); ?>
+                                <a class="document-row-reference" href="<?= esc($item['url'] ?? '#') ?>" target="_blank" rel="noopener noreferrer"><span class="document-file-type document-file-type-<?= esc(strtolower($ext)) ?>"><i data-lucide="<?= esc($icon) ?>" aria-hidden="true"></i><b><?= esc($ext) ?></b></span><span class="document-main-reference"><strong><?= esc($item['title'] ?? 'Dokumen') ?></strong><?php if (!empty($item['description'])): ?><small><?= esc($item['description']) ?></small><?php endif; ?><span class="document-meta-reference"><i data-lucide="download" aria-hidden="true"></i><?= esc($item['file_size'] ?? 'Ukuran tidak tersedia') ?></span></span><span class="document-download-button"><i data-lucide="download" aria-hidden="true"></i>Unduh</span></a>
+                            <?php endforeach; ?>
+                        </div>
+                    </section>
+                <?php endforeach; else: ?><?= $this->include('themes/madya/components/ui/empty-state', ['message' => 'Belum ada dokumen yang tersedia untuk diunduh.']) ?><?php endif; ?>
+            </main>
+
+            <aside class="download-sidebar-reference">
+                <section class="download-widget"><h2>Kategori Dokumen</h2><div class="download-category-links"><a href="<?= base_url('downloads') ?>"><span><i data-lucide="chevron-right" aria-hidden="true"></i>Semua Kategori</span><b><?= count($allItems) ?></b></a><?php foreach ($categories as $category => $items): ?><a href="#doc-<?= esc($categorySlugs[$category] ?? 'category') ?>"><span><i data-lucide="chevron-right" aria-hidden="true"></i><?= esc($category ?: 'Dokumen lainnya') ?></span><b><?= count($items) ?></b></a><?php endforeach; ?></div></section>
+                <section class="download-widget"><h2>Dokumen Pilihan</h2><div class="download-popular-list"><?php $selected = array_slice($allItems, 0, 5); foreach ($selected as $index => $item): ?><a href="<?= esc($item['url'] ?? '#') ?>" target="_blank" rel="noopener noreferrer"><span class="download-rank"><?= str_pad((string)($index + 1), 2, '0', STR_PAD_LEFT) ?></span><span><strong><?= esc($item['title'] ?? 'Dokumen') ?></strong><small><?= esc($item['file_size'] ?? '') ?></small></span></a><?php endforeach; ?></div><a class="download-widget-link" href="#all-documents">Lihat semua <i data-lucide="arrow-right" aria-hidden="true"></i></a></section>
+                <section class="download-newsletter-widget"><p class="eyebrow eyebrow-dark">Dapatkan Informasi Terbaru</p><h2>Dokumen dan informasi terbaru.</h2><p>Berlangganan newsletter sekolah untuk mendapatkan pembaruan terbaru.</p><form class="newsletter-form" onsubmit="return false"><input type="email" placeholder="Masukkan email Anda" aria-label="Alamat email"><button class="button button-light" type="submit" aria-label="Berlangganan"><i data-lucide="arrow-right" aria-hidden="true"></i></button></form><img src="<?= base_url(($theme_asset_base ?? 'themes/madya/assets') . '/illustrations/documents.svg') ?>" alt="" aria-hidden="true"></section>
+            </aside>
+        </div>
+
+        <section class="download-help-banner"><img src="<?= base_url(($theme_asset_base ?? 'themes/madya/assets') . '/illustrations/community.svg') ?>" alt="Bantuan dokumen" loading="lazy" decoding="async"><div><p class="eyebrow">Butuh Dokumen Lain?</p><h2>Tidak menemukan dokumen yang Anda cari?</h2><p>Hubungi admin sekolah untuk mendapatkan informasi atau mengajukan permintaan dokumen.</p><a class="button" href="<?= base_url('contact') ?>">Hubungi Kami <i data-lucide="arrow-right" aria-hidden="true"></i></a></div><span class="download-help-art" aria-hidden="true"><i data-lucide="folder-open" aria-hidden="true"></i></span></section>
+    </div>
+</section>
 <?= $this->include('themes/madya/layouts/footer') ?>
