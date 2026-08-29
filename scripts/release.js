@@ -31,10 +31,13 @@ try {
     throw new Error('Build assets not found. Run the Vite build before packaging.');
 }
 await cp(assetSource, releaseAssets, { recursive: true });
-const illustrationSource = path.join(themeSource, 'assets', 'illustrations');
+const canonicalAssetSource = path.join(themeSource, 'assets');
+const generatedRelease = path.join(releaseAssets, 'generated');
 const illustrationRelease = path.join(releaseAssets, 'illustrations');
+await mkdir(generatedRelease, { recursive: true });
 await mkdir(illustrationRelease, { recursive: true });
-await cp(illustrationSource, illustrationRelease, { recursive: true });
+await cp(path.join(canonicalAssetSource, 'generated'), generatedRelease, { recursive: true });
+await cp(path.join(canonicalAssetSource, 'illustrations'), illustrationRelease, { recursive: true });
 
 for (const asset of ['app.css', 'app.js']) {
     const info = await stat(path.join(releaseAssets, asset));

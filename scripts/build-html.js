@@ -8,17 +8,20 @@ const playground = path.join(root, 'playground');
 
 await rm(out, { recursive: true, force: true });
 await mkdir(path.join(out, 'assets'), { recursive: true });
+await mkdir(path.join(out, 'data'), { recursive: true });
 await cp(assets, path.join(out, 'assets'), { recursive: true });
-await cp(path.join(playground, 'public', 'illustrations'), path.join(out, 'illustrations'), { recursive: true });
+await cp(path.join(playground, 'data', 'demo.json'), path.join(out, 'data', 'demo.json'), { recursive: true });
+const canonicalAssets = path.join(root, 'src', 'theme', 'app', 'Views', 'themes', 'madya', 'assets');
+await cp(path.join(canonicalAssets, 'generated'), path.join(out, 'themes', 'madya', 'assets', 'generated'), { recursive: true });
+await cp(path.join(canonicalAssets, 'illustrations'), path.join(out, 'themes', 'madya', 'assets', 'illustrations'), { recursive: true });
 
-const data = await readFile(path.join(playground, 'data', 'demo.json'), 'utf8');
 const template = await readFile(path.join(playground, 'index.html'), 'utf8');
 
 function buildDocument(assetPrefix) {
     return template
         .replace(/<link[^>]+data-static-css[^>]*>\s*/g, '')
         .replace('</head>', `    <link rel="stylesheet" href="${assetPrefix}assets/app.css">\n</head>`)
-        .replace(/<script id="theme-state" type="application\/json">[\s\S]*?<\/script>/, `<script id="theme-state" type="application/json">${data}</script>`)
+        .replace('<body>', `<body data-demo-source="${assetPrefix}data/demo.json">`)
         .replace(/<script type="module" src="\/app\.js"><\/script>/, `<script type="module" src="${assetPrefix}assets/app.js"></script>`);
 }
 

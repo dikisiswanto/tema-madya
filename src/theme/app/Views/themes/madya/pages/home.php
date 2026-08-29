@@ -1,6 +1,8 @@
 <?= $this->include('themes/madya/layouts/header') ?>
 <?php
 $aboutData = is_array($about ?? null) ? $about : (json_decode($about ?? '[]', true) ?: []);
+$generatedImageBase = base_url(($theme_asset_base ?? 'themes/madya/assets') . '/generated');
+$generated = static fn(string $name): string => $generatedImageBase . '/' . $name;
 $counterItems = is_array($counter_stats ?? null) ? array_slice($counter_stats, 0, 4) : [];
 $principalData = is_array($principal ?? null) ? $principal : (json_decode($principal ?? '[]', true) ?: []);
 $programItems = is_array($programs ?? null) ? $programs : [];
@@ -14,7 +16,7 @@ $newsItems = is_array($news ?? null) ? $news : [];
 $downloadItems = is_array($downloads ?? null) ? $downloads : [];
 $announcementItems = array_values(array_filter($newsItems, static fn($item) => strtolower((string)($item['category'] ?? '')) === 'pengumuman'));
 $announcementItems = array_slice($announcementItems ?: $newsItems, 0, 3);
-$heroImage = $aboutData['hero_image'] ?? $aboutData['image'] ?? $aboutData['image_url'] ?? '';
+$heroImage = $aboutData['hero_image'] ?? $aboutData['image'] ?? $aboutData['image_url'] ?? $generated('hero-campus.jpg');
 $heroWidth = $aboutData['hero_image_width'] ?? $aboutData['image_width'] ?? $aboutData['width'] ?? 1600;
 $heroHeight = $aboutData['hero_image_height'] ?? $aboutData['image_height'] ?? $aboutData['height'] ?? 1100;
 $primaryUrl = $hero_btn_primary_url ?? '#profile';
@@ -85,69 +87,90 @@ $heroTitleMarkup = preg_replace('/(Berprestasi\.?)(\s*)$/u', '<span class="hero-
     <?php foreach ($counterItems as $index => $stat): ?><div class="home-stat-item"><i data-lucide="<?= esc($statIcons[$index] ?? 'sparkles') ?>" aria-hidden="true"></i><div><strong><?= esc($stat['value'] ?? $stat['number'] ?? '') ?><?= !isset($stat['value']) && !empty($stat['suffix']) ? esc($stat['suffix']) : '' ?></strong><span><?= esc($stat['label'] ?? $stat['title'] ?? '') ?></span></div></div><?php endforeach; ?>
 </div></div></section><?php endif; ?>
 
-<section class="home-section" id="profile" aria-labelledby="profile-title">
-    <div class="theme-container profile-grid">
-        <article class="principal-panel">
-            <div class="principal-photo">
-                <?php if (!empty($principalData['image'])): ?><img src="<?= esc($principalData['image']) ?>" width="<?= esc($principalData['image_width'] ?? 900) ?>" height="<?= esc($principalData['image_height'] ?? 1100) ?>" alt="<?= esc($principalData['name'] ?? 'Kepala sekolah') ?>" loading="lazy" decoding="async"><?php else: ?><div class="media-placeholder"><span>Kepala sekolah</span></div><?php endif; ?>
-            </div>
-            <div class="principal-message">
-                <p class="section-kicker">Sambutan Kepala Sekolah</p>
-                <blockquote>“<?= esc($principalData['bio'] ?? 'Mari bersama membangun lingkungan belajar yang inspiratif, berkarakter, dan berdaya saing.') ?>”</blockquote>
-                <strong><?= esc($principalData['name'] ?? 'Kepala Sekolah') ?></strong>
-                <span><?= esc($principalData['title'] ?? $principalData['position'] ?? 'Kepala Sekolah') ?></span>
-                <div class="principal-facts">
-                    <?php foreach ([['award','Akreditasi',$aboutData['accreditation'] ?? ''],['book-open','Kurikulum',$aboutData['curriculum'] ?? ''],['calendar-days','Tahun Berdiri',$aboutData['established_year'] ?? '']] as $fact): if ($fact[2] === '') continue; ?>
-                        <div><i data-lucide="<?= esc($fact[0]) ?>" aria-hidden="true"></i><span><b><?= esc($fact[1]) ?></b><?= esc($fact[2]) ?></span></div>
-                    <?php endforeach; ?>
+<section class="home-section home-middle-section" id="profile" aria-label="Profil sekolah">
+    <div class="theme-container home-middle-stack">
+        <div class="home-middle-grid home-middle-grid-profile">
+            <article class="principal-panel">
+                <div class="principal-photo">
+                    <img src="<?= esc($principalData['image'] ?? $generated('principal.jpg')) ?>" width="<?= esc($principalData['image_width'] ?? 900) ?>" height="<?= esc($principalData['image_height'] ?? 1100) ?>" alt="<?= esc($principalData['name'] ?? 'Kepala sekolah') ?>" loading="lazy" decoding="async">
                 </div>
-            </div>
-        </article>
-        <div class="profile-copy">
-            <p class="section-kicker">Profil Singkat</p>
-            <h2 id="profile-title">Sekolah yang tumbuh bersama masyarakat.</h2>
-            <p><?= esc($aboutData['description'] ?? $site_description ?? '') ?></p>
-            <div class="profile-points">
-                <div class="profile-point"><i data-lucide="compass" aria-hidden="true"></i><div><strong>Visi</strong><span><?= esc($aboutData['visi'] ?? '') ?></span></div></div>
-                <div class="profile-point"><i data-lucide="target" aria-hidden="true"></i><div><strong>Misi</strong><span><?= esc($aboutData['misi'] ?? '') ?></span></div></div>
-                <div class="profile-point"><i data-lucide="landmark" aria-hidden="true"></i><div><strong>Fasilitas Unggulan</strong><span><?= esc($aboutData['facilities'] ?? '') ?></span></div></div>
-            </div>
-            <a class="text-link" href="#profile">Selengkapnya Tentang Sekolah <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+                <div class="principal-message">
+                    <p class="section-kicker">Sambutan Kepala Sekolah</p>
+                    <blockquote>“<?= esc($principalData['bio'] ?? 'Membangun karakter, meraih masa depan bersama seluruh warga sekolah.') ?>”</blockquote>
+                    <p class="principal-description"><?= esc($principalData['description'] ?? '') ?></p>
+                    <strong><?= esc($principalData['name'] ?? 'Kepala Sekolah') ?></strong>
+                    <span><?= esc($principalData['title'] ?? $principalData['position'] ?? 'Kepala Sekolah') ?></span>
+                    <?php
+                    $principalFacts = [
+                        ['award', 'Akreditasi', $aboutData['accreditation'] ?? ''],
+                        ['book-open', 'Kurikulum', $aboutData['curriculum'] ?? ''],
+                        ['calendar-days', 'Tahun Berdiri', $aboutData['established_year'] ?? ''],
+                    ];
+                    $principalFacts = array_values(array_filter($principalFacts, static fn($fact) => (string)$fact[2] !== ''));
+                    if ($principalFacts):
+                    ?><div class="principal-facts">
+                        <?php foreach ($principalFacts as $fact): ?><div><i data-lucide="<?= esc($fact[0]) ?>" aria-hidden="true"></i><span><b><?= esc($fact[1]) ?></b><?= esc($fact[2]) ?></span></div><?php endforeach; ?>
+                    </div><?php endif; ?>
+                </div>
+            </article>
+
+            <article class="program-panel" id="programs" aria-labelledby="programs-title">
+                <div class="section-head-row compact">
+                    <div><p class="section-kicker">Program Unggulan</p><h2 id="programs-title">Program Unggulan Kami</h2></div>
+                    <a class="text-link" href="#programs">Lihat Semua <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+                </div>
+                <?php if ($programItems): ?><div class="program-showcase-grid">
+                    <?php foreach (array_slice($programItems, 0, 3) as $index => $item): ?>
+                        <article class="program-showcase-card">
+                            <div class="program-showcase-media"><img src="<?= esc($item['image'] ?? $generated('program-' . (['science','language','students'][$index % 3]) . '.jpg')) ?>" width="800" height="520" alt="" loading="lazy" decoding="async"></div>
+                            <div class="program-showcase-body"><h3><?= esc($item['title'] ?? $item['name'] ?? 'Program') ?></h3><p><?= esc($item['description'] ?? $item['excerpt'] ?? '') ?></p></div>
+                        </article>
+                    <?php endforeach; ?>
+                </div><?php else: ?><div class="empty-inline">Belum ada program unggulan.</div><?php endif; ?>
+            </article>
+        </div>
+
+        <div class="home-middle-grid home-middle-grid-people" id="teachers">
+            <?php if ($teacherItems): ?><article class="middle-panel">
+                <div class="section-head-row compact"><div><p class="section-kicker">Guru Berprestasi</p><h2>Tenaga pengajar pilihan.</h2></div><a class="text-link" href="#teachers">Lihat Semua <i data-lucide="arrow-right" aria-hidden="true"></i></a></div>
+                <div class="teacher-grid">
+                    <?php foreach (array_slice($teacherItems, 0, 4) as $index => $item): ?><article class="teacher-card"><img src="<?= esc($item['image'] ?? $generated('teacher-' . (($index % 4) + 1) . '.jpg')) ?>" width="900" height="1100" alt="<?= esc($item['name'] ?? 'Tenaga pendidik') ?>" loading="lazy" decoding="async"><div><strong><?= esc($item['name'] ?? 'Tenaga pendidik') ?></strong><span><?= esc($item['title'] ?? $item['position'] ?? 'Tenaga pendidik') ?></span></div></article><?php endforeach; ?>
+                </div>
+            </article><?php endif; ?>
+            <?php if ($achievementItems): ?><article class="middle-panel" id="achievements">
+                <div class="section-head-row compact"><div><p class="section-kicker">Prestasi Terbaru</p><h2>Mengukir prestasi di berbagai bidang.</h2></div><a class="text-link" href="#achievements">Lihat Semua <i data-lucide="arrow-right" aria-hidden="true"></i></a></div>
+                <div class="achievement-list">
+                    <?php foreach (array_slice($achievementItems, 0, 3) as $item): ?><article class="achievement-list-row"><span class="achievement-list-icon"><i data-lucide="trophy" aria-hidden="true"></i></span><div><strong><?= esc($item['title'] ?? 'Prestasi siswa') ?></strong><small><?= esc($item['description'] ?? '') ?></small></div><time><?= esc($item['year'] ?? '') ?></time></article><?php endforeach; ?>
+                </div>
+            </article><?php endif; ?>
+        </div>
+
+        <div class="home-middle-grid home-middle-grid-updates" id="updates">
+            <?php if ($newsItems): ?><article class="middle-panel">
+                <div class="section-head-row compact"><div><p class="section-kicker">Berita Terbaru</p><h2>Informasi terkini seputar kegiatan sekolah.</h2></div><a class="text-link" href="<?= base_url('news') ?>">Lihat Semua <i data-lucide="arrow-right" aria-hidden="true"></i></a></div>
+                <div class="news-home-row">
+                    <?php if ($newsFeatured): ?><a class="featured-news-home" href="<?= base_url('news/' . rawurlencode((string)($newsFeatured['slug'] ?? ''))) ?>"><img src="<?= esc($newsFeatured['image'] ?? $generated('news-campus.jpg')) ?>" width="900" height="600" alt="<?= esc($newsFeatured['title'] ?? 'Berita sekolah') ?>" loading="lazy" decoding="async"><div><span><?= esc($newsFeatured['category'] ?? 'Berita') ?></span><h3><?= esc($newsFeatured['title'] ?? 'Berita sekolah') ?></h3><small><?= esc($newsFeatured['published_at'] ?? '') ?></small></div></a><?php endif; ?>
+                    <div class="news-home-side"><?php foreach (array_slice($newsItems, 1, 3) as $item): ?><a href="<?= base_url('news/' . rawurlencode((string)($item['slug'] ?? ''))) ?>"><img src="<?= esc($item['image'] ?? $generated('news-campus.jpg')) ?>" width="180" height="120" alt="" loading="lazy" decoding="async"><span><strong><?= esc($item['title'] ?? '') ?></strong><small><?= esc($item['published_at'] ?? '') ?></small></span></a><?php endforeach; ?></div>
+                </div>
+            </article><?php endif; ?>
+            <?php if ($eventItems): ?><article class="middle-panel">
+                <div class="section-head-row compact"><div><p class="section-kicker">Agenda Kegiatan</p><h2>Agenda penting sekolah.</h2></div><a class="text-link" href="#events">Lihat Semua <i data-lucide="arrow-right" aria-hidden="true"></i></a></div>
+                <div class="agenda-list" id="events"><?php foreach (array_slice($eventItems, 0, 3) as $item): ?><article class="agenda-item"><time datetime="<?= esc($item['event_date'] ?? $item['date'] ?? '') ?>"><b><?= esc(!empty($item['event_date']) ? date('d', strtotime((string)$item['event_date'])) : '—') ?></b><span><?= esc(!empty($item['event_date']) ? strtoupper(date('M', strtotime((string)$item['event_date']))) : '') ?></span></time><div><h3><?= esc($item['title'] ?? 'Kegiatan sekolah') ?></h3><p><?= esc($item['time'] ?? '') ?><?= !empty($item['location']) ? ' · ' . esc($item['location']) : '' ?></p></div><i data-lucide="chevron-right" aria-hidden="true"></i></article><?php endforeach; ?></div>
+            </article><?php endif; ?>
+        </div>
+
+        <div class="home-middle-grid home-middle-grid-community" id="gallery">
+            <?php if ($galleryItems): ?><article class="middle-panel">
+                <div class="section-head-row compact"><div><p class="section-kicker">Galeri Kegiatan</p><h2>Momen terbaik kami.</h2></div><a class="text-link" href="#gallery">Lihat Semua <i data-lucide="arrow-right" aria-hidden="true"></i></a></div>
+                <div class="gallery-home-grid gallery-home-grid-compact"><?php foreach (array_slice($galleryItems, 0, 4) as $index => $item): ?><a class="gallery-home-item gallery-home-item-<?= $index ?>" href="#gallery"><img src="<?= esc($item['image'] ?? $generated('gallery-' . (['students','class','library'][$index % 3]) . '.jpg')) ?>" width="700" height="520" alt="<?= esc($item['title'] ?? 'Dokumentasi sekolah') ?>" loading="lazy" decoding="async"></a><?php endforeach; ?></div>
+            </article><?php endif; ?>
+            <?php if ($testimonialItems): ?><article class="middle-panel">
+                <div class="section-head-row compact"><div><p class="section-kicker">Testimoni</p><h2>Apa kata mereka tentang sekolah?</h2></div><a class="text-link" href="#testimonials">Lihat Semua <i data-lucide="arrow-right" aria-hidden="true"></i></a></div>
+                <div class="testimonial-feature" id="testimonials"><?php $testimonial = $testimonialItems[0]; ?><div class="testimonial-quote-mark">“</div><blockquote><?= esc($testimonial['quote'] ?? $testimonial['content'] ?? '') ?></blockquote><div class="testimonial-person"><img src="<?= esc($testimonial['image'] ?? $generated('testimonial-1.jpg')) ?>" width="80" height="80" alt="" loading="lazy" decoding="async"><span><strong><?= esc($testimonial['name'] ?? $testimonial['author'] ?? 'Warga sekolah') ?></strong><small><?= esc($testimonial['role'] ?? '') ?></small></span><span class="testimonial-stars">★★★★★</span></div></div>
+            </article><?php endif; ?>
         </div>
     </div>
 </section>
-
-<?php if ($programItems || $extraItems): ?><section class="home-section section-soft" id="programs" aria-labelledby="programs-title"><div class="theme-container">
-    <div class="section-head-row"><div><p class="section-kicker">Program & Ekstrakurikuler</p><h2 id="programs-title">Wadah pengembangan potensi dan minat siswa.</h2></div><a class="text-link" href="#programs">Lihat Semua <i data-lucide="arrow-right" aria-hidden="true"></i></a></div>
-    <div class="programs-extras-grid">
-        <div><div class="subsection-label"><span>Program Unggulan</span></div><div class="program-card-grid">
-            <?php foreach ($programItems as $item): ?><article class="program-card"><span class="program-card-icon"><i data-lucide="<?= esc($item['icon'] ?? 'book-open') ?>" aria-hidden="true"></i></span><h3><?= esc($item['title'] ?? $item['name'] ?? 'Program') ?></h3><p><?= esc($item['description'] ?? $item['excerpt'] ?? '') ?></p></article><?php endforeach; ?>
-        </div></div>
-        <div><div class="subsection-label"><span>Ekstrakurikuler Populer</span><a href="#programs">Lihat Semua <i data-lucide="arrow-right" aria-hidden="true"></i></a></div><div class="extra-rail">
-            <?php foreach ($extraItems as $item): ?><a class="extra-card" href="#programs"><?php if (!empty($item['image'])): ?><img src="<?= esc($item['image']) ?>" width="600" height="800" alt="" loading="lazy" decoding="async"><?php endif; ?><span><?= esc($item['title'] ?? $item['name'] ?? 'Kegiatan') ?></span></a><?php endforeach; ?>
-        </div></div>
-    </div>
-</div></section><?php endif; ?>
-
-<?php if ($teacherItems || $achievementItems): ?><section class="home-section" id="teachers" aria-labelledby="teachers-title"><div class="theme-container people-achievements-grid">
-    <?php if ($teacherItems): ?><div><div class="section-head-row compact"><div><p class="section-kicker">Tenaga Pengajar</p><h2 id="teachers-title">Guru profesional dan berkompeten.</h2></div><a class="text-link" href="#teachers">Lihat Semua <i data-lucide="arrow-right" aria-hidden="true"></i></a></div><div class="teacher-grid">
-        <?php foreach ($teacherItems as $item): ?><article class="teacher-card"><?php if (!empty($item['image'])): ?><img src="<?= esc($item['image']) ?>" width="<?= esc($item['image_width'] ?? 900) ?>" height="<?= esc($item['image_height'] ?? 1100) ?>" alt="<?= esc($item['name'] ?? 'Tenaga pendidik') ?>" loading="lazy" decoding="async"><?php else: ?><div class="media-placeholder"><span><?= esc($item['name'] ?? 'Guru') ?></span></div><?php endif; ?><div><strong><?= esc($item['name'] ?? 'Tenaga pendidik') ?></strong><span><?= esc($item['title'] ?? $item['position'] ?? 'Tenaga pendidik') ?></span></div></article><?php endforeach; ?>
-    </div></div><?php endif; ?>
-    <?php if ($achievementItems): ?><div><div class="section-head-row compact"><div><p class="section-kicker">Prestasi Siswa</p><h2>Mengukir prestasi di berbagai bidang.</h2></div><a class="text-link" href="#achievements">Lihat Semua <i data-lucide="arrow-right" aria-hidden="true"></i></a></div><div class="achievement-cards" id="achievements">
-        <?php foreach ($achievementItems as $index => $item): ?><article class="achievement-card"><?php if (!empty($item['image'])): ?><img src="<?= esc($item['image']) ?>" width="700" height="480" alt="" loading="lazy" decoding="async"><?php endif; ?><span class="achievement-level"><?= esc($item['level'] ?? 'Prestasi') ?></span><div><small><?= esc($item['year'] ?? '') ?></small><h3><?= esc($item['title'] ?? 'Prestasi siswa') ?></h3><p><?= esc($item['description'] ?? '') ?></p></div></article><?php endforeach; ?></div></div><?php endif; ?>
-</div></section><?php endif; ?>
-
-<?php if ($newsItems || $eventItems): ?><section class="home-section section-soft" id="updates" aria-labelledby="updates-title"><div class="theme-container news-agenda-grid">
-    <?php if ($newsFeatured): ?><div><div class="section-head-row compact"><div><p class="section-kicker">Berita Terbaru</p><h2 id="updates-title">Informasi terkini seputar kegiatan sekolah.</h2></div><a class="text-link" href="<?= base_url('news') ?>">Lihat Semua Berita <i data-lucide="arrow-right" aria-hidden="true"></i></a></div><article class="featured-news"><a href="<?= base_url('news/' . rawurlencode((string)($newsFeatured['slug'] ?? ''))) ?>" class="featured-news-media"><?php if (!empty($newsFeatured['image'])): ?><img src="<?= esc($newsFeatured['image']) ?>" width="1200" height="800" alt="<?= esc($newsFeatured['title'] ?? 'Berita sekolah') ?>" loading="lazy" decoding="async"><?php endif; ?><span><?= esc($newsFeatured['category'] ?? 'Berita') ?></span><div><h3><?= esc($newsFeatured['title'] ?? 'Berita sekolah') ?></h3><p><?= esc($newsFeatured['excerpt'] ?? $newsFeatured['description'] ?? '') ?></p></div></a><div class="news-side-list"><?php foreach ($newsSecondary as $item): ?><a href="<?= base_url('news/' . rawurlencode((string)($item['slug'] ?? ''))) ?>"><span><?php if (!empty($item['image'])): ?><img src="<?= esc($item['image']) ?>" width="120" height="80" alt="" loading="lazy" decoding="async"><?php endif; ?></span><div><strong><?= esc($item['title'] ?? '') ?></strong><small><?= esc($item['published_at'] ?? '') ?></small></div></a><?php endforeach; ?></div></article></div><?php endif; ?>
-    <?php if ($eventItems): ?><div><div class="section-head-row compact"><div><p class="section-kicker">Agenda Mendatang</p><h2>Jangan lewatkan agenda penting sekolah.</h2></div><a class="text-link" href="#events">Lihat Semua Agenda <i data-lucide="arrow-right" aria-hidden="true"></i></a></div><div class="agenda-list" id="events"><?php foreach ($eventItems as $item): ?><article class="agenda-item"><time datetime="<?= esc($item['event_date'] ?? $item['date'] ?? '') ?>"><b><?= esc(date('d', strtotime((string)($item['event_date'] ?? date('Y-m-d'))))) ?></b><span><?= esc(strtoupper(date('M', strtotime((string)($item['event_date'] ?? date('Y-m-d')))))) ?></span></time><div><h3><?= esc($item['title'] ?? 'Kegiatan sekolah') ?></h3><p><?= esc($item['time'] ?? '') ?><?= !empty($item['location']) ? ' · ' . esc($item['location']) : '' ?></p></div><i data-lucide="chevron-right" aria-hidden="true"></i></article><?php endforeach; ?></div></div><?php endif; ?>
-</div></section><?php endif; ?>
-
-<?php if ($galleryItems || $testimonialItems): ?><section class="home-section" id="gallery" aria-labelledby="gallery-title"><div class="theme-container gallery-testimonial-grid">
-    <?php if ($galleryItems): ?><div><div class="section-head-row compact"><div><p class="section-kicker">Galeri Kegiatan</p><h2 id="gallery-title">Momen terbaik kami.</h2></div><a class="text-link" href="#gallery">Lihat Galeri Lengkap <i data-lucide="arrow-right" aria-hidden="true"></i></a></div><div class="gallery-home-grid">
-        <?php foreach ($galleryItems as $index => $item): ?><a class="gallery-home-item gallery-home-item-<?= (int)($index % 6) ?>" href="#gallery"><?php if (!empty($item['image'])): ?><img src="<?= esc($item['image']) ?>" width="900" height="650" alt="<?= esc($item['title'] ?? 'Dokumentasi sekolah') ?>" loading="lazy" decoding="async"><?php endif; ?></a><?php endforeach; ?>
-    </div></div><?php endif; ?>
-    <?php if ($testimonialItems): ?><div><div class="section-head-row compact"><div><p class="section-kicker">Testimoni</p><h2>Apa kata mereka tentang sekolah?</h2></div><a class="text-link" href="#testimonials">Lihat Semua Testimoni <i data-lucide="arrow-right" aria-hidden="true"></i></a></div><div class="testimonial-grid-home" id="testimonials"><?php foreach (array_slice($testimonialItems,0,3) as $item): ?><figure class="testimonial-card-home"><blockquote>“<?= esc($item['quote'] ?? $item['content'] ?? '') ?>”</blockquote><figcaption><?php if (!empty($item['image'])): ?><img src="<?= esc($item['image']) ?>" width="80" height="80" alt="" loading="lazy" decoding="async"><?php endif; ?><span><strong><?= esc($item['name'] ?? $item['author'] ?? 'Warga sekolah') ?></strong><small><?= esc($item['role'] ?? '') ?></small></span></figcaption><div class="stars" aria-label="5 dari 5">★★★★★</div></figure><?php endforeach; ?></div></div><?php endif; ?>
-</div></section><?php endif; ?>
 
 <section class="home-section section-soft" id="documents" aria-labelledby="documents-title"><div class="theme-container documents-spmb-grid">
     <div><div class="section-head-row compact"><div><p class="section-kicker">Pusat Dokumen</p><h2 id="documents-title">Unduh dokumen dan formulir penting.</h2></div><a class="text-link" href="<?= base_url('downloads') ?>">Lihat Semua Dokumen <i data-lucide="arrow-right" aria-hidden="true"></i></a></div><div class="document-home-list"><?php foreach ($downloadItems as $item): ?><a href="<?= esc($item['url'] ?? '#') ?>" class="document-home-row"><span class="document-file-icon"><i data-lucide="file-text" aria-hidden="true"></i></span><span><strong><?= esc($item['title'] ?? 'Dokumen') ?></strong><small><?= esc($item['type'] ?? $item['extension'] ?? 'PDF') ?> · <?= esc($item['file_size'] ?? $item['size'] ?? '') ?></small></span><i data-lucide="arrow-up-right" aria-hidden="true"></i></a><?php endforeach; ?></div></div>

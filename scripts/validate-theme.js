@@ -27,6 +27,19 @@ const required = [
 ];
 
 const failures = [];
+const canonicalMediaRoot = path.join(themeRoot, 'assets');
+for (const duplicate of [path.join(root, 'public', 'generated'), path.join(root, 'public', 'illustrations'), path.join(root, 'playground', 'public', 'generated'), path.join(root, 'playground', 'public', 'illustrations')]) {
+    try { await access(duplicate); failures.push(`Duplicate media source must be removed: ${path.relative(root, duplicate)}`); } catch {}
+}
+
+const playgroundIndex = await readFile(path.join(root, 'playground', 'index.html'), 'utf8');
+if (/<script\s+id=["']theme-state["'][^>]*>\s*\{/.test(playgroundIndex)) failures.push('Demo data must not be embedded in playground/index.html; use playground/data/demo.json as the single source.');
+const demoDataPath = path.join(root, 'playground', 'data', 'demo.json');
+try { await access(demoDataPath); } catch { failures.push('Missing canonical demo data: playground/data/demo.json'); }
+try {
+    const demo = JSON.parse(await readFile(demoDataPath, 'utf8'));
+    if (!Array.isArray(demo.navigation) || !demo.navigation.length) failures.push('Demo navigation must be sourced from playground/data/demo.json.');
+} catch { failures.push('Canonical demo data is not valid JSON.'); }
 const bridgeRequired = ['home.php','news.php','single_post.php','downloads.php','contact.php','page.php'];
 for (const file of bridgeRequired) {
     try { await access(path.join(bridgeRoot, file)); }
@@ -69,3 +82,4 @@ if (failures.length) {
 console.log('Theme structure: OK');
 console.log('CI4 public view contract: pages/home.php, pages/news.php, pages/single_post.php, pages/downloads.php, pages/contact.php, pages/page.php');
 console.log(`Internal view references checked: ${phpFiles.length} PHP files`);
+console.log('Canonical demo navigation: OK');

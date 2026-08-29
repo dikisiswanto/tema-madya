@@ -35,7 +35,7 @@ $themeOgImage = $og_image ?? $social_image ?? null;
     <link rel="icon" type="image/svg+xml" href="<?= base_url(($theme_asset_base ?? 'themes/madya/assets') . '/favicon.svg') ?>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&family=Newsreader:opsz,wght@6..72,400..700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600;6..72,700&display=swap">
     <link rel="stylesheet" href="<?= base_url($theme_asset_base ?? 'themes/madya/assets') ?>/app.css">
     <?php if (($structured_data ?? null)): ?><script type="application/ld+json"><?= json_encode($structured_data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?></script><?php endif; ?>
 </head>

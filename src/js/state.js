@@ -60,17 +60,30 @@ function normalizeState(raw) {
         news: normalizeCollection(raw.news, ['id','title','slug','excerpt','content','body','published_at','created_at','image','image_url','image_width','image_height','width','height','image_srcset','image_sizes','srcset','sizes','category','author','view_count']),
         downloads: normalizeCollection(raw.downloads, ['id','title','description','category','url','file_size','size','type','extension','created_at']),
         urls: normalizeObject(raw.urls),
+        navigation: normalizeList(raw.navigation),
     };
 }
 
-export function initState() {
+export async function initState() {
     const element = document.getElementById('theme-state');
-    if (!element) return;
+    const source = document.documentElement.dataset.demoSource || document.querySelector('[data-demo-source]')?.dataset.demoSource;
     try {
-        state = normalizeState(JSON.parse(element.textContent || '{}'));
+        if (element?.textContent?.trim()) {
+            state = normalizeState(JSON.parse(element.textContent));
+            return state;
+        }
+        if (!source) {
+            state = {};
+            return state;
+        }
+        const response = await fetch(source, { headers: { Accept: 'application/json' } });
+        if (!response.ok) throw new Error(`Demo data request failed: ${response.status}`);
+        state = normalizeState(await response.json());
+        return state;
     } catch (error) {
-        console.error('Theme state could not be parsed.', error);
+        console.error('Theme state could not be loaded.', error);
         state = {};
+        return state;
     }
 }
 

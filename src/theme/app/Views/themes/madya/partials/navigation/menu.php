@@ -25,7 +25,7 @@ if (!function_exists('theme_render_menu')) {
             else:
                 if ($hasChildren): ?>
                     <li data-nav-item data-nav-depth="<?= (int)$level ?>" data-open="false">
-                        <button class="desktop-nav-trigger" type="button" data-nav-toggle aria-expanded="false" aria-controls="<?= esc($panelId) ?>">
+                        <button class="desktop-nav-trigger" type="button" data-nav-toggle aria-expanded="false" aria-haspopup="true" aria-controls="<?= esc($panelId) ?>">
                             <span><?= $title ?></span><span class="nav-chevron" aria-hidden="true"><i data-lucide="chevron-down"></i></span>
                         </button>
                         <div id="<?= esc($panelId) ?>" class="nav-panel" aria-hidden="true" hidden>

@@ -3,7 +3,7 @@ let closeTimer = null;
 let openTimer = null;
 let lastMobileFocus = null;
 
-const DESKTOP_QUERY = '(min-width: 1120px)';
+const DESKTOP_QUERY = '(min-width: 1200px)';
 const OPEN_DELAY = 90;
 const CLOSE_DELAY = 220;
 
@@ -39,13 +39,16 @@ export function initNavigation() {
         else openMobileMenu();
     });
 
-    document.querySelectorAll('[data-nav-item]').forEach((item) => {
-        item.addEventListener('mouseenter', () => scheduleDesktopOpen(item));
-        item.addEventListener('mouseleave', () => scheduleDesktopClose(item));
-    });
+    // Use delegated pointer events so recursively generated menu items behave identically.
+    // This is important for playground hydration and for arbitrarily deep CMS menu trees.
+    root.addEventListener('pointerover', handleNavigationPointerOver);
+    root.addEventListener('pointerout', handleNavigationPointerOut);
 
     syncMobileAccessibility();
     syncDesktopPanels();
+    syncActiveNavigation();
+    window.addEventListener('hashchange', syncActiveNavigation);
+    window.addEventListener('popstate', syncActiveNavigation);
 
     const media = window.matchMedia(DESKTOP_QUERY);
     const handleMediaChange = (event) => {
@@ -65,6 +68,26 @@ export function initNavigation() {
             if (item && panel) positionPanel(item, panel);
         });
     }, { passive: true });
+}
+
+function handleNavigationPointerOver(event) {
+    if (!window.matchMedia(DESKTOP_QUERY).matches) return;
+    const item = event.target.closest('[data-nav-item]');
+    if (!item || !rootContainsTarget(event, item)) return;
+    if (event.relatedTarget instanceof Node && item.contains(event.relatedTarget)) return;
+    scheduleDesktopOpen(item);
+}
+
+function handleNavigationPointerOut(event) {
+    if (!window.matchMedia(DESKTOP_QUERY).matches) return;
+    const item = event.target.closest('[data-nav-item]');
+    if (!item || !rootContainsTarget(event, item)) return;
+    if (event.relatedTarget instanceof Node && item.contains(event.relatedTarget)) return;
+    scheduleDesktopClose(item);
+}
+
+function rootContainsTarget(event, item) {
+    return event.currentTarget.contains(item);
 }
 
 function handleNavigationClick(event) {
@@ -109,7 +132,13 @@ function handleNavigationKeydown(event) {
         focusFirstPanelItem(item);
     } else if (event.key === 'ArrowRight') {
         event.preventDefault();
-        focusSibling(siblings, index, 1);
+        const childPanel = item.querySelector(':scope > .nav-panel');
+        if (childPanel) {
+            openDesktopItem(item);
+            focusFirstPanelItem(item);
+        } else {
+            focusSibling(siblings, index, 1);
+        }
     } else if (event.key === 'ArrowLeft') {
         event.preventDefault();
         if (item.parentElement?.closest('[data-nav-item]')) {
@@ -206,27 +235,97 @@ function openDesktopItem(item) {
 
 function positionPanel(item, panel) {
     panel.dataset.placement = '';
-    if (item.dataset.navDepth === '0') {
+    const rect = item.getBoundingClientRect();
+    const depth = Number(item.dataset.navDepth || 0);
+
+    if (depth === 0) {
         const trigger = item.querySelector(':scope > [data-nav-toggle]');
         if (!trigger) return;
-        const rect = trigger.getBoundingClientRect();
-        const width = Math.min(panel.offsetWidth || 672, window.innerWidth * .76);
-        const centeredLeft = rect.left + rect.width / 2;
-        const min = 16 + width / 2;
-        const max = window.innerWidth - 16 - width / 2;
-        panel.style.setProperty('--panel-x', `${Math.max(min, Math.min(max, centeredLeft)) - item.getBoundingClientRect().left}px`);
+        const triggerRect = trigger.getBoundingClientRect();
+        const width = Math.min(panel.offsetWidth || 672, window.innerWidth - 32);
+        const centered = triggerRect.left + triggerRect.width / 2;
+        const minLeft = 16;
+        const maxLeft = Math.max(minLeft, window.innerWidth - width - 16);
+        const left = Math.max(minLeft, Math.min(maxLeft, centered - width / 2));
+        // Root panels are not transformed so their nested fixed flyouts keep
+        // viewport coordinates. Therefore the root itself receives the exact
+        // left coordinate instead of relying on translateX(-50%).
+        panel.style.position = 'absolute';
+        panel.style.top = `calc(100% + .7rem)`;
+        panel.style.left = `${left - rect.left}px`;
+        panel.style.right = 'auto';
+        panel.style.bottom = 'auto';
+        panel.style.setProperty('--panel-x', '0px');
         return;
     }
 
-    const rect = item.getBoundingClientRect();
-    const panelWidth = panel.offsetWidth || 352;
-    const rightSpace = window.innerWidth - rect.right;
-    if (rightSpace < panelWidth + 24) panel.dataset.placement = 'left';
+    // Nested panels are positioned from the actual viewport geometry instead of
+    // relying on a fixed `left: 100%` rule. This keeps level 2+ stable when a
+    // parent panel is near the right/left edge and when the menu is deeply nested.
+    // Every nested desktop panel is viewport-fixed. This is the key invariant
+    // for level 2, 3, 4 and arbitrarily deep branches: no ancestor panel may
+    // participate in the coordinate system. CSS also keeps transforms off all
+    // desktop flyout ancestors so fixed descendants remain viewport-relative.
+    panel.style.position = 'fixed';
+    const maxPanelWidth = Math.min(384, window.innerWidth - 32);
+    const panelHeight = Math.min(panel.offsetHeight || 448, window.innerHeight - 32);
+    const gap = 10;
+    const gutter = 16;
+    const rightSpace = Math.max(0, window.innerWidth - rect.right - gutter);
+    const leftSpace = Math.max(0, rect.left - gutter);
+
+    // Prefer the side that fits. If neither side has the full panel width,
+    // choose the side with more room and shrink the flyout to that room.
+    const fitsRight = rightSpace >= maxPanelWidth + gap;
+    const fitsLeft = leftSpace >= maxPanelWidth + gap;
+    const preferLeft = fitsLeft && !fitsRight
+        ? true
+        : !fitsRight && !fitsLeft
+            ? leftSpace > rightSpace
+            : false;
+    const availableWidth = preferLeft ? leftSpace - gap : rightSpace - gap;
+    const panelWidth = Math.max(220, Math.min(maxPanelWidth, availableWidth || maxPanelWidth));
+
+    panel.dataset.placement = preferLeft ? 'left' : 'right';
+    panel.style.width = `${panelWidth}px`;
+
+    const naturalTop = rect.top + panelHeight > window.innerHeight - gutter
+        ? rect.bottom - panelHeight
+        : rect.top;
+    const maxTop = Math.max(gutter, window.innerHeight - panelHeight - gutter);
+    const top = Math.min(maxTop, Math.max(gutter, naturalTop));
+    const naturalLeft = preferLeft
+        ? rect.left - panelWidth - gap
+        : rect.right + gap;
+    const maxLeft = Math.max(gutter, window.innerWidth - panelWidth - gutter);
+    const left = Math.min(maxLeft, Math.max(gutter, naturalLeft));
+
+    // Nested desktop flyouts are viewport-positioned. This deliberately avoids
+    // subtracting a transformed/positioned ancestor: nested panels must not
+    // inherit the geometry of an ancestor dropdown.
+    panel.style.left = `${left}px`;
+    panel.style.top = `${top}px`;
+    panel.style.right = 'auto';
+    panel.style.bottom = 'auto';
+    panel.dataset.verticalPlacement = top < rect.top ? 'up' : 'down';
 }
 
 function toggleDesktopItem(item) {
     if (item.dataset.open === 'true') closeDesktopBranch(item, true);
     else openDesktopItem(item);
+}
+
+function syncActiveNavigation() {
+    const path = window.location.pathname.replace(/\\/g, '/').replace(/\/$/, '') || '/';
+    const hash = decodeURIComponent(window.location.hash.replace(/^#/, '').toLowerCase());
+    document.querySelectorAll('[data-site-nav] [data-spa-link]').forEach((link) => {
+        const url = new URL(link.href, window.location.href);
+        const linkPath = url.pathname.replace(/\\/g, '/').replace(/\/$/, '') || '/';
+        const linkHash = url.hash.replace(/^#/, '').toLowerCase();
+        const current = linkPath === path && ((linkHash && linkHash === hash) || (!linkHash && path === '/'));
+        if (current) link.setAttribute('aria-current', 'page');
+        else link.removeAttribute('aria-current');
+    });
 }
 
 function closeDesktopBranch(item, restoreFocus = false) {
@@ -281,6 +380,7 @@ function openMobileMenu() {
     const nav = document.getElementById('mobile-navigation');
     nav?.setAttribute('aria-hidden', 'false');
     if (nav) nav.inert = false;
+    syncPageInert(true);
     showMobileLevel(mobileState.path.at(-1) || 'root', 'forward');
     requestAnimationFrame(() => nav?.querySelector('.mobile-level[data-active="true"] a, .mobile-level[data-active="true"] button')?.focus());
 }
@@ -293,6 +393,7 @@ function closeMobileMenu(restoreFocus = true) {
     const nav = document.getElementById('mobile-navigation');
     nav?.setAttribute('aria-hidden', 'true');
     if (nav) nav.inert = true;
+    syncPageInert(false);
     resetMobileLevels();
     if (restoreFocus) (lastMobileFocus instanceof HTMLElement ? lastMobileFocus : toggle)?.focus();
     lastMobileFocus = null;
@@ -342,6 +443,13 @@ function resetMobileLevels() {
 function syncMobileAccessibility() {
     const nav = document.getElementById('mobile-navigation');
     if (nav) nav.inert = !document.body.classList.contains('nav-open');
+    syncPageInert(document.body.classList.contains('nav-open'));
+}
+
+function syncPageInert(open) {
+    const main = document.getElementById('main-content');
+    const footer = document.getElementById('playground-footer');
+    [main, footer].forEach((node) => { if (node) node.inert = open; });
 }
 
 function syncDesktopPanels() {

@@ -171,7 +171,7 @@ Mobile menggunakan navigasi bertingkat sehingga menu yang dalam tetap mudah dipa
 
 ## Ikon & Visual Interaktif
 
-Madya menggunakan **Lucide** untuk ikon antarmuka agar icon tetap ringan, konsisten, dan tidak membutuhkan icon font besar.
+Madya menggunakan **bundled Tabler-style inline SVG icons** untuk ikon antarmuka agar icon tetap konsisten, tajam, dan tidak bergantung pada runtime icon package eksternal.
 
 Untuk memberikan sedikit identitas sekolah pada area hero, Madya menyediakan miniatur kampus berbasis **Three.js** yang dimuat secara lazy. Scene ini hanya aktif pada perangkat yang sesuai dan tidak menjadi ketergantungan untuk fungsi utama website.
 
@@ -266,7 +266,7 @@ File development seperti playground, test, dan tooling tidak ikut dibawa ke pack
 
 ## Status
 
-**Release Candidate**
+**Release Candidate — 0.3.0-rc.3**
 
 Sebelum production release, lakukan verifikasi terakhir pada browser nyata, responsive layout, accessibility, SEO, Core Web Vitals, dan integrasi dengan Sekolahku CMS 3.1.2.
 
@@ -296,3 +296,7 @@ Jadi instalasi package dilakukan dengan menyalin isi package `madya/` ke root in
 > Catatan upgrade: karena Sekolahku 3.1.2 tidak mempunyai hook theme resolver, adapter `app/Views/pages/*.php` adalah integration seam milik theme. Saat upgrade CMS, pastikan file adapter Madya tetap ada atau pasang ulang package Madya setelah upgrade.
 
 Madya tidak mengandalkan `theme_color` CMS sebagai theme selector; token visual Madya didefinisikan sendiri di asset theme.
+
+## RC9 Header & Navigation
+
+Header/navigation is screenshot-led from `homepage.png` while retaining production readability and accessibility. Desktop navigation begins at 960px, mobile navigation uses level-based drill-down, and the playground demo includes intentionally deep recursive menu branches for QA.

@@ -1,6 +1,6 @@
 {
   "name": "tema-madya-cms-sekolahku",
-  "version": "0.3.0-rc.2",
+  "version": "0.3.0-rc.10.7",
   "private": true,
   "description": "Tema Madya CMS Sekolahku — tema pihak ketiga dengan gaya editorial institusional modern.",
   "scripts": {
@@ -25,7 +25,6 @@
   },
   "type": "module",
   "dependencies": {
-    "lucide": "1.34.0",
     "three": "0.185.1"
   }
 }
