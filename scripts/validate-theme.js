@@ -3,6 +3,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+
 const themeRoot = path.join(root, 'src', 'theme', 'app', 'Views', 'themes', 'madya');
 const bridgeRoot = path.join(root, 'src', 'theme', 'app', 'Views', 'pages');
 const required = [
@@ -27,6 +28,12 @@ const required = [
 ];
 
 const failures = [];
+const cssEntry = path.join(root, 'src', 'css', 'app.css');
+const cssSource = await readFile(cssEntry, 'utf8');
+if (!cssSource.includes('@import "tailwindcss";')) failures.push('Tailwind CSS 4 entry import missing');
+if (!cssSource.includes('@theme')) failures.push('Tailwind @theme block missing');
+if (!cssSource.includes('.madya-surface')) failures.push('Tailwind-first semantic primitives missing');
+
 const canonicalMediaRoot = path.join(themeRoot, 'assets');
 for (const duplicate of [path.join(root, 'public', 'generated'), path.join(root, 'public', 'illustrations'), path.join(root, 'playground', 'public', 'generated'), path.join(root, 'playground', 'public', 'illustrations')]) {
     try { await access(duplicate); failures.push(`Duplicate media source must be removed: ${path.relative(root, duplicate)}`); } catch {}

@@ -14,8 +14,6 @@ $eventItems = is_array($events ?? null) ? $events : [];
 $galleryItems = is_array($galleries ?? null) ? $galleries : [];
 $newsItems = is_array($news ?? null) ? $news : [];
 $downloadItems = is_array($downloads ?? null) ? $downloads : [];
-$announcementItems = array_values(array_filter($newsItems, static fn($item) => strtolower((string)($item['category'] ?? '')) === 'pengumuman'));
-$announcementItems = array_slice($announcementItems ?: $newsItems, 0, 3);
 $heroImage = $aboutData['hero_image'] ?? $aboutData['image'] ?? $aboutData['image_url'] ?? $generated('hero-campus.jpg');
 $heroWidth = $aboutData['hero_image_width'] ?? $aboutData['image_width'] ?? $aboutData['width'] ?? 1600;
 $heroHeight = $aboutData['hero_image_height'] ?? $aboutData['image_height'] ?? $aboutData['height'] ?? 1100;
@@ -61,13 +59,6 @@ $heroTitleMarkup = preg_replace('/(Berprestasi\.?)(\s*)$/u', '<span class="hero-
             <figure class="hero-photo">
                 <?php if ($heroImage): ?><img src="<?= esc($heroImage) ?>" width="<?= esc($heroWidth) ?>" height="<?= esc($heroHeight) ?>" alt="Lingkungan <?= esc($site_name ?? 'sekolah') ?>" fetchpriority="high" decoding="async"><?php else: ?><div class="media-placeholder" role="img" aria-label="Lingkungan sekolah"><span><?= esc($site_name ?? 'SekolahKu') ?></span></div><?php endif; ?>
             </figure>
-            <?php if ($announcementItems): ?><aside class="hero-announcement" aria-label="Pengumuman terbaru">
-                <h2><i data-lucide="megaphone" aria-hidden="true"></i> Pengumuman Terbaru</h2>
-                <ul class="announcement-list">
-                    <?php foreach ($announcementItems as $item): ?><li><a href="<?= base_url('news/' . rawurlencode((string)($item['slug'] ?? ''))) ?>"><?= esc($item['title'] ?? 'Informasi terbaru') ?></a><?php if (!empty($item['published_at'])): ?><small><?= esc(date('d M Y', strtotime((string)$item['published_at']))) ?></small><?php endif; ?></li><?php endforeach; ?>
-                </ul>
-                <a class="announcement-more" href="<?= base_url('news?category=Pengumuman') ?>">Lihat semua pengumuman <i data-lucide="arrow-right" aria-hidden="true"></i></a>
-            </aside><?php endif; ?>
         </div>
     </div>
 </section>
