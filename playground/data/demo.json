@@ -1,0 +1,376 @@
+{
+  "site_name": "CMS Sekolahku v3",
+  "site_tagline": "Belajar dengan rasa ingin tahu. Tumbuh dengan karakter.",
+  "site_description": "Sekolah unggulan yang berkomitmen mencetak generasi penerus bangsa yang berkualitas.",
+  "hero_badge": "Terakreditasi A · Kurikulum Merdeka",
+  "hero_title": "Tempat untuk belajar, bertumbuh, dan menemukan arah.",
+  "hero_subtitle": "Lingkungan belajar yang mendorong rasa ingin tahu, keberanian mencoba, dan pencapaian yang bermakna.",
+  "hero_stats": [
+    {
+      "value": "1200+",
+      "label": "Siswa"
+    },
+    {
+      "value": "85+",
+      "label": "Guru"
+    },
+    {
+      "value": "150+",
+      "label": "Prestasi"
+    }
+  ],
+  "counter_stats": [
+    {
+      "value": "1200+",
+      "label": "Siswa"
+    },
+    {
+      "value": "85+",
+      "label": "Guru"
+    },
+    {
+      "value": "150+",
+      "label": "Prestasi"
+    },
+    {
+      "value": "50+",
+      "label": "Program"
+    }
+  ],
+  "about": {
+    "description": "SekolahKu adalah institusi pendidikan yang berdedikasi memberikan pengalaman belajar terbaik. Dengan kurikulum terkini dan tenaga pengajar profesional, kami siap membentuk karakter dan kompetensi siswa.",
+    "visi": "Mewujudkan pendidikan berkualitas untuk masa depan melalui pembelajaran yang bermakna dan pengembangan karakter.",
+    "misi": "Mendorong setiap siswa tumbuh secara akademis, sosial, dan spiritual melalui pengalaman belajar yang utuh.",
+    "image": "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1600&q=84",
+    "image_caption": "Lingkungan belajar dan ruang bersama siswa."
+  },
+  "programs": [
+    {
+      "title": "Sains & Teknologi",
+      "description": "Laboratorium modern dan pembelajaran berbasis proyek untuk riset dan inovasi.",
+      "icon": "microscope",
+      "image": "https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=1200&q=82"
+    },
+    {
+      "title": "Seni & Budaya",
+      "description": "Wadah pengembangan bakat seni melalui musik, tari, teater, dan seni rupa.",
+      "icon": "palette",
+      "image": "https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=1200&q=82"
+    },
+    {
+      "title": "Olahraga",
+      "description": "Fasilitas dan pembinaan atlet muda di berbagai cabang olahraga.",
+      "icon": "activity",
+      "image": "https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=1200&q=82"
+    },
+    {
+      "title": "Bahasa Asing",
+      "description": "Program bilingual untuk memperkuat komunikasi dan wawasan global.",
+      "icon": "book-open",
+      "image": "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=1200&q=82"
+    },
+    {
+      "title": "Karakter & Religi",
+      "description": "Pendidikan karakter berbasis nilai dan kebiasaan baik sehari-hari.",
+      "icon": "sparkles",
+      "image": "https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=1200&q=82"
+    },
+    {
+      "title": "Literasi Digital",
+      "description": "Coding, desain, dan literasi digital untuk menghadapi dunia yang terus berubah.",
+      "icon": "monitor",
+      "image": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=82"
+    }
+  ],
+  "extracurriculars": [
+    {
+      "title": "Robotik",
+      "description": "Belajar merakit dan memprogram robot untuk kompetisi nasional.",
+      "icon": "activity",
+      "image": "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=1200&q=82"
+    },
+    {
+      "title": "Paduan Suara",
+      "description": "Mengembangkan bakat vokal dan apresiasi musik.",
+      "icon": "music",
+      "image": "https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=1200&q=82"
+    },
+    {
+      "title": "Olahraga",
+      "description": "Futsal, basket, voli, taekwondo, dan atletik.",
+      "icon": "trophy",
+      "image": "https://images.unsplash.com/photo-1519861531473-9200262188bf?auto=format&fit=crop&w=1200&q=82"
+    },
+    {
+      "title": "Seni Rupa",
+      "description": "Melukis, menggambar, desain grafis, dan kriya.",
+      "icon": "palette",
+      "image": "https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=1200&q=82"
+    },
+    {
+      "title": "Jurnalistik",
+      "description": "Menulis, fotografi, dan publikasi majalah sekolah.",
+      "icon": "book-open",
+      "image": "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=1200&q=82"
+    },
+    {
+      "title": "Pramuka",
+      "description": "Pembentukan karakter lewat kegiatan kepramukaan.",
+      "icon": "school",
+      "image": "https://images.unsplash.com/photo-1508804185872-d7badad00f7d?auto=format&fit=crop&w=1200&q=82"
+    }
+  ],
+  "teachers": [
+    {
+      "name": "Dr. Sari Wijaya, M.Pd.",
+      "title": "Kepala Sekolah",
+      "bio": "Mendampingi arah akademik dan budaya sekolah dengan perhatian pada perkembangan setiap siswa.",
+      "image": "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=900&q=84",
+      "experience": "20 Tahun Pengalaman",
+      "education": "S3 Pendidikan"
+    },
+    {
+      "name": "Budi Santoso, S.Si., M.T.",
+      "title": "Guru Sains & Teknologi",
+      "bio": "Mengembangkan pembelajaran berbasis proyek dan membina siswa dalam riset dan kompetisi.",
+      "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=900&q=84",
+      "experience": "15 Tahun Pengalaman",
+      "education": "S2 Teknik"
+    },
+    {
+      "name": "Ani Rahmawati, S.Pd., M.Hum.",
+      "title": "Guru Bahasa & Sastra",
+      "bio": "Mendorong siswa menemukan suara mereka melalui bahasa, sastra, dan komunikasi.",
+      "image": "https://images.unsplash.com/photo-1551836022-aadb801c60ae?auto=format&fit=crop&w=900&q=84",
+      "experience": "12 Tahun Pengalaman",
+      "education": "S2 Linguistik"
+    },
+    {
+      "name": "Hendra Pratama, S.Pd.",
+      "title": "Guru Olahraga",
+      "bio": "Membangun disiplin dan kerja sama melalui pembinaan olahraga.",
+      "image": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=900&q=84",
+      "experience": "10 Tahun Pengalaman",
+      "education": "S1 Pendidikan"
+    },
+    {
+      "name": "Dewi Lestari, S.Pd., M.Pd.",
+      "title": "Guru Matematika",
+      "bio": "Mengajarkan matematika sebagai cara berpikir, bukan sekadar angka.",
+      "image": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=900&q=84",
+      "experience": "18 Tahun Pengalaman",
+      "education": "S2 Pendidikan"
+    },
+    {
+      "name": "Rudi Hermawan, S.Si., M.Kom.",
+      "title": "Guru Informatika",
+      "bio": "Mendampingi siswa mengenal teknologi secara kreatif, kritis, dan bertanggung jawab.",
+      "image": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=900&q=84",
+      "experience": "14 Tahun Pengalaman",
+      "education": "S2 Komputer"
+    }
+  ],
+  "achievements": [
+    {
+      "title": "Juara 1 Olimpiade Sains Nasional",
+      "description": "Alya Putri, kelas XII IPA.",
+      "year": "2026",
+      "level": "Nasional",
+      "image": "https://images.unsplash.com/photo-1560523159-4a969f1f2f03?auto=format&fit=crop&w=500&q=82"
+    },
+    {
+      "title": "Juara 2 Lomba Debat Bahasa Inggris Provinsi",
+      "description": "Raka Firmansyah, kelas XI IPS.",
+      "year": "2026",
+      "level": "Provinsi",
+      "image": "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=500&q=82"
+    },
+    {
+      "title": "Medali Emas Olimpiade Matematika",
+      "description": "Sinta Nurhaliza, kelas X IPA.",
+      "year": "2026",
+      "level": "Nasional",
+      "image": "https://images.unsplash.com/photo-1560785496-3c9d27877182?auto=format&fit=crop&w=500&q=82"
+    },
+    {
+      "title": "Juara 1 Taekwondo Tingkat Kota",
+      "description": "Dimas Aditya, kelas XII IPA.",
+      "year": "2026",
+      "level": "Kota",
+      "image": "https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?auto=format&fit=crop&w=500&q=82"
+    },
+    {
+      "title": "Harapan 1 Lomba Karya Ilmiah Remaja",
+      "description": "Nindy Ayu, kelas XI IPA.",
+      "year": "2025",
+      "level": "Provinsi",
+      "image": "https://images.unsplash.com/photo-1532619675605-1ede6c2ed2b0?auto=format&fit=crop&w=500&q=82"
+    },
+    {
+      "title": "Juara 3 Desain Grafis Tingkat Nasional",
+      "description": "Bayu Prasetyo, kelas X IPS.",
+      "year": "2025",
+      "level": "Nasional",
+      "image": "https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=500&q=82"
+    }
+  ],
+  "testimonials": [
+    {
+      "quote": "SekolahKu memberikan pengalaman belajar yang luar biasa. Gurunya sangat mendukung dan fasilitasnya lengkap.",
+      "name": "Alya Putri",
+      "role": "Siswi Kelas XII · Juara Olimpiade Sains",
+      "image": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&q=82"
+    },
+    {
+      "quote": "Pendidikan karakter di SekolahKu sangat membekas. Anak saya jadi lebih mandiri, percaya diri, dan memiliki akhlak yang baik.",
+      "name": "Andi Pratama",
+      "role": "Orang Tua Siswa",
+      "image": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=82"
+    },
+    {
+      "quote": "Berkat bimbingan guru di SekolahKu, saya berhasil lolos ke PTN favorit melalui jalur SNBP.",
+      "name": "Raka Firmansyah",
+      "role": "Alumni · Universitas Indonesia",
+      "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=82"
+    }
+  ],
+  "events": [
+    {
+      "title": "Kegiatan Bakti Sosial",
+      "event_date": "2026-09-05",
+      "date_label": "5 September",
+      "description": "Kunjungan dan bakti sosial siswa ke panti asuhan di sekitar sekolah.",
+      "location": "Panti Asuhan",
+      "time": "07.30 WIB",
+      "icon": "map-pin"
+    },
+    {
+      "title": "Pentas Seni Akhir Semester",
+      "event_date": "2026-09-12",
+      "date_label": "12 September",
+      "description": "Pertunjukan seni dari siswa sebagai puncak kegiatan akhir semester.",
+      "location": "Gedung Serba Guna",
+      "time": "09.00 WIB",
+      "icon": "calendar-days"
+    }
+  ],
+  "galleries": [
+    {
+      "title": "Upacara bendera setiap hari Senin",
+      "image": "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1100&q=82"
+    },
+    {
+      "title": "Suasana belajar mengajar di kelas",
+      "image": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1100&q=82"
+    },
+    {
+      "title": "Penyerahan penghargaan kepada siswa berprestasi",
+      "image": "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1100&q=82"
+    },
+    {
+      "title": "Kegiatan olahraga dan ekstrakurikuler",
+      "image": "https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=1100&q=82"
+    },
+    {
+      "title": "Praktik di laboratorium komputer",
+      "image": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1100&q=82"
+    },
+    {
+      "title": "Pentas seni budaya siswa",
+      "image": "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1100&q=82"
+    }
+  ],
+  "faq": [
+    {
+      "question": "Bagaimana cara mendaftar di SekolahKu?",
+      "answer": "Informasi pendaftaran dan jadwal seleksi tersedia melalui kanal resmi sekolah."
+    },
+    {
+      "question": "Apa saja program unggulan yang tersedia?",
+      "answer": "Sains dan teknologi, seni dan budaya, olahraga, bahasa, karakter, dan literasi digital."
+    },
+    {
+      "question": "Apakah SekolahKu menyediakan beasiswa?",
+      "answer": "Informasi beasiswa mengikuti kebijakan dan pengumuman resmi sekolah."
+    },
+    {
+      "question": "Bagaimana sistem pembelajaran di SekolahKu?",
+      "answer": "Pembelajaran memadukan penguatan akademik, karakter, proyek, kegiatan, dan pendampingan."
+    },
+    {
+      "question": "Bagaimana cara menghubungi SekolahKu?",
+      "answer": "Gunakan halaman kontak untuk alamat, telepon, email, dan formulir resmi."
+    }
+  ],
+  "news": [
+    {
+      "slug": "kegiatan-bakti-sosial-siswa-sekolahku-ke-panti-asuhan",
+      "title": "Kegiatan Bakti Sosial Siswa SekolahKu ke Panti Asuhan",
+      "excerpt": "Siswa SekolahKu mengadakan kegiatan bakti sosial ke panti asuhan sebagai bagian dari program pendidikan karakter.",
+      "published_at": "2026-09-06",
+      "category": "Kegiatan",
+      "author": "Admin",
+      "image": "https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?auto=format&fit=crop&w=1200&q=82"
+    },
+    {
+      "slug": "pendaftaran-spmb-tahun-ajaran-2026-2027-telah-dibuka",
+      "title": "Pendaftaran SPMB Tahun Ajaran 2026/2027 Telah Dibuka",
+      "excerpt": "SPMB untuk tahun ajaran 2026/2027 telah resmi dibuka. Simak informasi dan jadwal lengkapnya.",
+      "published_at": "2026-06-01",
+      "category": "Pengumuman",
+      "author": "Admin",
+      "image": "https://images.unsplash.com/photo-1529390079861-591de354faf5?auto=format&fit=crop&w=1200&q=82"
+    },
+    {
+      "slug": "siswa-sekolahku-raih-medali-emas-olimpiade-sains-nasional",
+      "title": "Siswa SekolahKu Raih Medali Emas Olimpiade Sains Nasional",
+      "excerpt": "Alya Putri, siswa kelas XII IPA, berhasil meraih medali emas pada ajang Olimpiade Sains Nasional.",
+      "published_at": "2026-03-22",
+      "category": "Prestasi",
+      "author": "Admin",
+      "image": "https://images.unsplash.com/photo-1571260899304-425eee4c7efc?auto=format&fit=crop&w=1200&q=82"
+    }
+  ],
+  "downloads": [
+    {
+      "title": "Panduan Pendaftaran Siswa Baru",
+      "category": "Penerimaan Siswa",
+      "size": "2,4 MB",
+      "type": "PDF",
+      "url": "#"
+    },
+    {
+      "title": "Kalender Akademik 2026/2027",
+      "category": "Akademik",
+      "size": "640 KB",
+      "type": "PDF",
+      "url": "#"
+    },
+    {
+      "title": "Formulir Administrasi Siswa",
+      "category": "Administrasi",
+      "size": "820 KB",
+      "type": "PDF",
+      "url": "#"
+    }
+  ],
+  "contact_address": "Jl. Pendidikan No. 123, Kelurahan Cerdas, Kecamatan Unggul, Kota Pelajar 12345",
+  "contact_phone": "(021) 1234-5678",
+  "contact_email": "info@sekolahku.sch.id",
+  "contact_hours": "Senin - Jumat: 07.00 - 16.00 WIB",
+  "urls": {
+    "home": "/",
+    "news": "/news",
+    "downloads": "/downloads",
+    "contact": "/contact",
+    "contact_send": "/contact/send"
+  },
+  "principal": {
+    "name": "Anton Sofyan",
+    "title": "Kepala Sekolah",
+    "bio": "Mendampingi arah sekolah dengan perhatian pada perkembangan akademik, karakter, dan pengalaman belajar setiap siswa.",
+    "image": "https://cms.sekolahku.web.id/uploads/principal/1783670871_ee36483f12dc6ad99d55.jpg",
+    "image_width": 1200,
+    "image_height": 1500
+  }
+}

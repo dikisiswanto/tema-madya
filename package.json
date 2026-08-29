@@ -1,0 +1,31 @@
+{
+  "name": "tema-madya-cms-sekolahku",
+  "version": "0.2.0-rc.15",
+  "private": true,
+  "description": "Tema Madya CMS Sekolahku — tema pihak ketiga dengan gaya editorial institusional modern.",
+  "scripts": {
+    "dev": "npm run check:deps && vite --host 0.0.0.0",
+    "build": "npm run check:deps && vite build",
+    "check": "biome check .",
+    "test": "npm run check:deps && playwright test",
+    "release": "npm run check && npm run build:theme && node scripts/release.js",
+    "validate": "node scripts/validate-theme.js",
+    "test:ui": "playwright test --ui",
+    "dev:html": "npm run dev",
+    "build:html": "npm run build && node scripts/build-html.js",
+    "build:theme": "npm run validate && npm run build && node scripts/build-html.js",
+    "check:deps": "node scripts/check-dependencies.js"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.55.0",
+    "@tailwindcss/vite": "^4.1.0",
+    "@biomejs/biome": "^2.2.0",
+    "tailwindcss": "^4.1.0",
+    "vite": "^7.1.0"
+  },
+  "type": "module",
+  "dependencies": {
+    "lucide": "1.34.0",
+    "three": "0.185.1"
+  }
+}

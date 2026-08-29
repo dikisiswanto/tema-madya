@@ -1,0 +1,49 @@
+{
+  "name": "Tema Madya CMS Sekolahku",
+  "product": "Tema Madya CMS Sekolahku",
+  "version": "0.2.0-rc.15",
+  "engine": {
+    "name": "SekolahKu",
+    "min": "3.1.2"
+  },
+  "uiLanguage": "id",
+  "codeLanguage": "en",
+  "viewRoot": "app/Views/themes/madya",
+  "assetRoot": "public/themes/madya/assets",
+  "contractViews": [
+    "pages/home.php",
+    "pages/news.php",
+    "pages/single_post.php",
+    "pages/downloads.php",
+    "pages/contact.php",
+    "pages/page.php"
+  ],
+  "navigation": {
+    "sectionLinks": true,
+    "hybridSpa": true,
+    "nativeRoutes": [
+      "/news",
+      "/news/{slug}",
+      "/downloads",
+      "/contact"
+    ]
+  },
+  "staticPreview": {
+    "entry": "dist-html/index.html",
+    "command": "npm run build:html"
+  },
+  "icons": {
+    "library": "Lucide",
+    "runtime": "tree-shaken SVG"
+  },
+  "visual": {
+    "style": "Contemporary Institutional Editorial",
+    "campusScene3d": true,
+    "illustrations": true,
+    "illustrationAssets": [
+      "illustrations/learning.svg",
+      "illustrations/community.svg",
+      "illustrations/documents.svg"
+    ]
+  }
+}
