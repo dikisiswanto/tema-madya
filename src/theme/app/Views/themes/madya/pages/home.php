@@ -15,8 +15,6 @@ $galleryItems = is_array($galleries ?? null) ? $galleries : [];
 $newsItems = is_array($news ?? null) ? $news : [];
 $downloadItems = is_array($downloads ?? null) ? $downloads : [];
 $heroImage = $aboutData['hero_image'] ?? $aboutData['image'] ?? $aboutData['image_url'] ?? $generated('hero-campus.jpg');
-$heroWidth = $aboutData['hero_image_width'] ?? $aboutData['image_width'] ?? $aboutData['width'] ?? 1600;
-$heroHeight = $aboutData['hero_image_height'] ?? $aboutData['image_height'] ?? $aboutData['height'] ?? 1100;
 $primaryUrl = $hero_btn_primary_url ?? '#profile';
 $primaryText = $hero_btn_primary_text ?? 'Jelajahi Sekolah';
 $secondaryUrl = $hero_btn_secondary_url ?? '#profile';
@@ -44,7 +42,7 @@ $heroTitleMarkup = preg_replace('/(Berprestasi\.?)(\s*)$/u', '<span class="hero-
 ?>
 
 <div class="home-page">
-<section class="home-hero" aria-labelledby="hero-title">
+<section class="home-hero" aria-labelledby="hero-title"<?php if ($heroImage): ?> style="--hero-image: url('<?= esc($heroImage) ?>')"<?php endif; ?>>
     <div class="theme-container home-hero-grid">
         <div class="home-hero-copy">
             <?php if (!empty($hero_badge)): ?><p class="hero-kicker"><?= esc($hero_badge) ?></p><?php endif; ?>
@@ -54,11 +52,6 @@ $heroTitleMarkup = preg_replace('/(Berprestasi\.?)(\s*)$/u', '<span class="hero-
                 <a class="button" href="<?= esc($primaryUrl) ?>"><?= esc($primaryText) ?> <i data-lucide="arrow-right" aria-hidden="true"></i></a>
                 <a class="button button-secondary" href="<?= esc($secondaryUrl) ?>"><i data-lucide="play-circle" aria-hidden="true"></i><?= esc($secondaryText) ?></a>
             </div>
-        </div>
-        <div class="hero-photo-wrap">
-            <figure class="hero-photo">
-                <?php if ($heroImage): ?><img src="<?= esc($heroImage) ?>" width="<?= esc($heroWidth) ?>" height="<?= esc($heroHeight) ?>" alt="Lingkungan <?= esc($site_name ?? 'sekolah') ?>" fetchpriority="high" decoding="async"><?php else: ?><div class="media-placeholder" role="img" aria-label="Lingkungan sekolah"><span><?= esc($site_name ?? 'SekolahKu') ?></span></div><?php endif; ?>
-            </figure>
         </div>
     </div>
 </section>
