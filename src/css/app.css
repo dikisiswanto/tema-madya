@@ -4125,6 +4125,8 @@ body.nav-open .mobile-nav { opacity: 1; visibility: visible; transform: translat
 /* RC10.12.27 — static-page and profile visual parity with static-page.png. */
 @layer components {
   .static-page-section { @apply py-8 md:py-10 lg:py-12; }
+  .profile-no-sidebar { display:block; }
+  .profile-no-sidebar .profile-main { max-width: 74rem; }
   .static-page-layout { @apply grid min-w-0 gap-8 lg:grid-cols-[minmax(0,1fr)_18rem] lg:gap-10 xl:grid-cols-[minmax(0,1fr)_19rem]; }
   .static-page-main { @apply min-w-0; }
   .static-content-intro { @apply min-w-0; }

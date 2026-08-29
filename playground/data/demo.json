@@ -657,5 +657,18 @@
       "created_at": "2025-05-04",
       "is_approved": 1
     }
+  ],
+  "pages": [
+    {
+      "id": 1,
+      "title": "Sejarah Sekolah",
+      "slug": "sejarah-sekolah",
+      "excerpt": "Perjalanan sekolah dan tonggak penting yang membentuk komunitas kami.",
+      "content": "<h2>Perjalanan Sekolah</h2><p>SMA Negeri 1 Nusantara tumbuh dari semangat masyarakat untuk menghadirkan pendidikan yang kuat, berkarakter, dan relevan dengan perkembangan zaman.</p><h3>Awal Berdiri</h3><p>Sekolah mulai melayani peserta didik pada 1985 dan terus berkembang melalui kolaborasi warga sekolah.</p><blockquote><p>Pendidikan yang baik memberi ruang bagi pengetahuan, karakter, dan keberanian untuk bertumbuh.</p><cite>Catatan sekolah</cite></blockquote><h3>Tonggak Perkembangan</h3><ul><li>Penguatan kurikulum dan pembelajaran.</li><li>Pengembangan kegiatan siswa dan prestasi.</li><li>Kolaborasi dengan orang tua dan masyarakat.</li></ul><table><thead><tr><th>Tahun</th><th>Peristiwa</th></tr></thead><tbody><tr><td>1985</td><td>Sekolah mulai beroperasi.</td></tr><tr><td>2020</td><td>Penguatan pembelajaran berbasis teknologi.</td></tr><tr><td>2025</td><td>Pengembangan program unggulan sekolah.</td></tr></tbody></table>",
+      "image": "/themes/madya/assets/generated/campus-aerial.jpg",
+      "status": "published",
+      "meta_title": "Sejarah Sekolah",
+      "meta_description": "Sejarah SMA Negeri 1 Nusantara."
+    }
   ]
 }

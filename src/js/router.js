@@ -3,7 +3,7 @@ import { initArticleActions } from './article.js';
 import { getState } from './state.js';
 import renderHome from './views/home.js';
 import renderSection from './views/section.js';
-import { renderArticle, renderContact, renderDownloads, renderFooter, renderNews } from './views/native.js';
+import { renderArticle, renderContact, renderDownloads, renderFooter, renderNews, renderStaticPage } from './views/native.js';
 
 const sectionRoutes = new Set([
     'profile', 'programs', 'extracurriculars', 'teachers', 'achievements',
@@ -66,6 +66,15 @@ function renderCurrentRouteNow() {
         finishNativeNavigation();
         return;
     }
+    if (path.startsWith('/pages/')) {
+        const slug = decodeURIComponent(path.slice('/pages/'.length));
+        renderStaticPage(getState(), slug, shell);
+        renderFooter(getState());
+        initIcons(shell);
+        updateDocumentMeta(getState(), 'page', slug);
+        finishNativeNavigation();
+        return;
+    }
 
     const route = normalizeRoute(window.location.hash);
     if (!route) {
@@ -106,7 +115,7 @@ function handleNativeNavigation(event) {
     const url = new URL(link.href, window.location.href);
     if (url.origin !== window.location.origin) return;
     const path = normalizePath(url.pathname);
-    const native = path === '/news' || path.startsWith('/news/') || path === '/downloads' || path === '/contact';
+    const native = path === '/news' || path.startsWith('/news/') || path === '/downloads' || path === '/contact' || path.startsWith('/pages/');
     if (!native) return;
     event.preventDefault();
     history.pushState({}, '', `${url.pathname}${url.search}${url.hash}`);
@@ -139,12 +148,13 @@ function updateDocumentMeta(state, route, slug = '') {
         profile: 'Profil Sekolah', programs: 'Program Akademik', extracurriculars: 'Kegiatan Siswa',
         teachers: 'Tenaga Pendidik', achievements: 'Prestasi', testimonials: 'Cerita Komunitas',
         events: 'Agenda Sekolah', gallery: 'Galeri', faq: 'Pertanyaan Umum', contact: 'Hubungi Sekolah',
-        news: 'Berita Sekolah', downloads: 'Dokumen Resmi', article: 'Berita Sekolah',
+        news: 'Berita Sekolah', downloads: 'Dokumen Resmi', article: 'Berita Sekolah', page: 'Halaman Informasi',
     };
     const post = route === 'article' ? (state.news || []).find((item) => item.slug === slug) : null;
-    document.title = route === 'home' ? siteName : `${post?.title || titles[route] || 'Informasi'} — ${siteName}`;
+    const page = route === 'page' ? (state.pages || []).find((item) => item.slug === slug) : null;
+    document.title = route === 'home' ? siteName : `${post?.title || page?.meta_title || page?.title || titles[route] || 'Informasi'} — ${siteName}`;
     const meta = document.querySelector('meta[name="description"]');
-    if (meta) meta.setAttribute('content', post?.excerpt || state.site_description || '');
+    if (meta) meta.setAttribute('content', post?.excerpt || page?.meta_description || page?.excerpt || state.site_description || '');
 }
 
 function focusMain() {

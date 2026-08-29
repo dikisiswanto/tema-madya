@@ -115,7 +115,7 @@ $shareUrl = current_url();
                 <?php if ($commentSuccess): ?><div class="comment-alert comment-alert-success" role="status"><?= esc($commentSuccess) ?></div><?php endif; ?>
                 <?php if ($commentError): ?><div class="comment-alert comment-alert-error" role="alert"><?= esc($commentError) ?></div><?php endif; ?>
                 <?php if (!empty($commentErrors)): ?><div class="comment-alert comment-alert-error" role="alert"><strong>Periksa kembali:</strong><ul><?php foreach ($commentErrors as $error): ?><li><?= esc($error) ?></li><?php endforeach; ?></ul></div><?php endif; ?>
-                <form class="comment-form" action="<?= base_url('news/comment/' . rawurlencode((string)($article['slug'] ?? ''))) ?>" method="post">
+                <form class="comment-form" action="<?= base_url('news/' . rawurlencode((string)($article['slug'] ?? '')) . '/comment') ?>" method="post">
                     <div class="comment-form-grid">
                         <label><span>Nama</span><input type="text" name="name" value="<?= esc(old('name')) ?>" required minlength="3" maxlength="100" autocomplete="name" placeholder="Nama Anda"></label>
                         <label><span>Email</span><input type="email" name="email" value="<?= esc(old('email')) ?>" required autocomplete="email" placeholder="email@contoh.com"></label>

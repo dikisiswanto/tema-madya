@@ -1,7 +1,7 @@
 import { createRequire } from 'node:module';
 
 const require = createRequire(import.meta.url);
-const dependencies = ['vite', 'tailwindcss', '@tailwindcss/vite', 'lucide', 'three'];
+const dependencies = ['vite', 'tailwindcss', '@tailwindcss/vite', 'three'];
 const missing = dependencies.filter((name) => {
   try { require.resolve(name); return false; } catch { return true; }
 });

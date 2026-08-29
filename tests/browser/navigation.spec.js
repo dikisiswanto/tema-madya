@@ -1,8 +1,8 @@
 import { test, expect } from '@playwright/test';
 
 test('homepage and hybrid navigation are present', async ({ page }) => {
-    await page.goto('/playground/');
-    await expect(page.locator('h1')).toContainText('Membentuk generasi');
+    await page.goto('/');
+    await expect(page.locator('h1')).toContainText(/Membentuk Generasi/i);
     await page.locator('a[href="#programs"]').first().click();
     await expect(page).toHaveURL(/#programs$/);
     await expect(page.locator('h1')).toContainText('Program Akademik');
@@ -10,7 +10,7 @@ test('homepage and hybrid navigation are present', async ({ page }) => {
 
 test('mobile menu supports drill-down', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
-    await page.goto('/playground/');
+    await page.goto('/');
     await page.locator('[data-mobile-menu]').click();
     await expect(page.locator('#mobile-navigation')).toHaveAttribute('aria-hidden', 'false');
     await expect(page.locator('#mobile-navigation')).not.toHaveAttribute('inert');
@@ -22,7 +22,7 @@ test('mobile menu supports drill-down', async ({ page }) => {
 
 test('desktop disclosure is keyboard accessible', async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 900 });
-    await page.goto('/playground/');
+    await page.goto('/');
     const trigger = page.locator('[data-nav-toggle]').first();
     await trigger.focus();
     await page.keyboard.press('ArrowDown');
@@ -37,7 +37,7 @@ test('desktop disclosure is keyboard accessible', async ({ page }) => {
 
 test('desktop navigation activates only at the spacious breakpoint', async ({ page }) => {
     await page.setViewportSize({ width: 1199, height: 900 });
-    await page.goto('/playground/');
+    await page.goto('/');
     await expect(page.locator('.desktop-nav-wrap')).toBeHidden();
     await page.setViewportSize({ width: 1200, height: 900 });
     await expect(page.locator('.desktop-nav-wrap')).toBeVisible();
@@ -45,7 +45,7 @@ test('desktop navigation activates only at the spacious breakpoint', async ({ pa
 
 test('mobile submenu trigger exposes its controlled panel', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
-    await page.goto('/playground/');
+    await page.goto('/');
     const trigger = page.locator('[data-mobile-trigger]').first();
     const panelId = await trigger.getAttribute('aria-controls');
     expect(panelId).toBeTruthy();
@@ -57,7 +57,7 @@ test('mobile submenu trigger exposes its controlled panel', async ({ page }) => 
 
 test('deep desktop navigation reaches fourth level without leaving the viewport contract', async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 900 });
-    await page.goto('/playground/');
+    await page.goto('/');
     const labels = ['Profil', 'Sejarah', 'Kepemimpinan'];
     for (const label of labels) {
         const trigger = page.locator('[data-nav-toggle]', { hasText: label }).last();
@@ -71,7 +71,7 @@ test('deep desktop navigation reaches fourth level without leaving the viewport 
 
 test('deep mobile navigation drills down four levels and restores focus', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
-    await page.goto('/playground/');
+    await page.goto('/');
     await page.locator('[data-mobile-menu]').click();
     for (const id of ['profile', 'history', 'leadership']) {
         const trigger = page.locator(`[data-mobile-trigger="${id}"]`).first();
@@ -90,7 +90,7 @@ test('deep mobile navigation drills down four levels and restores focus', async 
 
 test('desktop deep flyouts stay inside the viewport at level 2+', async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 900 });
-    await page.goto('/playground/');
+    await page.goto('/');
 
     for (const label of ['Profil', 'Sejarah', 'Kepemimpinan']) {
         const trigger = page.locator('[data-nav-toggle]', { hasText: label }).last();
@@ -114,7 +114,7 @@ test('desktop deep flyouts stay inside the viewport at level 2+', async ({ page 
 
 test('desktop deep levels share the same viewport-fixed behavior', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
-    await page.goto('/playground/');
+    await page.goto('/');
 
     for (const label of ['Profil', 'Sejarah', 'Kepemimpinan']) {
         const trigger = page.locator('[data-nav-toggle]', { hasText: label }).last();

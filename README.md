@@ -31,6 +31,7 @@ Mode ini menggunakan data contoh dari `playground/data/demo.json`.
 /news/membuka-semester-dengan-semangat-baru
 /downloads
 /contact
+/pages/sejarah-sekolah
 ```
 
 Beranda juga memiliki navigasi section seperti `#profile`, `#programs`, `#gallery`, dan `#faq`.

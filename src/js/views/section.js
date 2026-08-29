@@ -41,22 +41,6 @@ function renderProfile(state) {
     const paragraphs = [about.content_1, about.content_2, about.description].filter(Boolean).slice(0, 2);
     const values = highlights.slice(0, 5);
     const downloads = Array.isArray(state.downloads) ? state.downloads.filter(item => Number(item.show ?? 1) !== 0).slice(0, 3) : [];
-    const relatedPages = [
-        { label: 'Visi & Misi', href: '#profile', icon: 'target' },
-        { label: 'Program Unggulan', href: '#programs', icon: 'book-open' },
-        { label: 'Tenaga Pengajar', href: '#teachers', icon: 'users-round' },
-        { label: 'Prestasi', href: '#achievements', icon: 'trophy' },
-        { label: 'Fasilitas', href: '#profile', icon: 'building-2' },
-    ];
-    const sidebar = `<aside class="static-page-sidebar rich-sidebar">
-        <section class="static-sidebar-card">
-            <h2>Halaman Lainnya</h2>
-            <nav class="static-sidebar-links" aria-label="Halaman terkait">${relatedPages.map(item => `<a href="${item.href}"><i data-lucide="${item.icon}" aria-hidden="true"></i><span>${escapeHtml(item.label)}</span></a>`).join('')}</nav>
-        </section>
-        ${downloads.length ? `<section class="static-sidebar-card"><div class="static-sidebar-heading"><h2>Dokumen Terkait</h2></div><div class="static-document-list">${downloads.map(item => `<a href="${escapeHtml(item.url || '#')}" target="_blank" rel="noopener noreferrer"><span class="static-document-icon"><i data-lucide="file-text" aria-hidden="true"></i></span><span><strong>${escapeHtml(item.title || 'Dokumen')}</strong><small>${escapeHtml(item.file_size || '')}</small></span><i data-lucide="download" aria-hidden="true"></i></a>`).join('')}</div><a class="static-sidebar-more" href="/downloads">Lihat semua dokumen ${iconMarkup('arrow-right')}</a></section>` : ''}
-        <section class="static-help-card"><div><p class="eyebrow">Butuh bantuan?</p><h2>Informasi yang Anda perlukan?</h2><p>Hubungi kanal resmi sekolah jika Anda membutuhkan informasi lebih lanjut.</p><a class="button" href="/contact">Hubungi Kami ${iconMarkup('arrow-right')}</a></div><i data-lucide="messages-square" aria-hidden="true"></i></section>
-        <section class="static-newsletter-card"><p class="eyebrow">Tetap terhubung</p><h2>Dapatkan Informasi Terbaru</h2><p>Berlangganan untuk mendapatkan update berita dan informasi sekolah.</p><form action="#" onsubmit="return false"><input type="email" placeholder="Masukkan email Anda" aria-label="Masukkan email Anda"><button class="button button-accent" type="submit" aria-label="Berlangganan">${iconMarkup('arrow-right')}</button></form></section>
-    </aside>`;
     const identityRows = [
         ['Nama Sekolah', state.site_name], ['NPSN', about.npsn], ['Akreditasi', [about.accreditation, about.accreditation_label].filter(Boolean).join(' · ')],
         ['Alamat', state.contact_address], ['Telepon', state.contact_phone], ['Email', state.contact_email],
@@ -71,7 +55,7 @@ function renderProfile(state) {
         ${principalCard}
         <section class="identity-table"><div class="rich-section-label"><h2>Identitas Sekolah</h2></div>${identityRows.map(([k,v]) => `<div><span>${escapeHtml(k)}</span><strong>${escapeHtml(v || '—')}</strong></div>`).join('')}</section>
     </main>`;
-    return pageHeader('profile', state) + `<section class="section static-page-section"><div class="theme-container static-page-layout">${main}${sidebar}</div></section>`;
+    return pageHeader('profile', state) + `<section class="section static-page-section"><div class="theme-container static-page-layout profile-no-sidebar">${main}</div></section>`;
 }
 function renderPrograms(state) {
     const items = state.programs || [];

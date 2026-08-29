@@ -15,10 +15,22 @@ const paths = {
     'image': '<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9" r="1.5"/><path d="m4 17 5-5 4 4 3-3 4 4"/>',
     'landmark': '<path d="m3 10 9-6 9 6"/><path d="M5 10v8M9 10v8M15 10v8M19 10v8M3 18h18M2 21h20"/>',
     'mail': '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>',
+    'mail-open': '<path d="M3 9 12 4l9 5v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="m3 9 9 6 9-6"/>',
+
     'map-pin': '<path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/>',
     'menu': '<path d="M4 7h16M4 12h16M4 17h16"/>',
     'megaphone': '<path d="m3 11 14-5v12L3 13z"/><path d="M17 10h2a2 2 0 0 1 0 4h-2"/><path d="M6 14v5"/>',
     'message-circle': '<path d="M20 11.5a7.5 7.5 0 0 1-8 7.5 8.6 8.6 0 0 1-4-.9L4 20l1.5-3.5A7.2 7.2 0 0 1 4 11.5 7.5 7.5 0 0 1 12 4a7.5 7.5 0 0 1 8 7.5Z"/>',
+    'messages-square': '<path d="M21 11a7 7 0 0 1-7 7H8l-5 3 1.5-4A7 7 0 0 1 3 11a7 7 0 0 1 7-7h4a7 7 0 0 1 7 7Z"/><path d="M8 11h.01M12 11h.01M16 11h.01"/>',
+    'plus': '<path d="M12 5v14M5 12h14"/>',
+    'user-round': '<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
+    'building-2': '<path d="M4 21V5a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v16M15 9h3a2 2 0 0 1 2 2v10M8 7h3M8 11h3M8 15h3M17 13h1M17 17h1"/><path d="M2 21h20"/>',
+    'star': '<path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9z"/>',
+    'flask-conical': '<path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4A2 2 0 0 0 19 18l-5-9V3"/><path d="M7 16h10"/>',
+    'languages': '<path d="M4 5h8M8 5v2a7 7 0 0 1-5 6M5 10a7 7 0 0 0 6 3M14 5h6M17 5v2c0 4 2 7 5 9M14 16h6"/>',
+    'users-round': '<path d="M16 21a6 6 0 0 0-12 0M10 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8M18 11a3 3 0 1 0-1-5.8M21 21a5 5 0 0 0-3-4.6"/>',
+    'dribbble': '<circle cx="12" cy="12" r="9"/><path d="M5 6.5c4.5 2 9 2.8 14 2.2M4 15c4.7-1.5 9.2-1.2 14 1.2M9 3.8c3.5 3.4 5.8 8 6.5 15.4M17.8 5.4C13.5 8.3 9.4 12.3 7 18.5"/>',
+
     'monitor-play': '<rect x="3" y="4" width="18" height="14" rx="2"/><path d="m10 8 5 3-5 3z"/><path d="M8 21h8"/>',
     'phone': '<path d="M6.5 3.5 9 3l2 5-2.5 1.5a14 14 0 0 0 6 6L16 13l5 2v2.5c0 1.4-1.1 2.5-2.5 2.5C10.5 20 4 13.5 4 5.5A2 2 0 0 1 6.5 3.5Z"/>',
     'play-circle': '<circle cx="12" cy="12" r="9"/><path d="m10 8 5 4-5 4z"/>',
@@ -68,9 +80,15 @@ const paths = {
     'map': '<path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3z"/><path d="M9 3v15M15 6v15"/>',
     'file-down': '<path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M12 12v5M9 14l3 3 3-3"/>',
     'brand-link': '<path d="M10 13a5 5 0 0 0 7.5.5l1.5-1.5a5 5 0 0 0-7.1-7.1L11 5.8"/><path d="M14 11a5 5 0 0 0-7.5-.5L5 12a5 5 0 0 0 7.1 7.1l.9-.9"/>',
+    'badge-check': '<path d="M9 3 12 2l3 1 3 2 2 3-1 3 1 3-2 3-3 2-3-1-3 1-3-2-2-3 1-3-1-3 2-3z"/><path d="m9 12 2 2 4-4"/>',
+    'lightbulb': '<path d="M9 18h6M10 22h4"/><path d="M8 15c-1.2-.9-2-2.4-2-4a6 6 0 0 1 12 0c0 1.6-.8 3.1-2 4-.7.5-1 1.1-1 2h-6c0-.9-.3-1.5-1-2Z"/>',
+    'heart-handshake': '<path d="M20 12c0-3.9-4.7-6.2-8-2.8C8.7 5.8 4 8.1 4 12c0 4.3 5.8 7.1 8 8.5 2.2-1.4 8-4.2 8-8.5Z"/><path d="m7 14 2 2 2-2 2 2 2-2"/>',
+
 };
 
 const aliases = {
+    'atom': 'atom-2',
+
     'chevron': 'chevron-down',
     'facebook': 'brand-facebook',
     'twitter': 'brand-x',

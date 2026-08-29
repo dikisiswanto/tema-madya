@@ -14,6 +14,7 @@ await cp(path.join(playground, 'data', 'demo.json'), path.join(out, 'data', 'dem
 const canonicalAssets = path.join(root, 'src', 'theme', 'app', 'Views', 'themes', 'madya', 'assets');
 await cp(path.join(canonicalAssets, 'generated'), path.join(out, 'themes', 'madya', 'assets', 'generated'), { recursive: true });
 await cp(path.join(canonicalAssets, 'illustrations'), path.join(out, 'themes', 'madya', 'assets', 'illustrations'), { recursive: true });
+await cp(path.join(playground, 'theme-favicon.svg'), path.join(out, 'theme-favicon.svg'));
 
 const template = await readFile(path.join(playground, 'index.html'), 'utf8');
 
@@ -31,6 +32,7 @@ const routes = [
     { path: 'news/membuka-semester-dengan-semangat-baru', prefix: '../../' },
     { path: 'downloads', prefix: '../' },
     { path: 'contact', prefix: '../' },
+  { path: 'pages/sejarah-sekolah', prefix: '../../' },
 ];
 
 for (const route of routes) {

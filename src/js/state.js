@@ -68,6 +68,7 @@ function normalizeState(raw) {
         downloads: normalizeCollection(raw.downloads, ['id','category','title','description','url','file_size','sort_order','show']),
         urls: normalizeObject(raw.urls),
         navigation: normalizeList(raw.navigation),
+        pages: normalizeCollection(raw.pages, ['id','title','slug','content','excerpt','image','status','meta_title','meta_description']),
     };
 }
 
