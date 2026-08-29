@@ -51,83 +51,144 @@
     {
       "title": "Program Bahasa",
       "description": "Penguasaan bahasa asing melalui metode interaktif.",
-      "image": "/themes/madya/assets/generated/program-language.jpg"
+      "icon": "flask-conical",
+      "link_url": "#",
+      "link_text": "Pelajari lebih lanjut",
+      "show": 1,
+      "sort_order": 0
     },
     {
       "title": "Program STEM",
       "description": "Pengembangan sains, teknologi, engineering, dan matematika.",
-      "image": "/themes/madya/assets/generated/program-science.jpg"
+      "icon": "languages",
+      "link_url": "#",
+      "link_text": "Pelajari lebih lanjut",
+      "show": 1,
+      "sort_order": 1
     },
     {
       "title": "Program Karakter",
       "description": "Pembinaan karakter dan kepemimpinan siswa.",
-      "image": "/themes/madya/assets/generated/program-students.jpg"
+      "icon": "users-round",
+      "link_url": "#",
+      "link_text": "Pelajari lebih lanjut",
+      "show": 1,
+      "sort_order": 2
     }
   ],
   "extracurriculars": [
     {
       "title": "Sepak Bola",
       "description": "Pembinaan olahraga dan kerja sama tim.",
-      "image": "/themes/madya/assets/generated/extra-sports.jpg"
+      "icon": "dribbble",
+      "icon_color": "#14b8a6",
+      "show": 1,
+      "sort_order": 0
     },
     {
       "title": "Basket",
       "description": "Pengembangan minat dan bakat olahraga.",
-      "image": "/themes/madya/assets/generated/extra-student.jpg"
+      "icon": "music",
+      "icon_color": "#14b8a6",
+      "show": 1,
+      "sort_order": 1
     },
     {
       "title": "Marching Band",
       "description": "Kedisiplinan dan seni pertunjukan.",
-      "image": "/themes/madya/assets/generated/extra-culture.jpg"
+      "icon": "palette",
+      "icon_color": "#14b8a6",
+      "show": 1,
+      "sort_order": 2
     },
     {
       "title": "Tari Tradisional",
       "description": "Pelestarian seni dan budaya Nusantara.",
-      "image": "/themes/madya/assets/generated/gallery-culture.jpg"
+      "icon": "users-round",
+      "icon_color": "#14b8a6",
+      "show": 1,
+      "sort_order": 3
     },
     {
       "title": "Pramuka",
       "description": "Pembentukan karakter dan kepemimpinan.",
-      "image": "/themes/madya/assets/generated/gallery-pramuka.jpg"
+      "icon": "globe",
+      "icon_color": "#14b8a6",
+      "show": 1,
+      "sort_order": 4
     }
   ],
   "teachers": [
     {
       "name": "Dra. Siti Aminah",
-      "title": "Matematika",
-      "image": "/themes/madya/assets/generated/teacher-1.jpg"
+      "photo": "/themes/madya/assets/generated/teacher-1.jpg",
+      "role": "Matematika",
+      "experience": "",
+      "education": "",
+      "show": 1,
+      "sort_order": 0
     },
     {
       "name": "M. Arifin, S.Pd.",
-      "title": "Fisika",
-      "image": "/themes/madya/assets/generated/teacher-2.jpg"
+      "photo": "/themes/madya/assets/generated/teacher-2.jpg",
+      "role": "Fisika",
+      "experience": "",
+      "education": "",
+      "show": 1,
+      "sort_order": 1
     },
     {
       "name": "Rina Wulandari, S.Pd.",
-      "title": "Bahasa Inggris",
-      "image": "/themes/madya/assets/generated/teacher-3.jpg"
+      "photo": "/themes/madya/assets/generated/teacher-3.jpg",
+      "role": "Bahasa Inggris",
+      "experience": "",
+      "education": "",
+      "show": 1,
+      "sort_order": 2
     },
     {
       "name": "Budi Setiawan, S.Pd.",
-      "title": "Kimia",
-      "image": "/themes/madya/assets/generated/teacher-4.jpg"
+      "photo": "/themes/madya/assets/generated/teacher-4.jpg",
+      "role": "Kimia",
+      "experience": "",
+      "education": "",
+      "show": 1,
+      "sort_order": 3
     }
   ],
   "achievements": [
     {
-      "title": "Juara 1 Lomba Debat Nasional 2025",
-      "description": "oleh Tim Debat SMA Negeri 1 Nusantara",
-      "year": "20 Mei 2025"
+      "year": "2025",
+      "achievement": "Juara 1 Lomba Debat Nasional 2025",
+      "student_name": "Tim siswa",
+      "photo": "",
+      "level": "Nasional",
+      "class_name": "",
+      "medal": "gold",
+      "show": 1,
+      "sort_order": 0
     },
     {
-      "title": "Medali Emas OSN Fisika Tingkat Nasional",
-      "description": "oleh Andi Pratama (Kelas XII IPA 1)",
-      "year": "18 Mei 2025"
+      "year": "2025",
+      "achievement": "Medali Emas OSN Fisika Tingkat Nasional",
+      "student_name": "Tim siswa",
+      "photo": "",
+      "level": "Nasional",
+      "class_name": "",
+      "medal": "gold",
+      "show": 1,
+      "sort_order": 1
     },
     {
-      "title": "Juara 2 Lomba Robotika Nasional",
-      "description": "oleh Tim Robotik SMA Negeri 1 Nusantara",
-      "year": "15 Mei 2025"
+      "year": "2025",
+      "achievement": "Juara 2 Lomba Robotika Nasional",
+      "student_name": "Tim siswa",
+      "photo": "",
+      "level": "Nasional",
+      "class_name": "",
+      "medal": "gold",
+      "show": 1,
+      "sort_order": 2
     }
   ],
   "testimonials": [
@@ -135,7 +196,9 @@
       "quote": "SMA Negeri 1 Nusantara adalah tempat terbaik untuk belajar dan mengembangkan diri. Guru-gurunya luar biasa dan lingkungan sekolah sangat mendukung prestasi siswa.",
       "name": "Dinda Putri A.",
       "role": "Alumni 2024",
-      "image": "/themes/madya/assets/generated/testimonial-1.jpg"
+      "photo": "/themes/madya/assets/generated/testimonial-1.jpg",
+      "show": 1,
+      "sort_order": 0
     }
   ],
   "events": [
@@ -144,69 +207,120 @@
       "event_date": "2025-05-28",
       "description": "Ujian akhir semester genap.",
       "location": "Seluruh Siswa",
-      "time": "28 Mei - 05 Juni 2025"
+      "event_time": "28 Mei - 05 Juni 2025",
+      "status": "upcoming",
+      "slug": "",
+      "show": 1,
+      "sort_order": 0
     },
     {
       "title": "Class Meeting",
       "event_date": "2025-06-07",
       "description": "Class meeting antar siswa.",
       "location": "Seluruh Siswa",
-      "time": "07 - 09 Juni 2025"
+      "event_time": "07 - 09 Juni 2025",
+      "status": "upcoming",
+      "slug": "",
+      "show": 1,
+      "sort_order": 1
     },
     {
       "title": "Penerimaan Raport",
       "event_date": "2025-06-17",
       "description": "Pembagian raport semester genap.",
       "location": "Seluruh Siswa",
-      "time": "17 Juni 2025"
+      "event_time": "17 Juni 2025",
+      "status": "upcoming",
+      "slug": "",
+      "show": 1,
+      "sort_order": 2
     }
   ],
   "galleries": [
     {
-      "title": "Prestasi dan kebersamaan siswa",
-      "image": "/themes/madya/assets/generated/gallery-students.jpg"
+      "image": "/themes/madya/assets/generated/gallery-students.jpg",
+      "caption": "Prestasi dan kebersamaan siswa",
+      "category": "Kegiatan Sekolah",
+      "is_featured": 1,
+      "show": 1,
+      "sort_order": 0
     },
     {
-      "title": "Kegiatan belajar dan diskusi",
-      "image": "/themes/madya/assets/generated/gallery-class.jpg"
+      "image": "/themes/madya/assets/generated/gallery-class.jpg",
+      "caption": "Kegiatan belajar dan diskusi",
+      "category": "Kegiatan Sekolah",
+      "is_featured": 0,
+      "show": 1,
+      "sort_order": 1
     },
     {
-      "title": "Praktik dan kegiatan siswa",
-      "image": "/themes/madya/assets/generated/gallery-lab.jpg"
+      "image": "/themes/madya/assets/generated/gallery-lab.jpg",
+      "caption": "Praktik dan kegiatan siswa",
+      "category": "Kegiatan Sekolah",
+      "is_featured": 0,
+      "show": 1,
+      "sort_order": 2
     },
     {
-      "title": "Kegiatan bersama di sekolah",
-      "image": "/themes/madya/assets/generated/gallery-library.jpg"
+      "image": "/themes/madya/assets/generated/gallery-library.jpg",
+      "caption": "Kegiatan bersama di sekolah",
+      "category": "Kegiatan Sekolah",
+      "is_featured": 0,
+      "show": 1,
+      "sort_order": 3
     },
     {
-      "title": "Kegiatan Pramuka dan pembentukan karakter",
-      "image": "/themes/madya/assets/generated/gallery-pramuka.jpg"
+      "image": "/themes/madya/assets/generated/gallery-pramuka.jpg",
+      "caption": "Kegiatan Pramuka dan pembentukan karakter",
+      "category": "Kegiatan Sekolah",
+      "is_featured": 0,
+      "show": 1,
+      "sort_order": 4
     },
     {
-      "title": "Seni dan budaya Nusantara",
-      "image": "/themes/madya/assets/generated/gallery-culture.jpg"
+      "image": "/themes/madya/assets/generated/gallery-culture.jpg",
+      "caption": "Seni dan budaya Nusantara",
+      "category": "Kegiatan Sekolah",
+      "is_featured": 0,
+      "show": 1,
+      "sort_order": 5
     }
   ],
   "faq": [
     {
       "question": "Bagaimana cara mendaftar di SekolahKu?",
-      "answer": "Informasi pendaftaran dan jadwal seleksi tersedia melalui kanal resmi sekolah."
+      "answer": "Informasi pendaftaran dan jadwal seleksi tersedia melalui kanal resmi sekolah.",
+      "category": "Pendaftaran",
+      "show": 1,
+      "sort_order": 0
     },
     {
       "question": "Apa saja program unggulan yang tersedia?",
-      "answer": "Sains dan teknologi, seni dan budaya, olahraga, bahasa, karakter, dan literasi digital."
+      "answer": "Sains dan teknologi, seni dan budaya, olahraga, bahasa, karakter, dan literasi digital.",
+      "category": "Akademik",
+      "show": 1,
+      "sort_order": 1
     },
     {
       "question": "Apakah SekolahKu menyediakan beasiswa?",
-      "answer": "Informasi beasiswa mengikuti kebijakan dan pengumuman resmi sekolah."
+      "answer": "Informasi beasiswa mengikuti kebijakan dan pengumuman resmi sekolah.",
+      "category": "Kesiswaan",
+      "show": 1,
+      "sort_order": 2
     },
     {
       "question": "Bagaimana sistem pembelajaran di SekolahKu?",
-      "answer": "Pembelajaran memadukan penguatan akademik, karakter, proyek, kegiatan, dan pendampingan."
+      "answer": "Pembelajaran memadukan penguatan akademik, karakter, proyek, kegiatan, dan pendampingan.",
+      "category": "Fasilitas",
+      "show": 1,
+      "sort_order": 3
     },
     {
       "question": "Bagaimana cara menghubungi SekolahKu?",
-      "answer": "Gunakan halaman kontak untuk alamat, telepon, email, dan formulir resmi."
+      "answer": "Gunakan halaman kontak untuk alamat, telepon, email, dan formulir resmi.",
+      "category": "Lainnya",
+      "show": 1,
+      "sort_order": 4
     }
   ],
   "news": [
@@ -269,30 +383,34 @@
     {
       "title": "Kalender Akademik 2025/2026",
       "category": "Akademik",
-      "size": "1,2 MB",
-      "type": "PDF",
-      "url": "#"
+      "url": "#",
+      "file_size": "1,2 MB",
+      "sort_order": 0,
+      "show": 1
     },
     {
       "title": "Panduan Pendaftaran SPMB",
       "category": "Penerimaan Siswa",
-      "size": "2,4 MB",
-      "type": "PDF",
-      "url": "#"
+      "url": "#",
+      "file_size": "2,4 MB",
+      "sort_order": 1,
+      "show": 1
     },
     {
       "title": "Formulir Administrasi Siswa",
       "category": "Administrasi",
-      "size": "820 KB",
-      "type": "PDF",
-      "url": "#"
+      "url": "#",
+      "file_size": "820 KB",
+      "sort_order": 2,
+      "show": 1
     },
     {
       "title": "Formulir Pendaftaran",
       "category": "Penerimaan Siswa",
-      "size": "540 KB",
-      "type": "PDF",
-      "url": "#"
+      "url": "#",
+      "file_size": "540 KB",
+      "sort_order": 3,
+      "show": 1
     }
   ],
   "contact_address": "Jl. Pendidikan No. 1, Nusantara, Indonesia 12345",
@@ -308,12 +426,13 @@
   },
   "principal": {
     "name": "Drs. Budi Santoso, M.Pd.",
-    "title": "Kepala Sekolah",
-    "bio": "Membangun Karakter, Meraih Masa Depan",
-    "description": "Kami percaya setiap siswa memiliki potensi luar biasa. Melalui pendidikan yang berkualitas, pembinaan karakter, dan lingkungan belajar yang positif, kami siap mengantarkan mereka meraih cita-cita.",
-    "image": "/themes/madya/assets/generated/principal.jpg",
     "image_width": 900,
-    "image_height": 1100
+    "image_height": 1100,
+    "photo": "/themes/madya/assets/generated/principal.jpg",
+    "role_title": "Kepala Sekolah",
+    "welcome_message": "Membangun Karakter, Meraih Masa Depan",
+    "education": "",
+    "years_of_service": ""
   },
   "site_logo_text": "SMA NEGERI 1 NUSANTARA",
   "site_logo_icon": "graduation-cap",
@@ -517,6 +636,26 @@
       "id": "contact",
       "title": "Kontak",
       "url": "/contact"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "news_slug": "kunjungan-industri-ke-pt-inovasi-teknologi-indonesia",
+      "name": "Rizky Ramadhan",
+      "email": "rizky@example.com",
+      "comment": "Berita yang sangat inspiratif. Semoga prestasi siswa terus berkembang dan menjadi motivasi bagi seluruh warga sekolah.",
+      "created_at": "2025-05-03",
+      "is_approved": 1
+    },
+    {
+      "id": 2,
+      "news_slug": "kunjungan-industri-ke-pt-inovasi-teknologi-indonesia",
+      "name": "Siti Aulia",
+      "email": "siti@example.com",
+      "comment": "Selamat untuk para siswa dan guru pembimbing. Terima kasih sudah membagikan kabar baik ini.",
+      "created_at": "2025-05-04",
+      "is_approved": 1
     }
   ]
 }

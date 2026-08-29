@@ -1,5 +1,29 @@
 <?php
-$article = $post ?? [];
+$article = is_array($post ?? null) ? $post : [];
+$banner = !empty($page_banners) ? (json_decode($page_banners, true)['single_post'] ?? []) : [];
+$generatedHero = base_url('themes/madya/assets/generated/hero-campus.jpg');
+$publishedAt = (string)($article['published_at'] ?? $article['created_at'] ?? '');
+$monthNames = [1=>'Januari',2=>'Februari',3=>'Maret',4=>'April',5=>'Mei',6=>'Juni',7=>'Juli',8=>'Agustus',9=>'September',10=>'Oktober',11=>'November',12=>'Desember'];
+$timestamp = $publishedAt !== '' ? strtotime($publishedAt) : false;
+$publishedLabel = $timestamp ? date('j', $timestamp) . ' ' . ($monthNames[(int)date('n', $timestamp)] ?? date('F', $timestamp)) . ' ' . date('Y', $timestamp) : 'Tanggal terbit tidak tersedia';
+$wordCount = str_word_count(trim(strip_tags((string)($article['content'] ?? ''))));
+$readMinutes = max(1, (int)ceil($wordCount / 200));
+$relatedItems = is_array($related ?? null) ? array_values($related) : [];
+$categories = is_array($categories ?? null) ? $categories : [];
+if (class_exists('App\\Models\\NewsModel')) {
+    try {
+        $newsBridge = new \App\Models\NewsModel();
+        if (!$categories) $categories = $newsBridge->getPublishedCategories();
+        if (!$relatedItems) $relatedItems = $newsBridge->getRelated($article, 3);
+    } catch (\Throwable $e) {
+        // Keep controller-provided data when the optional bridge is unavailable.
+    }
+}
+$archive = is_array($archive ?? null) ? $archive : [];
+$tags = is_array($tags ?? null) ? $tags : [];
+$commentErrors = session()->getFlashdata('errors') ?? [];
+$commentSuccess = session()->getFlashdata('success');
+$commentError = session()->getFlashdata('error');
 $canonicalUrl = base_url('news/' . rawurlencode(ltrim((string)($article['slug'] ?? ''), '/')));
 $structuredArticle = [
     '@context' => 'https://schema.org',
@@ -9,42 +33,177 @@ $structuredArticle = [
     'dateModified' => $article['updated_at'] ?? $article['published_at'] ?? null,
     'mainEntityOfPage' => $canonicalUrl,
     'url' => $canonicalUrl,
-    'description' => $article['excerpt'] ?? $article['description'] ?? '',
+    'description' => $article['excerpt'] ?? '',
     'image' => !empty($article['image']) ? [$article['image']] : null,
-    'author' => ['@type' => 'Organization', 'name' => $article['author'] ?? ($site_name ?? 'SekolahKu')],
+    'author' => ['@type' => 'Person', 'name' => $article['author'] ?? 'Redaksi'],
     'publisher' => ['@type' => 'EducationalOrganization', 'name' => $site_name ?? 'SekolahKu', 'logo' => !empty($site_logo_url) ? ['@type' => 'ImageObject', 'url' => $site_logo_url] : null],
 ];
+$shareTitle = (string)($article['title'] ?? 'Berita sekolah');
+$shareUrl = current_url();
 ?>
 <?= $this->include('themes/madya/layouts/header', [
     'structured_data' => $structuredArticle,
-    'page_title' => $article['title'] ?? 'Artikel',
-    'page_description' => $article['excerpt'] ?? $article['description'] ?? '',
+    'page_title' => $article['title'] ?? 'Berita',
+    'page_description' => $article['excerpt'] ?? '',
     'canonical_url' => $canonicalUrl,
     'og_type' => 'article',
     'og_image' => $article['image'] ?? null,
 ]) ?>
-<?= $this->include('themes/madya/components/page-header', ['eyebrow' => $article['category'] ?? 'Berita sekolah', 'title' => $article['title'] ?? 'Artikel', 'description' => $article['excerpt'] ?? '', 'image' => $article['image'] ?? '', 'breadcrumbs' => [['url' => base_url('news'), 'label' => 'Berita'], ['label' => $article['title'] ?? 'Artikel']]]) ?>
-<section class="section">
-    <div class="theme-container article-layout">
-        <article>
-            <header class="article-header"><p class="eyebrow"><?= esc($article['category'] ?? 'Berita') ?></p><h1><?= esc($article['title'] ?? 'Artikel') ?></h1><div class="article-meta"><span><?= esc($article['published_at'] ?? $article['created_at'] ?? '') ?></span><?php if (!empty($article['author'])): ?><span>Oleh <?= esc($article['author']) ?></span><?php endif; ?><?php if (isset($article['view_count'])): ?><span><?= esc($article['view_count']) ?> dilihat</span><?php endif; ?></div></header>
-            <?php if (!empty($article['image'])): ?><figure class="article-cover"><img src="<?= esc($article['image']) ?>" width="<?= esc($article['image_width'] ?? 1600) ?>" height="<?= esc($article['image_height'] ?? 1000) ?>" alt="<?= esc($article['title'] ?? 'Berita sekolah') ?>" fetchpriority="high" decoding="async"></figure><?php endif; ?>
-            <div class="article-prose"><?= $article['content'] ?? '' ?></div>
-            <div class="share-row"><span>Bagikan</span><a href="https://www.facebook.com/sharer/sharer.php?u=<?= urlencode(current_url()) ?>" target="_blank" rel="noopener">Facebook</a><a href="https://wa.me/?text=<?= urlencode(($article['title'] ?? '') . ' ' . current_url()) ?>" target="_blank" rel="noopener">WhatsApp</a><button type="button" data-copy-link>Salin tautan</button></div>
+<?php $heroImage = $generatedHero; ?>
+<?= $this->include('themes/madya/components/page-header', [
+    'eyebrow' => $banner['badge'] ?? 'Detail',
+    'title' => 'Berita',
+    'description' => $banner['subtitle'] ?? 'Informasi lengkap seputar kegiatan dan prestasi di lingkungan sekolah.',
+    'image' => $heroImage,
+    'breadcrumbs' => [['url' => base_url('news'), 'label' => 'Berita'], ['label' => 'Detail']],
+    'variant' => 'article-detail-hero',
+]) ?>
+<section class="section article-detail-section">
+    <div class="theme-container article-detail-layout">
+        <article class="article-main">
+<header class="article-header">
+                <?php if (!empty($article['category'])): ?><span class="article-category"><?= esc(trim(explode(',', (string)$article['category'])[0])) ?></span><?php endif; ?>
+                <h1><?= esc($shareTitle) ?></h1>
+                <div class="article-meta" aria-label="Metadata artikel">
+                    <span><i data-lucide="calendar-days" aria-hidden="true"></i><?= esc($publishedLabel) ?></span>
+                    <?php if (!empty($article['author'])): ?><span><i data-lucide="user-round" aria-hidden="true"></i><?= esc($article['author']) ?></span><?php endif; ?>
+                    <?php if (isset($article['view_count'])): ?><span><i data-lucide="eye" aria-hidden="true"></i><?= esc(number_format((int)$article['view_count'], 0, ',', '.')) ?> kali dibaca</span><?php endif; ?>
+                    <span><i data-lucide="clock-3" aria-hidden="true"></i><?= esc($readMinutes) ?> menit baca</span>
+                </div>
+            </header>
 
-            <?php if (!empty($related)): ?><section class="related-section"><div class="section-heading"><div><p class="eyebrow">Selanjutnya</p><h2>Berita terkait.</h2></div></div><div class="related-grid"><?php foreach ($related as $item): ?><a class="related-card" href="<?= base_url('news/' . rawurlencode((string)($item['slug'] ?? ''))) ?>"><?php if (!empty($item['image'])): ?><img src="<?= esc($item['image']) ?>" width="<?= esc($item['image_width'] ?? 1200) ?>" height="<?= esc($item['image_height'] ?? 800) ?>" alt="<?= esc($item['title']) ?>" loading="lazy" decoding="async"><?php endif; ?><div><span class="meta"><?= esc($item['published_at'] ?? $item['created_at'] ?? '') ?></span><strong><?= esc($item['title']) ?></strong></div></a><?php endforeach; ?></div></section><?php endif; ?>
+            <?php if (!empty($article['image'])): ?>
+            <figure class="article-cover">
+                <img src="<?= esc($article['image']) ?>" width="<?= esc($article['image_width'] ?? 1600) ?>" height="<?= esc($article['image_height'] ?? 1000) ?>" alt="<?= esc($shareTitle) ?>" fetchpriority="high" decoding="async">
+                <?php if (!empty($article['image_caption'])): ?><figcaption><?= esc($article['image_caption']) ?></figcaption><?php endif; ?>
+            </figure>
+            <?php endif; ?>
+
+            <div class="article-prose"><?= $article['content'] ?? '' ?></div>
+
+            <?php if (!empty($article['category'])): ?>
+            <div class="article-tags"><strong>Tag:</strong><?php foreach (array_filter(array_map('trim', explode(',', (string)$article['category']))) as $tag): ?><a href="<?= base_url('news?category=' . urlencode($tag)) ?>"><?= esc($tag) ?></a><?php endforeach; ?></div>
+            <?php endif; ?>
+
+            <nav class="article-nav" aria-label="Navigasi artikel">
+                <?php if (!empty($prev_post)): ?><a class="article-nav-card" href="<?= base_url('news/' . rawurlencode((string)$prev_post['slug'])) ?>"><span><i data-lucide="arrow-left" aria-hidden="true"></i>Artikel sebelumnya</span><strong><?= esc($prev_post['title']) ?></strong></a><?php else: ?><span></span><?php endif; ?>
+                <?php if (!empty($next_post)): ?><a class="article-nav-card article-nav-next" href="<?= base_url('news/' . rawurlencode((string)$next_post['slug'])) ?>"><span>Artikel selanjutnya <i data-lucide="arrow-right" aria-hidden="true"></i></span><strong><?= esc($next_post['title']) ?></strong></a><?php else: ?><span></span><?php endif; ?>
+            </nav>
+
+            <?php if (!empty($relatedItems)): ?>
+            <section class="article-related">
+                <div class="article-section-heading"><p class="eyebrow">Bacaan berikutnya</p><h2>Berita terkait.</h2></div>
+                <div class="article-related-grid">
+                    <?php foreach (array_slice($relatedItems, 0, 3) as $item): ?>
+                    <a class="article-related-card" href="<?= base_url('news/' . rawurlencode((string)($item['slug'] ?? ''))) ?>">
+                        <div class="article-related-media">
+                            <?php if (!empty($item['image'])): ?><img src="<?= esc($item['image']) ?>" width="800" height="500" alt="<?= esc($item['title'] ?? 'Berita') ?>" loading="lazy" decoding="async"><?php else: ?><div class="article-related-placeholder"><i data-lucide="newspaper" aria-hidden="true"></i></div><?php endif; ?>
+                        </div>
+                        <div class="article-related-body">
+                            <span><?= esc(trim(explode(',', (string)($item['category'] ?? 'Berita'))[0])) ?></span>
+                            <strong><?= esc($item['title'] ?? '') ?></strong>
+                            <small><?= esc($item['published_at'] ?? $item['created_at'] ?? '') ?></small>
+                        </div>
+                    </a>
+                    <?php endforeach; ?>
+                </div>
+            </section>
+            <?php endif; ?>
 
             <section class="comments-section" id="komentar">
-                <div class="section-heading"><div><p class="eyebrow">Ruang diskusi</p><h2><?= count($comments ?? []) ?> komentar.</h2></div></div>
-                <?php if (!empty($comments)): ?><div class="comment-list"><?php foreach ($comments as $comment): ?><article class="quote-card"><blockquote><?= esc($comment['comment'] ?? $comment['message'] ?? '') ?></blockquote><figcaption><?= esc($comment['name'] ?? 'Warga sekolah') ?> · <?= esc($comment['created_at'] ?? '') ?></figcaption></article><?php endforeach; ?></div><?php endif; ?>
-                <form class="form-grid" action="<?= base_url('news/' . esc($article['slug']) . '/comment') ?>" method="post"><input type="hidden" name="parent_id" value=""><input type="text" name="website" class="sr-only" tabindex="-1" autocomplete="off"><?= csrf_field() ?><div class="form-field"><label for="comment-name">Nama</label><input id="comment-name" name="name" required></div><div class="form-field"><label for="comment-email">Email</label><input id="comment-email" name="email" type="email" required></div><div class="form-field form-full"><label for="comment-message">Komentar</label><textarea id="comment-message" name="message" required></textarea></div><div><button class="button" type="submit">Kirim komentar</button></div></form>
+                <div class="article-section-heading"><p class="eyebrow">Ruang diskusi</p><h2>Komentar.</h2><p class="comments-intro">Bagikan tanggapan Anda. Komentar akan tampil setelah disetujui oleh pengelola sekolah.</p></div>
+                <?php if ($commentSuccess): ?><div class="comment-alert comment-alert-success" role="status"><?= esc($commentSuccess) ?></div><?php endif; ?>
+                <?php if ($commentError): ?><div class="comment-alert comment-alert-error" role="alert"><?= esc($commentError) ?></div><?php endif; ?>
+                <?php if (!empty($commentErrors)): ?><div class="comment-alert comment-alert-error" role="alert"><strong>Periksa kembali:</strong><ul><?php foreach ($commentErrors as $error): ?><li><?= esc($error) ?></li><?php endforeach; ?></ul></div><?php endif; ?>
+                <form class="comment-form" action="<?= base_url('news/comment/' . rawurlencode((string)($article['slug'] ?? ''))) ?>" method="post">
+                    <div class="comment-form-grid">
+                        <label><span>Nama</span><input type="text" name="name" value="<?= esc(old('name')) ?>" required minlength="3" maxlength="100" autocomplete="name" placeholder="Nama Anda"></label>
+                        <label><span>Email</span><input type="email" name="email" value="<?= esc(old('email')) ?>" required autocomplete="email" placeholder="email@contoh.com"></label>
+                    </div>
+                    <label><span>Komentar</span><textarea name="message" rows="5" required minlength="10" placeholder="Tulis tanggapan Anda…"><?= esc(old('message')) ?></textarea></label>
+                    <div class="comment-form-footer">
+                        <p>Komentar yang sopan dan relevan akan membantu percakapan tetap bermanfaat.</p>
+                        <button class="button" type="submit">Kirim Komentar <i data-lucide="arrow-right" aria-hidden="true"></i></button>
+                    </div>
+                    <div class="comment-honeypot" aria-hidden="true"><label>Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+                </form>
+
+                <?php if (!empty($comments)): ?>
+                <div class="comment-list" aria-label="Komentar yang telah disetujui">
+                    <?php foreach ($comments as $comment): ?>
+                    <article class="comment-card">
+                        <div class="comment-avatar" aria-hidden="true"><?= esc(strtoupper(substr(trim((string)($comment['name'] ?? 'W')), 0, 1))) ?></div>
+                        <div class="comment-card-body">
+                            <div class="comment-card-head"><strong><?= esc($comment['name'] ?? 'Warga sekolah') ?></strong><time datetime="<?= esc($comment['created_at'] ?? '') ?>"><?= esc($comment['created_at'] ?? '') ?></time></div>
+                            <p><?= nl2br(esc($comment['comment'] ?? $comment['message'] ?? '')) ?></p>
+                        </div>
+                    </article>
+                    <?php endforeach; ?>
+                </div>
+                <?php else: ?>
+                <div class="comments-empty"><i data-lucide="messages-square" aria-hidden="true"></i><div><strong>Belum ada komentar.</strong><p>Jadilah yang pertama memberikan tanggapan pada berita ini.</p></div></div>
+                <?php endif; ?>
+            </section>
+        </article>
+
+        <aside class="article-sidebar">
+            <section class="share-card">
+                <h2>Bagikan Artikel</h2>
+                <div class="share-actions">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=<?= urlencode($shareUrl) ?>" target="_blank" rel="noopener" aria-label="Bagikan ke Facebook"><i data-lucide="facebook" aria-hidden="true"></i><span>Facebook</span></a>
+                    <a href="https://twitter.com/intent/tweet?url=<?= urlencode($shareUrl) ?>&text=<?= urlencode($shareTitle) ?>" target="_blank" rel="noopener" aria-label="Bagikan ke X"><i data-lucide="twitter" aria-hidden="true"></i><span>X (Twitter)</span></a>
+                    <a href="https://wa.me/?text=<?= urlencode($shareTitle . ' ' . $shareUrl) ?>" target="_blank" rel="noopener" aria-label="Bagikan ke WhatsApp"><i data-lucide="message-circle" aria-hidden="true"></i><span>WhatsApp</span></a>
+                    <button type="button" data-copy-link aria-label="Salin tautan"><i data-lucide="link-2" aria-hidden="true"></i><span>Salin Tautan</span></button>
+                </div>
             </section>
 
-            <?php if (!empty($prev_post) || !empty($next_post)): ?><nav class="article-nav" aria-label="Navigasi artikel"><?php if ($prev_post): ?><a href="<?= base_url('news/' . rawurlencode((string)($prev_post['slug'] ?? ''))) ?>"><span>← Berita sebelumnya</span><strong><?= esc($prev_post['title']) ?></strong></a><?php else: ?><span></span><?php endif; ?><?php if ($next_post): ?><a class="article-nav-next" href="<?= base_url('news/' . rawurlencode((string)($next_post['slug'] ?? ''))) ?>"><span>Berita selanjutnya →</span><strong><?= esc($next_post['title']) ?></strong></a><?php endif; ?></nav><?php endif; ?>
-        </article>
-        <aside class="article-side">
-            <div class="widget"><h2>Berita terbaru</h2><div class="sidebar-news"><?php foreach (($recent_news ?? []) as $postItem): ?><a href="<?= base_url('news/' . rawurlencode((string)($postItem['slug'] ?? ''))) ?>"><span><?= esc($postItem['title']) ?></span><small><?= esc($postItem['published_at'] ?? $postItem['created_at'] ?? '') ?></small></a><?php endforeach; ?></div></div>
-            <?php if (!empty($archive)): ?><div class="widget"><h2>Arsip</h2><div class="sidebar-links"><?php foreach ($archive as $item): ?><a href="<?= base_url('news?month=' . urlencode($item['month'])) ?>"><?= esc($item['label']) ?><span><?= esc($item['count']) ?></span></a><?php endforeach; ?></div></div><?php endif; ?>
+            <?php if (!empty($relatedItems)): ?>
+            <section class="sidebar-card">
+                <h2>Berita Terkait</h2>
+                <div class="sidebar-related-list">
+                    <?php foreach ($relatedItems as $item): ?><a href="<?= base_url('news/' . rawurlencode((string)($item['slug'] ?? ''))) ?>"><?php if (!empty($item['image'])): ?><img src="<?= esc($item['image']) ?>" width="96" height="64" alt="" loading="lazy" decoding="async"><?php endif; ?><span><strong><?= esc($item['title'] ?? '') ?></strong><small><?= esc($item['published_at'] ?? $item['created_at'] ?? '') ?></small></span></a><?php endforeach; ?>
+                </div>
+            </section>
+            <?php endif; ?>
+
+            <?php if (!empty($categories)): ?>
+            <section class="sidebar-card">
+                <h2>Kategori Berita</h2>
+                <div class="sidebar-category-list">
+                    <?php foreach ($categories as $cat): ?><a href="<?= base_url('news?category=' . urlencode((string)($cat['name'] ?? ''))) ?>"><span><?= esc($cat['name'] ?? '') ?></span><b><?= esc($cat['count'] ?? 0) ?></b></a><?php endforeach; ?>
+                </div>
+                <a class="sidebar-more" href="<?= base_url('news') ?>">Lihat semua kategori <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+            </section>
+            <?php endif; ?>
+            <?php if (!empty($tags)): ?>
+            <section class="sidebar-card">
+                <h2>Topik Populer</h2>
+                <div class="article-sidebar-tags">
+                    <?php foreach (array_slice($tags, 0, 12) as $tag): $tagName = is_array($tag) ? ($tag['name'] ?? $tag['tag'] ?? '') : $tag; if (!$tagName) continue; ?>
+                    <a href="<?= base_url('news?search=' . urlencode((string)$tagName)) ?>"><?= esc($tagName) ?></a>
+                    <?php endforeach; ?>
+                </div>
+            </section>
+            <?php endif; ?>
+
+            <?php if (!empty($archive)): ?>
+            <section class="sidebar-card">
+                <h2>Arsip Berita</h2>
+                <div class="article-archive-list">
+                    <?php foreach (array_slice($archive, 0, 8) as $entry): ?>
+                    <a href="<?= base_url('news?month=' . urlencode((string)($entry['month'] ?? ''))) ?>"><span><?= esc($entry['label'] ?? $entry['month'] ?? '') ?></span><b><?= esc($entry['count'] ?? 0) ?></b></a>
+                    <?php endforeach; ?>
+                </div>
+            </section>
+            <?php endif; ?>
+
+            <section class="article-newsletter">
+                <p class="eyebrow eyebrow-dark">Tetap terhubung</p>
+                <h2>Dapatkan Informasi Terbaru</h2>
+                <p>Ikuti berita dan kegiatan terbaru sekolah melalui halaman berita kami.</p>
+                <a class="button button-light" href="<?= base_url('news') ?>">Lihat berita terbaru <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+                <div class="article-newsletter-art" aria-hidden="true"><i data-lucide="mail-open"></i></div>
+            </section>
         </aside>
     </div>
 </section>

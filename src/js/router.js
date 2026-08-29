@@ -1,4 +1,5 @@
 import { initIcons } from './icons.js';
+import { initArticleActions } from './article.js';
 import { getState } from './state.js';
 import renderHome from './views/home.js';
 import renderSection from './views/section.js';
@@ -44,6 +45,7 @@ function renderCurrentRouteNow() {
         renderArticle(getState(), slug, shell);
         renderFooter(getState());
         initIcons(shell);
+        initArticleActions();
         updateDocumentMeta(getState(), 'article', slug);
         finishNativeNavigation();
         return;

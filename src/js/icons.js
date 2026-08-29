@@ -29,6 +29,8 @@ const paths = {
     'trophy': '<path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H5a3 3 0 0 0 3 3M16 6h3a3 3 0 0 1-3 3M12 13v5M8 21h8M9 18h6"/>',
     'user-plus': '<circle cx="9" cy="8" r="4"/><path d="M3 21a6 6 0 0 1 12 0M19 8v6M16 11h6"/>',
     'users': '<circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0M16 5.5a3 3 0 0 1 0 5.9M18 14a5 5 0 0 1 3 4.5"/>',
+    'user': '<circle cx="12" cy="7.5" r="3.5"/><path d="M4.5 21a7.5 7.5 0 0 1 15 0"/>',
+    'eye': '<path d="M2.5 12s3.5-5 9.5-5 9.5 5 9.5 5-3.5 5-9.5 5-9.5-5-9.5-5Z"/><circle cx="12" cy="12" r="2.5"/>',
     'x': '<path d="m6 6 12 12M18 6 6 18"/>',
     'activity': '<path d="M3 12h4l2-6 4 12 2-6h6"/>',
     'microscope': '<path d="M6 20h12M9 20a6 6 0 0 0 6-6v-2M8 4h4l2 5-4 2zM7 13h8M16 7l3 3"/>',
@@ -54,10 +56,17 @@ const paths = {
     'clipboard-text': '<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4.5V3h6v1.5M9 10h6M9 14h6M9 18h4"/>',
     'atom-2': '<circle cx="12" cy="12" r="2"/><path d="M19.5 12c0 4.5-3.4 8-7.5 8s-7.5-3.5-7.5-8 3.4-8 7.5-8 7.5 3.5 7.5 8Z"/><path d="M15.75 18.5C11.8 20.7 6.8 19.6 4.7 16s-.9-8.5 3-10.7 8.9-1.1 11 2.5.9 8.5-3 10.7Z" transform="rotate(60 12 12)"/><path d="M15.75 5.5c3.9 2.2 5 7.1 3 10.7s-7 4.7-11 2.5-5-7.1-3-10.7 7-4.7 11-2.5Z" transform="rotate(-60 12 12)"/>',
     'photo': '<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9" r="1.5"/><path d="m4 17 5-5 4 4 3-3 4 4"/>',
+    'brand-facebook': '<path d="M14 8h3V4h-3c-3.3 0-5 2-5 5v3H6v4h3v4h4v-4h3l1-4h-4V9c0-.7.3-1 1-1Z"/>',
+    'brand-x': '<path d="M5 4l14 16M19 4 5 20"/>',
+    'brand-whatsapp': '<path d="M20 11.5a7.5 7.5 0 0 1-11.1 6.6L5 20l1.6-3.7A7.5 7.5 0 1 1 20 11.5Z"/><path d="M9.5 8.8c.2-.3.4-.3.7-.2l1 .6c.2.1.3.3.2.5l-.4.8c-.1.2-.1.3 0 .5.4.7 1 1.3 1.7 1.7.2.1.3.1.5 0l.7-.4c.2-.1.4 0 .5.1l.7.9c.2.2.2.4 0 .6-.4.5-1 .8-1.6.7-1.1-.2-2.3-1-3.2-1.9-.9-.9-1.7-2.1-1.9-3.2-.1-.6.2-1.2.7-1.7Z"/>',
+    'brand-link': '<path d="M10 13a5 5 0 0 0 7.5.5l1.5-1.5a5 5 0 0 0-7.1-7.1L11 5.8"/><path d="M14 11a5 5 0 0 0-7.5-.5L5 12a5 5 0 0 0 7.1 7.1l.9-.9"/>',
 };
 
 const aliases = {
     'chevron': 'chevron-down',
+    'facebook': 'brand-facebook',
+    'twitter': 'brand-x',
+    'link-2': 'brand-link',
     'arrow-up': 'arrow-up-right',
     'graduation-cap': 'graduation-cap',
 };

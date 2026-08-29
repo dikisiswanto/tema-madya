@@ -104,7 +104,7 @@ export default function renderHome(state, container) {
         : ""
     }
     <section class="home-section home-middle-section" id="profile" aria-label="Profil sekolah"><div class="theme-container home-middle-stack">
-      <div class="home-middle-grid home-middle-grid-profile"><article class="principal-panel"><div class="principal-photo">${imageOr(principal.image || principal.image_url, principal.name || "Kepala sekolah", generated("principal.jpg"), principal)}</div><div class="principal-message"><p class="section-kicker">Sambutan Kepala Sekolah</p><blockquote>“${esc(principal.bio || "Membangun karakter, meraih masa depan bersama seluruh warga sekolah.")}”</blockquote>${principal.description ? `<p class="principal-description">${esc(principal.description)}</p>` : ""}<strong>${esc(principal.name || "Kepala Sekolah")}</strong><span>${esc(principal.title || principal.position || "Kepala Sekolah")}</span><div class="principal-facts">${[
+      <div class="home-middle-grid home-middle-grid-profile"><article class="principal-panel"><div class="principal-photo">${imageOr(principal.photo || principal.image || principal.image_url, principal.name || "Kepala sekolah", generated("principal.jpg"), principal)}</div><div class="principal-message"><p class="section-kicker">Sambutan Kepala Sekolah</p><blockquote>“${esc(principal.welcome_message || "Selamat datang di sekolah kami.")}”</blockquote>${principal.description ? `<p class="principal-description">${esc(principal.description)}</p>` : ""}<strong>${esc(principal.name || "Kepala Sekolah")}</strong><span>${esc(principal.role_title || principal.title || principal.position || "Kepala Sekolah")}</span><div class="principal-facts">${[
         ["award", "Akreditasi", about.accreditation],
         ["book-open", "Kurikulum", about.curriculum],
         ["calendar-days", "Tahun Berdiri", about.established_year].filter(
@@ -155,7 +155,7 @@ export default function renderHome(state, container) {
               .slice(0, 3)
               .map(
                 (x) =>
-                  `<article class="achievement-list-row"><span class="achievement-list-icon">${iconMarkup("trophy")}</span><div><strong>${esc(x.title || "Prestasi siswa")}</strong><small>${esc(x.description || "")}</small></div><time>${esc(x.year || "")}</time></article>`,
+                  `<article class="achievement-list-row"><span class="achievement-list-icon">${iconMarkup("trophy")}</span><div><strong>${esc((x.achievement || x.title || "Prestasi siswa") + (x.student_name ? ` — ${x.student_name}` : ""))}</strong><small>${esc(([x.level, x.class_name].filter(Boolean).join(" · ")) || x.description || "")}</small></div><time>${esc(x.year || "")}</time></article>`,
               )
               .join("")}</div></article>`
           : ""
@@ -176,7 +176,7 @@ export default function renderHome(state, container) {
               .slice(0, 3)
               .map(
                 (x) =>
-                  `<article class="agenda-item"><time datetime="${esc(x.event_date || "")}"><b>${esc(x.event_date ? new Date(x.event_date).toLocaleDateString("id-ID", { day: "2-digit" }) : "—")}</b><span>${esc(month(x.event_date))}</span></time><div><h3>${esc(x.title || "Kegiatan sekolah")}</h3><p>${esc(x.time || "")}${x.location ? ` · ${esc(x.location)}` : ""}</p></div>${iconMarkup("chevron-right")}</article>`,
+                  `<article class="agenda-item"><time datetime="${esc(x.event_date || "")}"><b>${esc(x.event_date ? new Date(x.event_date).toLocaleDateString("id-ID", { day: "2-digit" }) : "—")}</b><span>${esc(month(x.event_date))}</span></time><div><h3>${esc(x.title || "Kegiatan sekolah")}</h3><p>${esc(x.event_time || x.time || "")}${x.location ? ` · ${esc(x.location)}` : ""}</p></div>${iconMarkup("chevron-right")}</article>`,
               )
               .join("")}</div></article>`
           : ""
@@ -187,7 +187,7 @@ export default function renderHome(state, container) {
               .slice(0, 4)
               .map(
                 (x, i) =>
-                  `<a class="gallery-home-item gallery-home-item-${i}" href="#gallery">${imageOr(x.image, x.title || "Dokumentasi sekolah", generated(galleryFallbacks[i]), x)}</a>`,
+                  `<a class="gallery-home-item gallery-home-item-${i}" href="#gallery">${imageOr(x.image, x.caption || x.title || "Dokumentasi sekolah", generated(galleryFallbacks[i]), x)}</a>`,
               )
               .join("")}</div></article>`
           : ""
@@ -195,7 +195,7 @@ export default function renderHome(state, container) {
         testimonials.length
           ? `<article class="middle-panel"><div class="section-head-row compact"><div><p class="section-kicker">Testimoni</p><h2>Apa kata mereka tentang sekolah?</h2></div><a class="text-link" href="#testimonials">Lihat Semua ${iconMarkup("arrow-right")}</a></div><div class="testimonial-feature" id="testimonials">${(() => {
               const x = testimonials[0];
-              return `<div class="testimonial-quote-mark">“</div><blockquote>${esc(x.quote || x.content || "")}</blockquote><div class="testimonial-person">${imageOr(x.image, "", generated("testimonial-1.jpg"), x)}<span><strong>${esc(x.name || x.author || "Warga sekolah")}</strong><small>${esc(x.role || "")}</small></span><span class="testimonial-stars">★★★★★</span></div>`;
+              return `<div class="testimonial-quote-mark">“</div><blockquote>${esc(x.quote || x.content || "")}</blockquote><div class="testimonial-person">${imageOr(x.photo || x.image, "", generated("testimonial-1.jpg"), x)}<span><strong>${esc(x.name || x.author || "Warga sekolah")}</strong><small>${esc(x.role || "")}</small></span></div>`;
             })()}</div></article>`
           : ""
       }</div>
@@ -208,7 +208,7 @@ export default function renderHome(state, container) {
       )
       .join(
         "",
-      )}</div></div><aside class="spmb-home-banner"><div><p class="section-kicker">SPMB 2025/2026</p><h2>SPMB 2025/2026 Dibuka!</h2><p>Bergabung bersama kami dan raih masa depan gemilang.</p><a class="button button-accent" href="${esc(state.spmb_url || "#")}">Daftar Sekarang ${iconMarkup("arrow-right")}</a></div>${imageOr(about.image, "", generated("spmb-students.jpg"), about)}</aside></div></section>
+      )}</div></div><aside class="spmb-home-banner"><div><p class="section-kicker">SPMB Online</p><h2>Pendaftaran peserta didik baru.</h2><p>Bergabung bersama kami dan raih masa depan gemilang.</p><a class="button button-accent" href="${esc(state.spmb_url || "#")}">Daftar Sekarang ${iconMarkup("arrow-right")}</a></div>${imageOr(about.image, "", generated("spmb-students.jpg"), about)}</aside></div></section>
     <section class="home-contact-strip" id="contact" aria-label="Kontak sekolah"><div class="theme-container contact-strip-grid"><div>${iconMarkup("map-pin")}<span><b>Hubungi Kami</b><small>${esc(state.contact_address || "—")}</small></span></div><div>${iconMarkup("phone")}<span><b>Telepon</b><small>${esc(state.contact_phone || "—")}</small></span></div><div>${iconMarkup("mail")}<span><b>Email</b><small>${esc(state.contact_email || "—")}</small></span></div><div>${iconMarkup("clock-3")}<span><b>Jam Layanan</b><small>${esc(state.contact_hours || "—")}</small></span></div></div></section>
   </div>`;
 }
