@@ -10,6 +10,7 @@ const themeSource = path.join(root, 'src', 'theme', 'app', 'Views', 'themes', 'm
 const assetSource = path.join(root, 'dist-assets');
 const releaseRoot = path.join(release, 'madya');
 const releaseViews = path.join(releaseRoot, 'app', 'Views', 'themes', 'madya');
+const releaseBridgeViews = path.join(releaseRoot, 'app', 'Views', 'pages');
 const releaseAssets = path.join(releaseRoot, 'public', 'themes', 'madya', 'assets');
 const validateScript = path.join(root, 'scripts', 'validate-theme.js');
 
@@ -18,9 +19,11 @@ execFileSync(process.execPath, [validateScript], { cwd: root, stdio: 'inherit' }
 await rm(dist, { recursive: true, force: true });
 await rm(release, { recursive: true, force: true });
 await mkdir(releaseViews, { recursive: true });
+await mkdir(releaseBridgeViews, { recursive: true });
 await mkdir(releaseAssets, { recursive: true });
 
 await cp(themeSource, releaseViews, { recursive: true });
+await cp(path.join(root, 'src', 'theme', 'app', 'Views', 'pages'), releaseBridgeViews, { recursive: true });
 
 try {
     await stat(assetSource);
@@ -64,6 +67,7 @@ const manifest = {
     contractViews: requiredViews.map((file) => file.replace(/^pages\//, '')),
     controllerViews: ['pages/home', 'pages/news', 'pages/single_post', 'pages/downloads', 'pages/contact', 'pages/page'],
     source: { viewRoot: 'src/theme/app/Views/themes/madya' },
+    viewAdapter: { strategy: 'public-view-override', path: 'app/Views/pages', reason: 'Sekolahku 3.1.2 resolves fixed public view names; no core changes required.' },
     navigation: {
         sectionLinks: true,
         hybridSpa: true,

@@ -18,7 +18,7 @@ $themeOgImage = $og_image ?? $social_image ?? null;
 ?>
 <title><?= esc($themeTitle) ?></title>
     <meta name="description" content="<?= esc($themeDescription) ?>">
-    <meta name="theme-color" content="<?= esc($theme_color ?? '#1f5268') ?>">
+    <meta name="theme-color" content="#072A63">
     <link rel="canonical" href="<?= esc($themeCanonical) ?>">
     <meta name="robots" content="<?= esc($robots ?? 'index,follow') ?>">
     <meta property="og:locale" content="id_ID">

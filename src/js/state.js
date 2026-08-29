@@ -30,6 +30,12 @@ function normalizeState(raw) {
         site_name: raw.site_name || 'SekolahKu',
         site_tagline: raw.site_tagline || '',
         site_description: raw.site_description || '',
+        site_logo_text: raw.site_logo_text || raw.site_name || 'SekolahKu',
+        site_logo_icon: raw.site_logo_icon || 'graduation-cap',
+        social_facebook: raw.social_facebook || '', social_instagram: raw.social_instagram || '', social_youtube: raw.social_youtube || '', social_tiktok: raw.social_tiktok || '',
+        footer_description: raw.footer_description || '', footer_copyright: raw.footer_copyright || '',
+        footer_services: normalizeList(raw.footer_services), footer_links: normalizeList(raw.footer_links),
+        spmb_url: raw.spmb_url || '',
         contact_phone: raw.contact_phone || '',
         contact_email: raw.contact_email || '',
         contact_address: raw.contact_address || '',
@@ -51,7 +57,8 @@ function normalizeState(raw) {
         events: normalizeCollection(raw.events, ['id','title','description','excerpt','event_date','date','image','image_url']),
         galleries: normalizeCollection(raw.galleries, ['id','title','description','image','image_url','image_width','image_height','width','height','image_srcset','image_sizes','srcset','sizes','album']),
         faq: normalizeCollection(raw.faq, ['id','question','title','answer','content']),
-        news: normalizeCollection(raw.news, ['id','title','slug','excerpt','published_at','created_at','image','image_url','image_width','image_height','width','height','image_srcset','image_sizes','srcset','sizes','category']),
+        news: normalizeCollection(raw.news, ['id','title','slug','excerpt','content','body','published_at','created_at','image','image_url','image_width','image_height','width','height','image_srcset','image_sizes','srcset','sizes','category','author','view_count']),
+        downloads: normalizeCollection(raw.downloads, ['id','title','description','category','url','file_size','size','type','extension','created_at']),
         urls: normalizeObject(raw.urls),
     };
 }

@@ -1,241 +1,164 @@
 <?= $this->include('themes/madya/layouts/header') ?>
-
 <?php
 $aboutData = is_array($about ?? null) ? $about : (json_decode($about ?? '[]', true) ?: []);
-$counterItems = is_array($counter_stats ?? null) ? $counter_stats : (json_decode($counter_stats ?? '[]', true) ?: []);
-$heroStats = is_array($hero_stats ?? null) ? $hero_stats : (json_decode($hero_stats ?? '[]', true) ?: []);
-$counterItems = array_slice($counterItems ?: $heroStats, 0, 4);
-$heroImage = $aboutData['image'] ?? $aboutData['image_url'] ?? '';
-$heroWidth = $aboutData['image_width'] ?? $aboutData['width'] ?? 1600;
-$heroHeight = $aboutData['image_height'] ?? $aboutData['height'] ?? 1100;
-$themeState = [
-    'site_name' => $site_name ?? 'SekolahKu',
-    'site_tagline' => $site_tagline ?? '',
-    'site_description' => $site_description ?? '',
-    'contact_phone' => $contact_phone ?? '',
-    'contact_email' => $contact_email ?? '',
-    'contact_address' => $contact_address ?? '',
-    'contact_hours' => $contact_hours ?? '',
-    'hero_badge' => $hero_badge ?? '',
-    'hero_title' => $hero_title ?? '',
-    'hero_subtitle' => $hero_subtitle ?? '',
-    'hero_btn_primary_text' => $hero_btn_primary_text ?? '',
-    'hero_btn_primary_url' => $hero_btn_primary_url ?? '',
-    'hero_btn_secondary_text' => $hero_btn_secondary_text ?? '',
-    'hero_btn_secondary_url' => $hero_btn_secondary_url ?? '',
-    'about' => $aboutData,
-    'counter_stats' => $counterItems,
-    'hero_stats' => $heroStats,
-    'principal' => $principal ?? [],
-    'programs' => $programs ?? [],
-    'extracurriculars' => $extracurriculars ?? [],
-    'teachers' => $teachers ?? [],
-    'achievements' => $achievements ?? [],
-    'testimonials' => $testimonials ?? [],
-    'events' => $events ?? [],
-    'galleries' => $galleries ?? [],
-    'faq' => $faq ?? [],
-    'news' => $news ?? [],
-    'urls' => ['news' => base_url('news'), 'downloads' => base_url('downloads'), 'contact' => base_url('contact')],
+$counterItems = is_array($counter_stats ?? null) ? array_slice($counter_stats, 0, 4) : [];
+$principalData = is_array($principal ?? null) ? $principal : (json_decode($principal ?? '[]', true) ?: []);
+$programItems = is_array($programs ?? null) ? $programs : [];
+$extraItems = is_array($extracurriculars ?? null) ? $extracurriculars : [];
+$teacherItems = is_array($teachers ?? null) ? $teachers : [];
+$achievementItems = is_array($achievements ?? null) ? $achievements : [];
+$testimonialItems = is_array($testimonials ?? null) ? $testimonials : [];
+$eventItems = is_array($events ?? null) ? $events : [];
+$galleryItems = is_array($galleries ?? null) ? $galleries : [];
+$newsItems = is_array($news ?? null) ? $news : [];
+$downloadItems = is_array($downloads ?? null) ? $downloads : [];
+$announcementItems = array_values(array_filter($newsItems, static fn($item) => strtolower((string)($item['category'] ?? '')) === 'pengumuman'));
+$announcementItems = array_slice($announcementItems ?: $newsItems, 0, 3);
+$heroImage = $aboutData['hero_image'] ?? $aboutData['image'] ?? $aboutData['image_url'] ?? '';
+$heroWidth = $aboutData['hero_image_width'] ?? $aboutData['image_width'] ?? $aboutData['width'] ?? 1600;
+$heroHeight = $aboutData['hero_image_height'] ?? $aboutData['image_height'] ?? $aboutData['height'] ?? 1100;
+$primaryUrl = $hero_btn_primary_url ?? '#profile';
+$primaryText = $hero_btn_primary_text ?? 'Jelajahi Sekolah';
+$secondaryUrl = $hero_btn_secondary_url ?? '#profile';
+$secondaryText = $hero_btn_secondary_text ?? 'Tentang Kami';
+$serviceItems = [
+    ['icon' => 'user-plus', 'label' => 'SPMB Online', 'desc' => 'Pendaftaran siswa baru', 'url' => $spmb_url ?? '#'],
+    ['icon' => 'monitor-play', 'label' => 'E-Learning', 'desc' => 'Belajar di mana saja', 'url' => '#'],
+    ['icon' => 'book-open', 'label' => 'Perpustakaan', 'desc' => 'Akses buku & referensi', 'url' => '#'],
+    ['icon' => 'bell-ring', 'label' => 'Pengaduan', 'desc' => 'Sampaikan keluhan Anda', 'url' => '#'],
+    ['icon' => 'download', 'label' => 'Download Dokumen', 'desc' => 'Formulir & surat penting', 'url' => base_url('downloads')],
+    ['icon' => 'mail', 'label' => 'Kontak Sekolah', 'desc' => 'Hubungi kami', 'url' => base_url('contact')],
 ];
+$statIcons = ['users', 'graduation-cap', 'trophy', 'book-open'];
+$programItems = array_slice($programItems, 0, 4);
+$extraItems = array_slice($extraItems, 0, 6);
+$teacherItems = array_slice($teacherItems, 0, 4);
+$achievementItems = array_slice($achievementItems, 0, 3);
+$eventItems = array_slice($eventItems, 0, 4);
+$galleryItems = array_slice($galleryItems, 0, 6);
+$newsFeatured = $newsItems[0] ?? null;
+$newsSecondary = array_slice($newsItems, 1, 3);
+$downloadItems = array_slice($downloadItems, 0, 4);
+$heroTitleMarkup = esc($hero_title ?: 'Membentuk Generasi Berilmu, Berakhlak, dan Berprestasi.');
+$heroTitleMarkup = preg_replace('/(Berprestasi\.?)(\s*)$/u', '<span class="hero-title-accent">$1</span>$2', $heroTitleMarkup);
 ?>
 
-<div data-spa-content>
-    <section class="section hero-section" aria-labelledby="hero-title">
-        <div class="theme-container hero-editorial">
-            <div class="hero-editorial-copy">
-                <?php if (!empty($hero_badge)): ?><p class="eyebrow"><?= esc($hero_badge) ?></p><?php endif; ?>
-                <p class="hero-kicker">Belajar · Bertumbuh · Berkarya</p>
-                <h1 id="hero-title" class="display-title hero-title"><?= esc($hero_title ?: 'Ruang untuk belajar, bertumbuh, dan melangkah.') ?></h1>
-                <p class="hero-lead"><?= esc($hero_subtitle ?: ($site_tagline ?? '')) ?></p>
-                <div class="hero-actions">
-                    <?php if (!empty($hero_btn_primary_url)): ?><a class="button" href="<?= esc($hero_btn_primary_url) ?>"><?= esc($hero_btn_primary_text ?: 'Kenali sekolah') ?></a><?php else: ?><a class="button" href="#profile">Kenali sekolah</a><?php endif; ?>
-                    <?php if (!empty($hero_btn_secondary_url)): ?><a class="button button-secondary" href="<?= esc($hero_btn_secondary_url) ?>"><?= esc($hero_btn_secondary_text ?: 'Lihat program') ?></a><?php else: ?><a class="button button-secondary" href="#programs">Lihat program</a><?php endif; ?>
-                </div>
-            </div>
-            <div class="hero-editorial-media-wrap">
-                <figure class="hero-media hero-media-editorial">
-                    <?php if ($heroImage): ?><img src="<?= esc($heroImage) ?>" width="<?= esc($heroWidth) ?>" height="<?= esc($heroHeight) ?>" alt="Lingkungan <?= esc($site_name ?? 'sekolah') ?>" fetchpriority="high" decoding="async">
-                    <?php else: ?><div class="media-placeholder" style="height:100%;min-height:28rem" role="img" aria-label="Lingkungan sekolah"><span><?= esc($site_name ?? 'SekolahKu') ?></span></div><?php endif; ?>
-                    <canvas class="campus-scene" data-campus-scene aria-hidden="true"></canvas>
-                    <div class="campus-scene-label"><i data-lucide="school" aria-hidden="true"></i><span>Miniatur kampus</span></div>
-                    <?php $principalCard = $principal ?? ($teachers[0] ?? []); ?>
-                    <div class="hero-principal-card">
-                        <?php if (!empty($principalCard['image'])): ?><img src="<?= esc($principalCard['image']) ?>" width="<?= esc($principalCard['image_width'] ?? 900) ?>" height="<?= esc($principalCard['image_height'] ?? 1100) ?>" alt="<?= esc($principalCard['name'] ?? 'Kepala sekolah') ?>" loading="lazy" decoding="async"><?php endif; ?>
-                        <div><span>Kepala sekolah</span><strong><?= esc($principalCard['name'] ?? 'Kepala sekolah') ?></strong></div>
-                    </div>
-                    <?php if (!empty($aboutData['image_caption'])): ?><figcaption><?= esc($aboutData['image_caption']) ?></figcaption><?php endif; ?>
-                </figure>
-                <div class="hero-note"><span>01</span><p><?= esc($site_tagline ?: 'Ruang belajar untuk tumbuh bersama.') ?></p></div>
+<div class="home-page">
+<section class="home-hero" aria-labelledby="hero-title">
+    <div class="theme-container home-hero-grid">
+        <div class="home-hero-copy">
+            <?php if (!empty($hero_badge)): ?><p class="hero-kicker"><?= esc($hero_badge) ?></p><?php endif; ?>
+            <h1 id="hero-title"><?= $heroTitleMarkup ?></h1>
+            <p class="hero-lead"><?= esc($hero_subtitle ?: ($site_description ?? $site_tagline ?? '')) ?></p>
+            <div class="home-hero-actions">
+                <a class="button" href="<?= esc($primaryUrl) ?>"><?= esc($primaryText) ?> <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+                <a class="button button-secondary" href="<?= esc($secondaryUrl) ?>"><i data-lucide="play-circle" aria-hidden="true"></i><?= esc($secondaryText) ?></a>
             </div>
         </div>
-    </section>
+        <div class="hero-photo-wrap">
+            <figure class="hero-photo">
+                <?php if ($heroImage): ?><img src="<?= esc($heroImage) ?>" width="<?= esc($heroWidth) ?>" height="<?= esc($heroHeight) ?>" alt="Lingkungan <?= esc($site_name ?? 'sekolah') ?>" fetchpriority="high" decoding="async"><?php else: ?><div class="media-placeholder" role="img" aria-label="Lingkungan sekolah"><span><?= esc($site_name ?? 'SekolahKu') ?></span></div><?php endif; ?>
+            </figure>
+            <?php if ($announcementItems): ?><aside class="hero-announcement" aria-label="Pengumuman terbaru">
+                <h2><i data-lucide="megaphone" aria-hidden="true"></i> Pengumuman Terbaru</h2>
+                <ul class="announcement-list">
+                    <?php foreach ($announcementItems as $item): ?><li><a href="<?= base_url('news/' . rawurlencode((string)($item['slug'] ?? ''))) ?>"><?= esc($item['title'] ?? 'Informasi terbaru') ?></a><?php if (!empty($item['published_at'])): ?><small><?= esc(date('d M Y', strtotime((string)$item['published_at']))) ?></small><?php endif; ?></li><?php endforeach; ?>
+                </ul>
+                <a class="announcement-more" href="<?= base_url('news?category=Pengumuman') ?>">Lihat semua pengumuman <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+            </aside><?php endif; ?>
+        </div>
+    </div>
+</section>
 
-    <section class="section section-facts" aria-label="Gambaran singkat sekolah">
-        <div class="theme-container"><div class="fact-strip editorial-facts">
-            <?php if ($counterItems): foreach ($counterItems as $index => $stat): ?><div class="fact-item"><span class="fact-number"><?= esc(str_pad((string) ($index + 1), 2, '0', STR_PAD_LEFT)) ?></span><strong><?= esc($stat['value'] ?? $stat['number'] ?? '') ?></strong><span><?= esc($stat['label'] ?? $stat['title'] ?? '') ?></span></div><?php endforeach; else: ?><div class="fact-item"><strong>—</strong><span>Profil sekolah</span></div><?php endif; ?>
+<section class="home-quick-services" aria-label="Layanan cepat">
+    <div class="theme-container quick-service-grid">
+        <?php foreach ($serviceItems as $service): ?>
+            <a class="quick-service<?= $service['url'] === '#' ? ' is-disabled' : '' ?>" href="<?= esc($service['url']) ?>"<?= $service['url'] === '#' ? ' aria-disabled="true" tabindex="-1"' : '' ?>>
+                <span class="quick-service-icon"><i data-lucide="<?= esc($service['icon']) ?>" aria-hidden="true"></i></span>
+                <span><strong><?= esc($service['label']) ?></strong><small><?= esc($service['desc']) ?></small></span>
+            </a>
+        <?php endforeach; ?>
+    </div>
+</section>
+
+<?php if ($counterItems): ?><section class="home-stat-section" aria-label="Statistik sekolah"><div class="theme-container"><div class="home-stat-grid">
+    <?php foreach ($counterItems as $index => $stat): ?><div class="home-stat-item"><i data-lucide="<?= esc($statIcons[$index] ?? 'sparkles') ?>" aria-hidden="true"></i><div><strong><?= esc($stat['value'] ?? $stat['number'] ?? '') ?><?= !isset($stat['value']) && !empty($stat['suffix']) ? esc($stat['suffix']) : '' ?></strong><span><?= esc($stat['label'] ?? $stat['title'] ?? '') ?></span></div></div><?php endforeach; ?>
+</div></div></section><?php endif; ?>
+
+<section class="home-section" id="profile" aria-labelledby="profile-title">
+    <div class="theme-container profile-grid">
+        <article class="principal-panel">
+            <div class="principal-photo">
+                <?php if (!empty($principalData['image'])): ?><img src="<?= esc($principalData['image']) ?>" width="<?= esc($principalData['image_width'] ?? 900) ?>" height="<?= esc($principalData['image_height'] ?? 1100) ?>" alt="<?= esc($principalData['name'] ?? 'Kepala sekolah') ?>" loading="lazy" decoding="async"><?php else: ?><div class="media-placeholder"><span>Kepala sekolah</span></div><?php endif; ?>
+            </div>
+            <div class="principal-message">
+                <p class="section-kicker">Sambutan Kepala Sekolah</p>
+                <blockquote>“<?= esc($principalData['bio'] ?? 'Mari bersama membangun lingkungan belajar yang inspiratif, berkarakter, dan berdaya saing.') ?>”</blockquote>
+                <strong><?= esc($principalData['name'] ?? 'Kepala Sekolah') ?></strong>
+                <span><?= esc($principalData['title'] ?? $principalData['position'] ?? 'Kepala Sekolah') ?></span>
+                <div class="principal-facts">
+                    <?php foreach ([['award','Akreditasi',$aboutData['accreditation'] ?? ''],['book-open','Kurikulum',$aboutData['curriculum'] ?? ''],['calendar-days','Tahun Berdiri',$aboutData['established_year'] ?? '']] as $fact): if ($fact[2] === '') continue; ?>
+                        <div><i data-lucide="<?= esc($fact[0]) ?>" aria-hidden="true"></i><span><b><?= esc($fact[1]) ?></b><?= esc($fact[2]) ?></span></div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </article>
+        <div class="profile-copy">
+            <p class="section-kicker">Profil Singkat</p>
+            <h2 id="profile-title">Sekolah yang tumbuh bersama masyarakat.</h2>
+            <p><?= esc($aboutData['description'] ?? $site_description ?? '') ?></p>
+            <div class="profile-points">
+                <div class="profile-point"><i data-lucide="compass" aria-hidden="true"></i><div><strong>Visi</strong><span><?= esc($aboutData['visi'] ?? '') ?></span></div></div>
+                <div class="profile-point"><i data-lucide="target" aria-hidden="true"></i><div><strong>Misi</strong><span><?= esc($aboutData['misi'] ?? '') ?></span></div></div>
+                <div class="profile-point"><i data-lucide="landmark" aria-hidden="true"></i><div><strong>Fasilitas Unggulan</strong><span><?= esc($aboutData['facilities'] ?? '') ?></span></div></div>
+            </div>
+            <a class="text-link" href="#profile">Selengkapnya Tentang Sekolah <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+        </div>
+    </div>
+</section>
+
+<?php if ($programItems || $extraItems): ?><section class="home-section section-soft" id="programs" aria-labelledby="programs-title"><div class="theme-container">
+    <div class="section-head-row"><div><p class="section-kicker">Program & Ekstrakurikuler</p><h2 id="programs-title">Wadah pengembangan potensi dan minat siswa.</h2></div><a class="text-link" href="#programs">Lihat Semua <i data-lucide="arrow-right" aria-hidden="true"></i></a></div>
+    <div class="programs-extras-grid">
+        <div><div class="subsection-label"><span>Program Unggulan</span></div><div class="program-card-grid">
+            <?php foreach ($programItems as $item): ?><article class="program-card"><span class="program-card-icon"><i data-lucide="<?= esc($item['icon'] ?? 'book-open') ?>" aria-hidden="true"></i></span><h3><?= esc($item['title'] ?? $item['name'] ?? 'Program') ?></h3><p><?= esc($item['description'] ?? $item['excerpt'] ?? '') ?></p></article><?php endforeach; ?>
         </div></div>
-    </section>
+        <div><div class="subsection-label"><span>Ekstrakurikuler Populer</span><a href="#programs">Lihat Semua <i data-lucide="arrow-right" aria-hidden="true"></i></a></div><div class="extra-rail">
+            <?php foreach ($extraItems as $item): ?><a class="extra-card" href="#programs"><?php if (!empty($item['image'])): ?><img src="<?= esc($item['image']) ?>" width="600" height="800" alt="" loading="lazy" decoding="async"><?php endif; ?><span><?= esc($item['title'] ?? $item['name'] ?? 'Kegiatan') ?></span></a><?php endforeach; ?>
+        </div></div>
+    </div>
+</div></section><?php endif; ?>
 
-    <section class="section section-alt" id="profile" aria-labelledby="profile-title">
-        <div class="theme-container identity-grid">
-            <div class="identity-visual">
-            <div class="identity-image">
-                <?php if ($heroImage): ?><img src="<?= esc($heroImage) ?>" width="<?= esc($heroWidth) ?>" height="<?= esc($heroHeight) ?>" alt="Tentang <?= esc($site_name ?? 'sekolah') ?>" loading="lazy" decoding="async">
-                <?php else: ?><div class="media-placeholder" role="img" aria-label="Tentang sekolah"><span><?= esc($site_name ?? 'SekolahKu') ?></span></div><?php endif; ?>
-            </div>
-            <figure class="illustration-card illustration-card-learning">
-                <img src="<?= base_url(($theme_asset_base ?? 'themes/madya/assets') . '/illustrations/learning.svg') ?>" width="720" height="520" alt="Ilustrasi kegiatan belajar di sekolah" loading="lazy" decoding="async">
-                <figcaption><i data-lucide="book-open" aria-hidden="true"></i><span>Belajar dengan pengalaman nyata.</span></figcaption>
-            </figure>
-        </div>
-            <div class="identity-copy">
-                <p class="eyebrow">Tentang sekolah</p>
-                <h2 id="profile-title" class="display-title section-title">Mengenal sekolah lebih dekat.</h2>
-                <p><?= esc($aboutData['description'] ?? $aboutData['content_title'] ?? $site_description ?? '') ?></p>
-                <?php if (!empty($aboutData['visi'])): ?><div class="identity-vision"><span>Visi</span><p><?= esc($aboutData['visi']) ?></p></div><?php endif; ?>
-                <a class="text-link mt-7" href="#profile" data-spa-link>Lihat profil <span aria-hidden="true">→</span></a>
-            </div>
-        </div>
-    </section>
+<?php if ($teacherItems || $achievementItems): ?><section class="home-section" id="teachers" aria-labelledby="teachers-title"><div class="theme-container people-achievements-grid">
+    <?php if ($teacherItems): ?><div><div class="section-head-row compact"><div><p class="section-kicker">Tenaga Pengajar</p><h2 id="teachers-title">Guru profesional dan berkompeten.</h2></div><a class="text-link" href="#teachers">Lihat Semua <i data-lucide="arrow-right" aria-hidden="true"></i></a></div><div class="teacher-grid">
+        <?php foreach ($teacherItems as $item): ?><article class="teacher-card"><?php if (!empty($item['image'])): ?><img src="<?= esc($item['image']) ?>" width="<?= esc($item['image_width'] ?? 900) ?>" height="<?= esc($item['image_height'] ?? 1100) ?>" alt="<?= esc($item['name'] ?? 'Tenaga pendidik') ?>" loading="lazy" decoding="async"><?php else: ?><div class="media-placeholder"><span><?= esc($item['name'] ?? 'Guru') ?></span></div><?php endif; ?><div><strong><?= esc($item['name'] ?? 'Tenaga pendidik') ?></strong><span><?= esc($item['title'] ?? $item['position'] ?? 'Tenaga pendidik') ?></span></div></article><?php endforeach; ?>
+    </div></div><?php endif; ?>
+    <?php if ($achievementItems): ?><div><div class="section-head-row compact"><div><p class="section-kicker">Prestasi Siswa</p><h2>Mengukir prestasi di berbagai bidang.</h2></div><a class="text-link" href="#achievements">Lihat Semua <i data-lucide="arrow-right" aria-hidden="true"></i></a></div><div class="achievement-cards" id="achievements">
+        <?php foreach ($achievementItems as $index => $item): ?><article class="achievement-card"><?php if (!empty($item['image'])): ?><img src="<?= esc($item['image']) ?>" width="700" height="480" alt="" loading="lazy" decoding="async"><?php endif; ?><span class="achievement-level"><?= esc($item['level'] ?? 'Prestasi') ?></span><div><small><?= esc($item['year'] ?? '') ?></small><h3><?= esc($item['title'] ?? 'Prestasi siswa') ?></h3><p><?= esc($item['description'] ?? '') ?></p></div></article><?php endforeach; ?></div></div><?php endif; ?>
+</div></section><?php endif; ?>
 
-    <section class="section" id="programs" aria-labelledby="program-feature-title">
-        <div class="theme-container">
-            <?= $this->include('themes/madya/components/section-heading', ['eyebrow' => 'Pilihan belajar', 'title' => 'Pilihan belajar untuk berkembang.', 'description' => 'Program yang memberi ruang untuk mencoba, mendalami minat, dan berkembang.', 'link' => '#programs', 'linkLabel' => 'Semua program']) ?>
-            <div class="program-story">
-                <?php $featuredProgram = $programs[0] ?? []; ?>
-                <div class="program-feature-panel">
-                    <span class="program-index">01</span>
-                    <h3><?= esc($featuredProgram['title'] ?? $featuredProgram['name'] ?? 'Program akademik') ?></h3>
-                    <p><?= esc($featuredProgram['description'] ?? $featuredProgram['excerpt'] ?? 'Ruang belajar untuk mengembangkan rasa ingin tahu dan kemampuan memecahkan masalah.') ?></p>
-                    <?php if (!empty($featuredProgram['image'])): ?><div class="program-feature-image"><img src="<?= esc($featuredProgram['image']) ?>" width="1200" height="800" alt="" loading="lazy" decoding="async"></div><?php endif; ?>
-                    <a class="text-link" href="#programs">Jelajahi <span aria-hidden="true">↗</span></a>
-                </div>
-                <div class="program-list">
-                    <?php foreach (array_slice($programs, 1, 3) as $index => $program): ?><?= $this->include('themes/madya/components/content/program-row', ['item' => $program, 'index' => $index + 1]) ?><?php endforeach; ?>
-                </div>
-            </div>
-        </div>
-    </section>
+<?php if ($newsItems || $eventItems): ?><section class="home-section section-soft" id="updates" aria-labelledby="updates-title"><div class="theme-container news-agenda-grid">
+    <?php if ($newsFeatured): ?><div><div class="section-head-row compact"><div><p class="section-kicker">Berita Terbaru</p><h2 id="updates-title">Informasi terkini seputar kegiatan sekolah.</h2></div><a class="text-link" href="<?= base_url('news') ?>">Lihat Semua Berita <i data-lucide="arrow-right" aria-hidden="true"></i></a></div><article class="featured-news"><a href="<?= base_url('news/' . rawurlencode((string)($newsFeatured['slug'] ?? ''))) ?>" class="featured-news-media"><?php if (!empty($newsFeatured['image'])): ?><img src="<?= esc($newsFeatured['image']) ?>" width="1200" height="800" alt="<?= esc($newsFeatured['title'] ?? 'Berita sekolah') ?>" loading="lazy" decoding="async"><?php endif; ?><span><?= esc($newsFeatured['category'] ?? 'Berita') ?></span><div><h3><?= esc($newsFeatured['title'] ?? 'Berita sekolah') ?></h3><p><?= esc($newsFeatured['excerpt'] ?? $newsFeatured['description'] ?? '') ?></p></div></a><div class="news-side-list"><?php foreach ($newsSecondary as $item): ?><a href="<?= base_url('news/' . rawurlencode((string)($item['slug'] ?? ''))) ?>"><span><?php if (!empty($item['image'])): ?><img src="<?= esc($item['image']) ?>" width="120" height="80" alt="" loading="lazy" decoding="async"><?php endif; ?></span><div><strong><?= esc($item['title'] ?? '') ?></strong><small><?= esc($item['published_at'] ?? '') ?></small></div></a><?php endforeach; ?></div></article></div><?php endif; ?>
+    <?php if ($eventItems): ?><div><div class="section-head-row compact"><div><p class="section-kicker">Agenda Mendatang</p><h2>Jangan lewatkan agenda penting sekolah.</h2></div><a class="text-link" href="#events">Lihat Semua Agenda <i data-lucide="arrow-right" aria-hidden="true"></i></a></div><div class="agenda-list" id="events"><?php foreach ($eventItems as $item): ?><article class="agenda-item"><time datetime="<?= esc($item['event_date'] ?? $item['date'] ?? '') ?>"><b><?= esc(date('d', strtotime((string)($item['event_date'] ?? date('Y-m-d'))))) ?></b><span><?= esc(strtoupper(date('M', strtotime((string)($item['event_date'] ?? date('Y-m-d')))))) ?></span></time><div><h3><?= esc($item['title'] ?? 'Kegiatan sekolah') ?></h3><p><?= esc($item['time'] ?? '') ?><?= !empty($item['location']) ? ' · ' . esc($item['location']) : '' ?></p></div><i data-lucide="chevron-right" aria-hidden="true"></i></article><?php endforeach; ?></div></div><?php endif; ?>
+</div></section><?php endif; ?>
 
-    <section class="section section-tint" id="extracurriculars" aria-labelledby="extracurricular-title">
-        <div class="theme-container">
-            <?= $this->include('themes/madya/components/section-heading', ['eyebrow' => 'Di luar kelas', 'title' => 'Tempat minat bertemu pengalaman.', 'description' => 'Kegiatan yang memberi siswa ruang untuk mencoba, bekerja sama, dan menemukan hal yang mereka sukai.', 'link' => '#extracurriculars', 'linkLabel' => 'Lihat semua']) ?>
-            <div class="activity-strip">
-                <?php foreach (array_slice($extracurriculars ?? [], 0, 4) as $i => $item): ?>
-                    <a class="activity-card" href="#extracurriculars">
-                        <span class="activity-number"><?= esc(str_pad((string)($i + 1), 2, '0', STR_PAD_LEFT)) ?></span>
-                        <span class="activity-icon"><?php if (!empty($item['icon'])): ?><?= $this->include('themes/madya/components/ui/icon', ['name' => $item['icon']]) ?><?php else: ?><i data-lucide="sparkles" aria-hidden="true"></i><?php endif; ?></span>
-                        <?php if (!empty($item['image'])): ?><span class="activity-image"><img src="<?= esc($item['image']) ?>" width="640" height="420" alt="" loading="lazy" decoding="async"></span><?php endif; ?>
-                        <h3><?= esc($item['title'] ?? 'Kegiatan siswa') ?></h3>
-                        <p><?= esc($item['description'] ?? $item['excerpt'] ?? '') ?></p>
-                        <span class="activity-arrow" aria-hidden="true">↗</span>
-                    </a>
-                <?php endforeach; ?>
-            </div>
-        </div>
-    </section>
+<?php if ($galleryItems || $testimonialItems): ?><section class="home-section" id="gallery" aria-labelledby="gallery-title"><div class="theme-container gallery-testimonial-grid">
+    <?php if ($galleryItems): ?><div><div class="section-head-row compact"><div><p class="section-kicker">Galeri Kegiatan</p><h2 id="gallery-title">Momen terbaik kami.</h2></div><a class="text-link" href="#gallery">Lihat Galeri Lengkap <i data-lucide="arrow-right" aria-hidden="true"></i></a></div><div class="gallery-home-grid">
+        <?php foreach ($galleryItems as $index => $item): ?><a class="gallery-home-item gallery-home-item-<?= (int)($index % 6) ?>" href="#gallery"><?php if (!empty($item['image'])): ?><img src="<?= esc($item['image']) ?>" width="900" height="650" alt="<?= esc($item['title'] ?? 'Dokumentasi sekolah') ?>" loading="lazy" decoding="async"><?php endif; ?></a><?php endforeach; ?>
+    </div></div><?php endif; ?>
+    <?php if ($testimonialItems): ?><div><div class="section-head-row compact"><div><p class="section-kicker">Testimoni</p><h2>Apa kata mereka tentang sekolah?</h2></div><a class="text-link" href="#testimonials">Lihat Semua Testimoni <i data-lucide="arrow-right" aria-hidden="true"></i></a></div><div class="testimonial-grid-home" id="testimonials"><?php foreach (array_slice($testimonialItems,0,3) as $item): ?><figure class="testimonial-card-home"><blockquote>“<?= esc($item['quote'] ?? $item['content'] ?? '') ?>”</blockquote><figcaption><?php if (!empty($item['image'])): ?><img src="<?= esc($item['image']) ?>" width="80" height="80" alt="" loading="lazy" decoding="async"><?php endif; ?><span><strong><?= esc($item['name'] ?? $item['author'] ?? 'Warga sekolah') ?></strong><small><?= esc($item['role'] ?? '') ?></small></span></figcaption><div class="stars" aria-label="5 dari 5">★★★★★</div></figure><?php endforeach; ?></div></div><?php endif; ?>
+</div></section><?php endif; ?>
 
-    <section class="section section-dark people-feature" id="teachers" aria-labelledby="people-title">
-        <div class="theme-container people-grid">
-            <div class="people-portrait-grid">
-                <?php foreach (array_slice($teachers ?? [], 0, 3) as $index => $teacher): ?>
-                    <?php $teacherImage = $teacher['image'] ?? $teacher['image_url'] ?? ''; ?>
-                    <figure class="teacher-portrait teacher-portrait-<?= $index + 1 ?>">
-                        <?php if ($teacherImage): ?><img src="<?= esc($teacherImage) ?>" width="<?= esc($teacher['image_width'] ?? 900) ?>" height="<?= esc($teacher['image_height'] ?? 1100) ?>" alt="<?= esc($teacher['name'] ?? 'Tenaga pendidik') ?>" loading="lazy" decoding="async"><?php else: ?><div class="media-placeholder media-placeholder-dark"><span><?= esc($teacher['name'] ?? 'Tenaga pendidik') ?></span></div><?php endif; ?>
-                        <figcaption><strong><?= esc($teacher['name'] ?? '') ?></strong><span><?= esc($teacher['title'] ?? 'Tenaga pendidik') ?></span></figcaption>
-                    </figure>
-                <?php endforeach; ?>
-            </div>
-            <div class="people-copy">
-                <p class="eyebrow eyebrow-dark">Orang-orang di balik pembelajaran</p>
-                <h2 id="people-title" class="display-title section-title">Sekolah tumbuh lewat orang-orangnya.</h2>
-                <?php $featuredTeacher = $teachers[0] ?? []; ?>
-                <p class="dark-feature-copy"><?= esc($featuredTeacher['bio'] ?? 'Guru, staf, siswa, dan keluarga membentuk budaya belajar yang memberi makna pada setiap hari.') ?></p>
-                <div class="people-quote"><i data-lucide="quote" class="quote-mark" aria-hidden="true"></i><p>Belajar bukan hanya tentang hasil, tetapi tentang siapa yang tumbuh di sepanjang jalan.</p></div>
-                <a class="button button-light" href="#teachers">Kenali para pengajar <span aria-hidden="true">↗</span></a>
-            </div>
-        </div>
-    </section>
+<section class="home-section section-soft" id="documents" aria-labelledby="documents-title"><div class="theme-container documents-spmb-grid">
+    <div><div class="section-head-row compact"><div><p class="section-kicker">Pusat Dokumen</p><h2 id="documents-title">Unduh dokumen dan formulir penting.</h2></div><a class="text-link" href="<?= base_url('downloads') ?>">Lihat Semua Dokumen <i data-lucide="arrow-right" aria-hidden="true"></i></a></div><div class="document-home-list"><?php foreach ($downloadItems as $item): ?><a href="<?= esc($item['url'] ?? '#') ?>" class="document-home-row"><span class="document-file-icon"><i data-lucide="file-text" aria-hidden="true"></i></span><span><strong><?= esc($item['title'] ?? 'Dokumen') ?></strong><small><?= esc($item['type'] ?? $item['extension'] ?? 'PDF') ?> · <?= esc($item['file_size'] ?? $item['size'] ?? '') ?></small></span><i data-lucide="arrow-up-right" aria-hidden="true"></i></a><?php endforeach; ?></div></div>
+    <aside class="spmb-home-banner"><div><p class="section-kicker">SPMB 2025/2026</p><h2>Berikan langkah terbaik untuk masa depan gemilang.</h2><p>Pendaftaran peserta didik baru melalui kanal resmi sekolah.</p><a class="button button-accent" href="<?= esc($spmb_url ?? '#') ?>">Daftar Sekarang <i data-lucide="arrow-right" aria-hidden="true"></i></a></div><?php if ($heroImage): ?><img src="<?= esc($heroImage) ?>" width="800" height="600" alt="" loading="lazy" decoding="async"><?php endif; ?></aside>
+</div></section>
 
-    <section class="section" id="achievements" aria-labelledby="stories-title">
-        <div class="theme-container stories-layout">
-            <div class="stories-intro"><p class="eyebrow">Cerita & capaian</p><h2 id="stories-title" class="display-title section-title">Capaian yang patut dibanggakan.</h2><p class="editorial-copy">Setiap capaian berawal dari latihan, dukungan, dan keberanian untuk mencoba.</p></div>
-            <div class="achievement-list">
-                <?php foreach (array_slice($achievements ?? [], 0, 3) as $index => $item): ?><article class="achievement-row"><span class="program-index"><?= esc(str_pad((string) ($index + 1), 2, '0', STR_PAD_LEFT)) ?></span><?php if (!empty($item['image'])): ?><img class="achievement-thumb" src="<?= esc($item['image']) ?>" width="<?= esc($item['image_width'] ?? 300) ?>" height="<?= esc($item['image_height'] ?? 220) ?>" alt="<?= esc($item['title'] ?? 'Prestasi siswa') ?>" loading="lazy" decoding="async"><?php endif; ?><div><h3><?= esc($item['title'] ?? 'Prestasi siswa') ?></h3><p><?= esc($item['description'] ?? '') ?></p></div></article><?php endforeach; ?>
-            </div>
-        </div>
-    </section>
-
-    <?php $testimonial = $testimonials[0] ?? []; ?>
-    <section class="section testimonial-feature" id="testimonials" aria-labelledby="testimonial-title">
-        <div class="theme-container testimonial-feature-grid">
-            <div>
-                <p class="eyebrow">Cerita dari komunitas</p>
-                <h2 id="testimonial-title" class="display-title section-title">Yang paling terasa adalah orang-orangnya.</h2>
-            </div>
-            <figure class="testimonial-feature-card">
-                <?php if (!empty($testimonial['image'])): ?><img src="<?= esc($testimonial['image']) ?>" width="160" height="160" alt="<?= esc($testimonial['name'] ?? 'Warga sekolah') ?>" loading="lazy" decoding="async"><?php endif; ?>
-                <blockquote>“<?= esc($testimonial['quote'] ?? 'Sekolah memberi ruang untuk mencoba, bertumbuh, dan menemukan percaya diri.') ?>”</blockquote>
-                <figcaption><strong><?= esc($testimonial['name'] ?? 'Warga sekolah') ?></strong><span><?= esc($testimonial['role'] ?? '') ?></span></figcaption>
-            </figure>
-        </div>
-    </section>
-
-    <section class="section section-alt" aria-labelledby="news-title">
-        <div class="theme-container">
-            <?= $this->include('themes/madya/components/section-heading', ['eyebrow' => 'Kabar sekolah', 'title' => 'Kabar dari sekolah.', 'link' => base_url('news'), 'linkLabel' => 'Semua berita']) ?>
-            <div class="news-feature-layout">
-                <?php $featuredNews = $news[0] ?? null; ?>
-                <?php if ($featuredNews): ?>
-                    <?php $featuredNewsUrl = base_url('news/' . ($featuredNews['slug'] ?? '')); ?>
-                    <article class="news-feature-item">
-                        <a class="news-feature-media" href="<?= esc($featuredNewsUrl) ?>">
-                            <?php if (!empty($featuredNews['image'] ?? $featuredNews['image_url'] ?? '')): ?><img src="<?= esc($featuredNews['image'] ?? $featuredNews['image_url']) ?>" width="<?= esc($featuredNews['image_width'] ?? 1200) ?>" height="<?= esc($featuredNews['image_height'] ?? 800) ?>" alt="<?= esc($featuredNews['title'] ?? 'Berita sekolah') ?>" loading="lazy" decoding="async"><?php endif; ?>
-                        </a>
-                        <div class="news-feature-body"><div class="card-meta"><time datetime="<?= esc($featuredNews['published_at'] ?? $featuredNews['created_at'] ?? '') ?>"><?= esc($featuredNews['published_at'] ?? $featuredNews['created_at'] ?? 'Informasi terbaru') ?></time></div><h3><a href="<?= esc($featuredNewsUrl) ?>"><?= esc($featuredNews['title'] ?? 'Berita sekolah') ?></a></h3><p><?= esc($featuredNews['excerpt'] ?? '') ?></p><a class="text-link" href="<?= esc($featuredNewsUrl) ?>">Baca cerita <span aria-hidden="true">↗</span></a></div>
-                    </article>
-                <?php else: ?><div class="empty-state"><span class="empty-state-mark" aria-hidden="true">—</span><p>Belum ada berita untuk ditampilkan.</p></div><?php endif; ?>
-                <div class="news-list-compact">
-                    <?php foreach (array_slice($news ?? [], 1, 3) as $item): ?><article class="news-compact-row"><span class="program-index">Berita</span><div><time datetime="<?= esc($item['published_at'] ?? $item['created_at'] ?? '') ?>"><?= esc($item['published_at'] ?? $item['created_at'] ?? '') ?></time><h3><a href="<?= esc(base_url('news/' . ($item['slug'] ?? ''))) ?>"><?= esc($item['title'] ?? 'Berita sekolah') ?></a></h3></div></article><?php endforeach; ?>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="section" id="events" aria-labelledby="event-title">
-        <div class="theme-container events-layout"><div><p class="eyebrow">Agenda</p><h2 id="event-title" class="display-title section-title">Yang sedang berlangsung.</h2><p class="editorial-copy">Agenda belajar, berkegiatan, dan bertemu bersama komunitas sekolah.</p></div><div class="agenda-list"><?php foreach (array_slice($events ?? [], 0, 3) as $event): ?><?= $this->include('themes/madya/components/content/event-row', ['event' => $event]) ?><?php endforeach; ?></div></div>
-    </section>
-
-    <section class="section section-alt" id="gallery" aria-labelledby="gallery-title">
-        <div class="theme-container">
-            <?= $this->include('themes/madya/components/section-heading', ['eyebrow' => 'Dokumentasi', 'title' => 'Potret keseharian di sekolah.', 'link' => '#gallery', 'linkLabel' => 'Lihat galeri']) ?>
-            <div class="gallery-editorial-grid"><?php foreach (array_slice($galleries ?? [], 0, 5) as $i => $item): ?><?= $this->include('themes/madya/components/media/gallery-item', ['item' => $item, 'index' => $i]) ?><?php endforeach; ?></div>
-        </div>
-    </section>
-
-    <section class="section" id="faq" aria-labelledby="faq-title">
-        <div class="theme-container faq-preview-grid">
-            <div>
-                <p class="eyebrow">Pertanyaan umum</p>
-                <h2 id="faq-title" class="display-title section-title">Hal-hal yang sering ditanyakan.</h2>
-                <a class="text-link" href="#faq">Buka semua jawaban <span aria-hidden="true">→</span></a>
-            </div>
-            <div class="faq-list">
-                <?php foreach (array_slice($faq ?? [], 0, 4) as $i => $item): ?>
-                    <details class="faq-item"<?= $i === 0 ? ' open' : '' ?>>
-                        <summary><span><?= esc(str_pad((string)($i + 1), 2, '0', STR_PAD_LEFT)) ?></span><?= esc($item['question'] ?? '') ?><i data-lucide="chevron-down" aria-hidden="true"></i></summary>
-                        <div class="faq-answer"><?= esc($item['answer'] ?? '') ?></div>
-                    </details>
-                <?php endforeach; ?>
-            </div>
-        </div>
-    </section>
-
-    <section class="section section-cta" aria-labelledby="contact-title">
-        <div class="theme-container cta-editorial"><div><p class="eyebrow">Langkah berikutnya</p><h2 id="contact-title" class="display-title section-title">Mari berkenalan lebih dekat.</h2></div><div><p class="editorial-copy">Hubungi kami untuk informasi tentang pendaftaran, program, kegiatan, dan layanan sekolah.</p><a class="button" href="<?= esc(base_url('contact')) ?>">Hubungi sekolah <span aria-hidden="true">↗</span></a></div></div>
-    </section>
+<section class="home-contact-strip" id="contact" aria-label="Kontak sekolah"><div class="theme-container contact-strip-grid">
+    <div><i data-lucide="map-pin" aria-hidden="true"></i><span><b>Alamat</b><small><?= esc($contact_address ?? '—') ?></small></span></div>
+    <div><i data-lucide="phone" aria-hidden="true"></i><span><b>Telepon</b><small><?= esc($contact_phone ?? '—') ?></small></span></div>
+    <div><i data-lucide="mail" aria-hidden="true"></i><span><b>Email</b><small><?= esc($contact_email ?? '—') ?></small></span></div>
+    <div><i data-lucide="clock-3" aria-hidden="true"></i><span><b>Jam Layanan</b><small><?= esc($contact_hours ?? '—') ?></small></span></div>
+</div></section>
 </div>
-
-<script id="theme-state" type="application/json"><?= json_encode($themeState, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?></script>
 <?= $this->include('themes/madya/layouts/footer') ?>

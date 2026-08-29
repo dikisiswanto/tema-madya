@@ -1,20 +1,14 @@
 <?php
-$eyebrow = $eyebrow ?? 'Informasi';
-$title = $title ?? ($page_title ?? $site_name ?? 'SekolahKu');
+$eyebrow = $eyebrow ?? '';
+$title = $title ?? '';
 $description = $description ?? '';
 $breadcrumbs = $breadcrumbs ?? [];
+$bannerImage = $image ?? '';
 ?>
-<header class="page-hero">
+<header class="page-hero<?= $bannerImage ? ' page-hero-has-image' : '' ?>"<?php if ($bannerImage): ?> style="--page-hero-image: url('<?= esc($bannerImage) ?>')"<?php endif; ?>>
+    <div class="page-hero-backdrop" aria-hidden="true"></div>
     <div class="theme-container page-hero-inner">
-        <?php if ($breadcrumbs): ?>
-            <nav class="breadcrumb" aria-label="Jejak navigasi">
-                <a href="<?= base_url() ?>">Beranda</a>
-                <?php foreach ($breadcrumbs as $crumb): ?>
-                    <span aria-hidden="true">/</span>
-                    <?php if (!empty($crumb['url'])): ?><a href="<?= esc($crumb['url']) ?>"><?= esc($crumb['label'] ?? '') ?></a><?php else: ?><span aria-current="page"><?= esc($crumb['label'] ?? '') ?></span><?php endif; ?>
-                <?php endforeach; ?>
-            </nav>
-        <?php endif; ?>
+        <?php if ($breadcrumbs): ?><nav class="breadcrumb" aria-label="Jejak navigasi"><a href="<?= base_url() ?>">Beranda</a><?php foreach ($breadcrumbs as $crumb): ?><span aria-hidden="true">/</span><?php if (!empty($crumb['url'])): ?><a href="<?= esc($crumb['url']) ?>"><?= esc($crumb['label'] ?? '') ?></a><?php else: ?><span aria-current="page"><?= esc($crumb['label'] ?? '') ?></span><?php endif; ?><?php endforeach; ?></nav><?php endif; ?>
         <p class="eyebrow"><?= esc($eyebrow) ?></p>
         <h1><?= esc($title) ?></h1>
         <?php if ($description !== ''): ?><p><?= esc($description) ?></p><?php endif; ?>

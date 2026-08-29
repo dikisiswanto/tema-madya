@@ -2,7 +2,7 @@ import { initIcons } from './icons.js';
 import { getState } from './state.js';
 import renderHome from './views/home.js';
 import renderSection from './views/section.js';
-import { renderArticle, renderContact, renderDownloads, renderNews } from './views/native.js';
+import { renderArticle, renderContact, renderDownloads, renderFooter, renderNews } from './views/native.js';
 
 const sectionRoutes = new Set([
     'profile', 'programs', 'extracurriculars', 'teachers', 'achievements',
@@ -33,6 +33,7 @@ function renderCurrentRouteNow() {
     const path = normalizePath(window.location.pathname);
     if (path === '/news') {
         renderNews(getState(), shell);
+        renderFooter(getState());
         updateDocumentMeta(getState(), 'news');
         initIcons(shell);
         finishNativeNavigation();
@@ -41,6 +42,7 @@ function renderCurrentRouteNow() {
     if (path.startsWith('/news/')) {
         const slug = decodeURIComponent(path.slice('/news/'.length));
         renderArticle(getState(), slug, shell);
+        renderFooter(getState());
         initIcons(shell);
         updateDocumentMeta(getState(), 'article', slug);
         finishNativeNavigation();
@@ -48,6 +50,7 @@ function renderCurrentRouteNow() {
     }
     if (path === '/downloads') {
         renderDownloads(getState(), shell);
+        renderFooter(getState());
         initIcons(shell);
         updateDocumentMeta(getState(), 'downloads');
         finishNativeNavigation();
@@ -55,6 +58,7 @@ function renderCurrentRouteNow() {
     }
     if (path === '/contact') {
         renderContact(getState(), shell);
+        renderFooter(getState());
         initIcons(shell);
         updateDocumentMeta(getState(), 'contact');
         finishNativeNavigation();
@@ -64,6 +68,7 @@ function renderCurrentRouteNow() {
     const route = normalizeRoute(window.location.hash);
     if (!route) {
         renderHome(getState(), shell);
+        renderFooter(getState());
         updateDocumentMeta(getState(), 'home');
         setRouteState('home');
         if (!initialLoad) finishNativeNavigation();
@@ -73,6 +78,7 @@ function renderCurrentRouteNow() {
     if (!sectionRoutes.has(route)) {
         history.replaceState({}, '', '/');
         renderHome(getState(), shell);
+        renderFooter(getState());
         updateDocumentMeta(getState(), 'home');
         setRouteState('home');
         return;

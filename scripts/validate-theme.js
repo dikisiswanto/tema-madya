@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const themeRoot = path.join(root, 'src', 'theme', 'app', 'Views', 'themes', 'madya');
+const bridgeRoot = path.join(root, 'src', 'theme', 'app', 'Views', 'pages');
 const required = [
     'pages/home.php',
     'pages/news.php',
@@ -26,6 +27,11 @@ const required = [
 ];
 
 const failures = [];
+const bridgeRequired = ['home.php','news.php','single_post.php','downloads.php','contact.php','page.php'];
+for (const file of bridgeRequired) {
+    try { await access(path.join(bridgeRoot, file)); }
+    catch { failures.push(`Missing public view adapter: pages/${file}`); }
+}
 for (const file of required) {
     try { await access(path.join(themeRoot, file)); }
     catch { failures.push(`Missing theme file: ${file}`); }

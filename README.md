@@ -280,3 +280,19 @@ Sekolahku CMS dan dependency pihak ketiga tetap mengikuti lisensinya masing-masi
 
 **Tema Madya CMS Sekolahku**  
 *Modern untuk dilihat. Sederhana untuk digunakan.*
+
+## Instalasi sebagai Theme Pihak Ketiga di Sekolahku 3.1.2
+
+Sekolahku 3.1.2 merender public page melalui nama view tetap (`pages/home`, `pages/news`, `pages/single_post`, `pages/downloads`, `pages/contact`, `pages/page`) dan tidak menyediakan theme resolver yang dapat dipakai theme pihak ketiga. Karena Madya tidak mengubah core CMS, package production menyertakan **public view adapter** pada `app/Views/pages/`.
+
+Adapter tersebut hanya mendelegasikan view publik ke:
+
+```text
+app/Views/themes/madya/pages/
+```
+
+Jadi instalasi package dilakukan dengan menyalin isi package `madya/` ke root instalasi Sekolahku 3.1.2. Tidak diperlukan perubahan pada controller, route, model, migration, atau source core CMS.
+
+> Catatan upgrade: karena Sekolahku 3.1.2 tidak mempunyai hook theme resolver, adapter `app/Views/pages/*.php` adalah integration seam milik theme. Saat upgrade CMS, pastikan file adapter Madya tetap ada atau pasang ulang package Madya setelah upgrade.
+
+Madya tidak mengandalkan `theme_color` CMS sebagai theme selector; token visual Madya didefinisikan sendiri di asset theme.

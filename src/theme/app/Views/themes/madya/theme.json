@@ -1,7 +1,7 @@
 {
   "name": "Tema Madya CMS Sekolahku",
   "product": "Tema Madya CMS Sekolahku",
-  "version": "0.2.0-rc.15",
+  "version": "0.3.0-rc.1",
   "engine": {
     "name": "SekolahKu",
     "min": "3.1.2"
@@ -44,6 +44,16 @@
       "illustrations/learning.svg",
       "illustrations/community.svg",
       "illustrations/documents.svg"
-    ]
+    ],
+    "colorSystem": {
+      "brand": "#072A63",
+      "brandDeep": "#041C46",
+      "accent": "#D89A2B"
+    }
+  },
+  "viewAdapter": {
+    "strategy": "public-view-override",
+    "path": "app/Views/pages",
+    "reason": "Sekolahku 3.1.2 resolves fixed public view names and has no third-party theme resolver; adapter delegates to Madya views without core source changes."
   }
 }

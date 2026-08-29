@@ -372,5 +372,54 @@
     "image": "https://cms.sekolahku.web.id/uploads/principal/1783670871_ee36483f12dc6ad99d55.jpg",
     "image_width": 1200,
     "image_height": 1500
-  }
+  },
+  "site_logo_text": "SMA NEGERI 1 NUSANTARA",
+  "site_logo_icon": "graduation-cap",
+  "spmb_url": "#documents",
+  "footer_description": "Berkomitmen memberikan pendidikan yang berilmu, berakhlak, dan berprestasi.",
+  "footer_copyright": "© 2026 SMA Negeri 1 Nusantara. All rights reserved.",
+  "footer_services": [
+    {
+      "label": "Program Unggulan",
+      "url": "#programs"
+    },
+    {
+      "label": "Ekstrakurikuler",
+      "url": "#programs"
+    },
+    {
+      "label": "Prestasi",
+      "url": "#achievements"
+    },
+    {
+      "label": "Tenaga Pengajar",
+      "url": "#teachers"
+    }
+  ],
+  "footer_links": [
+    {
+      "label": "SPMB Online",
+      "url": "#documents"
+    },
+    {
+      "label": "E-Learning",
+      "url": "#"
+    },
+    {
+      "label": "Perpustakaan",
+      "url": "#"
+    },
+    {
+      "label": "Pengaduan",
+      "url": "#"
+    },
+    {
+      "label": "Download Dokumen",
+      "url": "/downloads"
+    }
+  ],
+  "social_facebook": "#",
+  "social_instagram": "#",
+  "social_youtube": "#",
+  "social_tiktok": "#"
 }

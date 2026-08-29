@@ -1,154 +1,33 @@
-import { iconMarkup, initIcons } from '../icons.js';
+import { iconMarkup } from '../icons.js';
+
 export default function renderHome(state, container) {
-    const newsUrl = state.urls?.news || '/news';
-    const contactUrl = state.urls?.contact || '/contact';
-    const programs = state.programs || [];
-    const teachers = state.teachers || [];
-    const achievements = state.achievements || [];
-    const news = state.news || [];
-    const events = state.events || [];
-    const galleries = state.galleries || [];
-    const principal = state.principal || teachers[0] || {};
+  const programs = state.programs || [], teachers = state.teachers || [], achievements = state.achievements || [], news = state.news || [], events = state.events || [], galleries = state.galleries || [], testimonials = state.testimonials || [], principal = state.principal || teachers[0] || {}, about = state.about || {}, downloads = state.downloads || [];
+  const announcements = (news.filter(x => String(x.category || '').toLowerCase() === 'pengumuman').length ? news.filter(x => String(x.category || '').toLowerCase() === 'pengumuman') : news).slice(0, 3);
+  const services = [
+    ['user-plus', 'SPMB Online', 'Pendaftaran siswa baru', state.spmb_url || '#'],
+    ['monitor-play', 'E-Learning', 'Belajar di mana saja', '#'],
+    ['book-open', 'Perpustakaan', 'Akses buku & referensi', '#'],
+    ['bell-ring', 'Pengaduan', 'Sampaikan keluhan Anda', '#'],
+    ['download', 'Download Dokumen', 'Formulir & surat penting', '/downloads'],
+    ['mail', 'Kontak Sekolah', 'Hubungi kami', '/contact'],
+  ];
+  const statIcons = ['users', 'graduation-cap', 'trophy', 'book-open'];
+  const imageOr = (src, alt, item = {}) => src ? `<img src="${esc(src)}" width="${esc(item.image_width || item.width || 1600)}" height="${esc(item.image_height || item.height || 1000)}" alt="${esc(alt)}" loading="lazy" decoding="async">` : `<div class="media-placeholder" role="img" aria-label="${esc(alt)}"><span>${esc(alt)}</span></div>`;
+  const date = (value) => value ? new Date(value).toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' }) : '';
+  const month = (value) => value ? new Date(value).toLocaleDateString('id-ID', { month: 'short' }).toUpperCase() : '';
+  const heroTitle = esc(state.hero_title || 'Membentuk Generasi Berilmu, Berakhlak, dan Berprestasi.').replace(/(Berprestasi\.?)(\s*)$/u, '<span class="hero-title-accent">$1</span>$2');
 
-    container.innerHTML = `
-        <section class="section hero-section" aria-labelledby="hero-title">
-            <div class="theme-container hero-editorial">
-                <div class="hero-editorial-copy">
-                    ${state.hero_badge ? `<p class="eyebrow">${escapeHtml(state.hero_badge)}</p>` : ''}
-                    <p class="hero-kicker">Belajar · Bertumbuh · Berkarya</p>
-                    <h1 id="hero-title" class="display-title hero-title">${escapeHtml(state.hero_title || 'Ruang untuk belajar, bertumbuh, dan melangkah.')}</h1>
-                    <p class="hero-lead">${escapeHtml(state.hero_subtitle || state.site_tagline || '')}</p>
-                    <div class="hero-actions">
-                        <a class="button" href="#profile">Kenali sekolah</a>
-                        <a class="button button-secondary" href="#programs">Lihat program</a>
-                    </div>
-                </div>
-                <div class="hero-editorial-media-wrap">
-                    <figure class="hero-media hero-media-editorial">
-                        ${imageOrPlaceholder(state.about?.image, `Lingkungan ${state.site_name || 'sekolah'}`, state.about, true)}
-                        <canvas class="campus-scene" data-campus-scene aria-hidden="true"></canvas>
-                        <div class="campus-scene-label">${iconMarkup('school')}<span>Miniatur kampus</span></div>
-                        <div class="hero-principal-card">
-                            ${imageOrPlaceholder(principal.image || principal.image_url, principal.name || 'Kepala sekolah', principal)}
-                            <div><span>Kepala sekolah</span><strong>${escapeHtml(principal.name || 'Kepala sekolah')}</strong></div>
-                        </div>
-                        ${state.about?.image_caption ? `<figcaption>${escapeHtml(state.about.image_caption)}</figcaption>` : ''}
-                    </figure>
-                    <div class="hero-note"><span>01</span><p>${escapeHtml(state.site_tagline || 'Ruang belajar untuk tumbuh bersama.')}</p></div>
-                </div>
-            </div>
-        </section>
-
-        <section class="section section-facts" aria-label="Gambaran singkat sekolah">
-            <div class="theme-container"><div class="fact-strip editorial-facts">${renderStats(state.counter_stats || state.hero_stats || [])}</div></div>
-        </section>
-
-        <section class="section section-alt" id="profile" aria-labelledby="profile-title">
-            <div class="theme-container identity-grid">
-                <div class="identity-visual">
-                    <div class="identity-image">${imageOrPlaceholder(state.about?.image, `Tentang ${state.site_name || 'sekolah'}`, state.about)}</div>
-                    <figure class="illustration-card illustration-card-learning"><img src="/illustrations/learning.svg" width="720" height="520" alt="Ilustrasi kegiatan belajar di sekolah" loading="lazy" decoding="async"><figcaption>${iconMarkup('book-open')}<span>Belajar dengan pengalaman nyata.</span></figcaption></figure>
-                </div>
-                <div class="identity-copy">
-                    <p class="eyebrow">Tentang sekolah</p>
-                    <h2 id="profile-title" class="display-title section-title section-display">Mengenal sekolah lebih dekat.</h2>
-                    <p>${escapeHtml(state.about?.description || state.site_description || 'Sekolah yang tumbuh bersama masyarakat dan memberi ruang bagi siswa untuk belajar, berproses, dan berprestasi.')}</p>
-                    ${state.about?.visi ? `<div class="identity-vision"><span>Visi</span><p>${escapeHtml(state.about.visi)}</p></div>` : ''}
-                    <a class="text-link" href="#profile">Lihat profil <span aria-hidden="true">→</span></a>
-                </div>
-            </div>
-        </section>
-
-        <section class="section" id="programs" aria-labelledby="programs-title">
-            <div class="theme-container">
-                <div class="section-heading editorial-heading"><div><p class="eyebrow">Pilihan belajar</p><h2 id="programs-title">Pilihan belajar untuk berkembang.</h2><p class="section-heading-description">Program yang memberi ruang untuk mencoba, mendalami minat, dan berkembang.</p></div><a class="text-link" href="#programs">Semua program <span aria-hidden="true">→</span></a></div>
-                <div class="program-story">
-                    <div class="program-feature-panel">
-                        <div class="program-feature-art" aria-hidden="true"><img src="/illustrations/community.svg" width="720" height="520" alt="" loading="lazy" decoding="async"></div>
-                        <span class="program-feature-top"><span class="program-index">01</span>${iconMarkup(programs[0]?.icon || 'sparkles', 'theme-icon theme-icon-light')}</span>
-                        <h3>${escapeHtml(programs[0]?.title || 'Program akademik')}</h3>
-                        <p>${escapeHtml(programs[0]?.description || programs[0]?.excerpt || 'Ruang belajar untuk mengembangkan rasa ingin tahu dan kemampuan memecahkan masalah.')}</p>${programs[0]?.image ? `<div class="program-feature-image"><img src="${escapeHtml(programs[0].image)}" width="1200" height="800" alt="" loading="lazy" decoding="async"></div>` : ''}
-                        <a class="text-link" href="#programs">Jelajahi <span aria-hidden="true">↗</span></a>
-                    </div>
-                    <div class="program-list">${programs.slice(1, 4).map((item,index)=>`<a class="program-feature-row" href="#programs"><span class="program-row-index"><span class="program-index">${String(index+2).padStart(2,'0')}</span>${iconMarkup(item.icon || 'sparkles')}</span><span class="program-title">${escapeHtml(item.title || item.name || 'Program')}</span><span class="program-summary">${escapeHtml(item.description || item.excerpt || '')}</span><span class="program-row-image">${item.image ? `<img src="${escapeHtml(item.image)}" width="360" height="240" alt="" loading="lazy" decoding="async">` : ''}</span><span class="program-arrow" aria-hidden="true">↗</span></a>`).join('')}</div>
-                </div>
-            </div>
-        </section>
-        <section class="section section-tint" id="extracurriculars" aria-labelledby="extracurricular-title">
-            <div class="theme-container">
-                <div class="section-heading editorial-heading"><div><p class="eyebrow">Di luar kelas</p><h2 id="extracurricular-title">Tempat minat bertemu pengalaman.</h2><p class="section-heading-description">Kegiatan yang memberi siswa ruang untuk mencoba, bekerja sama, dan menemukan hal yang mereka sukai.</p></div><a class="text-link" href="#extracurriculars">Lihat semua <span aria-hidden="true">→</span></a></div>
-                <div class="activity-strip">${(state.extracurriculars || []).slice(0, 4).map((item,index)=>`<a class="activity-card" href="#extracurriculars"><span class="activity-number">${String(index+1).padStart(2,'0')}</span><span class="activity-icon">${iconMarkup(item.icon || 'sparkles')}</span>${item.image ? `<span class="activity-image"><img src="${escapeHtml(item.image)}" width="640" height="420" alt="" loading="lazy" decoding="async"></span>` : ''}<h3>${escapeHtml(item.title || 'Kegiatan siswa')}</h3><p>${escapeHtml(item.description || '')}</p><span class="activity-arrow" aria-hidden="true">↗</span></a>`).join('')}</div>
-            </div>
-        </section>
-
-        <section class="section section-dark people-feature" id="teachers" aria-labelledby="people-title">
-            <div class="theme-container people-grid">
-                <div class="people-portrait-grid">
-                    ${teachers.slice(0,3).map((teacher,index) => `<figure class="teacher-portrait teacher-portrait-${index+1}">${imageOrPlaceholder(teacher?.image || teacher?.image_url, teacher?.name || 'Tenaga pendidik', teacher || {}, false)}<figcaption><strong>${escapeHtml(teacher?.name || '')}</strong><span>${escapeHtml(teacher?.title || 'Tenaga pendidik')}</span></figcaption></figure>`).join('')}
-                </div>
-                <div class="people-copy">
-                    <p class="eyebrow eyebrow-dark">Orang-orang di balik pembelajaran</p>
-                    <h2 id="people-title" class="display-title section-title section-display">Sekolah tumbuh lewat orang-orangnya.</h2>
-                    <p class="dark-feature-copy">${escapeHtml(teachers[0]?.bio || 'Guru, staf, siswa, dan keluarga membentuk budaya belajar yang memberi makna pada setiap hari.')}</p>
-                    <div class="people-quote"><span class="quote-mark">${iconMarkup('quote')}</span><p>Belajar bukan hanya tentang hasil, tetapi tentang siapa yang tumbuh di sepanjang jalan.</p></div>
-                    <a class="button button-light" href="#teachers">Kenali para pengajar <span aria-hidden="true">↗</span></a>
-                </div>
-            </div>
-        </section>
-
-        <section class="section" id="achievements" aria-labelledby="stories-title">
-            <div class="theme-container stories-layout">
-                <div class="stories-intro"><p class="eyebrow">Cerita & capaian</p><h2 id="stories-title" class="display-title section-title section-display">Capaian yang patut dibanggakan.</h2><p class="editorial-copy">Setiap capaian berawal dari latihan, dukungan, dan keberanian untuk mencoba.</p></div>
-                <div class="achievement-list">${achievements.slice(0,3).map((item,index)=>`<article class="achievement-row"><span class="program-index">${String(index+1).padStart(2,'0')}</span>${item.image ? `<img class="achievement-thumb" src="${escapeHtml(item.image)}" width="300" height="220" alt="${escapeHtml(item.title || 'Prestasi siswa')}" loading="lazy" decoding="async">` : ''}<div><h3>${escapeHtml(item.title || 'Prestasi siswa')}</h3><p>${escapeHtml(item.description || '')}</p><small>${escapeHtml(item.level || '')}${item.year ? ` · ${escapeHtml(item.year)}` : ''}</small></div></article>`).join('')}</div>
-            </div>
-        </section>
-        <section class="section testimonial-feature" id="testimonials" aria-labelledby="testimonial-title">
-            <div class="theme-container testimonial-feature-grid">
-                <div><p class="eyebrow">Cerita dari komunitas</p><h2 id="testimonial-title" class="display-title section-title">Yang paling terasa adalah orang-orangnya.</h2></div>
-                <div class="testimonial-feature-card">
-                    ${state.testimonials?.[0]?.image ? `<img src="${escapeHtml(state.testimonials[0].image)}" width="160" height="160" alt="${escapeHtml(state.testimonials[0].name || 'Warga sekolah')}" loading="lazy" decoding="async">` : ''}
-                    <blockquote>“${escapeHtml(state.testimonials?.[0]?.quote || 'Sekolah memberi ruang untuk mencoba, bertumbuh, dan menemukan percaya diri.') }”</blockquote>
-                    <div><strong>${escapeHtml(state.testimonials?.[0]?.name || 'Warga sekolah')}</strong><span>${escapeHtml(state.testimonials?.[0]?.role || '')}</span></div>
-                </div>
-            </div>
-        </section>
-
-        <section class="section section-alt" aria-labelledby="news-title">
-            <div class="theme-container">
-                <div class="section-heading editorial-heading"><div><p class="eyebrow">Kabar sekolah</p><h2 id="news-title">Kabar dari sekolah.</h2></div><a class="text-link" href="${escapeHtml(newsUrl)}">Semua berita <span aria-hidden="true">→</span></a></div>
-                <div class="news-feature-layout">
-                    ${news[0] ? renderNewsFeature(news[0], newsUrl) : `<div class="empty-state"><span class="empty-state-mark" aria-hidden="true">—</span><p>Belum ada berita untuk ditampilkan.</p></div>`}
-                    <div class="news-list-compact">${news.slice(1,4).map(renderNewsCompact).join('')}</div>
-                </div>
-            </div>
-        </section>
-
-        <section class="section events-section" id="events" aria-labelledby="event-title">
-            <div class="theme-container events-layout"><div><p class="eyebrow">Agenda</p><h2 id="event-title" class="display-title section-title section-display">Yang sedang berlangsung.</h2><p class="editorial-copy">Agenda belajar, berkegiatan, dan bertemu bersama komunitas sekolah.</p></div><div class="agenda-list">${events.slice(0,3).map(renderEvent).join('')}</div></div>
-        </section>
-
-        <section class="section section-alt" id="gallery" aria-labelledby="gallery-title">
-            <div class="theme-container"><div class="section-heading editorial-heading"><div><p class="eyebrow">Dokumentasi</p><h2 id="gallery-title">Potret keseharian di sekolah.</h2></div><a class="text-link" href="#gallery">Lihat galeri <span aria-hidden="true">→</span></a></div><div class="gallery-editorial-grid">${galleries.slice(0,5).map((item,index)=>`<figure class="gallery-editorial-item gallery-editorial-item-${index}">${imageOrPlaceholder(item.image || item.image_url,item.title || 'Dokumentasi sekolah',item)}${item.title ? `<figcaption>${escapeHtml(item.title)}</figcaption>` : ''}</figure>`).join('')}</div></div>
-        </section>
-        <section class="section" id="faq" aria-labelledby="faq-title">
-            <div class="theme-container faq-preview-grid">
-                <div><p class="eyebrow">Pertanyaan umum</p><h2 id="faq-title" class="display-title section-title">Hal-hal yang sering ditanyakan.</h2><a class="text-link" href="#faq">Buka semua jawaban <span aria-hidden="true">→</span></a></div>
-                <div class="faq-list">${(state.faq || []).slice(0,4).map((item,index)=>`<details class="faq-item"${index === 0 ? ' open' : ''}><summary><span>${String(index+1).padStart(2,'0')}</span>${escapeHtml(item.question || '')}${iconMarkup('chevron-down')}</summary><div class="faq-answer">${escapeHtml(item.answer || '')}</div></details>`).join('')}</div>
-            </div>
-        </section>
-
-        <section class="section section-cta" aria-labelledby="contact-title">
-            <div class="theme-container cta-editorial"><div><p class="eyebrow">Langkah berikutnya</p><h2 id="contact-title" class="display-title section-title section-display">Mari berkenalan lebih dekat.</h2></div><div><p class="editorial-copy">Hubungi kami untuk informasi tentang pendaftaran, program, kegiatan, dan layanan sekolah.</p><a class="button" href="${escapeHtml(contactUrl)}">Hubungi sekolah <span aria-hidden="true">↗</span></a></div></div>
-        </section>`;
-        initIcons(container);
-        import('../campus3d.js').then(({ initCampusScene }) => initCampusScene()).catch(() => {});
+  container.innerHTML = `<div class="home-page">
+    <section class="home-hero" aria-labelledby="hero-title"><div class="theme-container home-hero-grid"><div class="home-hero-copy">${state.hero_badge ? `<p class="hero-kicker">${esc(state.hero_badge)}</p>` : ''}<h1 id="hero-title">${heroTitle}</h1><p class="hero-lead">${esc(state.hero_subtitle || state.site_description || state.site_tagline || '')}</p><div class="home-hero-actions"><a class="button" href="#profile">Jelajahi Sekolah ${iconMarkup('arrow-right')}</a><a class="button button-secondary" href="#profile">${iconMarkup('play-circle')} Tentang Kami</a></div></div><div class="hero-photo-wrap"><figure class="hero-photo">${imageOr(about.hero_image || about.image, `Lingkungan ${state.site_name || 'sekolah'}`, about)}</figure>${announcements.length ? `<aside class="hero-announcement"><h2>${iconMarkup('megaphone')} Pengumuman Terbaru</h2><ul class="announcement-list">${announcements.map(x => `<li><a href="/news/${encodeURIComponent(x.slug || '')}">${esc(x.title || 'Informasi terbaru')}</a><small>${esc(date(x.published_at))}</small></li>`).join('')}</ul><a class="announcement-more" href="/news?category=Pengumuman">Lihat semua pengumuman ${iconMarkup('arrow-right')}</a></aside>` : ''}</div></div></section>
+    <section class="home-quick-services" aria-label="Layanan cepat"><div class="theme-container quick-service-grid">${services.map(([i, l, d, u]) => `<a class="quick-service${u === '#' ? ' is-disabled' : ''}" href="${esc(u)}"${u === '#' ? ' aria-disabled="true" tabindex="-1"' : ''}><span class="quick-service-icon">${iconMarkup(i)}</span><span><strong>${esc(l)}</strong><small>${esc(d)}</small></span></a>`).join('')}</div></section>
+    ${state.counter_stats?.length ? `<section class="home-stat-section" aria-label="Statistik sekolah"><div class="theme-container"><div class="home-stat-grid">${state.counter_stats.slice(0, 4).map((x, i) => `<div class="home-stat-item">${iconMarkup(statIcons[i] || 'sparkles')}<div><strong>${esc(x.value || x.number || '')}</strong><span>${esc(x.label || x.title || '')}</span></div></div>`).join('')}</div></div></section>` : ''}
+    <section class="home-section" id="profile" aria-labelledby="profile-title"><div class="theme-container profile-grid"><article class="principal-panel"><div class="principal-photo">${imageOr(principal.image || principal.image_url, principal.name || 'Kepala sekolah', principal)}</div><div class="principal-message"><p class="section-kicker">Sambutan Kepala Sekolah</p><blockquote>“${esc(principal.bio || '')}”</blockquote><strong>${esc(principal.name || 'Kepala Sekolah')}</strong><span>${esc(principal.title || principal.position || 'Kepala Sekolah')}</span></div></article><div class="profile-copy"><p class="section-kicker">Profil Singkat</p><h2 id="profile-title">Sekolah yang tumbuh bersama masyarakat.</h2><p>${esc(about.description || state.site_description || '')}</p><div class="profile-points"><div class="profile-point">${iconMarkup('compass')}<div><strong>Visi</strong><span>${esc(about.visi || '')}</span></div></div><div class="profile-point">${iconMarkup('target')}<div><strong>Misi</strong><span>${esc(about.misi || '')}</span></div></div><div class="profile-point">${iconMarkup('landmark')}<div><strong>Fasilitas Unggulan</strong><span>${esc(about.facilities || '')}</span></div></div></div><a class="text-link" href="#profile">Selengkapnya Tentang Sekolah ${iconMarkup('arrow-right')}</a></div></div></section>
+    ${(programs.length || (state.extracurriculars || []).length) ? `<section class="home-section section-soft" id="programs"><div class="theme-container"><div class="section-head-row"><div><p class="section-kicker">Program & Ekstrakurikuler</p><h2>Wadah pengembangan potensi dan minat siswa.</h2></div><a class="text-link" href="#programs">Lihat Semua ${iconMarkup('arrow-right')}</a></div><div class="programs-extras-grid"><div><div class="subsection-label"><span>Program Unggulan</span></div><div class="program-card-grid">${programs.slice(0, 4).map(x => `<article class="program-card"><span class="program-card-icon">${iconMarkup(x.icon || 'book-open')}</span><h3>${esc(x.title || x.name || 'Program')}</h3><p>${esc(x.description || '')}</p></article>`).join('')}</div></div><div><div class="subsection-label"><span>Ekstrakurikuler Populer</span><a href="#programs">Lihat Semua ${iconMarkup('arrow-right')}</a></div><div class="extra-rail">${(state.extracurriculars || []).slice(0, 6).map(x => `<a class="extra-card" href="#programs">${x.image ? `<img src="${esc(x.image)}" alt="" loading="lazy">` : ''}<span>${esc(x.title || x.name || 'Kegiatan')}</span></a>`).join('')}</div></div></div></div></section>` : ''}
+    ${(teachers.length || achievements.length) ? `<section class="home-section" id="teachers"><div class="theme-container people-achievements-grid">${teachers.length ? `<div><div class="section-head-row compact"><div><p class="section-kicker">Tenaga Pengajar</p><h2>Guru profesional dan berkompeten.</h2></div><a class="text-link" href="#teachers">Lihat Semua ${iconMarkup('arrow-right')}</a></div><div class="teacher-grid">${teachers.slice(0, 4).map(x => `<article class="teacher-card">${x.image ? imageOr(x.image, x.name || 'Tenaga pendidik', x) : ''}<div><strong>${esc(x.name || 'Tenaga pendidik')}</strong><span>${esc(x.title || x.position || 'Tenaga pendidik')}</span></div></article>`).join('')}</div></div>` : ''}${achievements.length ? `<div><div class="section-head-row compact"><div><p class="section-kicker">Prestasi Siswa</p><h2>Mengukir prestasi di berbagai bidang.</h2></div><a class="text-link" href="#achievements">Lihat Semua ${iconMarkup('arrow-right')}</a></div><div class="achievement-cards" id="achievements">${achievements.slice(0, 3).map(x => `<article class="achievement-card">${x.image ? `<img src="${esc(x.image)}" alt="" loading="lazy">` : ''}<span class="achievement-level">${esc(x.level || 'Prestasi')}</span><div><small>${esc(x.year || '')}</small><h3>${esc(x.title || 'Prestasi siswa')}</h3><p>${esc(x.description || '')}</p></div></article>`).join('')}</div></div>` : ''}</div></section>` : ''}
+    ${(news.length || events.length) ? `<section class="home-section section-soft" id="updates"><div class="theme-container news-agenda-grid">${news[0] ? `<div><div class="section-head-row compact"><div><p class="section-kicker">Berita Terbaru</p><h2>Informasi terkini seputar kegiatan sekolah.</h2></div><a class="text-link" href="/news">Lihat Semua Berita ${iconMarkup('arrow-right')}</a></div><article class="featured-news"><a href="/news/${encodeURIComponent(news[0].slug || '')}" class="featured-news-media">${news[0].image ? `<img src="${esc(news[0].image)}" alt="${esc(news[0].title || 'Berita sekolah')}" loading="lazy">` : ''}<span>${esc(news[0].category || 'Berita')}</span><div><h3>${esc(news[0].title || 'Berita sekolah')}</h3><p>${esc(news[0].excerpt || news[0].description || '')}</p></div></a><div class="news-side-list">${news.slice(1, 4).map(x => `<a href="/news/${encodeURIComponent(x.slug || '')}"><span>${x.image ? `<img src="${esc(x.image)}" alt="" loading="lazy">` : ''}</span><div><strong>${esc(x.title || '')}</strong><small>${esc(x.published_at || '')}</small></div></a>`).join('')}</div></article></div>` : ''}${events.length ? `<div><div class="section-head-row compact"><div><p class="section-kicker">Agenda Mendatang</p><h2>Jangan lewatkan agenda penting sekolah.</h2></div><a class="text-link" href="#events">Lihat Semua Agenda ${iconMarkup('arrow-right')}</a></div><div class="agenda-list" id="events">${events.slice(0, 4).map(x => `<article class="agenda-item"><time datetime="${esc(x.event_date || '')}"><b>${esc(x.event_date ? new Date(x.event_date).toLocaleDateString('id-ID', {day:'2-digit'}) : '—')}</b><span>${esc(month(x.event_date))}</span></time><div><h3>${esc(x.title || 'Kegiatan sekolah')}</h3><p>${esc(x.time || '')}${x.location ? ` · ${esc(x.location)}` : ''}</p></div>${iconMarkup('chevron-right')}</article>`).join('')}</div></div>` : ''}</div></section>` : ''}
+    ${(galleries.length || testimonials.length) ? `<section class="home-section" id="gallery"><div class="theme-container gallery-testimonial-grid">${galleries.length ? `<div><div class="section-head-row compact"><div><p class="section-kicker">Galeri Kegiatan</p><h2>Momen terbaik kami.</h2></div><a class="text-link" href="#gallery">Lihat Galeri Lengkap ${iconMarkup('arrow-right')}</a></div><div class="gallery-home-grid">${galleries.slice(0, 6).map((x, i) => `<a class="gallery-home-item gallery-home-item-${i % 6}" href="#gallery">${x.image ? `<img src="${esc(x.image)}" alt="${esc(x.title || 'Dokumentasi sekolah')}" loading="lazy">` : ''}</a>`).join('')}</div></div>` : ''}${testimonials.length ? `<div><div class="section-head-row compact"><div><p class="section-kicker">Testimoni</p><h2>Apa kata mereka tentang sekolah?</h2></div><a class="text-link" href="#testimonials">Lihat Semua Testimoni ${iconMarkup('arrow-right')}</a></div><div class="testimonial-grid-home" id="testimonials">${testimonials.slice(0, 3).map(x => `<figure class="testimonial-card-home"><blockquote>“${esc(x.quote || x.content || '')}”</blockquote><figcaption>${x.image ? `<img src="${esc(x.image)}" alt="" loading="lazy">` : ''}<span><strong>${esc(x.name || x.author || 'Warga sekolah')}</strong><small>${esc(x.role || '')}</small></span></figcaption><div class="stars">★★★★★</div></figure>`).join('')}</div></div>` : ''}</div></section>` : ''}
+    <section class="home-section section-soft" id="documents"><div class="theme-container documents-spmb-grid"><div><div class="section-head-row compact"><div><p class="section-kicker">Pusat Dokumen</p><h2>Unduh dokumen dan formulir penting.</h2></div><a class="text-link" href="/downloads">Lihat Semua Dokumen ${iconMarkup('arrow-right')}</a></div><div class="document-home-list">${downloads.slice(0, 4).map(x => `<a href="${esc(x.url || '#')}" class="document-home-row"><span class="document-file-icon">${iconMarkup('file-text')}</span><span><strong>${esc(x.title || 'Dokumen')}</strong><small>${esc(x.type || x.extension || 'PDF')} · ${esc(x.file_size || x.size || '')}</small></span>${iconMarkup('arrow-up-right')}</a>`).join('')}</div></div><aside class="spmb-home-banner"><div><p class="section-kicker">SPMB 2025/2026</p><h2>Berikan langkah terbaik untuk masa depan gemilang.</h2><p>Pendaftaran peserta didik baru melalui kanal resmi sekolah.</p><a class="button button-accent" href="${esc(state.spmb_url || '#')}">Daftar Sekarang ${iconMarkup('arrow-right')}</a></div>${about.image ? `<img src="${esc(about.image)}" alt="" loading="lazy">` : ''}</aside></div></section>
+    <section class="home-contact-strip" id="contact" aria-label="Kontak sekolah"><div class="theme-container contact-strip-grid"><div>${iconMarkup('map-pin')}<span><b>Alamat</b><small>${esc(state.contact_address || '—')}</small></span></div><div>${iconMarkup('phone')}<span><b>Telepon</b><small>${esc(state.contact_phone || '—')}</small></span></div><div>${iconMarkup('mail')}<span><b>Email</b><small>${esc(state.contact_email || '—')}</small></span></div><div>${iconMarkup('clock-3')}<span><b>Jam Layanan</b><small>${esc(state.contact_hours || '—')}</small></span></div></div></section>
+  </div>`;
 }
-
-
-function renderStats(items) { return items.length ? items.slice(0,4).map((item,index)=>`<div class="fact-item"><span class="fact-number">${String(index+1).padStart(2,'0')}</span><strong>${escapeHtml(item.value || item.number || '')}</strong><span>${escapeHtml(item.label || item.title || '')}</span></div>`).join('') : '<div class="fact-item"><strong>—</strong><span>Profil sekolah</span></div>'; }
-function renderNewsFeature(item, base) { const href = `${base}/${encodeURIComponent(item.slug || '')}`; return `<article class="news-feature-item"><a class="news-feature-media" href="${escapeHtml(href)}">${imageOrPlaceholder(item.image || item.image_url,item.title || 'Berita sekolah',item)}</a><div class="news-feature-body"><div class="card-meta"><time datetime="${escapeHtml(item.published_at || item.created_at || '')}">${escapeHtml(item.published_at || item.created_at || 'Informasi terbaru')}</time></div><h3><a href="${escapeHtml(href)}">${escapeHtml(item.title || 'Berita sekolah')}</a></h3><p>${escapeHtml(item.excerpt || item.description || '')}</p><a class="text-link" href="${escapeHtml(href)}">Baca cerita <span aria-hidden="true">↗</span></a></div></article>`; }
-function renderNewsCompact(item) { const href = `/news/${encodeURIComponent(item.slug || '')}`; return `<article class="news-compact-row"><span class="program-index">Berita</span><div><time datetime="${escapeHtml(item.published_at || item.created_at || '')}">${escapeHtml(item.published_at || item.created_at || '')}</time><h3><a href="${escapeHtml(href)}">${escapeHtml(item.title || 'Berita sekolah')}</a></h3></div></article>`; }
-function renderEvent(item) { return `<article class="agenda-row"><span class="agenda-icon">${iconMarkup(item.icon || 'calendar-days')}</span><time datetime="${escapeHtml(item.event_date || item.date || '')}">${escapeHtml(item.event_date || item.date || 'Tanggal ditentukan kemudian')}</time><div><h3>${escapeHtml(item.title || 'Kegiatan sekolah')}</h3><p>${escapeHtml(item.description || item.excerpt || '')}</p></div></article>`; }
-function imageOrPlaceholder(src, alt, item = {}, priority = false) { return src ? `<img src="${escapeHtml(src)}"${responsiveAttrs(item)} alt="${escapeHtml(alt)}" ${priority ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async">` : `<div class="media-placeholder" role="img" aria-label="${escapeHtml(alt)}"><span>${escapeHtml(alt)}</span></div>`; }
-function responsiveAttrs(item = {}) { const srcset = item.image_srcset || item.srcset; const sizes = item.image_sizes || item.sizes; const width = item.image_width || item.width || 1600; const height = item.image_height || item.height || 1000; return ` width="${escapeHtml(width)}" height="${escapeHtml(height)}"${srcset ? ` srcset="${escapeHtml(srcset)}"${sizes ? ` sizes="${escapeHtml(sizes)}"` : ''}` : ''}`; }
-function escapeHtml(value) { return String(value ?? '').replace(/[&<>'"]/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[char])); }
+function esc(value) { return String(value ?? '').replace(/[&<>'"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[c])); }

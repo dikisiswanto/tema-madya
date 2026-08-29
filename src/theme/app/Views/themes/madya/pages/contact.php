@@ -1,24 +1,9 @@
 <?= $this->include('themes/madya/layouts/header') ?>
-<?php $banner = !empty($page_banners) ? (json_decode($page_banners, true)['contact'] ?? []) : []; ?>
-<?= $this->include('themes/madya/components/page-header', ['eyebrow' => $banner['badge'] ?? 'Hubungi sekolah', 'title' => $banner['title'] ?? 'Mari berbincang.', 'description' => $banner['subtitle'] ?? 'Temukan kanal resmi untuk mendapatkan informasi dan bantuan dari sekolah.', 'breadcrumbs' => [['label' => 'Kontak']]]) ?>
-<section class="section"><div class="theme-container contact-page-grid">
-    <div class="contact-stack">
-        <div><span>Alamat</span><strong><?= esc($contact_address ?? '—') ?></strong></div>
-        <div><span>Telepon</span><strong><?= esc($contact_phone ?? '—') ?></strong></div>
-        <div><span>Email</span><strong><?= esc($contact_email ?? '—') ?></strong></div>
-        <div><span>Jam layanan</span><strong><?= esc($contact_hours ?? '—') ?></strong></div>
-    </div>
-    <div>
-        <p class="eyebrow">Kirim pesan</p><h2 class="display-title text-4xl md:text-6xl">Sampaikan kebutuhan Anda.</h2>
-        <p class="max-w-xl leading-8 text-slate-600">Pesan akan diproses melalui kanal kontak resmi sekolah.</p>
-        <form class="form-grid mt-8" action="<?= base_url('contact/send') ?>" method="post">
-            <?= csrf_field() ?><input type="text" name="website" class="sr-only" tabindex="-1" autocomplete="off">
-            <div class="form-field"><label for="contact-name">Nama</label><input id="contact-name" name="name" required autocomplete="name"></div>
-            <div class="form-field"><label for="contact-email">Email</label><input id="contact-email" name="email" type="email" required autocomplete="email"></div>
-            <div class="form-field"><label for="contact-subject">Subjek</label><input id="contact-subject" name="subject" required></div>
-            <div class="form-field form-full"><label for="contact-message">Pesan</label><textarea id="contact-message" name="message" required></textarea></div>
-            <div><button class="button" type="submit">Kirim pesan</button></div>
-        </form>
-    </div>
+<?php $banner=!empty($page_banners)?(json_decode($page_banners,true)['contact']??[]):[]; ?>
+<?= $this->include('themes/madya/components/page-header', ['eyebrow'=>$banner['badge']??'Hubungi Sekolah', 'title'=>$banner['title']??'Kontak Sekolah', 'description'=>$banner['subtitle']??'Temukan alamat, kanal resmi, dan formulir untuk menghubungi sekolah.', 'image'=>'', 'breadcrumbs'=>[['label'=>'Kontak']]]) ?>
+<section class="section"><div class="theme-container">
+    <div class="contact-summary"><div class="contact-summary-item"><span class="icon"><i data-lucide="map-pin" aria-hidden="true"></i></span><strong>Alamat</strong><small><?= esc($contact_address??'—') ?></small></div><div class="contact-summary-item"><span class="icon"><i data-lucide="phone" aria-hidden="true"></i></span><strong>Telepon</strong><small><?= esc($contact_phone??'—') ?></small></div><div class="contact-summary-item"><span class="icon"><i data-lucide="mail" aria-hidden="true"></i></span><strong>Email</strong><small><?= esc($contact_email??'—') ?></small></div><div class="contact-summary-item"><span class="icon"><i data-lucide="clock-3" aria-hidden="true"></i></span><strong>Jam Layanan</strong><small><?= esc($contact_hours??'—') ?></small></div></div>
+    <div class="contact-main-grid"><div class="contact-info-panel"><p class="eyebrow">Informasi Sekolah</p><h2>Hubungi kanal resmi kami.</h2><p><?= esc($site_description??'Kami siap membantu memberikan informasi yang Anda perlukan.') ?></p><div class="contact-help"><div class="help-card"><strong>Telepon</strong><span><?= esc($contact_phone??'—') ?></span></div><div class="help-card"><strong>Email</strong><span><?= esc($contact_email??'—') ?></span></div></div></div>
+    <div><p class="eyebrow">Kirim pesan</p><h2 class="display-title">Sampaikan kebutuhan Anda.</h2><p class="editorial-copy">Pesan akan diproses melalui kanal kontak resmi sekolah.</p><form class="form-grid mt-8" action="<?= base_url('contact/send') ?>" method="post"><?= csrf_field() ?><input type="text" name="website" class="sr-only" tabindex="-1" autocomplete="off"><div class="form-field"><label for="contact-name">Nama</label><input id="contact-name" name="name" required autocomplete="name"></div><div class="form-field"><label for="contact-email">Email</label><input id="contact-email" name="email" type="email" required autocomplete="email"></div><div class="form-field form-full"><label for="contact-subject">Subjek</label><input id="contact-subject" name="subject" required></div><div class="form-field form-full"><label for="contact-message">Pesan</label><textarea id="contact-message" name="message" required></textarea></div><div><button class="button" type="submit">Kirim pesan</button></div></form></div></div>
 </div></section>
 <?= $this->include('themes/madya/layouts/footer') ?>
