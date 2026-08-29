@@ -92,6 +92,75 @@ pages/page.php
 
 Di bawah view tersebut, layout, component, partial, CSS, dan JavaScript dapat dikembangkan secara bebas.
 
+## Arsitektur Codebase
+
+Madya memisahkan tiga concern utama:
+
+```text
+CMS Sekolahku 3.1.2
+      ↓
+public view adapters
+      ↓
+Madya PHP theme
+
+playground/data/demo.json
+      ↓
+normalizer + derived selectors
+      ↓
+Madya playground renderer
+```
+
+Aturan maintenance:
+
+1. Jangan mengubah core Sekolahku untuk kebutuhan theme.
+2. `playground/data/demo.json` adalah satu-satunya sumber data demo.
+3. Asset gambar canonical berada di `src/theme/app/Views/themes/madya/assets/`.
+4. Normalisasi data playground berada di `src/js/data/normalize.js`.
+5. Selector turunan berada di `src/js/data/derived.js`.
+6. Rich text user-authored menggunakan `.article-prose` pada news detail dan static page.
+7. Ikon UI menggunakan registry bundled di `src/js/icons.js` dan class `.icon-tabler`.
+8. Perubahan layout sebaiknya dilakukan pada component contract, bukan dengan override CSS page-specific yang berulang.
+
+Quality gates utama:
+
+```bash
+npm run check
+npm run format:check
+npm run build
+npm run build:html
+npm test
+```
+
+`npm run format:check` sengaja dipisahkan dari `npm run check` agar refactor legacy dapat dilakukan bertahap tanpa membuat CI visual/data gate bergantung pada formatter.
+
+## Code Style & Quality Tooling
+
+Madya menggunakan toolchain yang dipisahkan berdasarkan bahasa:
+
+- **PHP:** PHP_CodeSniffer (`phpcs`) sebagai linter dan PHP Code Beautifier (`phpcbf`) sebagai formatter, dengan standard PSR-12 yang disesuaikan untuk view template.
+- **JavaScript:** Biome sebagai formatter dan linter.
+- **CSS:** Biome sebagai formatter/linter, dengan Tailwind CSS 4 sebagai fondasi styling.
+- **Editor:** `.editorconfig` dan konfigurasi VS Code tersedia di `.vscode/`.
+
+Install tooling PHP sekali di mesin development:
+
+```bash
+composer install
+```
+
+Quality commands:
+
+```bash
+npm run lint
+npm run format
+npm run format:check
+npm run check
+composer run format
+composer run lint
+```
+
+Formatter tidak boleh dipakai untuk mengubah design secara manual. Format hanya mengubah struktur kode; perubahan visual harus tetap dilakukan pada design token/component contract. Detail aturan ada di `docs/code-style.md`.
+
 ## Styling dengan Tailwind
 
 Madya menggunakan **Tailwind CSS 4** sebagai fondasi styling. Tailwind tetap tersedia langsung di HTML dan PHP theme, sehingga utility seperti `flex`, `grid`, `gap-6`, `text-brand`, `bg-surface-alt`, dan utility responsive dapat digunakan tanpa membuat class baru.

@@ -1,13 +1,3 @@
-<?php
-$footerBrandSocialIcon = static function (string $name): string {
-    $paths = [
-        'facebook' => '<path d="M15 2h3V0h-3c-3.31 0-6 2.69-6 6v3H6v3h3v8h3v-8h3l1-3h-4V6c0-1.1.9-2 2-2z"/>',
-        'instagram' => '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>',
-        'youtube' => '<path d="M21.58 7.19a2.75 2.75 0 0 0-1.93-1.95C17.95 4.75 12 4.75 12 4.75s-5.95 0-7.65.49a2.75 2.75 0 0 0-1.93 1.95A28.7 28.7 0 0 0 1.95 12a28.7 28.7 0 0 0 .47 4.81 2.75 2.75 0 0 0 1.93 1.95c1.7.49 7.65.49 7.65.49s5.95 0 7.65-.49a2.75 2.75 0 0 0 1.93-1.95A28.7 28.7 0 0 0 22.05 12a28.7 28.7 0 0 0-.47-4.81Z"/><path d="m10 15.25 5-3.25-5-3.25v6.5Z" fill="currentColor" stroke="none"/>',
-    ];
-    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' . ($paths[$name] ?? '') . '</svg>';
-};
-?>
 <footer class="site-footer" role="contentinfo">
     <div class="newsletter-strip">
         <div class="theme-container newsletter-inner">
@@ -51,14 +41,14 @@ $footerBrandSocialIcon = static function (string $name): string {
                 <h3 class="footer-title">Newsletter</h3>
                 <p>Dapatkan informasi terbaru dari kami.</p>
                 <form class="footer-newsletter-form" action="#" method="post" onsubmit="return false">
-                    <label class="sr-only" for="footer-newsletter-email">Masukkan email Anda</label>
-                    <input id="footer-newsletter-email" type="email" placeholder="Masukkan email Anda" autocomplete="email">
+                    <label class="sr-only" for="footer-column-newsletter-email">Masukkan email Anda</label>
+                    <input id="footer-column-newsletter-email" type="email" placeholder="Masukkan email Anda" autocomplete="email">
                     <button class="button button-accent" type="submit" aria-label="Kirim email"><i data-lucide="send" aria-hidden="true"></i></button>
                 </form>
                 <div class="footer-socials">
-                    <?php if (!empty($social_facebook) && $social_facebook !== '#'): ?><a href="<?= esc($social_facebook) ?>" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><?= $footerBrandSocialIcon('facebook') ?></a><?php endif; ?>
-                    <?php if (!empty($social_instagram) && $social_instagram !== '#'): ?><a href="<?= esc($social_instagram) ?>" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><?= $footerBrandSocialIcon('instagram') ?></a><?php endif; ?>
-                    <?php if (!empty($social_youtube) && $social_youtube !== '#'): ?><a href="<?= esc($social_youtube) ?>" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><?= $footerBrandSocialIcon('youtube') ?></a><?php endif; ?>
+                    <?php if (!empty($social_facebook) && $social_facebook !== '#'): ?><a href="<?= esc($social_facebook) ?>" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i data-lucide="brand-facebook" aria-hidden="true"></i></a><?php endif; ?>
+                    <?php if (!empty($social_instagram) && $social_instagram !== '#'): ?><a href="<?= esc($social_instagram) ?>" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i data-lucide="brand-instagram" aria-hidden="true"></i></a><?php endif; ?>
+                    <?php if (!empty($social_youtube) && $social_youtube !== '#'): ?><a href="<?= esc($social_youtube) ?>" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i data-lucide="brand-youtube" aria-hidden="true"></i></a><?php endif; ?>
                 </div>
             </div>
         </div>

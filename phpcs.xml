@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ruleset name="Madya">
+    <description>Madya PHP coding standard for maintainable CI4 view templates.</description>
+
+    <file>src/theme</file>
+
+    <arg name="colors" />
+    <arg name="parallel" value="4" />
+    <arg name="basepath" value="." />
+    <arg name="extensions" value="php" />
+
+    <rule ref="PSR12">
+        <exclude name="Generic.Files.LineLength" />
+    </rule>
+
+    <!-- View templates intentionally contain HTML alongside PHP. Keep whitespace
+         and structural rules, but do not enforce application-layer class design. -->
+    <rule ref="Generic.WhiteSpace.ScopeIndent" />
+    <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace" />
+    <rule ref="Squiz.WhiteSpace.CastAsIndent" />
+</ruleset>
