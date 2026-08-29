@@ -12,7 +12,7 @@
     "validate": "node scripts/validate-theme.js",
     "test": "npm run check:deps && playwright test",
     "test:ui": "playwright test --ui",
-    "format": "biome format --write src/js src/css scripts tests playground",
+    "format": "biome format --write src/js src/css scripts tests playground/app.js vite.config.js playwright.config.js",
     "format:check": "biome format src/js src/css scripts tests playground/app.js vite.config.js playwright.config.js",
     "dev:html": "npm run dev",
     "build:html": "npm run build && node scripts/build-html.js",
