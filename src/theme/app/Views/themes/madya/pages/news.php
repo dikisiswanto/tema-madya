@@ -39,14 +39,14 @@ $newsStructured = ['@context' => 'https://schema.org','@type' => 'CollectionPage
 <a class="<?= ($category ?? '') === $cat['name'] ? 'is-active' : '' ?>" href="<?= base_url('news?category=' . urlencode($cat['name'])) ?>" data-news-category="<?= esc($cat['name']) ?>"><?= esc($cat['name']) ?></a>
 <?php endforeach; ?>
                 </nav>
-                <label class="news-sort"><span class="sr-only">Urutkan berita</span><select aria-label="Urutkan berita"><option>Terbaru</option><option>Terpopuler</option><option>A-Z</option></select><i data-lucide="chevron-down" aria-hidden="true"></i></label>
+                <label class="news-sort"><span class="sr-only">Urutkan berita</span><select aria-label="Urutkan berita" data-news-sort><option value="latest">Terbaru</option><option value="popular">Terpopuler</option><option value="az">A-Z</option></select><i data-lucide="chevron-down" aria-hidden="true"></i></label>
             </div>
             <?php if ($search): ?>
 <p class="search-summary">Menampilkan <?= count($newsItems) ?> hasil untuk <strong>“<?= esc($search) ?>”</strong></p>
 <?php endif; ?>
-            <div class="news-archive-list">
+            <div class="news-archive-list" data-news-list>
                 <?php foreach ($newsItems as $post): ?>
-<?= $this->include('themes/madya/components/content/news-card', ['post' => $post]) ?>
+<?= $this->include('themes/madya/components/content/news-card', ['post' => $post, 'fallback_image' => $newsFallbackImage]) ?>
 <?php endforeach; ?>
                 <?php if (!$newsItems): ?>
 <?= $this->include('themes/madya/components/ui/empty-state', ['message' => 'Tidak ada berita yang sesuai dengan pencarian Anda.']) ?>

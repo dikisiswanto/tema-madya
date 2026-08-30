@@ -339,3 +339,18 @@ test('news detail exposes the canonical sidebar and comments surface', async ({
     await expect(page.locator('#komentar')).toBeVisible();
     await expect(page.locator('[data-playground-comment-form]')).toBeVisible();
 });
+
+
+test('news list keeps native CMS links and media contract', async ({ page }) => {
+    await page.goto('/news');
+    const list = page.locator('.news-archive-list[data-news-list]');
+    await expect(list).toBeVisible();
+    const firstCard = list.locator('.news-card').first();
+    if (await firstCard.count()) {
+        await expect(firstCard.locator('h2 a')).toHaveAttribute('href', /\/news\//);
+        await expect(firstCard.locator('img')).toHaveAttribute('alt', /.+/);
+        await expect(firstCard.locator('img')).toHaveAttribute('width', /.+/);
+        await expect(firstCard.locator('img')).toHaveAttribute('height', /.+/);
+    }
+    await expect(page.locator('[data-news-sort]')).toHaveValue('latest');
+});

@@ -10316,6 +10316,9 @@
   .news-archive-list .news-card-media img {
     @apply block h-full min-h-[9.75rem] w-full object-cover transition-transform duration-500;
   }
+  .news-archive-list .news-card-media {
+    aspect-ratio: 16 / 10;
+  }
   .news-archive-list .news-card:hover .news-card-media img {
     transform: scale(1.02);
   }
@@ -10339,7 +10342,7 @@
     @apply text-accent;
   }
   .news-archive-list .news-card p {
-    @apply mb-4 max-w-[48rem] text-[.8rem] leading-6 text-muted;
+    @apply mb-4 max-w-[48rem] text-[.82rem] leading-6 text-muted;
   }
   .news-card-footer {
     @apply flex flex-wrap items-center justify-between gap-x-5 gap-y-2 mt-auto;
