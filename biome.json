@@ -38,5 +38,22 @@
       "indentWidth": 2,
       "lineEnding": "lf"
     }
-  }
+  },
+  "overrides": [
+    {
+      "includes": [
+        "src/css/**/*.css"
+      ],
+      "linter": {
+        "rules": {
+          "complexity": {
+            "noImportantStyles": "off"
+          },
+          "style": {
+            "noDescendingSpecificity": "off"
+          }
+        }
+      }
+    }
+  ]
 }

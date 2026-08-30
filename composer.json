@@ -4,10 +4,11 @@
     "type": "project",
     "require": {},
     "require-dev": {
-        "squizlabs/php_codesniffer": "^3.11"
+        "squizlabs/php_codesniffer": "^4.0.4"
     },
     "scripts": {
         "lint": "phpcs --standard=phpcs.xml",
         "format": "phpcbf --standard=phpcs.xml"
-    }
+    },
+    "license": "proprietary"
 }
