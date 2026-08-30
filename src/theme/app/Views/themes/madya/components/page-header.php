@@ -9,13 +9,13 @@ if (!$breadcrumbs && $title !== '') {
 $bannerImage = $image ?? '';
 $variant = trim((string)($variant ?? ''));
 ?>
-<header class="page-hero<?= $bannerImage ? ' page-hero-has-image' : '' ?><?= $variant !== '' ? ' page-hero-' . esc($variant) : '' ?>"<?php if ($bannerImage): ?>
+<header data-madya-native-page-header="true" class="page-hero<?= $bannerImage ? ' page-hero-has-image' : '' ?><?= $variant !== '' ? ' page-hero-' . esc($variant) : '' ?>" role="banner"<?php if ($bannerImage): ?>
  style="--page-hero-image: url('<?= esc($bannerImage) ?>')"
 <?php endif; ?>>
     <div class="page-hero-backdrop" aria-hidden="true"></div>
     <div class="theme-container page-hero-inner">
         <?php if ($breadcrumbs): ?>
-        <nav class="breadcrumb" aria-label="Jejak navigasi">
+        <nav class="breadcrumb page-breadcrumb" aria-label="Jejak navigasi">
             <a href="<?= base_url() ?>">Beranda</a>
             <?php foreach ($breadcrumbs as $crumb): ?>
                 <span aria-hidden="true">/</span>

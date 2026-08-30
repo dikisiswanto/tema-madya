@@ -64,6 +64,13 @@ if (!$serviceItems) {
         ['icon' => 'mail', 'label' => 'Kontak Sekolah', 'desc' => 'Hubungi sekolah', 'url' => base_url('contact')],
     ];
 }
+$allProgramItems = $programItems;
+$allExtraItems = $extraItems;
+$allTeacherItems = $teacherItems;
+$allAchievementItems = $achievementItems;
+$allEventItems = $eventItems;
+$allGalleryItems = $galleryItems;
+
 $programItems = array_slice($programItems, 0, 4);
 $extraItems = array_slice($extraItems, 0, 6);
 $teacherItems = array_slice($teacherItems, 0, 4);
@@ -115,6 +122,15 @@ foreach (['hero_image', 'image', 'image_url'] as $imageKey) {
     }
 }
 $themeStatePrincipal = $principalData;
+if (isset($themeStatePrincipal['quote']) && !isset($themeStatePrincipal['welcome_message'])) {
+    $themeStatePrincipal['welcome_message'] = $themeStatePrincipal['quote'];
+}
+if (isset($themeStatePrincipal['sambutan']) && !isset($themeStatePrincipal['welcome_message'])) {
+    $themeStatePrincipal['welcome_message'] = $themeStatePrincipal['sambutan'];
+}
+if (isset($themeStatePrincipal['role']) && !isset($themeStatePrincipal['role_title'])) {
+    $themeStatePrincipal['role_title'] = $themeStatePrincipal['role'];
+}
 if (!empty($themeStatePrincipal['photo'])) {
     $themeStatePrincipal['photo'] = $themeStateImage($themeStatePrincipal['photo'], 'principal');
 }
@@ -127,10 +143,10 @@ $themeStateCollection = static function (array $items, string $imageField, strin
         return $item;
     }, $items);
 };
-$themeStateTeachers = $themeStateCollection($teacherItems, 'photo', 'teachers');
-$themeStateAchievements = $themeStateCollection($achievementItems, 'photo', 'achievements');
+$themeStateTeachers = $themeStateCollection($allTeacherItems, 'photo', 'teachers');
+$themeStateAchievements = $themeStateCollection($allAchievementItems, 'photo', 'achievements');
 $themeStateTestimonials = $themeStateCollection($testimonialItems, 'photo', 'testimonials');
-$themeStateGalleries = $themeStateCollection($galleryItems, 'image', 'gallery');
+$themeStateGalleries = $themeStateCollection($allGalleryItems, 'image', 'gallery');
 $themeStateNews = array_map(static function ($item) use ($themeStateImage) {
     $item = (array) $item;
     if (!empty($item['image'])) {
@@ -177,12 +193,12 @@ $themeState = [
     'counter_stats' => is_array($counter_stats ?? null) ? $counter_stats : (json_decode($counter_stats ?? '[]', true) ?: []),
     'hero_stats' => is_array($hero_stats ?? null) ? $hero_stats : (json_decode($hero_stats ?? '[]', true) ?: []),
     'navigation' => is_array($menu_tree ?? null) ? $menu_tree : [],
-    'programs' => $programItems,
-    'extracurriculars' => $extraItems,
+    'programs' => $allProgramItems,
+    'extracurriculars' => $allExtraItems,
     'teachers' => $themeStateTeachers,
     'achievements' => $themeStateAchievements,
     'testimonials' => $themeStateTestimonials,
-    'events' => $eventItems,
+    'events' => $allEventItems,
     'galleries' => $themeStateGalleries,
     'faq' => $faq ?? [],
     'news' => $themeStateNews,
@@ -216,10 +232,8 @@ $themeStateJson = json_encode($themeState, JSON_UNESCAPED_SLASHES | JSON_UNESCAP
         <h1 id="hero-title"><?= $heroTitleMarkup ?></h1>
         <p class="hero-lead"><?= esc($hero_subtitle ?: ($site_description ?? $site_tagline ?? '')) ?></p>
         <div class="home-hero-actions">
-          <a class="button" href="<?= esc($primaryUrl) ?>"><?= esc($primaryText) ?> <i data-lucide="arrow-right"
-              aria-hidden="true"></i></a>
-          <a class="button button-secondary" href="<?= esc($secondaryUrl) ?>"><i data-lucide="play-circle"
-              aria-hidden="true"></i><?= esc($secondaryText) ?></a>
+          <a class="button" href="<?= esc($primaryUrl) ?>"><?= esc($primaryText) ?> <?= $this->include('themes/madya/components/ui/icon', ['name' => 'arrow-right']) ?></a>
+          <a class="button button-secondary" href="<?= esc($secondaryUrl) ?>"><?= $this->include('themes/madya/components/ui/icon', ['name' => 'play-circle']) ?><?= esc($secondaryText) ?></a>
         </div>
       </div>
     </div>
@@ -230,7 +244,7 @@ $themeStateJson = json_encode($themeState, JSON_UNESCAPED_SLASHES | JSON_UNESCAP
       <?php foreach ($serviceItems as $service): ?>
       <a class="quick-service<?= $service['url'] === '#' ? ' is-disabled' : '' ?>" href="<?= esc($service['url']) ?>"
         <?= $service['url'] === '#' ? ' aria-disabled="true" tabindex="-1"' : '' ?>>
-        <span class="quick-service-icon"><i data-lucide="<?= esc($service['icon']) ?>" aria-hidden="true"></i></span>
+        <span class="quick-service-icon"><?= $this->include('themes/madya/components/ui/icon', ['name' => $service['icon'] ?? 'arrow-up-right']) ?></span>
         <span><strong><?= esc($service['label']) ?></strong><small><?= esc($service['desc']) ?></small></span>
       </a>
       

@@ -1,39 +1,39 @@
-# Kompatibilitas CMS Sekolahku
+# CMS SekolahKu 3.1.2 compatibility
 
-Madya adalah tema pihak ketiga untuk Sekolahku CMS 3.1.2. Core CMS, controller, model, route, dan database tidak dimodifikasi.
+Madya is a theme override for SekolahKu 3.1.2. The CMS remains the source of truth for production data and routing.
 
-## Kontrak view
+## Runtime boundary
 
-- `pages/home.php`
-- `pages/news.php`
-- `pages/single_post.php`
-- `pages/downloads.php`
-- `pages/contact.php`
-- `pages/page.php`
+### CMS production
 
-View publik tersebut meneruskan rendering ke `themes/madya/`.
+- `pages/home.php` is server-rendered by `Home::index()`.
+- The homepage may use the Madya hash-enhancement runtime (`cms-home`) for rich sections.
+- `/news`, `/news/{slug}`, `/downloads`, `/contact`, and `/{page-slug}` remain native CodeIgniter requests.
+- Native pages never receive the SPA content shell and are never intercepted by the SPA router.
+- Breadcrumbs on native pages are rendered by PHP through `components/page-header.php` so direct requests and refreshes do not depend on JavaScript.
 
-## Prinsip data
+### Playground
 
-PHP hanya menggunakan variabel yang disuplai controller CMS. View tidak melakukan query database atau business logic. Data kosong dan nullable harus ditangani dengan aman.
+- `playground/data/demo.json` is the only source for demo content.
+- `standalone` is allowed to simulate native routes and client-side rendering.
+- Demo images and demo-only copy must not be introduced into CMS PHP views.
 
-## Dukungan pencarian
+## Homepage data contract
 
-`/news` memang mendukung `search`, `category`, `month`, dan pagination melalui controller CMS. Karena itu search berita boleh ditampilkan. `/downloads` tidak menerima parameter pencarian dari controller CMS, sehingga Madya tidak menampilkan search palsu di halaman download.
+The CMS `Home` controller supplies these collections: programs, extracurriculars, teachers, achievements, testimonials, news, events, galleries, and FAQ. Madya renders a short server-side preview but exposes the **full visible CMS collections** in `theme-state` for rich-component hydration.
 
-## Ikon
+Principal data is normalized from the CMS vocabulary (`quote`, `role`) to the renderer vocabulary (`welcome_message`, `role_title`) without inventing content.
 
-Ikon dari CMS, terutama class Font Awesome seperti `fas fa-futbol` dan `fa-school`, dipertahankan. `icon_color` ekstrakurikuler divalidasi sebelum diterapkan.
-## Data boundary: Playground vs CMS
+## Icons
 
-Playground dan CMS sengaja memiliki sumber data yang berbeda:
+SekolahKu stores configurable icons as Font Awesome class strings such as `fas fa-flask`, `fas fa-microchip`, and `fa-school`. Madya accepts these values directly. Legacy `fa fa-*` values are also normalized to the solid Font Awesome prefix. Unknown icon values fall back only when the CMS value is actually missing or invalid.
 
-- `playground/data/demo.json` adalah satu-satunya sumber data demo untuk standalone/playground.
-- View PHP Madya hanya mengonsumsi variabel yang disuplai controller SekolahKu 3.1.2.
-- View PHP tidak boleh mengimpor model CMS, membaca `$_GET` untuk membuat fitur baru yang tidak didukung controller, atau mengambil data dari demo.
-- Fallback pada PHP hanya boleh bersifat presentational dan generik; tidak boleh mengarang identitas sekolah, nama guru/kepala sekolah, sambutan, atau foto orang tertentu.
-- Fallback foto orang menggunakan placeholder netral; data CMS yang tersedia selalu diprioritaskan.
-- Rich components pada homepage CMS dirender dari data PHP CMS. SPA hanya merupakan progressive enhancement pada playground/standalone shell yang memiliki `[data-spa-content][data-spa-runtime="standalone"]`.
-- Halaman native (`/news`, `/news/{slug}`, `/downloads`, `/contact`, dan static page) tidak boleh menyediakan SPA shell dan tidak boleh diintercept oleh SPA router.
-- Breadcrumb halaman native dirender server-side oleh `components/page-header.php` sehingga tetap tersedia ketika URL dibuka langsung, direfresh, atau diakses tanpa JavaScript.
+## News
 
+The CMS 3.1.2 `News::index()` controller natively supports `search`, `category`, and `month`. It does **not** currently read a `tag` GET parameter even though it exposes tags in the view data. Therefore the theme must not fake tag filtering with client-side SPA behavior. Article tags are displayed from the article's real `tags` field.
+
+If true server-side tag filtering is required, apply the included `cms-3.1.2-news-tag-filter.patch` to the CMS controller/model. The theme detects whether the `tag` query contract is present; without it, tags are displayed as non-interactive labels rather than pretending a broken filter exists.
+
+## Native page behavior
+
+Native page forms, pagination, category links, download links, comments, and static-page links use ordinary browser navigation. Madya does not call `preventDefault()` for those interactions on CMS pages.

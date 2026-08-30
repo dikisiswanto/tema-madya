@@ -64,6 +64,14 @@ for (const name of nativePages) {
             `${name}: native CMS page must not declare the SPA content shell.`,
         );
     }
+    if (
+        source.includes('data-news-category') ||
+        source.includes('data-news-sort')
+    ) {
+        errors.push(
+            `${name}: native CMS news UI must not expose playground SPA interception hooks.`,
+        );
+    }
 }
 
 const router = fs.readFileSync(
@@ -93,6 +101,24 @@ if (!router.includes('event.preventDefault()')) {
     );
 }
 
+const singlePost = fs.readFileSync(
+    path.join(themePages, 'single_post.php'),
+    'utf8',
+);
+if (
+    !singlePost.includes('$post ?? null') ||
+    !singlePost.includes('$article = is_array($post')
+) {
+    errors.push(
+        "single_post.php: must consume the CMS News controller\'s post variable.",
+    );
+}
+if (!singlePost.includes("$article['tags']")) {
+    errors.push(
+        'single_post.php: article tags must come from the CMS post tags field.',
+    );
+}
+
 const home = fs.readFileSync(path.join(themePages, 'home.php'), 'utf8');
 if (
     !home.includes('$programs') ||
@@ -116,6 +142,37 @@ if (
 ) {
     errors.push(
         'home.php: CMS homepage state must expose the canonical theme asset base to rich-component hydration.',
+    );
+}
+for (const forbiddenStateRef of [
+    "'programs' => $programItems",
+    "'extracurriculars' => $extraItems",
+    "'teachers' => $teacherItems",
+    "'achievements' => $achievementItems",
+    "'events' => $eventItems",
+    "'galleries' => $galleryItems",
+]) {
+    if (home.includes(forbiddenStateRef)) {
+        errors.push(
+            `home.php: CMS rich state must use the full visible collection, not the homepage preview slice (${forbiddenStateRef}).`,
+        );
+    }
+}
+if (
+    !home.includes('$allProgramItems = $programItems') ||
+    !home.includes('$allExtraItems = $extraItems')
+) {
+    errors.push(
+        'home.php: full CMS collections must be captured before homepage preview slicing.',
+    );
+}
+if (
+    !home.includes(
+        "$themeStatePrincipal['welcome_message'] = $themeStatePrincipal['quote']",
+    )
+) {
+    errors.push(
+        'home.php: CMS principal quote must map to the rich-component welcome_message field.',
     );
 }
 if (!home.includes('<script id="theme-state" type="application/json">')) {

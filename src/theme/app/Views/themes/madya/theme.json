@@ -25,7 +25,8 @@
             "/news",
             "/news/{slug}",
             "/downloads",
-            "/contact"
+            "/contact",
+            "/{page-slug}"
         ]
     },
     "staticPreview": {
@@ -34,7 +35,7 @@
     },
     "icons": {
         "library": "Tabler-style inline SVG with Font Awesome CMS fallback",
-        "runtime": "bundled inline SVG; Font Awesome fallback for CMS icon class values"
+        "runtime": "CMS Font Awesome class values render directly; theme Tabler paths cover theme UI"
     },
     "visual": {
         "style": "Contemporary Institutional Editorial",

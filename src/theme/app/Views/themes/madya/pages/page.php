@@ -11,16 +11,20 @@ $structuredPage = [
     'url' => $pageCanonical,
     'isPartOf' => ['@type' => 'WebSite', 'name' => $site_name ?? 'SekolahKu', 'url' => base_url()],
 ];
-$staticBanners = !empty($page_banners) ? (json_decode($page_banners, true) ?: []) : [];
-$pageBanner = $staticBanners['pages'] ?? $staticBanners['page'] ?? [];
+$staticBanners = [];
+if (!empty($page_banners)) {
+    $decodedBanners = is_string($page_banners) ? json_decode($page_banners, true) : $page_banners;
+    $staticBanners = is_array($decodedBanners) ? $decodedBanners : [];
+}
+$pageBanner = $staticBanners[$page['slug'] ?? ''] ?? $staticBanners['page'] ?? $staticBanners['pages'] ?? [];
 ?>
 <?= $this->include('themes/madya/layouts/header', ['page_title' => $pageMetaTitle, 'page_description' => $pageMetaDescription, 'canonical_url' => $pageCanonical, 'structured_data' => $structuredPage]) ?>
 <?php
 $pageTitle = $page['title'] ?? 'Halaman';
 $pageExcerpt = $page['excerpt'] ?? '';
 $banner = '';
-if (is_array($page_banners ?? null)) {
-    $banner = $page_banners[$page['slug'] ?? ''] ?? $page_banners['page'] ?? '';
+if (is_array($pageBanner)) {
+    $banner = $pageBanner['image'] ?? '';
 }
 $banner = $banner ?: ($page['image'] ?? '');
 $relatedDocuments = is_array($downloads ?? null) ? array_slice($downloads, 0, 3) : [];

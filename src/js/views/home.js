@@ -49,20 +49,20 @@ export default function renderHome(state, container) {
                   .toLocaleDateString('id-ID', { month: 'short' })
                   .toUpperCase()
             : '';
-    const heroTitle = esc(
-        state.hero_title ||
-            'Membentuk Generasi Berilmu, Berakhlak, dan Berprestasi.',
-    ).replace(
+    const runtime = state.runtime || 'standalone';
+    const cmsRuntime = runtime === 'cms-home';
+    const heroFallback = cmsRuntime
+        ? `Selamat Datang di ${state.site_name || 'Sekolah'}`
+        : 'Membentuk Generasi Berilmu, Berakhlak, dan Berprestasi.';
+    const heroTitle = esc(state.hero_title || heroFallback).replace(
         /(Berprestasi\.?)(\s*)$/u,
         '<span class="hero-title-accent">$1</span>$2',
     );
-    const runtime = state.runtime || 'standalone';
     const assetBase = String(
         state.asset_base || '/themes/madya/assets',
     ).replace(/\/$/, '');
     const generated = (name) => `${assetBase}/generated/${name}`;
     const placeholder = (name) => `${assetBase}/illustrations/${name}`;
-    const cmsRuntime = runtime === 'cms-home';
     const teacherFallback = cmsRuntime
         ? placeholder('portrait-placeholder.svg')
         : generated('teacher-1.jpg');
@@ -88,7 +88,7 @@ export default function renderHome(state, container) {
             : ''
     }
     <section class="home-section home-middle-section" id="profile" aria-label="Profil sekolah"><div class="theme-container home-middle-stack">
-      <div class="home-middle-grid home-middle-grid-profile"><article class="principal-panel"><div class="principal-photo">${imageOr(principal.photo, principal.name || 'Kepala sekolah', cmsRuntime ? placeholder('portrait-placeholder.svg') : generated('principal.jpg'), principal)}</div><div class="principal-message"><p class="section-kicker">Sambutan Kepala Sekolah</p><blockquote>“${esc(principal.welcome_message || '')}”</blockquote><strong>${esc(principal.name || '')}</strong><span>${esc(principal.role_title || '')}</span><div class="principal-facts">${[
+      <div class="home-middle-grid home-middle-grid-profile"><article class="principal-panel"><div class="principal-photo">${imageOr(principal.photo, principal.name || 'Kepala sekolah', cmsRuntime ? placeholder('portrait-placeholder.svg') : generated('principal.jpg'), principal)}</div><div class="principal-message"><p class="section-kicker">Sambutan Kepala Sekolah</p><blockquote>“${esc(principal.welcome_message || '')}”</blockquote><strong>${esc(principal.name || '')}</strong><span>${esc(principal.role_title || principal.role || '')}</span><div class="principal-facts">${[
           ['award', 'Akreditasi', about.accreditation],
           ['book-open', 'Kurikulum', about.curriculum],
           ['calendar-days', 'Tahun Berdiri', about.established_year].filter(

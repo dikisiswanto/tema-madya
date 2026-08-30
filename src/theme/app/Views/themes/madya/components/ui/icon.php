@@ -6,7 +6,7 @@ $color = trim((string) ($color ?? ''));
 // Sekolahku CMS stores several configurable icons as Font Awesome class values
 // (e.g. "fas fa-futbol"), while older/default settings may contain a single
 // name (e.g. "graduation-cap"). Keep both contracts valid.
-$isFontAwesome = preg_match('/^(?:(?:fas|far|fab|fal|fat|fad)\s+fa-[a-z0-9-]+(?:\s+fa-[a-z0-9-]+)*|fa-(?:solid|regular|brands)\s+fa-[a-z0-9-]+(?:\s+fa-[a-z0-9-]+)*|fa-[a-z0-9-]+)$/i', $name) === 1;
+$isFontAwesome = preg_match('/^(?:(?:fa|fas|far|fab|fal|fat|fad)\s+fa-[a-z0-9-]+(?:\s+fa-[a-z0-9-]+)*|fa-(?:solid|regular|brands)\s+fa-[a-z0-9-]+(?:\s+fa-[a-z0-9-]+)*|fa-[a-z0-9-]+)$/i', $name) === 1;
 $style = preg_match('/^#[0-9a-f]{6}$/i', $color) === 1 ? ' style="color:' . esc($color) . '"' : '';
 
 if ($isFontAwesome) {

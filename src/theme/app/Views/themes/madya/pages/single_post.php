@@ -12,6 +12,13 @@ $relatedItems = is_array($related ?? null) ? array_values($related) : [];
 $categories = is_array($categories ?? null) ? $categories : [];
 $archive = is_array($archive ?? null) ? $archive : [];
 $tags = is_array($tags ?? null) ? $tags : [];
+$articleTags = [];
+if (!empty($article['tags'])) {
+    $decodedTags = is_string($article['tags']) ? json_decode($article['tags'], true) : $article['tags'];
+    if (is_array($decodedTags)) {
+        $articleTags = array_values(array_filter(array_map('trim', $decodedTags)));
+    }
+}
 $commentErrors = session()->getFlashdata('errors') ?? [];
 $commentSuccess = session()->getFlashdata('success');
 $commentError = session()->getFlashdata('error');
@@ -84,8 +91,8 @@ $shareUrl = current_url();
 
             <div class="article-prose"><?= $article['content'] ?? '' ?></div>
 
-            <?php if (!empty($article['category'])): ?>
-            <div class="article-tags"><strong>Tag:</strong><?php foreach (array_filter(array_map('trim', explode(',', (string) $article['category']))) as $tag): ?><a href="<?= base_url('news?category=' . urlencode($tag)) ?>"><?= esc($tag) ?></a><?php endforeach; ?></div>
+            <?php if ($articleTags): ?>
+            <div class="article-tags"><strong>Tag:</strong><?php foreach ($articleTags as $tag): ?><span><?= esc($tag) ?></span><?php endforeach; ?></div>
             <?php endif; ?>
 
             <nav class="article-nav" aria-label="Navigasi artikel">

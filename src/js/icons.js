@@ -154,7 +154,7 @@ export function hasIcon(name) {
 }
 
 function isFontAwesomeIcon(name) {
-    return /^(?:(?:fas|far|fab|fal|fat|fad)\s+fa-[a-z0-9-]+(?:\s+fa-[a-z0-9-]+)*|fa-(?:solid|regular|brands)\s+fa-[a-z0-9-]+(?:\s+fa-[a-z0-9-]+)*|fa-[a-z0-9-]+)$/i.test(
+    return /^(?:(?:fa|fas|far|fab|fal|fat|fad)\s+fa-[a-z0-9-]+(?:\s+fa-[a-z0-9-]+)*|fa-(?:solid|regular|brands)\s+fa-[a-z0-9-]+(?:\s+fa-[a-z0-9-]+)*|fa-[a-z0-9-]+)$/i.test(
         String(name || '').trim(),
     );
 }
@@ -163,6 +163,8 @@ function normalizeFontAwesomeName(name) {
     const value = String(name || '')
         .replace(/[^a-zA-Z0-9_ -]/g, '')
         .trim();
+    if (/^fa\s+fa-[a-z0-9-]+$/i.test(value))
+        return value.replace(/^fa\s+/i, 'fas ');
     return /^fa-[a-z0-9-]+$/i.test(value) ? `fas ${value}` : value;
 }
 
