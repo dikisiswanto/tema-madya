@@ -51,7 +51,7 @@ function buildFooter(state) {
         )
         .join(
             '',
-        )}</div></div><div><h3 class="footer-title">Bantuan</h3><div class="footer-links"><a href="/#faq">FAQ</a><a href="/contact">Hubungi Sekolah</a><a href="/downloads">Dokumen</a></div></div></div></div><div class="footer-bottom"><div class="theme-container"><p>${esc(state.footer_copyright || `© ${new Date().getFullYear()} ${state.site_name || 'SekolahKu'}`)}</p><span>Dibuat dengan ♥ menggunakan CMS SekolahKu</span></div></div></footer>`;
+        )}</div></div><div><h3 class="footer-title">Bantuan</h3><div class="footer-links"><a href="/#faq">FAQ</a><a href="/contact">Hubungi Sekolah</a><a href="/downloads">Dokumen</a></div></div></div></div><div class="footer-bottom"><div class="theme-container"><p>${esc(state.footer_copyright || `© ${new Date().getFullYear()} ${state.site_name || 'SekolahKu'}`)}</p><span>Dibuat dengan ♥ menggunakan <a href="https://sekolahku.web.id" target="_blank" rel="noopener noreferrer">CMS SekolahKu</a> · <a href="https://github.com/dikisiswanto/tema-madya" target="_blank" rel="noopener noreferrer">Tema Madya</a> oleh <a href="https://silirdev.com" target="_blank" rel="noopener noreferrer">silirdev</a></span></div></div></footer>`;
 }
 
 export function renderFooter(state) {
@@ -316,7 +316,7 @@ export function renderStaticPage(state, slug, container) {
             String(slug || '').replace(/^\//, ''),
     );
     if (!page) {
-        container.innerHTML = `${pageHeader('Informasi', 'Halaman tidak ditemukan', 'Halaman yang Anda cari belum tersedia.', state.about?.hero_image || state.about?.image || '')}<section class="section"><div class="theme-container empty-state"><p>Halaman yang diminta tidak tersedia.</p><a class="button" href="/">Kembali ke beranda</a></div></section>`;
+        container.innerHTML = `${pageHeader('Informasi','Halaman tidak ditemukan','Halaman yang Anda cari belum tersedia.',state.about?.hero_image||state.about?.image||'')}<section class="section"><div class="theme-container empty-state"><p>Halaman yang diminta tidak tersedia.</p><a class="button" href="/">Kembali ke beranda</a></div></section>`;
         return;
     }
     const related = pages.filter((item) => item.slug !== page.slug).slice(0, 6);

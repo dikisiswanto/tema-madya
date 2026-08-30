@@ -55,7 +55,7 @@
             </div>
         </div>
     </div>
-    <div class="footer-bottom"><div class="theme-container"><p><?= esc($footer_copyright ?? ('© ' . date('Y') . ' ' . ($site_name ?? 'SekolahKu'))) ?></p><span>Dibuat dengan <strong>♥</strong> menggunakan CMS SekolahKu</span></div></div>
+    <div class="footer-bottom"><div class="theme-container"><p><?= esc($footer_copyright ?? ('© ' . date('Y') . ' ' . ($site_name ?? 'SekolahKu'))) ?></p><span>Dibuat dengan <strong>♥</strong> menggunakan <a href="https://sekolahku.web.id" target="_blank" rel="noopener noreferrer">CMS SekolahKu</a> · <a href="https://github.com/dikisiswanto/tema-madya" target="_blank" rel="noopener noreferrer">Tema Madya</a> oleh <a href="https://silirdev.com" target="_blank" rel="noopener noreferrer">silirdev</a></span></div></div>
 </footer>
 <script defer src="<?= base_url($theme_asset_base ?? 'themes/madya/assets') ?>/app.js"></script>
 </body>

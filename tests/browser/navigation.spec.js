@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test('homepage and hybrid navigation are present', async ({ page }) => {
     await page.goto('/');
     await expect(page.locator('h1')).toContainText(/Membentuk Generasi/i);
-    await page.locator('a[href="#programs"]').first().click();
+    await page.locator('a[href="/#programs"]').first().click();
     await expect(page).toHaveURL(/#programs$/);
     await expect(page.locator('h1')).toContainText('Program Unggulan');
 });
