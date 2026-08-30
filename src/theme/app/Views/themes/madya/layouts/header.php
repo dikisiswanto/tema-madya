@@ -14,7 +14,10 @@ $themeCurrentUrl = current_url();
 $themePath = parse_url($themeCurrentUrl, PHP_URL_PATH) ?: '/';
 $themeCanonical = trim((string)($canonical_url ?? base_url(ltrim($themePath, '/'))));
 $themeCanonical = $themeCanonical !== '' ? $themeCanonical : base_url();
-$themeOgImage = $og_image ?? $social_image ?? null;
+$themeOgImageRaw = trim((string)($og_image ?? $social_image ?? ''));
+$themeOgImage = $themeOgImageRaw === '' ? null : (preg_match('#^(?:https?:)?//#i', $themeOgImageRaw) ? $themeOgImageRaw : base_url(ltrim($themeOgImageRaw, '/')));
+$themePreloadImageRaw = trim((string)($preload_image ?? ''));
+$themePreloadImage = $themePreloadImageRaw === '' ? null : (preg_match('#^(?:https?:)?//#i', $themePreloadImageRaw) ? $themePreloadImageRaw : base_url(ltrim($themePreloadImageRaw, '/')));
 ?>
 <title><?= esc($themeTitle) ?></title>
     <meta name="description" content="<?= esc($themeDescription) ?>">
@@ -43,6 +46,9 @@ $themeOgImage = $og_image ?? $social_image ?? null;
     <meta name="author" content="<?= esc($site_name ?? $themeSiteName) ?>">
     <?php if ($themeOgImage): ?>
 <meta name="twitter:image" content="<?= esc($themeOgImage) ?>">
+<?php endif; ?>
+    <?php if ($themePreloadImage): ?>
+<link rel="preload" as="image" href="<?= esc($themePreloadImage) ?>" fetchpriority="high">
 <?php endif; ?>
     <link rel="icon" type="image/svg+xml" href="<?= base_url(($theme_asset_base ?? 'themes/madya/assets') . '/favicon.svg') ?>">
     <link rel="preconnect" href="https://fonts.googleapis.com">

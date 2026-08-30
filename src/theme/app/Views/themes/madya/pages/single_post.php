@@ -1,7 +1,7 @@
 <?php
 $article = is_array($post ?? null) ? $post : [];
 $banner = !empty($page_banners) ? (json_decode($page_banners, true)['single_post'] ?? []) : [];
-$generatedHero = base_url('themes/madya/assets/generated/hero-campus.jpg');
+$generatedHero = base_url('themes/madya/assets/generated/hero-image.jpg');
 $publishedAt = (string)($article['published_at'] ?? $article['created_at'] ?? '');
 $monthNames = [1 => 'Januari',2 => 'Februari',3 => 'Maret',4 => 'April',5 => 'Mei',6 => 'Juni',7 => 'Juli',8 => 'Agustus',9 => 'September',10 => 'Oktober',11 => 'November',12 => 'Desember'];
 $timestamp = $publishedAt !== '' ? strtotime($publishedAt) : false;

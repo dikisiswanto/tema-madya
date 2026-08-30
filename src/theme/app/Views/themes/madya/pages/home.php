@@ -83,6 +83,8 @@ $homeStructured = [
     'page_description' => $homeDescription,
     'canonical_url' => base_url(),
     'structured_data' => $homeStructured,
+    'og_image' => $heroImage,
+    'preload_image' => $heroImage,
 ]) ?>
 <div class="home-page">
   <section class="home-hero" aria-labelledby="hero-title" <?php if ($heroImage): ?>

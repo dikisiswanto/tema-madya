@@ -1,7 +1,8 @@
 <?php
 $pageMetaTitle = trim((string) ($page['meta_title'] ?? $page['title'] ?? 'Halaman'));
 $pageMetaDescription = trim((string) ($page['meta_description'] ?? $page['excerpt'] ?? $site_description ?? ''));
-$pageCanonical = base_url(ltrim((string) ($page['slug'] ?? ''), '/'));
+$pageSlug = trim((string) ($page['slug'] ?? ''), '/');
+$pageCanonical = base_url('pages/' . rawurlencode($pageSlug));
 $structuredPage = [
     '@context' => 'https://schema.org',
     '@type' => 'WebPage',

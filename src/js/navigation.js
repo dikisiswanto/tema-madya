@@ -287,7 +287,9 @@ function handleNavigationClick(event) {
 function handleNavigationKeydown(event) {
     if (event.key === 'Escape') {
         const focusedItem = event.target.closest('[data-nav-item]');
-        const openItem = focusedItem?.closest('[data-nav-item][data-open="true"]');
+        const openItem = focusedItem?.closest(
+            '[data-nav-item][data-open="true"]',
+        );
         if (!openItem) return;
         event.preventDefault();
         event.stopPropagation();

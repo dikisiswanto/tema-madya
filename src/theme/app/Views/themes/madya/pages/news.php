@@ -5,7 +5,7 @@ if ($themeHasNewsFilters) {
 }
 $banner = !empty($page_banners) ? (json_decode($page_banners, true)['news'] ?? []) : [];
 $newsItems = is_array($news ?? null) ? $news : [];
-$heroNewsImage = $banner['image'] ?? base_url(($theme_asset_base ?? 'themes/madya/assets') . '/generated/hero-campus.jpg');
+$heroNewsImage = $banner['image'] ?? base_url(($theme_asset_base ?? 'themes/madya/assets') . '/generated/hero-image.jpg');
 $newsTitle = trim((string)($search ?? '')) !== '' ? 'Hasil Pencarian' : ($banner['title'] ?? 'Berita');
 $newsDescription = trim((string)($search ?? '')) !== '' ? 'Menampilkan hasil pencarian untuk kata kunci “' . trim((string) $search) . '”.' : ($banner['subtitle'] ?? 'Informasi terbaru seputar kegiatan, prestasi, dan program di sekolah.');
 $categoryRows = [];
@@ -27,7 +27,7 @@ $popularNews = is_array($recent_news ?? null) ? array_slice($recent_news, 0, 5) 
 $newsCanonical = base_url('news');
 $newsStructured = ['@context' => 'https://schema.org','@type' => 'CollectionPage','name' => $newsTitle,'description' => $newsDescription,'url' => $newsCanonical,'isPartOf' => ['@type' => 'WebSite','name' => $site_name ?? 'SekolahKu','url' => base_url()]];
 ?>
-<?= $this->include('themes/madya/layouts/header', ['page_title' => $newsTitle, 'page_description' => $newsDescription, 'canonical_url' => $newsCanonical, 'structured_data' => $newsStructured]) ?>
+<?= $this->include('themes/madya/layouts/header', ['page_title' => $newsTitle, 'page_description' => $newsDescription, 'canonical_url' => $newsCanonical, 'structured_data' => $newsStructured, 'og_image' => $heroNewsImage]) ?>
 <?= $this->include('themes/madya/components/page-header', ['eyebrow' => $banner['badge'] ?? 'Berita & Artikel', 'title' => $newsTitle, 'description' => $newsDescription, 'image' => $heroNewsImage, 'breadcrumbs' => [['label' => 'Berita']]]) ?>
 <section class="section news-list-page">
     <div class="theme-container news-list-shell">

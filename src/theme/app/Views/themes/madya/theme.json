@@ -61,7 +61,7 @@
             "generated/gallery-library.jpg",
             "generated/gallery-pramuka.jpg",
             "generated/gallery-students.jpg",
-            "generated/hero-image.png",
+            "generated/hero-image.jpg",
             "generated/library.jpg",
             "generated/news-campus.jpg",
             "generated/principal.jpg",
@@ -73,9 +73,7 @@
             "generated/teacher-2.jpg",
             "generated/teacher-3.jpg",
             "generated/teacher-4.jpg",
-            "generated/testimonial-1.jpg",
-            "generated/testimonial-2.jpg",
-            "generated/testimonial-3.jpg"
+            "generated/testimonial-1.jpg"
         ]
     },
     "viewAdapter": {

@@ -6,7 +6,7 @@
     "scripts": {
         "dev": "npm run check:deps && vite --host 0.0.0.0",
         "build": "npm run check:deps && vite build",
-        "check": "npm run check:source && npm run check:data && npm run check:style && npm run audit:icons && npm run audit:a11y && npm run audit:cms-data",
+        "check": "npm run check:source && npm run check:data && npm run check:style && npm run audit:icons && npm run audit:a11y && npm run audit:cms-data && npm run audit:assets && npm run audit:performance",
         "check:source": "node scripts/check-source.js",
         "check:data": "node scripts/check-demo-schema.js",
         "validate": "node scripts/validate-theme.js",
@@ -30,7 +30,9 @@
         "fix": "npm run format && npm run lint:fix && npm run format:php",
         "audit:a11y": "node scripts/check-a11y-seo.js",
         "audit:icons": "node scripts/check-cms-icons.js",
-        "audit:cms-data": "node scripts/check-cms-data-contract.js"
+        "audit:cms-data": "node scripts/check-cms-data-contract.js",
+        "audit:assets": "node scripts/check-theme-assets.js",
+        "audit:performance": "node scripts/check-performance.js"
     },
     "devDependencies": {
         "@playwright/test": "^1.55.0",

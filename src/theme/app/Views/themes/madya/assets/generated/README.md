@@ -4,8 +4,7 @@ Asset demo/fallback bawaan Madya disimpan langsung di package theme agar playgro
 
 ## Hero production fallback
 
-- `hero-campus.jpg` — 2560×1440, 16:9
-- `hero-campus.webp` — alternate optimized format
+- `hero-image.jpg` — 1672×941, 16:9, optimized JPEG fallback untuk production.
 - Tidak mengandung nama sekolah, logo, atau copy tertanam sehingga aman sebagai fallback lintas sekolah.
 - Komposisi menyisakan area visual yang cukup tenang untuk overlay headline.
 
@@ -16,4 +15,4 @@ Asset demo/fallback bawaan Madya disimpan langsung di package theme agar playgro
 - Square/testimonial assets: minimal 800px.
 - Aspect ratio sumber dipertahankan; tidak ada forced crop untuk sekadar menaikkan resolusi.
 - Crop hanya dilakukan pada asset hero agar rasio 16:9 sesuai kebutuhan banner.
-- File JPEG tetap menjadi fallback utama; WebP disediakan sebagai alternate ketika pipeline theme memerlukannya.
+- JPEG/WebP/AVIF dapat dipakai sebagai delivery format; source/master tidak dijadikan default delivery bila ukurannya terlalu besar.

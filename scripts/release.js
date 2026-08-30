@@ -1,4 +1,4 @@
-import { cp, mkdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
+import { cp, mkdir, readFile, rm, stat } from 'node:fs/promises';
 import { execFileSync } from 'node:child_process';
 import path from 'node:path';
 
@@ -89,40 +89,13 @@ for (const filename of requiredViews) {
     await stat(path.join(releaseViews, filename));
 }
 
-const manifest = {
-    name: 'Tema Madya CMS Sekolahku',
-    product: 'Tema Madya CMS Sekolahku',
-    version: pkg.version,
-    engine: { name: 'SekolahKu', min: '3.1.2' },
-    uiLanguage: 'id',
-    codeLanguage: 'en',
-    viewRoot: 'app/Views/themes/madya',
-    assetRoot: 'public/themes/madya/assets',
-    contractViews: requiredViews.map((file) => file.replace(/^pages\//, '')),
-    controllerViews: [
-        'pages/home',
-        'pages/news',
-        'pages/single_post',
-        'pages/downloads',
-        'pages/contact',
-        'pages/page',
-    ],
-    source: { viewRoot: 'src/theme/app/Views/themes/madya' },
-    viewAdapter: {
-        strategy: 'public-view-override',
-        path: 'app/Views/pages',
-        reason: 'Sekolahku 3.1.2 resolves fixed public view names; no core changes required.',
-    },
-    navigation: {
-        sectionLinks: true,
-        hybridSpa: true,
-        nativeRoutes: ['/news', '/news/{slug}', '/downloads', '/contact'],
-    },
-};
-await writeFile(
-    path.join(releaseViews, 'theme.json'),
-    `${JSON.stringify(manifest, null, 2)}\n`,
-);
+const releaseManifestPath = path.join(releaseViews, 'theme.json');
+const releaseManifest = JSON.parse(await readFile(releaseManifestPath, 'utf8'));
+if (releaseManifest.version !== pkg.version) {
+    throw new Error(
+        `Release manifest version mismatch: theme=${releaseManifest.version}, package=${pkg.version}`,
+    );
+}
 
 await mkdir(dist, { recursive: true });
 await cp(releaseRoot, path.join(dist, 'madya'), { recursive: true });
@@ -131,5 +104,23 @@ const archive = path.join(
     release,
     `tema-madya-cms-sekolahku-${pkg.version}.zip`,
 );
-execFileSync('zip', ['-qr', archive, 'madya'], { cwd: release });
+try {
+    execFileSync('zip', ['-qr', archive, 'madya'], {
+        cwd: release,
+        stdio: 'inherit',
+    });
+} catch (error) {
+    if (process.platform !== 'win32') throw error;
+    const archiveRelative = path.relative(release, archive);
+    execFileSync(
+        'powershell.exe',
+        [
+            '-NoProfile',
+            '-NonInteractive',
+            '-Command',
+            `Compress-Archive -Path 'madya' -DestinationPath '${archiveRelative}' -Force`,
+        ],
+        { cwd: release, stdio: 'inherit' },
+    );
+}
 console.log(`Release package created: ${archive}`);

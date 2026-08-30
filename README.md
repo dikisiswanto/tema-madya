@@ -98,6 +98,7 @@ Galeri memiliki preview lightbox tanpa mengubah URL. Kontrol mendukung keyboard 
 ## Code Quality
 
 ```bash
+npx playwright install chromium
 npm run format
 npm run format:check
 npm run lint
@@ -108,15 +109,7 @@ npm run build:html
 npm test
 ```
 
-For browser tests on a fresh machine or CI runner, install the Playwright Chromium binary first:
-
-```bash
-npx playwright install chromium
-```
-
-GitHub Actions installs Chromium explicitly before running the browser suite. `npm run check` remains read-only; `npm run format` and `npm run fix` are development commands.
-
-`npm run fix` digunakan saat pengembangan. `npm run check` adalah gate yang bersifat read-only untuk CI/release.
+`npm run fix` digunakan saat pengembangan. `npm run check` adalah gate yang bersifat read-only untuk CI/release. Gate tersebut juga memeriksa referensi asset production dan budget ukuran asset raster.
 
 ## Tailwind
 
@@ -130,7 +123,7 @@ Theme memperhatikan semantic HTML, heading hierarchy, metadata SEO, canonical, O
 
 Package production hanya membawa file theme yang dibutuhkan CMS. Playground, test, dan tooling development tidak menjadi bagian package theme production.
 
-Gunakan script release setelah seluruh quality gate hijau.
+Gunakan script release setelah seluruh quality gate hijau. Arsip release menggunakan `zip` di Linux/CI dan fallback `Compress-Archive` di Windows, sehingga packaging tidak bergantung pada satu shell.
 
 ## Prinsip Maintenance
 
