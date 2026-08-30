@@ -10,5 +10,5 @@
         "lint": "phpcs --standard=phpcs.xml",
         "format": "phpcbf --standard=phpcs.xml"
     },
-    "license": "proprietary"
+    "license": "MIT"
 }

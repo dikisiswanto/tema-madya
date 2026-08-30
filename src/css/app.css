@@ -6117,6 +6117,11 @@
   }
 }
 
+/* ------------------------------------------------------------
+   Homepage — homepage.png reference lock
+   The supplied reference is 1024px wide. Desktop composition
+   remains active at 960px+ so the reference does not collapse.
+   ------------------------------------------------------------ */
 @layer components {
   @media (min-width: 60rem) {
     .home-page .theme-container,

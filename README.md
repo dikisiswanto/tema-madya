@@ -1,4 +1,4 @@
-# Tema Madya — RC10.12.42
+# Tema Madya — v0.9.0
 
 Baseline visual parity dan CMS UI contract.
 
@@ -10,7 +10,7 @@ Tema website sekolah modern-editorial untuk **Sekolahku CMS 3.1.2+**. Madya adal
 
 ## Status
 
-- Versi: **0.3.0-rc.10.12.42**
+- Versi: **0.9.0**
 - CMS target: **Sekolahku CMS 3.1.2+**
 - Node lokal/CI: **22**
 - PHP target: **8.5**
@@ -21,6 +21,7 @@ Tema website sekolah modern-editorial untuk **Sekolahku CMS 3.1.2+**. Madya adal
 
 ```bash
 npm ci
+npx playwright install chromium
 npm run dev
 ```
 
@@ -106,6 +107,14 @@ npm run check
 npm run build:html
 npm test
 ```
+
+For browser tests on a fresh machine or CI runner, install the Playwright Chromium binary first:
+
+```bash
+npx playwright install chromium
+```
+
+GitHub Actions installs Chromium explicitly before running the browser suite. `npm run check` remains read-only; `npm run format` and `npm run fix` are development commands.
 
 `npm run fix` digunakan saat pengembangan. `npm run check` adalah gate yang bersifat read-only untuk CI/release.
 

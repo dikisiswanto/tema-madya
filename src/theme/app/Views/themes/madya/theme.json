@@ -1,7 +1,7 @@
 {
     "name": "Tema Madya CMS Sekolahku",
     "product": "Tema Madya CMS Sekolahku",
-    "version": "0.3.0-rc.10.12.46",
+    "version": "0.9.0",
     "engine": {
         "name": "SekolahKu",
         "min": "3.1.2"
@@ -53,15 +53,6 @@
             "accent": "#D89A2B"
         },
         "generatedImageFallbacks": [
-            "generated/achievement-1.jpg",
-            "generated/achievement-2.jpg",
-            "generated/achievement-3.jpg",
-            "generated/auditorium.jpg",
-            "generated/campus-aerial.jpg",
-            "generated/classroom.jpg",
-            "generated/extra-culture.jpg",
-            "generated/extra-sports.jpg",
-            "generated/extra-student.jpg",
             "generated/gallery-class.jpg",
             "generated/gallery-computer.jpg",
             "generated/gallery-culture.jpg",
@@ -70,7 +61,7 @@
             "generated/gallery-library.jpg",
             "generated/gallery-pramuka.jpg",
             "generated/gallery-students.jpg",
-            "generated/hero-campus.jpg",
+            "generated/hero-image.png",
             "generated/library.jpg",
             "generated/news-campus.jpg",
             "generated/principal.jpg",
