@@ -316,7 +316,7 @@ export function renderStaticPage(state, slug, container) {
             String(slug || '').replace(/^\//, ''),
     );
     if (!page) {
-        container.innerHTML = `pageHeader('Informasi','Halaman tidak ditemukan','Halaman yang Anda cari belum tersedia.',state.about?.hero_image||state.about?.image||'')}<section class="section"><div class="theme-container empty-state"><p>Halaman yang diminta tidak tersedia.</p><a class="button" href="/">Kembali ke beranda</a></div></section>`;
+        container.innerHTML = `${pageHeader('Informasi', 'Halaman tidak ditemukan', 'Halaman yang Anda cari belum tersedia.', state.about?.hero_image || state.about?.image || '')}<section class="section"><div class="theme-container empty-state"><p>Halaman yang diminta tidak tersedia.</p><a class="button" href="/">Kembali ke beranda</a></div></section>`;
         return;
     }
     const related = pages.filter((item) => item.slug !== page.slug).slice(0, 6);
@@ -332,7 +332,7 @@ export function renderStaticPage(state, slug, container) {
     <section class="static-newsletter-card faq-cta-card"><p class="eyebrow">Pertanyaan Umum</p><h2>Butuh jawaban cepat?</h2><p>Lihat pertanyaan yang sering diajukan seputar layanan, kegiatan, dan informasi sekolah.</p><a class="button button-accent" href="/#faq">Lihat FAQ ${iconMarkup('arrow-right')}</a></section>
   </aside>`;
     const content = page.content || `<p>${esc(page.excerpt || '')}</p>`;
-    container.innerHTML = `pageHeader('Informasi', page.title || 'Halaman Informasi', page.excerpt || '', page.image || state.about?.hero_image || '')}<section class="section static-page-section"><div class="theme-container static-page-layout"><article class="static-page-main"><div class="article-prose">${content}</div>${page.image ? `<figure class="static-feature-image"><img src="${esc(page.image)}" alt="${esc(page.title || '')}" loading="lazy" decoding="async"></figure>` : ''}</article>${sidebar}</div></section>`;
+    container.innerHTML = `${pageHeader('Informasi', page.title || 'Halaman Informasi', page.excerpt || '', page.image || state.about?.hero_image || '')}<section class="section static-page-section"><div class="theme-container static-page-layout"><article class="static-page-main"><div class="article-prose">${content}</div>${page.image ? `<figure class="static-feature-image"><img src="${esc(page.image)}" alt="${esc(page.title || '')}" loading="lazy" decoding="async"></figure>` : ''}</article>${sidebar}</div></section>`;
 }
 
 export function renderContact(state, container) {

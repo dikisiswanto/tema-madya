@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test('homepage and hybrid navigation are present', async ({ page }) => {
     await page.goto('/');
     await expect(page.locator('h1')).toContainText(/Membentuk Generasi/i);
-    await page.locator('a[href="/#programs"]').first().click();
+    await page.locator('a[href="#programs"]').first().click();
     await expect(page).toHaveURL(/#programs$/);
     await expect(page.locator('h1')).toContainText('Program Unggulan');
 });
@@ -59,6 +59,11 @@ test('mobile submenu trigger exposes its controlled panel', async ({
 }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto('/');
+    await page.locator('[data-mobile-menu]').click();
+    await expect(page.locator('#mobile-navigation')).toHaveAttribute(
+        'aria-hidden',
+        'false',
+    );
     const trigger = page.locator('[data-mobile-trigger]').first();
     const panelId = await trigger.getAttribute('aria-controls');
     expect(panelId).toBeTruthy();
