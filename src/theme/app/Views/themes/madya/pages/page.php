@@ -1,4 +1,19 @@
-<?= $this->include('themes/madya/layouts/header') ?>
+<?php
+$pageMetaTitle = trim((string) ($page['meta_title'] ?? $page['title'] ?? 'Halaman'));
+$pageMetaDescription = trim((string) ($page['meta_description'] ?? $page['excerpt'] ?? $site_description ?? ''));
+$pageCanonical = base_url(ltrim((string) ($page['slug'] ?? ''), '/'));
+$structuredPage = [
+    '@context' => 'https://schema.org',
+    '@type' => 'WebPage',
+    'name' => $pageMetaTitle,
+    'description' => $pageMetaDescription,
+    'url' => $pageCanonical,
+    'isPartOf' => ['@type' => 'WebSite', 'name' => $site_name ?? 'SekolahKu', 'url' => base_url()],
+];
+$staticBanners = !empty($page_banners) ? (json_decode($page_banners, true) ?: []) : [];
+$pageBanner = $staticBanners['pages'] ?? $staticBanners['page'] ?? [];
+?>
+<?= $this->include('themes/madya/layouts/header', ['page_title' => $pageMetaTitle, 'page_description' => $pageMetaDescription, 'canonical_url' => $pageCanonical, 'structured_data' => $structuredPage]) ?>
 <?php
 $pageTitle = $page['title'] ?? 'Halaman';
 $pageExcerpt = $page['excerpt'] ?? '';
@@ -54,9 +69,9 @@ $relatedDocuments = array_slice($relatedDocuments, 0, 3);
                 <div><p class="eyebrow">Butuh Bantuan?</p><h2>Masih ada pertanyaan?</h2><p>Jika Anda memiliki pertanyaan atau informasi yang ingin disampaikan, jangan ragu menghubungi kami.</p><a class="button" href="<?= base_url('contact') ?>">Hubungi Kami <i data-lucide="arrow-right" aria-hidden="true"></i></a></div>
                 <i data-lucide="messages-square" aria-hidden="true"></i>
             </section>
-            <section class="static-newsletter-card">
-                <p class="eyebrow">Tetap Terhubung</p><h2>Dapatkan Informasi Terbaru</h2><p>Berlangganan newsletter untuk mendapatkan update berita dan informasi terbaru.</p>
-                <form action="#" method="post" onsubmit="return false"><label class="sr-only" for="static-newsletter-email">Email</label><input id="static-newsletter-email" type="email" placeholder="Masukkan email Anda" autocomplete="email"><button class="button button-accent" type="submit" aria-label="Berlangganan"><i data-lucide="arrow-right" aria-hidden="true"></i></button></form>
+            <section class="static-newsletter-card faq-cta-card">
+                <p class="eyebrow">Pertanyaan Umum</p><h2>Butuh jawaban cepat?</h2><p>Lihat pertanyaan yang sering diajukan seputar layanan, kegiatan, dan informasi sekolah.</p>
+                <a class="button button-accent" href="<?= base_url('/#faq') ?>">Lihat FAQ <i data-lucide="arrow-right" aria-hidden="true"></i></a>
             </section>
         </aside>
     </div>

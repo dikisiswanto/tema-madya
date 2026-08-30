@@ -1,4 +1,3 @@
-<?= $this->include('themes/madya/layouts/header') ?>
 <?php
 $banner = [];
 if (!empty($page_banners)) {
@@ -27,7 +26,12 @@ if ($downloadSort === 'name') {
 $categorySlugs = []; foreach (array_keys($categories ?? []) as $categoryName) { $categorySlugs[$categoryName] = trim(preg_replace('/[^a-z0-9]+/i', '-', strtolower((string)$categoryName)), '-'); }
 $pdfCount = count(array_filter($allItems, static fn($i) => strtoupper((string)($i['extension'] ?? pathinfo((string)($i['url'] ?? ''), PATHINFO_EXTENSION))) === 'PDF'));
 $otherCount = max(0, count($allItems) - $pdfCount);
+
+$downloadsCanonical = base_url('downloads');
+$downloadsDescription = $banner['subtitle'] ?? 'Formulir, panduan, dan dokumen resmi sekolah dalam satu tempat.';
+$downloadsStructured = ['@context'=>'https://schema.org','@type'=>'CollectionPage','name'=>$banner['title'] ?? 'Dokumen Resmi','description'=>$downloadsDescription,'url'=>$downloadsCanonical,'isPartOf'=>['@type'=>'WebSite','name'=>$site_name ?? 'SekolahKu','url'=>base_url()]];
 ?>
+<?= $this->include('themes/madya/layouts/header', ['page_title' => $banner['title'] ?? 'Dokumen Resmi', 'page_description' => $downloadsDescription, 'canonical_url' => $downloadsCanonical, 'structured_data' => $downloadsStructured]) ?>
 <?= $this->include('themes/madya/components/page-header', [
     'eyebrow' => $banner['badge'] ?? 'Pusat Download',
     'title' => $banner['title'] ?? 'Pusat Download',
@@ -49,7 +53,6 @@ $otherCount = max(0, count($allItems) - $pdfCount);
             <main class="download-main-column">
                 <div class="download-toolbar-reference">
                     <div><h2>Semua Dokumen</h2><p>Dokumen resmi sekolah yang tersedia untuk diunduh.</p></div>
-                    <form class="download-search-reference" method="get" action="<?= base_url('downloads') ?>"><label class="sr-only" for="download-search">Cari dokumen</label><input id="download-search" name="search" value="<?= esc($downloadSearch) ?>" placeholder="Cari dokumen..."><select name="sort" aria-label="Urutkan dokumen"><option value="recent"<?= $downloadSort === 'recent' ? ' selected' : '' ?>>Terbaru</option><option value="name"<?= $downloadSort === 'name' ? ' selected' : '' ?>>Nama A-Z</option></select><button type="submit" aria-label="Cari dokumen"><i data-lucide="search" aria-hidden="true"></i></button></form>
                 </div>
                 <?php if ($categories): foreach ($categories as $category => $items): ?>
                     <section class="document-group document-group-reference" id="doc-<?= esc($categorySlugs[$category] ?? 'category') ?>">
@@ -67,7 +70,7 @@ $otherCount = max(0, count($allItems) - $pdfCount);
             <aside class="download-sidebar-reference">
                 <section class="download-widget"><h2>Kategori Dokumen</h2><div class="download-category-links"><a href="<?= base_url('downloads') ?>"><span><i data-lucide="chevron-right" aria-hidden="true"></i>Semua Kategori</span><b><?= count($allItems) ?></b></a><?php foreach ($categories as $category => $items): ?><a href="#doc-<?= esc($categorySlugs[$category] ?? 'category') ?>"><span><i data-lucide="chevron-right" aria-hidden="true"></i><?= esc($category ?: 'Dokumen lainnya') ?></span><b><?= count($items) ?></b></a><?php endforeach; ?></div></section>
                 <section class="download-widget"><h2>Dokumen Pilihan</h2><div class="download-popular-list"><?php $selected = array_slice($allItems, 0, 5); foreach ($selected as $index => $item): ?><a href="<?= esc($item['url'] ?? '#') ?>" target="_blank" rel="noopener noreferrer"><span class="download-rank"><?= str_pad((string)($index + 1), 2, '0', STR_PAD_LEFT) ?></span><span><strong><?= esc($item['title'] ?? 'Dokumen') ?></strong><small><?= esc($item['file_size'] ?? '') ?></small></span></a><?php endforeach; ?></div><a class="download-widget-link" href="#all-documents">Lihat semua <i data-lucide="arrow-right" aria-hidden="true"></i></a></section>
-                <section class="download-newsletter-widget"><p class="eyebrow eyebrow-dark">Dapatkan Informasi Terbaru</p><h2>Dokumen dan informasi terbaru.</h2><p>Berlangganan newsletter sekolah untuk mendapatkan pembaruan terbaru.</p><form class="newsletter-form" onsubmit="return false"><input type="email" placeholder="Masukkan email Anda" aria-label="Alamat email"><button class="button button-light" type="submit" aria-label="Berlangganan"><i data-lucide="arrow-right" aria-hidden="true"></i></button></form><img src="<?= base_url(($theme_asset_base ?? 'themes/madya/assets') . '/illustrations/documents.svg') ?>" alt="" aria-hidden="true"></section>
+                <section class="download-newsletter-widget faq-cta-card"><p class="eyebrow eyebrow-dark">Pertanyaan Umum</p><h2>Butuh bantuan terkait dokumen?</h2><p>Lihat jawaban atas pertanyaan yang sering diajukan sebelum menghubungi sekolah.</p><a class="button button-light" href="<?= base_url('/#faq') ?>">Buka FAQ <i data-lucide="arrow-right" aria-hidden="true"></i></a><img src="<?= base_url(($theme_asset_base ?? 'themes/madya/assets') . '/illustrations/documents.svg') ?>" alt="" aria-hidden="true"></section>
             </aside>
         </div>
 

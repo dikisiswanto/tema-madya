@@ -1,4 +1,3 @@
-<?= $this->include('themes/madya/layouts/header') ?>
 <?php
 $banner = [];
 if (!empty($page_banners)) {
@@ -15,7 +14,11 @@ $instagram = trim((string)($social_instagram ?? ''));
 $youtube = trim((string)($social_youtube ?? ''));
 $accreditation = $about['accreditation'] ?? '';
 $mapQuery = rawurlencode((string)($contact_address ?? ''));
+$contactCanonical = base_url('contact');
+$contactDescription = $banner['subtitle'] ?? 'Temukan alamat, kanal resmi, dan formulir untuk menghubungi sekolah.';
+$contactStructured = ['@context'=>'https://schema.org','@type'=>'ContactPage','name'=>$banner['title'] ?? 'Kontak Sekolah','description'=>$contactDescription,'url'=>$contactCanonical,'isPartOf'=>['@type'=>'WebSite','name'=>$site_name ?? 'SekolahKu','url'=>base_url()]];
 ?>
+<?= $this->include('themes/madya/layouts/header', ['page_title' => $banner['title'] ?? 'Kontak Sekolah', 'page_description' => $contactDescription, 'canonical_url' => $contactCanonical, 'structured_data' => $contactStructured]) ?>
 <?= $this->include('themes/madya/components/page-header', [
     'eyebrow' => $banner['badge'] ?? 'Hubungi Sekolah',
     'title' => $banner['title'] ?? 'Kontak Sekolah',
@@ -44,7 +47,7 @@ $mapQuery = rawurlencode((string)($contact_address ?? ''));
                         <div><span class="contact-fact-icon"><i data-lucide="mail" aria-hidden="true"></i></span><span><strong>Email</strong><small><?= esc($contact_email ?: 'Email sekolah belum diatur.') ?></small></span></div>
                         <?php if ($accreditation !== ''): ?><div><span class="contact-fact-icon"><i data-lucide="award" aria-hidden="true"></i></span><span><strong>Akreditasi</strong><small><?= esc($accreditation) ?></small></span></div><?php endif; ?>
                     </div>
-                    <figure class="contact-campus-photo"><img src="<?= base_url(($theme_asset_base ?? 'themes/madya/assets') . '/generated/campus-aerial.jpg') ?>" alt="Lingkungan sekolah" loading="lazy" decoding="async"><figcaption>Lingkungan SMA Negeri 1 Nusantara</figcaption></figure>
+                    <figure class="contact-campus-photo"><img src="<?= base_url(($theme_asset_base ?? 'themes/madya/assets') . '/generated/campus-aerial.jpg') ?>" alt="Lingkungan sekolah" width="1200" height="800" loading="lazy" decoding="async"><figcaption>Lingkungan SMA Negeri 1 Nusantara</figcaption></figure>
                 </div>
                 <div class="contact-location-block">
                     <h3>Lokasi Sekolah</h3>
@@ -78,7 +81,7 @@ $mapQuery = rawurlencode((string)($contact_address ?? ''));
 
         <div class="contact-lower-grid">
             <section class="contact-help-panel">
-                <img src="<?= base_url(($theme_asset_base ?? 'themes/madya/assets') . '/illustrations/community.svg') ?>" alt="Layanan bantuan sekolah" loading="lazy" decoding="async">
+                <img src="<?= base_url(($theme_asset_base ?? 'themes/madya/assets') . '/illustrations/community.svg') ?>" alt="Layanan bantuan sekolah" width="720" height="520" loading="lazy" decoding="async">
                 <div class="contact-help-copy"><p class="eyebrow">Butuh Bantuan Cepat?</p><h2>Pilih kanal informasi yang Anda perlukan.</h2><p>Gunakan halaman resmi sekolah untuk menemukan informasi dan layanan yang paling relevan.</p></div>
                 <div class="contact-help-links">
                     <a href="<?= base_url('downloads') ?>"><i data-lucide="file-text" aria-hidden="true"></i><strong>Pusat Download</strong><small>Dokumen dan formulir resmi</small></a>
@@ -87,7 +90,7 @@ $mapQuery = rawurlencode((string)($contact_address ?? ''));
                     <a href="<?= base_url('contact') ?>"><i data-lucide="messages-square" aria-hidden="true"></i><strong>Hubungi Kami</strong><small>Kanal komunikasi resmi</small></a>
                 </div>
             </section>
-            <section class="contact-newsletter-card"><p class="eyebrow eyebrow-dark">Dapatkan Informasi Terbaru</p><h2>Informasi sekolah, langsung ke kotak masuk.</h2><p>Berlangganan newsletter kami untuk mendapatkan informasi dan pengumuman terbaru.</p><form class="newsletter-form" onsubmit="return false"><input type="email" placeholder="Masukkan email Anda" aria-label="Alamat email"><button class="button button-light" type="submit" aria-label="Berlangganan"><i data-lucide="arrow-right" aria-hidden="true"></i></button></form><img src="<?= base_url(($theme_asset_base ?? 'themes/madya/assets') . '/illustrations/documents.svg') ?>" alt="" aria-hidden="true"></section>
+            <section class="contact-newsletter-card faq-cta-card"><p class="eyebrow eyebrow-dark">Pertanyaan Umum</p><h2>Mungkin jawabannya sudah tersedia.</h2><p>Lihat pertanyaan yang sering diajukan sebelum mengirim pesan ke sekolah.</p><a class="button button-light" href="<?= base_url('/#faq') ?>">Buka FAQ <i data-lucide="arrow-right" aria-hidden="true"></i></a><img src="<?= base_url(($theme_asset_base ?? 'themes/madya/assets') . '/illustrations/documents.svg') ?>" alt="" aria-hidden="true" width="640" height="480"></section>
         </div>
     </div>
 </section>

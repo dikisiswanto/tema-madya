@@ -12,23 +12,13 @@ test('mobile menu supports drill-down', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto('/');
     await page.locator('[data-mobile-menu]').click();
-    await expect(page.locator('#mobile-navigation')).toHaveAttribute(
-        'aria-hidden',
-        'false',
-    );
-    await expect(page.locator('#mobile-navigation')).not.toHaveAttribute(
-        'inert',
-    );
+    await expect(page.locator('#mobile-navigation')).toHaveAttribute('aria-hidden', 'false');
+    await expect(page.locator('#mobile-navigation')).not.toHaveAttribute('inert');
     await page.keyboard.press('Escape');
-    await expect(page.locator('#mobile-navigation')).toHaveAttribute(
-        'aria-hidden',
-        'true',
-    );
-    await expect(page.locator('#mobile-navigation')).toHaveAttribute(
-        'inert',
-        '',
-    );
+    await expect(page.locator('#mobile-navigation')).toHaveAttribute('aria-hidden', 'true');
+    await expect(page.locator('#mobile-navigation')).toHaveAttribute('inert', '');
 });
+
 
 test('desktop disclosure is keyboard accessible', async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 900 });
@@ -44,9 +34,8 @@ test('desktop disclosure is keyboard accessible', async ({ page }) => {
     await expect(trigger).toBeFocused();
 });
 
-test('desktop navigation activates only at the spacious breakpoint', async ({
-    page,
-}) => {
+
+test('desktop navigation activates only at the spacious breakpoint', async ({ page }) => {
     await page.setViewportSize({ width: 1199, height: 900 });
     await page.goto('/');
     await expect(page.locator('.desktop-nav-wrap')).toBeHidden();
@@ -54,48 +43,33 @@ test('desktop navigation activates only at the spacious breakpoint', async ({
     await expect(page.locator('.desktop-nav-wrap')).toBeVisible();
 });
 
-test('mobile submenu trigger exposes its controlled panel', async ({
-    page,
-}) => {
+test('mobile submenu trigger exposes its controlled panel', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto('/');
     const trigger = page.locator('[data-mobile-trigger]').first();
     const panelId = await trigger.getAttribute('aria-controls');
     expect(panelId).toBeTruthy();
-    await expect(page.locator(`#${panelId}`)).toHaveAttribute(
-        'data-mobile-level',
-        await trigger.getAttribute('data-mobile-trigger'),
-    );
+    await expect(page.locator(`#${panelId}`)).toHaveAttribute('data-mobile-level', await trigger.getAttribute('data-mobile-trigger'));
     await trigger.click();
-    await expect(page.locator(`#${panelId}`)).toHaveAttribute(
-        'aria-hidden',
-        'false',
-    );
+    await expect(page.locator(`#${panelId}`)).toHaveAttribute('aria-hidden', 'false');
 });
 
-test('deep desktop navigation reaches fourth level without leaving the viewport contract', async ({
-    page,
-}) => {
+
+test('deep desktop navigation reaches fourth level without leaving the viewport contract', async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 900 });
     await page.goto('/');
     const labels = ['Profil', 'Sejarah', 'Kepemimpinan'];
     for (const label of labels) {
-        const trigger = page
-            .locator('[data-nav-toggle]', { hasText: label })
-            .last();
+        const trigger = page.locator('[data-nav-toggle]', { hasText: label }).last();
         await trigger.focus();
         await page.keyboard.press('ArrowDown');
         await expect(trigger).toHaveAttribute('aria-expanded', 'true');
     }
-    await expect(
-        page.getByRole('link', { name: 'Kepala Sekolah' }),
-    ).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Kepala Sekolah' })).toBeVisible();
     await page.keyboard.press('Escape');
 });
 
-test('deep mobile navigation drills down four levels and restores focus', async ({
-    page,
-}) => {
+test('deep mobile navigation drills down four levels and restores focus', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto('/');
     await page.locator('[data-mobile-menu]').click();
@@ -104,39 +78,27 @@ test('deep mobile navigation drills down four levels and restores focus', async 
         await expect(trigger).toBeVisible();
         await trigger.click();
     }
-    await expect(
-        page.getByRole('link', { name: 'Kepala Sekolah' }),
-    ).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Kepala Sekolah' })).toBeVisible();
     await page.locator('[data-mobile-back]').first().click();
-    await expect(
-        page.locator('[data-mobile-level="leadership"]'),
-    ).toHaveAttribute('aria-hidden', 'true');
+    await expect(page.locator('[data-mobile-level="leadership"]')).toHaveAttribute('aria-hidden', 'true');
     await page.locator('[data-mobile-back]').first().click();
     await page.locator('[data-mobile-back]').first().click();
     await page.keyboard.press('Escape');
-    await expect(page.locator('#mobile-navigation')).toHaveAttribute(
-        'aria-hidden',
-        'true',
-    );
+    await expect(page.locator('#mobile-navigation')).toHaveAttribute('aria-hidden', 'true');
 });
 
-test('desktop deep flyouts stay inside the viewport at level 2+', async ({
-    page,
-}) => {
+
+test('desktop deep flyouts stay inside the viewport at level 2+', async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 900 });
     await page.goto('/');
 
     for (const label of ['Profil', 'Sejarah', 'Kepemimpinan']) {
-        const trigger = page
-            .locator('[data-nav-toggle]', { hasText: label })
-            .last();
+        const trigger = page.locator('[data-nav-toggle]', { hasText: label }).last();
         await trigger.hover();
         await expect(trigger).toHaveAttribute('aria-expanded', 'true');
     }
 
-    const panels = page.locator(
-        '[data-nav-item][data-open="true"] > .nav-panel',
-    );
+    const panels = page.locator('[data-nav-item][data-open="true"] > .nav-panel');
     const count = await panels.count();
     expect(count).toBeGreaterThanOrEqual(3);
 
@@ -150,23 +112,17 @@ test('desktop deep flyouts stay inside the viewport at level 2+', async ({
     }
 });
 
-test('desktop deep levels share the same viewport-fixed behavior', async ({
-    page,
-}) => {
+test('desktop deep levels share the same viewport-fixed behavior', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto('/');
 
     for (const label of ['Profil', 'Sejarah', 'Kepemimpinan']) {
-        const trigger = page
-            .locator('[data-nav-toggle]', { hasText: label })
-            .last();
+        const trigger = page.locator('[data-nav-toggle]', { hasText: label }).last();
         await trigger.hover();
         await expect(trigger).toHaveAttribute('aria-expanded', 'true');
     }
 
-    const openPanels = page.locator(
-        '[data-nav-item][data-open="true"] > .nav-panel',
-    );
+    const openPanels = page.locator('[data-nav-item][data-open="true"] > .nav-panel');
     await expect(openPanels).toHaveCount(3);
 
     for (let i = 1; i < 3; i += 1) {
@@ -182,6 +138,7 @@ test('desktop deep levels share the same viewport-fixed behavior', async ({
     }
 });
 
+
 test('static page uses the canonical rich-text renderer', async ({ page }) => {
     await page.goto('/pages/sejarah-sekolah');
     await expect(page.locator('.article-prose')).toBeVisible();
@@ -190,17 +147,11 @@ test('static page uses the canonical rich-text renderer', async ({ page }) => {
     await expect(page.locator('.article-prose table')).toBeVisible();
 });
 
-test('news detail exposes the canonical sidebar and comments surface', async ({
-    page,
-}) => {
+test('news detail exposes the canonical sidebar and comments surface', async ({ page }) => {
     await page.goto('/news/membuka-semester-dengan-semangat-baru');
     await expect(page.locator('.article-sidebar')).toBeVisible();
     await expect(page.locator('.article-sidebar .share-card')).toBeVisible();
-    await expect(
-        page.locator('.article-sidebar .sidebar-card', {
-            hasText: 'Arsip Berita',
-        }),
-    ).toBeVisible();
+    await expect(page.locator('.article-sidebar .sidebar-card', { hasText: 'Arsip Berita' })).toBeVisible();
     await expect(page.locator('#komentar')).toBeVisible();
     await expect(page.locator('[data-playground-comment-form]')).toBeVisible();
 });

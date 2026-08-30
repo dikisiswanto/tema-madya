@@ -1,24 +1,9 @@
 /** Derived collections shared by the native playground views. */
 
-const MONTH_NAMES = [
-    'Januari',
-    'Februari',
-    'Maret',
-    'April',
-    'Mei',
-    'Juni',
-    'Juli',
-    'Agustus',
-    'September',
-    'Oktober',
-    'November',
-    'Desember',
-];
+const MONTH_NAMES = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
 
 function firstCategory(value) {
-    return String(value || '')
-        .split(',')[0]
-        .trim();
+    return String(value || '').split(',')[0].trim();
 }
 
 export function newsCategories(posts = []) {
@@ -31,16 +16,7 @@ export function newsCategories(posts = []) {
 }
 
 export function newsTags(posts = []) {
-    return [
-        ...new Set(
-            posts.flatMap((post) =>
-                String(post.category || '')
-                    .split(',')
-                    .map((tag) => tag.trim())
-                    .filter(Boolean),
-            ),
-        ),
-    ];
+    return [...new Set(posts.flatMap((post) => String(post.category || '').split(',').map((tag) => tag.trim()).filter(Boolean)))];
 }
 
 export function newsArchive(posts = []) {
@@ -68,15 +44,11 @@ export function relatedNews(posts = [], current) {
 }
 
 export function popularNews(posts = [], limit = 5) {
-    return [...posts]
-        .sort((a, b) => Number(b.view_count || 0) - Number(a.view_count || 0))
-        .slice(0, limit);
+    return [...posts].sort((a, b) => Number(b.view_count || 0) - Number(a.view_count || 0)).slice(0, limit);
 }
 
 export function articleReadMinutes(post) {
-    const text = String(post?.content || post?.body || post?.excerpt || '')
-        .replace(/<[^>]+>/g, ' ')
-        .trim();
+    const text = String(post?.content || post?.body || post?.excerpt || '').replace(/<[^>]+>/g, ' ').trim();
     const words = text ? text.split(/\s+/).filter(Boolean).length : 0;
     return Math.max(1, Math.ceil(words / 200));
 }

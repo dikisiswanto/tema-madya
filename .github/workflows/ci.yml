@@ -12,7 +12,7 @@ jobs:
         with: {node-version: 22}
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: "8.1"
+          php-version: "8.5"
           coverage: none
       - run: composer install --no-interaction --prefer-dist --no-progress
       - run: npm ci --no-audit --no-fund

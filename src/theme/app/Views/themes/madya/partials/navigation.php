@@ -29,11 +29,11 @@ $brandSocialIcon = static function (string $name): string {
 <header class="site-header" data-site-nav>
     <div class="theme-container header-inner">
         <a class="brand" href="<?= base_url() ?>" aria-label="Beranda <?= esc($site_name ?? 'SekolahKu') ?>">
-            <span class="brand-mark" aria-hidden="true"><?php if (!empty($site_logo_url)): ?><img src="<?= esc($site_logo_url) ?>" alt="" width="96" height="96" loading="eager" decoding="async"><?php else: ?><i data-lucide="graduation-cap"></i><?php endif; ?></span>
+            <span class="brand-mark" aria-hidden="true"><?php if (!empty($site_logo_url)): ?><img src="<?= esc($site_logo_url) ?>" alt="" width="96" height="96" loading="eager" decoding="async"><?php else: ?><?= $this->include('themes/madya/components/ui/icon', ['name' => $site_logo_icon ?? 'graduation-cap', 'class' => 'brand-icon']) ?><?php endif; ?></span>
             <span class="brand-copy"><strong><?= esc($site_logo_text ?? $site_name ?? 'SekolahKu') ?></strong><small><?= esc($site_tagline ?? 'Situs resmi sekolah') ?></small></span>
         </a>
         <nav class="desktop-nav-wrap" aria-label="Navigasi utama"><ul class="desktop-nav"><?php theme_render_menu($tree); ?></ul></nav>
-        <a class="header-search" href="<?= base_url('news') ?>" aria-label="Cari berita"><i data-lucide="search" aria-hidden="true"></i></a>
+        <button class="header-search" type="button" data-search-open aria-haspopup="dialog" aria-controls="site-search-dialog" aria-label="Buka pencarian berita"><i data-lucide="search" aria-hidden="true"></i></button>
         <?php if (!empty($spmb_url)): ?><a class="nav-cta" href="<?= esc($spmb_url) ?>" target="_blank" rel="noopener noreferrer"><span>SPMB Online</span><i data-lucide="arrow-up-right" aria-hidden="true"></i></a><?php endif; ?>
         <button class="mobile-toggle" type="button" data-mobile-menu aria-expanded="false" aria-controls="mobile-navigation"><span class="menu-icon" aria-hidden="true"><span></span><span></span></span><span class="sr-only">Buka menu</span></button>
     </div>
@@ -69,3 +69,19 @@ $brandSocialIcon = static function (string $name): string {
         <?php endforeach; ?>
     </div>
 </aside>
+
+<div class="search-dialog" id="site-search-dialog" data-search-dialog hidden aria-hidden="true">
+    <div class="search-dialog-backdrop" data-search-close></div>
+    <section class="search-dialog-panel" role="dialog" aria-modal="true" aria-labelledby="site-search-title">
+        <button class="search-dialog-close" type="button" data-search-close aria-label="Tutup pencarian"><i data-lucide="x" aria-hidden="true"></i></button>
+        <p class="eyebrow">Pencarian</p>
+        <h2 id="site-search-title">Cari berita sekolah.</h2>
+        <p class="search-dialog-copy">Masukkan kata kunci untuk menemukan berita yang relevan.</p>
+        <form class="search-dialog-form" action="<?= base_url('news') ?>" method="get" data-search-form role="search">
+            <label for="site-search-input" class="sr-only">Kata kunci berita</label>
+            <input id="site-search-input" name="search" type="search" placeholder="Cari berita…" autocomplete="off" enterkeyhint="search" required>
+            <button class="button button-accent" type="submit"><i data-lucide="search" aria-hidden="true"></i><span>Cari Berita</span></button>
+        </form>
+        <p class="search-dialog-hint">Hasil pencarian akan dibuka pada halaman Berita.</p>
+    </section>
+</div>

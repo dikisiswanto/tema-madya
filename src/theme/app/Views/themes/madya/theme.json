@@ -1,102 +1,102 @@
 {
-  "name": "Tema Madya CMS Sekolahku",
-  "product": "Tema Madya CMS Sekolahku",
-  "version": "0.3.0-rc.10.12.33",
-  "engine": {
-    "name": "SekolahKu",
-    "min": "3.1.2"
-  },
-  "uiLanguage": "id",
-  "codeLanguage": "en",
-  "viewRoot": "app/Views/themes/madya",
-  "assetRoot": "public/themes/madya/assets",
-  "contractViews": [
-    "pages/home.php",
-    "pages/news.php",
-    "pages/single_post.php",
-    "pages/downloads.php",
-    "pages/contact.php",
-    "pages/page.php"
-  ],
-  "navigation": {
-    "sectionLinks": true,
-    "hybridSpa": true,
-    "nativeRoutes": [
-      "/news",
-      "/news/{slug}",
-      "/downloads",
-      "/contact"
-    ]
-  },
-  "staticPreview": {
-    "entry": "dist-html/index.html",
-    "command": "npm run build:html"
-  },
-  "icons": {
-    "library": "Tabler-style inline SVG",
-    "runtime": "zero-dependency inline SVG"
-  },
-  "visual": {
-    "style": "Contemporary Institutional Editorial",
-    "campusScene3d": true,
-    "illustrations": true,
-    "illustrationAssets": [
-      "illustrations/community.svg",
-      "illustrations/documents.svg",
-      "illustrations/learning.svg",
-      "illustrations/portrait-placeholder.svg",
-      "illustrations/school-placeholder.svg"
-    ],
-    "colorSystem": {
-      "brand": "#072A63",
-      "brandDeep": "#041C46",
-      "accent": "#D89A2B"
+    "name": "Tema Madya CMS Sekolahku",
+    "product": "Tema Madya CMS Sekolahku",
+    "version": "0.3.0-rc.10.12.45",
+    "engine": {
+        "name": "SekolahKu",
+        "min": "3.1.2"
     },
-    "generatedImageFallbacks": [
-      "generated/achievement-1.jpg",
-      "generated/achievement-2.jpg",
-      "generated/achievement-3.jpg",
-      "generated/auditorium.jpg",
-      "generated/campus-aerial.jpg",
-      "generated/classroom.jpg",
-      "generated/extra-culture.jpg",
-      "generated/extra-sports.jpg",
-      "generated/extra-student.jpg",
-      "generated/gallery-class.jpg",
-      "generated/gallery-computer.jpg",
-      "generated/gallery-culture.jpg",
-      "generated/gallery-event.jpg",
-      "generated/gallery-lab.jpg",
-      "generated/gallery-library.jpg",
-      "generated/gallery-pramuka.jpg",
-      "generated/gallery-students.jpg",
-      "generated/hero-campus.jpg",
-      "generated/library.jpg",
-      "generated/news-campus.jpg",
-      "generated/principal.jpg",
-      "generated/program-language.jpg",
-      "generated/program-science.jpg",
-      "generated/program-students.jpg",
-      "generated/spmb-students.jpg",
-      "generated/teacher-1.jpg",
-      "generated/teacher-2.jpg",
-      "generated/teacher-3.jpg",
-      "generated/teacher-4.jpg",
-      "generated/testimonial-1.jpg",
-      "generated/testimonial-2.jpg",
-      "generated/testimonial-3.jpg"
-    ]
-  },
-  "viewAdapter": {
-    "strategy": "public-view-override",
-    "path": "app/Views/pages",
-    "reason": "Sekolahku 3.1.2 resolves fixed public view names and has no third-party theme resolver; adapter delegates to Madya views without core source changes."
-  },
-  "mediaSource": "src/theme/app/Views/themes/madya/assets",
-  "mediaPolicy": {
-    "canonical": "src/theme/app/Views/themes/madya/assets",
-    "playground": "served via Vite middleware",
-    "release": "copied during packaging",
-    "duplicates": false
-  }
+    "uiLanguage": "id",
+    "codeLanguage": "en",
+    "viewRoot": "app/Views/themes/madya",
+    "assetRoot": "public/themes/madya/assets",
+    "contractViews": [
+        "pages/home.php",
+        "pages/news.php",
+        "pages/single_post.php",
+        "pages/downloads.php",
+        "pages/contact.php",
+        "pages/page.php"
+    ],
+    "navigation": {
+        "sectionLinks": true,
+        "hybridSpa": true,
+        "nativeRoutes": [
+            "/news",
+            "/news/{slug}",
+            "/downloads",
+            "/contact"
+        ]
+    },
+    "staticPreview": {
+        "entry": "dist-html/index.html",
+        "command": "npm run build:html"
+    },
+    "icons": {
+        "library": "Tabler-style inline SVG with Font Awesome CMS fallback",
+        "runtime": "bundled inline SVG; Font Awesome fallback for CMS icon class values"
+    },
+    "visual": {
+        "style": "Contemporary Institutional Editorial",
+        "campusScene3d": true,
+        "illustrations": true,
+        "illustrationAssets": [
+            "illustrations/community.svg",
+            "illustrations/documents.svg",
+            "illustrations/learning.svg",
+            "illustrations/portrait-placeholder.svg",
+            "illustrations/school-placeholder.svg"
+        ],
+        "colorSystem": {
+            "brand": "#072A63",
+            "brandDeep": "#041C46",
+            "accent": "#D89A2B"
+        },
+        "generatedImageFallbacks": [
+            "generated/achievement-1.jpg",
+            "generated/achievement-2.jpg",
+            "generated/achievement-3.jpg",
+            "generated/auditorium.jpg",
+            "generated/campus-aerial.jpg",
+            "generated/classroom.jpg",
+            "generated/extra-culture.jpg",
+            "generated/extra-sports.jpg",
+            "generated/extra-student.jpg",
+            "generated/gallery-class.jpg",
+            "generated/gallery-computer.jpg",
+            "generated/gallery-culture.jpg",
+            "generated/gallery-event.jpg",
+            "generated/gallery-lab.jpg",
+            "generated/gallery-library.jpg",
+            "generated/gallery-pramuka.jpg",
+            "generated/gallery-students.jpg",
+            "generated/hero-campus.jpg",
+            "generated/library.jpg",
+            "generated/news-campus.jpg",
+            "generated/principal.jpg",
+            "generated/program-language.jpg",
+            "generated/program-science.jpg",
+            "generated/program-students.jpg",
+            "generated/spmb-students.jpg",
+            "generated/teacher-1.jpg",
+            "generated/teacher-2.jpg",
+            "generated/teacher-3.jpg",
+            "generated/teacher-4.jpg",
+            "generated/testimonial-1.jpg",
+            "generated/testimonial-2.jpg",
+            "generated/testimonial-3.jpg"
+        ]
+    },
+    "viewAdapter": {
+        "strategy": "public-view-override",
+        "path": "app/Views/pages",
+        "reason": "Sekolahku 3.1.2 resolves fixed public view names and has no third-party theme resolver; adapter delegates to Madya views without core source changes."
+    },
+    "mediaSource": "src/theme/app/Views/themes/madya/assets",
+    "mediaPolicy": {
+        "canonical": "src/theme/app/Views/themes/madya/assets",
+        "playground": "served via Vite middleware",
+        "release": "copied during packaging",
+        "duplicates": false
+    }
 }

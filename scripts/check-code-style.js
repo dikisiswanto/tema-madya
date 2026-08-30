@@ -31,9 +31,7 @@ const sourceRoots = [
 ];
 
 async function walk(dir, files = []) {
-    for (const entry of await (await import('node:fs/promises')).readdir(dir, {
-        withFileTypes: true,
-    })) {
+    for (const entry of await (await import('node:fs/promises')).readdir(dir, { withFileTypes: true })) {
         const full = path.join(dir, entry.name);
         if (entry.isDirectory()) await walk(full, files);
         else files.push(full);
@@ -45,12 +43,8 @@ for (const rootDir of sourceRoots) {
     for (const file of await walk(rootDir)) {
         if (!/\.(js|css|php)$/.test(file)) continue;
         const source = await readFile(file, 'utf8');
-        if (/\t/.test(source))
-            failures.push(`Tabs are not allowed: ${path.relative(root, file)}`);
-        if (!source.endsWith('\n'))
-            failures.push(
-                `Missing final newline: ${path.relative(root, file)}`,
-            );
+        if (/\t/.test(source)) failures.push(`Tabs are not allowed: ${path.relative(root, file)}`);
+        if (!source.endsWith('\n')) failures.push(`Missing final newline: ${path.relative(root, file)}`);
     }
 }
 

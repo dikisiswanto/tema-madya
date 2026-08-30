@@ -4,12 +4,10 @@ function showCommentNotice(form) {
     let note = form.querySelector('.comment-demo-note');
     if (!note) {
         note = document.createElement('p');
-        note.className =
-            'comment-demo-note comment-alert comment-alert-success';
+        note.className = 'comment-demo-note comment-alert comment-alert-success';
         form.appendChild(note);
     }
-    note.textContent =
-        'Komentar demo tersimpan di playground. Pada CMS, komentar dikirim ke endpoint SekolahKu dan menunggu persetujuan.';
+    note.textContent = 'Komentar demo tersimpan di playground. Pada CMS, komentar dikirim ke endpoint SekolahKu dan menunggu persetujuan.';
     form.reset();
 }
 

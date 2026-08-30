@@ -37,6 +37,8 @@ $structuredArticle = [
     'image' => !empty($article['image']) ? [$article['image']] : null,
     'author' => ['@type' => 'Person', 'name' => $article['author'] ?? 'Redaksi'],
     'publisher' => ['@type' => 'EducationalOrganization', 'name' => $site_name ?? 'SekolahKu', 'logo' => !empty($site_logo_url) ? ['@type' => 'ImageObject', 'url' => $site_logo_url] : null],
+    'articleSection' => $article['category'] ?? null,
+    'keywords' => $article['tags'] ?? null,
 ];
 $shareTitle = (string)($article['title'] ?? 'Berita sekolah');
 $shareUrl = current_url();
@@ -48,6 +50,8 @@ $shareUrl = current_url();
     'canonical_url' => $canonicalUrl,
     'og_type' => 'article',
     'og_image' => $article['image'] ?? null,
+    'article_published_time' => $article['published_at'] ?? $article['created_at'] ?? null,
+    'article_modified_time' => $article['updated_at'] ?? $article['published_at'] ?? $article['created_at'] ?? null,
 ]) ?>
 <?php $heroImage = $generatedHero; ?>
 <?= $this->include('themes/madya/components/page-header', [
@@ -131,12 +135,12 @@ $shareUrl = current_url();
                 <?php if (!empty($comments)): ?>
                 <div class="comment-list" aria-label="Komentar yang telah disetujui">
                     <?php foreach ($comments as $comment): ?>
-                    <article class="comment-card">
+                    <article class="comment-card"><div class="comment-card-inner">
                         <div class="comment-avatar" aria-hidden="true"><?= esc(strtoupper(substr(trim((string)($comment['name'] ?? 'W')), 0, 1))) ?></div>
                         <div class="comment-card-body">
                             <div class="comment-card-head"><strong><?= esc($comment['name'] ?? 'Warga sekolah') ?></strong><time datetime="<?= esc($comment['created_at'] ?? '') ?>"><?= esc($comment['created_at'] ?? '') ?></time></div>
                             <p><?= nl2br(esc($comment['comment'] ?? $comment['message'] ?? '')) ?></p>
-                        </div>
+                        </div></div>
                     </article>
                     <?php endforeach; ?>
                 </div>
@@ -197,12 +201,12 @@ $shareUrl = current_url();
             </section>
             <?php endif; ?>
 
-            <section class="article-newsletter">
-                <p class="eyebrow eyebrow-dark">Tetap terhubung</p>
-                <h2>Dapatkan Informasi Terbaru</h2>
-                <p>Ikuti berita dan kegiatan terbaru sekolah melalui halaman berita kami.</p>
-                <a class="button button-light" href="<?= base_url('news') ?>">Lihat berita terbaru <i data-lucide="arrow-right" aria-hidden="true"></i></a>
-                <div class="article-newsletter-art" aria-hidden="true"><i data-lucide="mail-open"></i></div>
+            <section class="article-newsletter faq-cta-card">
+                <p class="eyebrow eyebrow-dark">Pertanyaan Umum</p>
+                <h2>Masih ada yang ingin diketahui?</h2>
+                <p>Lihat jawaban atas pertanyaan yang sering diajukan mengenai sekolah dan layanan publik.</p>
+                <a class="button button-light" href="<?= base_url('/#faq') ?>">Buka FAQ <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+                <div class="article-newsletter-art" aria-hidden="true"><i data-lucide="circle-help"></i></div>
             </section>
         </aside>
     </div>

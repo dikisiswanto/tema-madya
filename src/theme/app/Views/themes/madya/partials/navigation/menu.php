@@ -6,7 +6,7 @@ if (!function_exists('theme_render_menu')) {
             $hasChildren = !empty($item['children']);
             $title = esc($item['title'] ?? 'Menu');
             $url = !empty($item['section_key'])
-                ? '#' . ltrim((string) $item['section_key'], '#')
+                ? base_url('/#' . ltrim((string) $item['section_key'], '#'))
                 : resolve_menu_url($item['url'] ?? '#');
             $target = ($item['target'] ?? '') === '_blank' ? ' target="_blank" rel="noopener noreferrer"' : '';
             $key = (string)($item['id'] ?? $level . '-' . $index);

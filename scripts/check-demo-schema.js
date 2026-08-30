@@ -6,23 +6,9 @@ const file = path.join(root, 'playground', 'data', 'demo.json');
 const data = JSON.parse(await readFile(file, 'utf8'));
 
 const requiredTopLevel = [
-    'site_name',
-    'site_description',
-    'about',
-    'principal',
-    'programs',
-    'extracurriculars',
-    'teachers',
-    'achievements',
-    'testimonials',
-    'events',
-    'galleries',
-    'faq',
-    'news',
-    'downloads',
-    'navigation',
-    'comments',
-    'pages',
+    'site_name', 'site_description', 'about', 'principal', 'programs',
+    'extracurriculars', 'teachers', 'achievements', 'testimonials', 'events',
+    'galleries', 'faq', 'news', 'downloads', 'navigation', 'comments', 'pages',
 ];
 
 const collectionRequired = {
@@ -42,8 +28,7 @@ const collectionRequired = {
 };
 
 const failures = [];
-const isRecord = (value) =>
-    value && typeof value === 'object' && !Array.isArray(value);
+const isRecord = (value) => value && typeof value === 'object' && !Array.isArray(value);
 
 if (!isRecord(data)) failures.push('Root demo data must be an object.');
 
@@ -63,14 +48,8 @@ for (const [collection, fields] of Object.entries(collectionRequired)) {
             return;
         }
         for (const field of fields) {
-            if (
-                item[field] === undefined ||
-                item[field] === null ||
-                item[field] === ''
-            ) {
-                failures.push(
-                    `${collection}[${index}] is missing required field: ${field}`,
-                );
+            if (item[field] === undefined || item[field] === null || item[field] === '') {
+                failures.push(`${collection}[${index}] is missing required field: ${field}`);
             }
         }
     });
@@ -80,19 +59,11 @@ if (!isRecord(data.about)) failures.push('about must be an object.');
 if (!isRecord(data.principal)) failures.push('principal must be an object.');
 if (!isRecord(data.urls)) failures.push('urls must be an object.');
 
-const slugs = data.news
-    .filter(isRecord)
-    .map((item) => item.slug)
-    .filter(Boolean);
-if (new Set(slugs).size !== slugs.length)
-    failures.push('News slugs must be unique.');
+const slugs = data.news.filter(isRecord).map((item) => item.slug).filter(Boolean);
+if (new Set(slugs).size !== slugs.length) failures.push('News slugs must be unique.');
 
-const pageSlugs = data.pages
-    .filter(isRecord)
-    .map((item) => item.slug)
-    .filter(Boolean);
-if (new Set(pageSlugs).size !== pageSlugs.length)
-    failures.push('Page slugs must be unique.');
+const pageSlugs = data.pages.filter(isRecord).map((item) => item.slug).filter(Boolean);
+if (new Set(pageSlugs).size !== pageSlugs.length) failures.push('Page slugs must be unique.');
 
 if (failures.length) {
     console.error('Demo schema check failed.');
@@ -100,6 +71,4 @@ if (failures.length) {
     process.exit(1);
 }
 
-console.log(
-    `Demo schema: OK (${data.news.length} news, ${data.pages.length} pages, ${data.downloads.length} downloads)`,
-);
+console.log(`Demo schema: OK (${data.news.length} news, ${data.pages.length} pages, ${data.downloads.length} downloads)`);

@@ -1,37 +1,23 @@
-# Dependencies
 node_modules/
-vendor/
-
-screenshots/
-
-# Build output
 dist/
-dist-html/
 dist-assets/
 release/
 .vite/
-
-# Test output
 playwright-report/
 test-results/
-
-# Tool caches
-.php-cs-fixer.cache
-.phpcs-cache/
-.biome/
-.cache/
-
-# OS / editor
 .DS_Store
+screenshots/.phpunit.result.cache
+.php-cs-fixer.cache
+/vendor/
+dist-html/
+coverage/
+.cache/
+.biome/
+.phpcs-cache/
+*.log
+*.tmp
+*.temp
 Thumbs.db
 .idea/
 .vscode/*.local
-
-# Temporary files
-*.tmp
-*.temp
-*.log
-
-# PHP test cache
-.phpunit.result.cache
-screenshots/.phpunit.result.cache
+screenshots/

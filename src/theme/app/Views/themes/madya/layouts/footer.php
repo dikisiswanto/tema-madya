@@ -1,12 +1,8 @@
 <footer class="site-footer" role="contentinfo">
-    <div class="newsletter-strip">
+    <div class="newsletter-strip faq-strip">
         <div class="theme-container newsletter-inner">
-            <div><p class="eyebrow eyebrow-dark">Tetap terhubung</p><h2>Informasi sekolah, langsung ke kotak masuk.</h2><p>Gunakan kanal resmi sekolah untuk mendapatkan pengumuman dan informasi terbaru.</p></div>
-            <form class="newsletter-form" action="#" method="post" onsubmit="return false">
-                <label class="sr-only" for="footer-newsletter-email">Alamat email</label>
-                <input id="footer-newsletter-email" type="email" placeholder="Masukkan email Anda" autocomplete="email">
-                <button class="button button-light" type="submit" aria-label="Berlangganan newsletter"><i data-lucide="send" aria-hidden="true"></i><span>Berlangganan</span></button>
-            </form>
+            <div><p class="eyebrow eyebrow-dark">Pertanyaan yang Sering Diajukan</p><h2>Temukan jawaban sebelum menghubungi sekolah.</h2><p>Lihat informasi umum mengenai akademik, layanan, kegiatan, dan administrasi sekolah.</p></div>
+            <a class="button button-light" href="<?= base_url('/#faq') ?>"><i data-lucide="circle-help" aria-hidden="true"></i><span>Buka FAQ</span></a>
         </div>
     </div>
     <div class="footer-main">
@@ -27,7 +23,7 @@
                 <h3 class="footer-title">Program</h3>
                 <div class="footer-links">
                 <?php $footerProgramItems = is_array($footer_services ?? null) ? $footer_services : (json_decode($footer_services ?? '[]', true) ?: []); ?>
-                <?php if ($footerProgramItems): foreach (array_slice($footerProgramItems, 0, 5) as $item): ?><a href="<?= esc($item['url'] ?? '#programs') ?>"><?= esc($item['label'] ?? $item['title'] ?? '') ?></a><?php endforeach; else: ?><a href="#programs">Program unggulan</a><a href="#extracurriculars">Ekstrakurikuler</a><a href="#achievements">Prestasi</a><?php endif; ?>
+                <?php if ($footerProgramItems): foreach (array_slice($footerProgramItems, 0, 5) as $item): ?><a href="<?= esc($item['url'] ?? '/#programs') ?>"><?= esc($item['label'] ?? $item['title'] ?? '') ?></a><?php endforeach; else: ?><a href="<?= base_url('/#programs') ?>">Program unggulan</a><a href="<?= base_url('/#extracurriculars') ?>">Ekstrakurikuler</a><a href="<?= base_url('/#achievements') ?>">Prestasi</a><?php endif; ?>
                 </div>
             </div>
             <div>
@@ -38,13 +34,9 @@
                 </div>
             </div>
             <div class="footer-newsletter-column">
-                <h3 class="footer-title">Newsletter</h3>
-                <p>Dapatkan informasi terbaru dari kami.</p>
-                <form class="footer-newsletter-form" action="#" method="post" onsubmit="return false">
-                    <label class="sr-only" for="footer-column-newsletter-email">Masukkan email Anda</label>
-                    <input id="footer-column-newsletter-email" type="email" placeholder="Masukkan email Anda" autocomplete="email">
-                    <button class="button button-accent" type="submit" aria-label="Kirim email"><i data-lucide="send" aria-hidden="true"></i></button>
-                </form>
+                <h3 class="footer-title">Bantuan</h3>
+                <p>Temukan jawaban atau hubungi sekolah melalui kanal resmi.</p>
+                <div class="footer-links"><a href="<?= base_url('/#faq') ?>">FAQ</a><a href="<?= base_url('contact') ?>">Hubungi Sekolah</a><a href="<?= base_url('downloads') ?>">Dokumen</a></div>
                 <div class="footer-socials">
                     <?php if (!empty($social_facebook) && $social_facebook !== '#'): ?><a href="<?= esc($social_facebook) ?>" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i data-lucide="brand-facebook" aria-hidden="true"></i></a><?php endif; ?>
                     <?php if (!empty($social_instagram) && $social_instagram !== '#'): ?><a href="<?= esc($social_instagram) ?>" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i data-lucide="brand-instagram" aria-hidden="true"></i></a><?php endif; ?>

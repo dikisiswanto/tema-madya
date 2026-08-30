@@ -3,26 +3,11 @@ import { initArticleActions } from './article.js';
 import { getState } from './state.js';
 import renderHome from './views/home.js';
 import renderSection from './views/section.js';
-import {
-    renderArticle,
-    renderContact,
-    renderDownloads,
-    renderFooter,
-    renderNews,
-    renderStaticPage,
-} from './views/native.js';
+import { renderArticle, renderContact, renderDownloads, renderFooter, renderNews, renderStaticPage } from './views/native.js';
 
 const sectionRoutes = new Set([
-    'profile',
-    'programs',
-    'extracurriculars',
-    'teachers',
-    'achievements',
-    'testimonials',
-    'events',
-    'gallery',
-    'faq',
-    'contact',
+    'profile', 'programs', 'extracurriculars', 'teachers', 'achievements',
+    'testimonials', 'events', 'gallery', 'faq', 'contact',
 ]);
 
 let initialLoad = true;
@@ -111,6 +96,7 @@ function renderCurrentRouteNow() {
     }
 
     renderSection(route, getState(), shell);
+    renderFooter(getState());
     initIcons(shell);
     updateDocumentMeta(getState(), route);
     setRouteState(route);
@@ -126,25 +112,11 @@ function normalizePath(pathname) {
 
 function handleNativeNavigation(event) {
     const link = event.target.closest('a[href]');
-    if (
-        !link ||
-        link.target ||
-        link.hasAttribute('download') ||
-        event.metaKey ||
-        event.ctrlKey ||
-        event.shiftKey ||
-        event.altKey
-    )
-        return;
+    if (!link || link.target || link.hasAttribute('download') || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
     const url = new URL(link.href, window.location.href);
     if (url.origin !== window.location.origin) return;
     const path = normalizePath(url.pathname);
-    const native =
-        path === '/news' ||
-        path.startsWith('/news/') ||
-        path === '/downloads' ||
-        path === '/contact' ||
-        path.startsWith('/pages/');
+    const native = path === '/news' || path.startsWith('/news/') || path === '/downloads' || path === '/contact' || path.startsWith('/pages/');
     if (!native) return;
     event.preventDefault();
     history.pushState({}, '', `${url.pathname}${url.search}${url.hash}`);
@@ -159,18 +131,13 @@ function finishNativeNavigation() {
 }
 
 function normalizeRoute(hash) {
-    return decodeURIComponent(
-        hash.replace(/^#/, '').trim().replace(/^\//, '').toLowerCase(),
-    );
+    return decodeURIComponent(hash.replace(/^#/, '').trim().replace(/^\//, '').toLowerCase());
 }
 
 function setRouteState(route) {
     document.documentElement.dataset.spaRoute = route || '';
     document.querySelectorAll('[data-spa-link]').forEach((link) => {
-        const href = (link.getAttribute('href') || '')
-            .replace(/^#/, '')
-            .replace(/^\//, '')
-            .toLowerCase();
+        const href = (link.getAttribute('href') || '').replace(/^#/, '').replace(/^\//, '').toLowerCase();
         if (href === route) link.setAttribute('aria-current', 'page');
         else link.removeAttribute('aria-current');
     });
@@ -179,43 +146,16 @@ function setRouteState(route) {
 function updateDocumentMeta(state, route, slug = '') {
     const siteName = state.site_name || 'SekolahKu';
     const titles = {
-        profile: 'Profil Sekolah',
-        programs: 'Program Akademik',
-        extracurriculars: 'Kegiatan Siswa',
-        teachers: 'Tenaga Pendidik',
-        achievements: 'Prestasi',
-        testimonials: 'Cerita Komunitas',
-        events: 'Agenda Sekolah',
-        gallery: 'Galeri',
-        faq: 'Pertanyaan Umum',
-        contact: 'Hubungi Sekolah',
-        news: 'Berita Sekolah',
-        downloads: 'Dokumen Resmi',
-        article: 'Berita Sekolah',
-        page: 'Halaman Informasi',
+        profile: 'Profil Sekolah', programs: 'Program Akademik', extracurriculars: 'Kegiatan Siswa',
+        teachers: 'Tenaga Pendidik', achievements: 'Prestasi', testimonials: 'Cerita Komunitas',
+        events: 'Agenda Sekolah', gallery: 'Galeri', faq: 'Pertanyaan Umum', contact: 'Hubungi Sekolah',
+        news: 'Berita Sekolah', downloads: 'Dokumen Resmi', article: 'Berita Sekolah', page: 'Halaman Informasi',
     };
-    const post =
-        route === 'article'
-            ? (state.news || []).find((item) => item.slug === slug)
-            : null;
-    const page =
-        route === 'page'
-            ? (state.pages || []).find((item) => item.slug === slug)
-            : null;
-    document.title =
-        route === 'home'
-            ? siteName
-            : `${post?.title || page?.meta_title || page?.title || titles[route] || 'Informasi'} — ${siteName}`;
+    const post = route === 'article' ? (state.news || []).find((item) => item.slug === slug) : null;
+    const page = route === 'page' ? (state.pages || []).find((item) => item.slug === slug) : null;
+    document.title = route === 'home' ? siteName : `${post?.title || page?.meta_title || page?.title || titles[route] || 'Informasi'} — ${siteName}`;
     const meta = document.querySelector('meta[name="description"]');
-    if (meta)
-        meta.setAttribute(
-            'content',
-            post?.excerpt ||
-                page?.meta_description ||
-                page?.excerpt ||
-                state.site_description ||
-                '',
-        );
+    if (meta) meta.setAttribute('content', post?.excerpt || page?.meta_description || page?.excerpt || state.site_description || '');
 }
 
 function focusMain() {
@@ -229,6 +169,3 @@ function scrollTop() {
     window.scrollTo({ top: 0, behavior: 'auto' });
 }
 
-function reduceMotion() {
-    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-}

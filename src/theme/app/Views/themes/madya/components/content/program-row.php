@@ -1,7 +1,7 @@
 <?php
 $item = $item ?? [];
 $index = $index ?? 0;
-$href = $href ?? '#programs';
+$href = $href ?? '/#programs';
 ?>
 <a class="program-feature-row" href="<?= esc($href) ?>">
     <span class="program-row-index"><span class="program-index"><?= str_pad((string)($index + 1), 2, '0', STR_PAD_LEFT) ?></span><?php if (!empty($item['icon'])): ?><?= $this->include('themes/madya/components/ui/icon', ['name' => $item['icon']]) ?><?php endif; ?></span>

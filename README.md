@@ -1,85 +1,75 @@
+# Tema Madya — RC10.12.42
+
+Baseline visual parity dan CMS UI contract.
+
 # Tema Madya CMS Sekolahku
 
-Tema website sekolah yang modern, tenang, dan editorial untuk **Sekolahku CMS 3.1.2**.
-
-Madya dirancang agar informasi sekolah terasa lebih mudah dibaca tanpa kehilangan kesan formal dan terpercaya. Homepage dibuat ringkas, sementara konten yang lebih panjang tetap memiliki halaman khusus.
+Tema website sekolah modern-editorial untuk **Sekolahku CMS 3.1.2+**. Madya adalah tema pihak ketiga: core CMS, controller, model, route, dan database tidak perlu dimodifikasi.
 
 > **Modern untuk dilihat. Sederhana untuk digunakan.**
 
-## Mencoba Madya
+## Status
 
-Tidak perlu menjalankan Sekolahku CMS untuk melihat dan mencoba tampilannya.
+- Versi: **0.3.0-rc.10.12.42**
+- CMS target: **Sekolahku CMS 3.1.2+**
+- Node lokal/CI: **22**
+- PHP target: **8.5**
+- Tailwind CSS: **4**
+- Biome: **2.5.10**
+
+## Menjalankan Playground
 
 ```bash
-npm install
+npm ci
 npm run dev
 ```
 
-Buka alamat Vite, biasanya:
+Buka alamat Vite yang ditampilkan. Data demo berada di `playground/data/demo.json`. Data tersebut mengikuti vocabulary field CMS agar tampilan playground merepresentasikan data nyata yang diterima theme.
 
-```text
-http://localhost:5173/
-```
-
-Mode ini menggunakan data contoh dari `playground/data/demo.json`.
-
-### Halaman demo
+### Route demo
 
 ```text
 /
 /news
-/news/membuka-semester-dengan-semangat-baru
+/news/{slug}
 /downloads
 /contact
-/pages/sejarah-sekolah
+/pages/{slug}
 ```
 
-Beranda juga memiliki navigasi section seperti `#profile`, `#programs`, `#gallery`, dan `#faq`.
-
-## Untuk Developer
-
-Source tema PHP berada di:
+Rich component menggunakan hash route yang sama dengan struktur konten theme:
 
 ```text
-src/theme/app/Views/themes/madya/
+#profile
+#programs
+#extracurriculars
+#teachers
+#achievements
+#testimonials
+#events
+#gallery
+#faq
 ```
 
-Frontend berada di:
+## Struktur Source
 
 ```text
-src/css/
-src/js/
+src/theme/app/Views/
+├── pages/                  # adapter view publik CMS
+└── themes/madya/          # layout, component, partial, asset
+
+src/js/                    # state, router, navigation, renderer
+src/css/                   # Tailwind entry dan komponen visual
+playground/                # HTML-only preview
+playground/data/demo.json  # fixture dengan struktur data CMS
+scripts/                   # validasi dan build
+tests/                     # pengujian browser
+docs/                      # dokumentasi maintenance
 ```
 
-Demo HTML berada di:
+## Kontrak CMS
 
-```text
-playground/
-```
-
-Struktur utamanya:
-
-```text
-src/
-├── theme/
-│   └── app/Views/themes/madya/
-│       ├── pages/
-│       ├── layouts/
-│       ├── components/
-│       ├── partials/
-│       └── theme.json
-│
-├── css/
-└── js/
-
-playground/
-└── data/
-    └── demo.json
-```
-
-## Kontrak View Sekolahku
-
-Enam view utama mengikuti contract controller CMS dan tidak boleh diganti namanya:
+Enam view publik tidak boleh diganti namanya:
 
 ```text
 pages/home.php
@@ -90,283 +80,81 @@ pages/contact.php
 pages/page.php
 ```
 
-Di bawah view tersebut, layout, component, partial, CSS, dan JavaScript dapat dikembangkan secara bebas.
+PHP view harus membaca variabel yang disupply controller CMS. Jangan membuat kontrak data baru hanya untuk kebutuhan theme. Detail field penting ada di `docs/cms-compatibility.md`.
 
-## Arsitektur Codebase
+## Data dan Ikon
 
-Madya memisahkan tiga concern utama:
+Playground memakai satu `demo.json` canonical. JavaScript melakukan normalisasi ringan tetapi mempertahankan nama field CMS.
 
-```text
-CMS Sekolahku 3.1.2
-      ↓
-public view adapters
-      ↓
-Madya PHP theme
+Sekolahku menggunakan Font Awesome untuk sejumlah nilai ikon. Madya mendukung class Font Awesome seperti `fas fa-futbol` dan `fas fa-music`, termasuk `icon_color` untuk ekstrakurikuler. Lihat `docs/cms-icon-contract.md`.
 
-playground/data/demo.json
-      ↓
-normalizer + derived selectors
-      ↓
-Madya playground renderer
-```
+## Search dan Galeri
 
-Aturan maintenance:
+Search header membuka dialog pencarian. Submit diarahkan ke route native `/news?search=...`, sehingga hasil mengikuti mekanisme berita CMS.
 
-1. Jangan mengubah core Sekolahku untuk kebutuhan theme.
-2. `playground/data/demo.json` adalah satu-satunya sumber data demo.
-3. Asset gambar canonical berada di `src/theme/app/Views/themes/madya/assets/`.
-4. Normalisasi data playground berada di `src/js/data/normalize.js`.
-5. Selector turunan berada di `src/js/data/derived.js`.
-6. Rich text user-authored menggunakan `.article-prose` pada news detail dan static page.
-7. Ikon UI menggunakan registry bundled di `src/js/icons.js` dan class `.icon-tabler`.
-8. Perubahan layout sebaiknya dilakukan pada component contract, bukan dengan override CSS page-specific yang berulang.
+Galeri memiliki preview lightbox tanpa mengubah URL. Kontrol mendukung keyboard dan `Esc`.
 
-Quality gates utama:
+## Code Quality
 
 ```bash
-npm run check
+npm run format
 npm run format:check
-npm run build
+npm run lint
+npm run lint:fix
+npm run fix
+npm run check
 npm run build:html
 npm test
 ```
 
-`npm run format:check` sengaja dipisahkan dari `npm run check` agar refactor legacy dapat dilakukan bertahap tanpa membuat CI visual/data gate bergantung pada formatter.
+`npm run fix` digunakan saat pengembangan. `npm run check` adalah gate yang bersifat read-only untuk CI/release.
 
-## Code Style & Quality Tooling
+## Tailwind
 
-Madya menggunakan toolchain yang dipisahkan berdasarkan bahasa:
+Tailwind CSS 4 menjadi fondasi styling. Design token Madya didefinisikan melalui `@theme`, reusable component menggunakan `@layer`, dan CSS manual dibatasi untuk kebutuhan khusus. Lihat `docs/tailwind-architecture.md`.
 
-- **PHP:** PHP_CodeSniffer (`phpcs`) sebagai linter dan PHP Code Beautifier (`phpcbf`) sebagai formatter, dengan standard PSR-12 yang disesuaikan untuk view template.
-- **JavaScript:** Biome sebagai formatter dan linter.
-- **CSS:** Biome sebagai formatter/linter, dengan Tailwind CSS 4 sebagai fondasi styling.
-- **Editor:** `.editorconfig` dan konfigurasi VS Code tersedia di `.vscode/`.
+## SEO dan Aksesibilitas
 
-Install tooling PHP sekali di mesin development:
-
-```bash
-composer install
-```
-
-Quality commands:
-
-```bash
-npm run lint
-npm run format
-npm run format:check
-npm run check
-composer run format
-composer run lint
-```
-
-Formatter tidak boleh dipakai untuk mengubah design secara manual. Format hanya mengubah struktur kode; perubahan visual harus tetap dilakukan pada design token/component contract. Detail aturan ada di `docs/code-style.md`.
-
-## Styling dengan Tailwind
-
-Madya menggunakan **Tailwind CSS 4** sebagai fondasi styling. Tailwind tetap tersedia langsung di HTML dan PHP theme, sehingga utility seperti `flex`, `grid`, `gap-6`, `text-brand`, `bg-surface-alt`, dan utility responsive dapat digunakan tanpa membuat class baru.
-
-Design token Madya didefinisikan melalui `@theme`, sedangkan komponen visual utama ditempatkan pada `@layer components` dan menggunakan `@apply` jika padanannya tersedia. Custom `@utility` hanya digunakan untuk kebutuhan yang memang tidak cukup diwakili utility bawaan.
-
-Prinsipnya:
-
-```text
-Tailwind utilities
-        ↓
-Madya design tokens (@theme)
-        ↓
-Reusable components (@layer components)
-        ↓
-Page-specific composition
-```
-
-CSS manual tetap digunakan hanya untuk perilaku yang memang membutuhkan deklarasi khusus, misalnya positioning submenu dinamis, custom easing, view transition, atau fallback browser.
-
-Source scanning Tailwind mencakup view PHP, JavaScript, dan playground sehingga class utility yang ditulis langsung pada markup tetap ikut dibangun.
-
-## HTML-only Development
-
-Madya memiliki entry point standalone di `playground/index.html`.
-File tersebut memuat `playground/app.js`, yang kemudian mengimpor source aplikasi dari `src/js/app.js`.
-Dengan pola ini, `npm run dev` dan `npm run dev:html` menggunakan server dan dependency graph yang sama.
-
-
-Madya memiliki playground standalone sehingga tampilan dapat dikerjakan tanpa PHP, database, atau aplikasi CI4.
-
-```bash
-npm run dev
-```
-
-`npm run dev:html` juga tersedia sebagai alias dari perintah yang sama.
-
-Static preview:
-
-```bash
-npm run build:html
-```
-
-Hasilnya berada di `dist-html/` dan dapat dipreview sebagai website statis.
-
-## Hybrid MPA + SPA
-
-Madya menggunakan progressive enhancement.
-
-Section di homepage dapat ditingkatkan melalui JavaScript:
-
-```text
-#profile
-#programs
-#gallery
-#faq
-```
-
-Sementara halaman yang memiliki URL sendiri tetap menggunakan route native:
-
-```text
-/news
-/news/{slug}
-/downloads
-/contact
-/pages/{slug}
-```
-
-Dengan pendekatan ini, JavaScript memperhalus pengalaman navigasi tanpa menjadi syarat utama agar website dapat digunakan.
-
-## Navigasi
-
-Satu struktur menu CMS digunakan untuk desktop dan mobile.
-
-Desktop memiliki submenu bertingkat dengan open/close yang diberi jeda halus, penempatan yang menyesuaikan viewport, keyboard support, dan focus handling.
-
-Mobile menggunakan navigasi bertingkat sehingga menu yang dalam tetap mudah dipahami.
-
-## Ikon & Visual Interaktif
-
-Madya menggunakan **bundled Tabler-style inline SVG icons** untuk ikon antarmuka agar icon tetap konsisten, tajam, dan tidak bergantung pada runtime icon package eksternal.
-
-Untuk memberikan sedikit identitas sekolah pada area hero, Madya menyediakan miniatur kampus berbasis **Three.js** yang dimuat secara lazy. Scene ini hanya aktif pada perangkat yang sesuai dan tidak menjadi ketergantungan untuk fungsi utama website.
-
-Demo standalone juga dilengkapi foto contoh untuk sekolah, guru, siswa, kegiatan, prestasi, berita, dan galeri agar struktur layout dapat dinilai dengan konten yang lebih realistis.
-
-## Tipografi
-
-Madya menggunakan:
-
-- **Instrument Sans** untuk body dan interface.
-- **Newsreader** untuk display dan heading editorial.
-
-Font dimuat melalui Google Fonts CDN dengan preconnect dan `display=swap`.
-
-## SEO, Aksesibilitas, dan Performance
-
-Madya memperhatikan:
-
-- HTML semantic;
-- heading hierarchy;
-- canonical URL;
-- Open Graph;
-- structured data untuk konten yang relevan;
-- keyboard navigation;
-- focus state;
-- reduced motion;
-- intrinsic image dimensions;
-- responsive images bila tersedia dari CMS;
-- LCP, CLS, dan INP.
-
-## Perintah yang Sering Dipakai
-
-```bash
-npm install
-npm run dev
-npm run dev:html
-npm run check
-npm run validate
-npm run test
-npm run build
-npm run build:html
-npm run release
-```
+Theme memperhatikan semantic HTML, heading hierarchy, metadata SEO, canonical, Open Graph, structured data, keyboard navigation, focus state, reduced motion, alternative text, dan ukuran gambar intrinsik.
 
 ## Release
 
-Gunakan semantic versioning, misalnya:
+Package production hanya membawa file theme yang dibutuhkan CMS. Playground, test, dan tooling development tidak menjadi bagian package theme production.
 
-```text
-v1.0.0
-```
+Gunakan script release setelah seluruh quality gate hijau.
 
-Release melalui:
+## Prinsip Maintenance
 
-```bash
-npm run release
-```
+1. Core CMS tidak disentuh.
+2. Nama dan field kontrak CMS dipertahankan.
+3. Playground harus dapat menampilkan struktur data yang sama dengan CMS.
+4. Data turunan dibuat di renderer, bukan mengubah fixture menjadi kontrak baru.
+5. Empty state, responsive layout, SEO, dan aksesibilitas harus dipikirkan bersama fitur.
+6. Jangan mematikan lint hanya untuk membuat CI hijau.
 
-Perintah tersebut melakukan pemeriksaan, validasi theme, build asset, validasi package, lalu membuat ZIP production.
+## Dokumentasi
 
-Contoh:
-
-```text
-release/tema-madya-cms-sekolahku-1.0.0.zip
-```
-
-GitHub Actions menggunakan pipeline yang sama untuk membuat release otomatis dari Git tag.
-
-## Struktur Package Production
-
-Package yang dikirim ke CMS hanya berisi bagian yang diperlukan theme:
-
-```text
-madya/
-├── app/
-│   └── Views/
-│       └── themes/
-│           └── madya/
-│               ├── pages/
-│               ├── layouts/
-│               ├── components/
-│               ├── partials/
-│               └── theme.json
-│
-└── public/
-    └── themes/
-        └── madya/
-            └── assets/
-```
-
-File development seperti playground, test, dan tooling tidak ikut dibawa ke package production.
-
-## Status
-
-**Release Candidate — 0.3.0-rc.3**
-
-Sebelum production release, lakukan verifikasi terakhir pada browser nyata, responsive layout, accessibility, SEO, Core Web Vitals, dan integrasi dengan Sekolahku CMS 3.1.2.
+- `docs/cms-compatibility.md` — kontrak data dan view CMS.
+- `docs/cms-icon-contract.md` — kontrak ikon Font Awesome dan fallback.
+- `docs/code-style.md` — aturan penulisan kode.
+- `docs/tailwind-architecture.md` — aturan styling Tailwind.
+- `docs/ui-direction.md` — arah visual dan UX.
 
 ## Lisensi
 
-Tema Madya CMS Sekolahku dirilis di bawah **MIT License**. Lihat file `LICENSE` untuk ketentuan lengkap.
+Tema Madya dirilis di bawah MIT License. Dependency dan Sekolahku CMS tetap mengikuti lisensinya masing-masing.
 
-Sekolahku CMS dan dependency pihak ketiga tetap mengikuti lisensinya masing-masing.
+## Perilaku interaktif
 
----
+Tema hanya menampilkan kontrol yang memiliki perilaku nyata.
 
-**Tema Madya CMS Sekolahku**  
-*Modern untuk dilihat. Sederhana untuk digunakan.*
+- Pencarian header membuka dialog dan mengirim kata kunci ke `/news?search=...`, mengikuti kemampuan pencarian berita CMS.
+- Pengurutan berita di playground diproses JavaScript menggunakan data yang tersedia (`published_at`, `view_count`, dan judul); pada CMS server tetap menjadi sumber data utama.
+- Filter rich component seperti prestasi, agenda, galeri, FAQ, dan tenaga pengajar diproses JavaScript dari data CMS yang sudah tersedia, bukan membuat endpoint baru.
+- Galeri memiliki lightbox untuk melihat gambar berukuran besar.
+- Navbar desktop memiliki menu `Lainnya` otomatis saat item melebihi ruang yang tersedia.
+- Tautan ke rich component menggunakan pola `/#section` agar tetap menuju homepage ketika dipanggil dari halaman lain.
 
-## Instalasi sebagai Theme Pihak Ketiga di Sekolahku 3.1.2
+## Prinsip data
 
-Sekolahku 3.1.2 merender public page melalui nama view tetap (`pages/home`, `pages/news`, `pages/single_post`, `pages/downloads`, `pages/contact`, `pages/page`) dan tidak menyediakan theme resolver yang dapat dipakai theme pihak ketiga. Karena Madya tidak mengubah core CMS, package production menyertakan **public view adapter** pada `app/Views/pages/`.
-
-Adapter tersebut hanya mendelegasikan view publik ke:
-
-```text
-app/Views/themes/madya/pages/
-```
-
-Jadi instalasi package dilakukan dengan menyalin isi package `madya/` ke root instalasi Sekolahku 3.1.2. Tidak diperlukan perubahan pada controller, route, model, migration, atau source core CMS.
-
-> Catatan upgrade: karena Sekolahku 3.1.2 tidak mempunyai hook theme resolver, adapter `app/Views/pages/*.php` adalah integration seam milik theme. Saat upgrade CMS, pastikan file adapter Madya tetap ada atau pasang ulang package Madya setelah upgrade.
-
-Madya tidak mengandalkan `theme_color` CMS sebagai theme selector; token visual Madya didefinisikan sendiri di asset theme.
-
-## RC9 Header & Navigation
-
-Header/navigation is screenshot-led from `homepage.png` while retaining production readability and accessibility. Desktop navigation begins at 960px, mobile navigation uses level-based drill-down, and the playground demo includes intentionally deep recursive menu branches for QA.
+Nilai demo boleh berbeda dari data sekolah sebenarnya, tetapi bentuk objeknya mengikuti kontrak CMS Sekolahku. View PHP tidak boleh mengandalkan field yang tidak disuplai controller CMS. Playground menggunakan data berbentuk CMS untuk memastikan komponen yang terlihat dapat diuji tanpa instalasi CMS.

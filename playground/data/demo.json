@@ -8,114 +8,177 @@
   "hero_stats": [
     {
       "value": "1200+",
-      "label": "Siswa"
+      "label": "Siswa",
+      "icon": "user-graduate"
     },
     {
       "value": "85+",
-      "label": "Guru"
+      "label": "Guru",
+      "icon": "chalkboard-teacher"
     },
     {
       "value": "150+",
-      "label": "Prestasi"
+      "label": "Prestasi",
+      "icon": "trophy"
     }
   ],
   "counter_stats": [
     {
-      "value": "1.250+",
-      "label": "Siswa Aktif"
+      "icon": "user-graduate",
+      "number": "1200",
+      "suffix": "+",
+      "label": "Siswa"
     },
     {
-      "value": "85+",
-      "label": "Guru & Tenaga Pendidik"
+      "icon": "chalkboard-teacher",
+      "number": "85",
+      "suffix": "+",
+      "label": "Guru"
     },
     {
-      "value": "28",
-      "label": "Ekstrakurikuler"
+      "icon": "trophy",
+      "number": "150",
+      "suffix": "+",
+      "label": "Prestasi"
     },
     {
-      "value": "120+",
-      "label": "Prestasi Diraih"
+      "icon": "book",
+      "number": "50",
+      "suffix": "+",
+      "label": "Program"
     }
   ],
   "about": {
-    "description": "SMA Negeri 1 Nusantara hadir sebagai ruang belajar yang mendorong siswa tumbuh secara akademik, berkarakter, dan siap memberi dampak positif.",
-    "visi": "Membentuk generasi berilmu, berakhlak, dan berprestasi.",
-    "misi": "Menghadirkan pembelajaran bermakna, budaya sekolah yang positif, dan ruang bagi siswa untuk berkembang.",
     "image": "/themes/madya/assets/generated/spmb-students.jpg",
-    "hero_image": "/themes/madya/assets/generated/hero-campus.jpg",
+    "content_title": "Mewujudkan Pendidikan Berkualitas untuk Masa Depan",
+    "content_1": "SekolahKu adalah institusi pendidikan yang berdedikasi memberikan pengalaman belajar terbaik. Dengan kurikulum terkini dan tenaga pengajar profesional, kami siap membentuk karakter dan kompetensi siswa.",
+    "content_2": "Kami percaya setiap anak memiliki potensi unik. Melalui pendekatan holistik, kami mendorong siswa tumbuh secara akademis, sosial, dan spiritual.",
     "accreditation": "A",
-    "curriculum": "Kurikulum Merdeka",
-    "established_year": "1985"
+    "accreditation_label": "Standar Nasional",
+    "highlights": [
+      "Akreditasi A",
+      "Kurikulum Merdeka",
+      "Lulusan 100% Terserap",
+      "Lab & Perpustakaan Digital"
+    ],
+    "hero_image": "/themes/madya/assets/generated/hero-campus-new.jpg"
   },
   "programs": [
     {
-      "title": "Program Bahasa",
-      "description": "Penguasaan bahasa asing melalui metode interaktif.",
-      "icon": "flask-conical",
-      "link_url": "#",
-      "link_text": "Pelajari lebih lanjut",
-      "show": 1,
-      "sort_order": 0
+      "id": 1,
+      "title": "Sains & Teknologi",
+      "description": "Laboratorium modern dan pembelajaran berbasis proyek untuk riset dan inovasi.",
+      "icon": "fas fa-flask",
+      "link_url": "/#programs",
+      "link_text": "Selengkapnya",
+      "sort_order": 0,
+      "show": 1
     },
     {
-      "title": "Program STEM",
-      "description": "Pengembangan sains, teknologi, engineering, dan matematika.",
-      "icon": "languages",
-      "link_url": "#",
-      "link_text": "Pelajari lebih lanjut",
-      "show": 1,
-      "sort_order": 1
+      "id": 2,
+      "title": "Seni & Budaya",
+      "description": "Wadah pengembangan bakat seni melalui musik, tari, teater, dan seni rupa.",
+      "icon": "fas fa-palette",
+      "link_url": "/#programs",
+      "link_text": "Selengkapnya",
+      "sort_order": 1,
+      "show": 1
     },
     {
-      "title": "Program Karakter",
-      "description": "Pembinaan karakter dan kepemimpinan siswa.",
-      "icon": "users-round",
-      "link_url": "#",
-      "link_text": "Pelajari lebih lanjut",
-      "show": 1,
-      "sort_order": 2
+      "id": 3,
+      "title": "Olahraga",
+      "description": "Fasilitas lengkap dan pembinaan atlet muda di berbagai cabang olahraga.",
+      "icon": "fas fa-running",
+      "link_url": "/#programs",
+      "link_text": "Selengkapnya",
+      "sort_order": 2,
+      "show": 1
+    },
+    {
+      "id": 4,
+      "title": "Bahasa Asing",
+      "description": "Program bilingual dengan native speaker untuk menghadapi era globalisasi.",
+      "icon": "fas fa-globe",
+      "link_url": "/#programs",
+      "link_text": "Selengkapnya",
+      "sort_order": 3,
+      "show": 1
+    },
+    {
+      "id": 5,
+      "title": "Karakter & Religi",
+      "description": "Pendidikan karakter berbasis nilai agama untuk pribadi berakhlak mulia.",
+      "icon": "fas fa-hand-holding-heart",
+      "link_url": "/#programs",
+      "link_text": "Selengkapnya",
+      "sort_order": 4,
+      "show": 1
+    },
+    {
+      "id": 6,
+      "title": "Digital Literacy",
+      "description": "Pembelajaran coding, desain grafis, dan literasi digital untuk era 4.0.",
+      "icon": "fas fa-laptop-code",
+      "link_url": "/#programs",
+      "link_text": "Selengkapnya",
+      "sort_order": 5,
+      "show": 1
     }
   ],
   "extracurriculars": [
     {
-      "title": "Sepak Bola",
-      "description": "Pembinaan olahraga dan kerja sama tim.",
-      "icon": "dribbble",
+      "id": 1,
+      "title": "Robotik",
+      "description": "Belajar merakit dan memprogram robot untuk kompetisi nasional.",
+      "icon": "fas fa-microchip",
       "icon_color": "#14b8a6",
-      "show": 1,
-      "sort_order": 0
+      "sort_order": 0,
+      "show": 1
     },
     {
-      "title": "Basket",
-      "description": "Pengembangan minat dan bakat olahraga.",
-      "icon": "music",
-      "icon_color": "#14b8a6",
-      "show": 1,
-      "sort_order": 1
+      "id": 2,
+      "title": "Paduan Suara",
+      "description": "Mengembangkan bakat vokal dan apresiasi musik.",
+      "icon": "fas fa-music",
+      "icon_color": "#f59e0b",
+      "sort_order": 1,
+      "show": 1
     },
     {
-      "title": "Marching Band",
-      "description": "Kedisiplinan dan seni pertunjukan.",
-      "icon": "palette",
-      "icon_color": "#14b8a6",
-      "show": 1,
-      "sort_order": 2
+      "id": 3,
+      "title": "Olahraga",
+      "description": "Futsal, basket, voli, taekwondo, dan atletik.",
+      "icon": "fas fa-futbol",
+      "icon_color": "#ef4444",
+      "sort_order": 2,
+      "show": 1
     },
     {
-      "title": "Tari Tradisional",
-      "description": "Pelestarian seni dan budaya Nusantara.",
-      "icon": "users-round",
-      "icon_color": "#14b8a6",
-      "show": 1,
-      "sort_order": 3
+      "id": 4,
+      "title": "Seni Rupa",
+      "description": "Melukis, menggambar, desain grafis, dan kriya.",
+      "icon": "fas fa-paint-brush",
+      "icon_color": "#8b5cf6",
+      "sort_order": 3,
+      "show": 1
     },
     {
+      "id": 5,
+      "title": "Jurnalistik",
+      "description": "Menulis, fotografi, dan publikasi majalah sekolah.",
+      "icon": "fas fa-book",
+      "icon_color": "#0ea5e9",
+      "sort_order": 4,
+      "show": 1
+    },
+    {
+      "id": 6,
       "title": "Pramuka",
-      "description": "Pembentukan karakter dan kepemimpinan.",
-      "icon": "globe",
-      "icon_color": "#14b8a6",
-      "show": 1,
-      "sort_order": 4
+      "description": "Pembentukan karakter lewat kegiatan kepramukaan.",
+      "icon": "fas fa-leaf",
+      "icon_color": "#10b981",
+      "sort_order": 5,
+      "show": 1
     }
   ],
   "teachers": [
@@ -126,7 +189,11 @@
       "experience": "",
       "education": "",
       "show": 1,
-      "sort_order": 0
+      "sort_order": 0,
+      "id": 1,
+      "social_facebook": "",
+      "social_instagram": "",
+      "social_linkedin": ""
     },
     {
       "name": "M. Arifin, S.Pd.",
@@ -135,7 +202,11 @@
       "experience": "",
       "education": "",
       "show": 1,
-      "sort_order": 1
+      "sort_order": 1,
+      "id": 2,
+      "social_facebook": "",
+      "social_instagram": "",
+      "social_linkedin": ""
     },
     {
       "name": "Rina Wulandari, S.Pd.",
@@ -144,7 +215,11 @@
       "experience": "",
       "education": "",
       "show": 1,
-      "sort_order": 2
+      "sort_order": 2,
+      "id": 3,
+      "social_facebook": "",
+      "social_instagram": "",
+      "social_linkedin": ""
     },
     {
       "name": "Budi Setiawan, S.Pd.",
@@ -153,7 +228,11 @@
       "experience": "",
       "education": "",
       "show": 1,
-      "sort_order": 3
+      "sort_order": 3,
+      "id": 4,
+      "social_facebook": "",
+      "social_instagram": "",
+      "social_linkedin": ""
     }
   ],
   "achievements": [
@@ -166,7 +245,8 @@
       "class_name": "",
       "medal": "gold",
       "show": 1,
-      "sort_order": 0
+      "sort_order": 0,
+      "id": 1
     },
     {
       "year": "2025",
@@ -177,7 +257,8 @@
       "class_name": "",
       "medal": "gold",
       "show": 1,
-      "sort_order": 1
+      "sort_order": 1,
+      "id": 2
     },
     {
       "year": "2025",
@@ -188,7 +269,8 @@
       "class_name": "",
       "medal": "gold",
       "show": 1,
-      "sort_order": 2
+      "sort_order": 2,
+      "id": 3
     }
   ],
   "testimonials": [
@@ -198,7 +280,8 @@
       "role": "Alumni 2024",
       "photo": "/themes/madya/assets/generated/testimonial-1.jpg",
       "show": 1,
-      "sort_order": 0
+      "sort_order": 0,
+      "id": 1
     }
   ],
   "events": [
@@ -211,7 +294,8 @@
       "status": "upcoming",
       "slug": "",
       "show": 1,
-      "sort_order": 0
+      "sort_order": 0,
+      "id": 1
     },
     {
       "title": "Class Meeting",
@@ -222,7 +306,8 @@
       "status": "upcoming",
       "slug": "",
       "show": 1,
-      "sort_order": 1
+      "sort_order": 1,
+      "id": 2
     },
     {
       "title": "Penerimaan Raport",
@@ -233,7 +318,8 @@
       "status": "upcoming",
       "slug": "",
       "show": 1,
-      "sort_order": 2
+      "sort_order": 2,
+      "id": 3
     }
   ],
   "galleries": [
@@ -243,7 +329,8 @@
       "category": "Kegiatan Sekolah",
       "is_featured": 1,
       "show": 1,
-      "sort_order": 0
+      "sort_order": 0,
+      "id": 1
     },
     {
       "image": "/themes/madya/assets/generated/gallery-class.jpg",
@@ -251,7 +338,8 @@
       "category": "Kegiatan Sekolah",
       "is_featured": 0,
       "show": 1,
-      "sort_order": 1
+      "sort_order": 1,
+      "id": 2
     },
     {
       "image": "/themes/madya/assets/generated/gallery-lab.jpg",
@@ -259,7 +347,8 @@
       "category": "Kegiatan Sekolah",
       "is_featured": 0,
       "show": 1,
-      "sort_order": 2
+      "sort_order": 2,
+      "id": 3
     },
     {
       "image": "/themes/madya/assets/generated/gallery-library.jpg",
@@ -267,7 +356,8 @@
       "category": "Kegiatan Sekolah",
       "is_featured": 0,
       "show": 1,
-      "sort_order": 3
+      "sort_order": 3,
+      "id": 4
     },
     {
       "image": "/themes/madya/assets/generated/gallery-pramuka.jpg",
@@ -275,7 +365,8 @@
       "category": "Kegiatan Sekolah",
       "is_featured": 0,
       "show": 1,
-      "sort_order": 4
+      "sort_order": 4,
+      "id": 5
     },
     {
       "image": "/themes/madya/assets/generated/gallery-culture.jpg",
@@ -283,7 +374,8 @@
       "category": "Kegiatan Sekolah",
       "is_featured": 0,
       "show": 1,
-      "sort_order": 5
+      "sort_order": 5,
+      "id": 6
     }
   ],
   "faq": [
@@ -292,35 +384,40 @@
       "answer": "Informasi pendaftaran dan jadwal seleksi tersedia melalui kanal resmi sekolah.",
       "category": "Pendaftaran",
       "show": 1,
-      "sort_order": 0
+      "sort_order": 0,
+      "id": 1
     },
     {
       "question": "Apa saja program unggulan yang tersedia?",
       "answer": "Sains dan teknologi, seni dan budaya, olahraga, bahasa, karakter, dan literasi digital.",
       "category": "Akademik",
       "show": 1,
-      "sort_order": 1
+      "sort_order": 1,
+      "id": 2
     },
     {
       "question": "Apakah SekolahKu menyediakan beasiswa?",
       "answer": "Informasi beasiswa mengikuti kebijakan dan pengumuman resmi sekolah.",
       "category": "Kesiswaan",
       "show": 1,
-      "sort_order": 2
+      "sort_order": 2,
+      "id": 3
     },
     {
       "question": "Bagaimana sistem pembelajaran di SekolahKu?",
       "answer": "Pembelajaran memadukan penguatan akademik, karakter, proyek, kegiatan, dan pendampingan.",
       "category": "Fasilitas",
       "show": 1,
-      "sort_order": 3
+      "sort_order": 3,
+      "id": 4
     },
     {
       "question": "Bagaimana cara menghubungi SekolahKu?",
       "answer": "Gunakan halaman kontak untuk alamat, telepon, email, dan formulir resmi.",
       "category": "Lainnya",
       "show": 1,
-      "sort_order": 4
+      "sort_order": 4,
+      "id": 5
     }
   ],
   "news": [
@@ -331,7 +428,9 @@
       "published_at": "2025-05-20",
       "category": "Kegiatan",
       "author": "Admin",
-      "image": "/themes/madya/assets/generated/news-campus.jpg"
+      "image": "/themes/madya/assets/generated/news-campus.jpg",
+      "id": 1,
+      "content": "<p>Siswa kelas XII IPA melakukan kunjungan industri untuk mengenal dunia kerja dan teknologi secara langsung.</p>"
     },
     {
       "slug": "seminar-motivasi-bersama-alumni-berprestasi",
@@ -340,7 +439,9 @@
       "published_at": "2025-05-21",
       "category": "Kegiatan",
       "author": "Admin",
-      "image": "/themes/madya/assets/generated/gallery-event.jpg"
+      "image": "/themes/madya/assets/generated/gallery-event.jpg",
+      "id": 2,
+      "content": "<p>Kegiatan seminar motivasi bersama alumni yang menginspirasi siswa untuk terus berkembang dan berprestasi.</p>"
     },
     {
       "slug": "hari-pendidikan-nasional-2025",
@@ -349,7 +450,9 @@
       "published_at": "2025-05-02",
       "category": "Kegiatan",
       "author": "Admin",
-      "image": "/themes/madya/assets/generated/gallery-students.jpg"
+      "image": "/themes/madya/assets/generated/gallery-students.jpg",
+      "id": 3,
+      "content": "<p>Upacara peringatan Hari Pendidikan Nasional berlangsung khidmat bersama seluruh warga sekolah.</p>"
     },
     {
       "slug": "pengumuman-kelulusan-tahun-ajaran-2024-2025",
@@ -358,7 +461,9 @@
       "published_at": "2025-05-24",
       "category": "Pengumuman",
       "author": "Admin",
-      "image": "/themes/madya/assets/generated/gallery-computer.jpg"
+      "image": "/themes/madya/assets/generated/gallery-computer.jpg",
+      "id": 4,
+      "content": "<p>Informasi kelulusan peserta didik tahun ajaran 2024/2025.</p>"
     },
     {
       "slug": "jadwal-penerimaan-peserta-didik-baru-2025-2026",
@@ -367,7 +472,9 @@
       "published_at": "2025-05-20",
       "category": "Pengumuman",
       "author": "Admin",
-      "image": "/themes/madya/assets/generated/spmb-students.jpg"
+      "image": "/themes/madya/assets/generated/spmb-students.jpg",
+      "id": 5,
+      "content": "<p>Jadwal dan informasi pendaftaran peserta didik baru.</p>"
     },
     {
       "slug": "workshop-literasi-digital-untuk-siswa",
@@ -376,7 +483,9 @@
       "published_at": "2025-05-15",
       "category": "Pengumuman",
       "author": "Admin",
-      "image": "/themes/madya/assets/generated/program-science.jpg"
+      "image": "/themes/madya/assets/generated/program-science.jpg",
+      "id": 6,
+      "content": "<p>Workshop untuk memperkuat kecakapan digital dan literasi informasi siswa.</p>"
     }
   ],
   "downloads": [
@@ -386,7 +495,8 @@
       "url": "#",
       "file_size": "1,2 MB",
       "sort_order": 0,
-      "show": 1
+      "show": 1,
+      "id": 1
     },
     {
       "title": "Panduan Pendaftaran SPMB",
@@ -394,7 +504,8 @@
       "url": "#",
       "file_size": "2,4 MB",
       "sort_order": 1,
-      "show": 1
+      "show": 1,
+      "id": 2
     },
     {
       "title": "Formulir Administrasi Siswa",
@@ -402,7 +513,8 @@
       "url": "#",
       "file_size": "820 KB",
       "sort_order": 2,
-      "show": 1
+      "show": 1,
+      "id": 3
     },
     {
       "title": "Formulir Pendaftaran",
@@ -410,7 +522,8 @@
       "url": "#",
       "file_size": "540 KB",
       "sort_order": 3,
-      "show": 1
+      "show": 1,
+      "id": 4
     }
   ],
   "contact_address": "Jl. Pendidikan No. 1, Nusantara, Indonesia 12345",
@@ -425,14 +538,12 @@
     "contact_send": "/contact/send"
   },
   "principal": {
-    "name": "Drs. Budi Santoso, M.Pd.",
-    "image_width": 900,
-    "image_height": 1100,
+    "name": "Dr. Sari Wijaya, M.Pd.",
     "photo": "/themes/madya/assets/generated/principal.jpg",
     "role_title": "Kepala Sekolah",
-    "welcome_message": "Membangun Karakter, Meraih Masa Depan",
-    "education": "",
-    "years_of_service": ""
+    "welcome_message": "Selamat datang di SMA Negeri 1 Nusantara. Kami berkomitmen mencetak generasi cerdas, berkarakter, dan berprestasi.",
+    "education": "S3 Pendidikan",
+    "years_of_service": "10 Thn Mengabdi"
   },
   "site_logo_text": "SMA NEGERI 1 NUSANTARA",
   "site_logo_icon": "graduation-cap",
@@ -442,19 +553,19 @@
   "footer_services": [
     {
       "label": "Program Unggulan",
-      "url": "#programs"
+      "url": "/#programs"
     },
     {
       "label": "Ekstrakurikuler",
-      "url": "#programs"
+      "url": "/#programs"
     },
     {
       "label": "Prestasi",
-      "url": "#achievements"
+      "url": "/#achievements"
     },
     {
       "label": "Tenaga Pengajar",
-      "url": "#teachers"
+      "url": "/#teachers"
     }
   ],
   "footer_links": [
@@ -483,161 +594,10 @@
   "social_instagram": "#",
   "social_youtube": "#",
   "social_tiktok": "#",
-  "site_logo_url": "https://barka.silirdev.com/media_library/images/logo.png",
   "hero_btn_primary_text": "Tentang Kami",
-  "hero_btn_primary_url": "#profile",
+  "hero_btn_primary_url": "/#profile",
   "hero_btn_secondary_text": "Program Unggulan",
-  "hero_btn_secondary_url": "#programs",
-  "navigation": [
-    {
-      "id": "home",
-      "title": "Beranda",
-      "url": "/"
-    },
-    {
-      "id": "profile",
-      "title": "Profil",
-      "children": [
-        {
-          "id": "about",
-          "title": "Tentang Sekolah",
-          "url": "#profile"
-        },
-        {
-          "id": "history",
-          "title": "Sejarah",
-          "children": [
-            {
-              "id": "milestones",
-              "title": "Tonggak Sejarah",
-              "url": "#profile"
-            },
-            {
-              "id": "leadership",
-              "title": "Kepemimpinan",
-              "children": [
-                {
-                  "id": "principal",
-                  "title": "Kepala Sekolah",
-                  "url": "#profile"
-                },
-                {
-                  "id": "management",
-                  "title": "Struktur Manajemen",
-                  "url": "#profile"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "id": "vision",
-          "title": "Visi & Misi",
-          "url": "#profile"
-        }
-      ]
-    },
-    {
-      "id": "academic",
-      "title": "Akademik",
-      "children": [
-        {
-          "id": "programs",
-          "title": "Program",
-          "children": [
-            {
-              "id": "science",
-              "title": "Sains & Riset",
-              "url": "#programs"
-            },
-            {
-              "id": "language",
-              "title": "Bahasa & Literasi",
-              "url": "#programs"
-            },
-            {
-              "id": "technology",
-              "title": "Teknologi",
-              "children": [
-                {
-                  "id": "coding",
-                  "title": "Pemrograman",
-                  "url": "#programs"
-                },
-                {
-                  "id": "robotics",
-                  "title": "Robotika",
-                  "url": "#programs"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "id": "curriculum",
-          "title": "Kurikulum",
-          "url": "#programs"
-        },
-        {
-          "id": "schedule",
-          "title": "Jadwal Pelajaran",
-          "url": "#events"
-        }
-      ]
-    },
-    {
-      "id": "student-affairs",
-      "title": "Kesiswaan",
-      "children": [
-        {
-          "id": "extracurricular",
-          "title": "Ekstrakurikuler",
-          "url": "#extracurriculars"
-        },
-        {
-          "id": "organizations",
-          "title": "Organisasi Siswa",
-          "url": "#extracurriculars"
-        },
-        {
-          "id": "achievements",
-          "title": "Prestasi",
-          "url": "#achievements"
-        }
-      ]
-    },
-    {
-      "id": "information",
-      "title": "Informasi",
-      "children": [
-        {
-          "id": "news",
-          "title": "Berita",
-          "url": "/news"
-        },
-        {
-          "id": "downloads",
-          "title": "Dokumen",
-          "url": "/downloads"
-        },
-        {
-          "id": "faq",
-          "title": "FAQ",
-          "url": "#faq"
-        }
-      ]
-    },
-    {
-      "id": "gallery",
-      "title": "Galeri",
-      "url": "#gallery"
-    },
-    {
-      "id": "contact",
-      "title": "Kontak",
-      "url": "/contact"
-    }
-  ],
+  "hero_btn_secondary_url": "/#programs",
   "comments": [
     {
       "id": 1,
@@ -669,6 +629,406 @@
       "status": "published",
       "meta_title": "Sejarah Sekolah",
       "meta_description": "Sejarah SMA Negeri 1 Nusantara."
+    }
+  ],
+  "site_url": "https://sekolahku.sch.id",
+  "meta_author": "SekolahKu",
+  "meta_keywords": "sekolah, pendidikan, kurikulum merdeka, sekolah unggulan, SPMB",
+  "meta_description": "SekolahKu adalah institusi pendidikan unggulan yang berkomitmen mencetak generasi cerdas, berkarakter, dan berprestasi dengan kurikulum Merdeka.",
+  "theme_color": "default",
+  "section_settings": {
+    "hero": {
+      "title": "Selamat Datang di SekolahKu",
+      "subtitle": "Mewujudkan Generasi Cerdas, Berkarakter, dan Berdaya Saing Global",
+      "icon": "fa-school",
+      "show": true
+    },
+    "profile": {
+      "title": "Profil Sekolah",
+      "subtitle": "Mengenal lebih dekat visi, misi, dan sejarah SekolahKu",
+      "icon": "fa-building-columns",
+      "show": true
+    },
+    "programs": {
+      "title": "Program Unggulan",
+      "subtitle": "Program unggulan yang mendukung pengembangan bakat dan prestasi",
+      "icon": "fa-gem",
+      "show": true
+    },
+    "extracurriculars": {
+      "title": "Ekstrakurikuler",
+      "subtitle": "Wadah pengembangan minat dan bakat di luar kelas",
+      "icon": "fa-futbol",
+      "show": true
+    },
+    "teachers": {
+      "title": "Tenaga Pengajar",
+      "subtitle": "Guru profesional dan berpengalaman di bidangnya",
+      "icon": "fa-chalkboard-user",
+      "show": true
+    },
+    "achievements": {
+      "title": "Prestasi Siswa",
+      "subtitle": "Capaian membanggakan yang telah diraih siswa/i SekolahKu",
+      "icon": "fa-trophy",
+      "show": true
+    },
+    "testimonials": {
+      "title": "Testimoni",
+      "subtitle": "Apa kata mereka tentang SekolahKu?",
+      "icon": "fa-comment",
+      "show": true
+    },
+    "news": {
+      "title": "Berita & Artikel",
+      "subtitle": "Informasi terkini seputar SekolahKu",
+      "icon": "fa-newspaper",
+      "show": true
+    },
+    "events": {
+      "title": "Agenda & Kegiatan",
+      "subtitle": "Jadwal kegiatan dan acara mendatang",
+      "icon": "fa-calendar-days",
+      "show": true
+    },
+    "gallery": {
+      "title": "Galeri",
+      "subtitle": "Dokumentasi kegiatan dan momen berharga",
+      "icon": "fa-images",
+      "show": true
+    },
+    "faq": {
+      "title": "FAQ",
+      "subtitle": "Pertanyaan yang sering diajukan",
+      "icon": "fa-circle-question",
+      "show": true
+    },
+    "downloads": {
+      "title": "Download Center",
+      "subtitle": "Unduh berkas-berkas penting seputar akademik, kurikulum, dan administrasi sekolah",
+      "icon": "fa-download",
+      "show": true
+    },
+    "contact": {
+      "title": "Kontak Kami",
+      "subtitle": "Hubungi kami untuk informasi lebih lanjut",
+      "icon": "fa-address-card",
+      "show": true
+    }
+  },
+  "page_banners": {
+    "news": {
+      "badge": "Berita & Artikel",
+      "title": "Baca Berita Terbaru",
+      "subtitle": "Informasi terkini seputar kegiatan dan prestasi di lingkungan SekolahKu"
+    },
+    "single_post": {
+      "badge": "Detail Berita",
+      "title": "Baca Berita",
+      "subtitle": "Informasi lengkap seputar kegiatan dan prestasi di lingkungan SekolahKu"
+    },
+    "pages": {
+      "badge": "Halaman",
+      "title": "Baca Halaman",
+      "subtitle": "Informasi lengkap seputar halaman ini"
+    },
+    "downloads": {
+      "badge": "Download Center",
+      "title": "Pusat Unduhan",
+      "subtitle": "Unduh berkas-berkas penting seputar akademik, kurikulum, dan administrasi sekolah"
+    }
+  },
+  "navigation": [
+    {
+      "id": "home",
+      "title": "Beranda",
+      "url": "/"
+    },
+    {
+      "id": "profile",
+      "title": "Profil",
+      "children": [
+        {
+          "id": "about",
+          "title": "Tentang Sekolah",
+          "url": "/#profile"
+        },
+        {
+          "id": "history",
+          "title": "Sejarah",
+          "children": [
+            {
+              "id": "milestones",
+              "title": "Tonggak Sejarah",
+              "url": "/#profile"
+            },
+            {
+              "id": "leadership",
+              "title": "Kepemimpinan",
+              "children": [
+                {
+                  "id": "principal",
+                  "title": "Kepala Sekolah",
+                  "url": "/#profile"
+                },
+                {
+                  "id": "management",
+                  "title": "Struktur Manajemen",
+                  "url": "/#profile"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "vision",
+          "title": "Visi & Misi",
+          "url": "/#profile"
+        }
+      ]
+    },
+    {
+      "id": "academic",
+      "title": "Akademik",
+      "children": [
+        {
+          "id": "programs",
+          "title": "Program",
+          "children": [
+            {
+              "id": "science",
+              "title": "Sains & Riset",
+              "url": "/#programs"
+            },
+            {
+              "id": "language",
+              "title": "Bahasa & Literasi",
+              "url": "/#programs"
+            },
+            {
+              "id": "technology",
+              "title": "Teknologi",
+              "children": [
+                {
+                  "id": "coding",
+                  "title": "Pemrograman",
+                  "url": "/#programs"
+                },
+                {
+                  "id": "robotics",
+                  "title": "Robotika",
+                  "url": "/#programs"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "curriculum",
+          "title": "Kurikulum",
+          "url": "/#programs"
+        },
+        {
+          "id": "schedule",
+          "title": "Jadwal Pelajaran",
+          "url": "/#events"
+        }
+      ]
+    },
+    {
+      "id": "student-affairs",
+      "title": "Kesiswaan",
+      "children": [
+        {
+          "id": "extracurricular",
+          "title": "Ekstrakurikuler",
+          "url": "/#extracurriculars"
+        },
+        {
+          "id": "organizations",
+          "title": "Organisasi Siswa",
+          "url": "/#extracurriculars"
+        },
+        {
+          "id": "achievements",
+          "title": "Prestasi",
+          "url": "/#achievements"
+        },
+        {
+          "id": "student-services",
+          "title": "Layanan Siswa",
+          "children": [
+            {
+              "id": "counseling",
+              "title": "Bimbingan Konseling",
+              "url": "/#faq"
+            },
+            {
+              "id": "scholarships",
+              "title": "Beasiswa",
+              "children": [
+                {
+                  "id": "internal-scholarship",
+                  "title": "Beasiswa Internal",
+                  "url": "/#faq"
+                },
+                {
+                  "id": "external-scholarship",
+                  "title": "Beasiswa Mitra",
+                  "children": [
+                    {
+                      "id": "requirements",
+                      "title": "Persyaratan",
+                      "url": "/pages/sejarah-sekolah"
+                    },
+                    {
+                      "id": "schedule-scholarship",
+                      "title": "Jadwal Seleksi",
+                      "url": "/#events"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "student-rules",
+          "title": "Tata Tertib",
+          "url": "/pages/sejarah-sekolah"
+        }
+      ]
+    },
+    {
+      "id": "information",
+      "title": "Informasi",
+      "children": [
+        {
+          "id": "news",
+          "title": "Berita",
+          "url": "/news"
+        },
+        {
+          "id": "downloads",
+          "title": "Dokumen",
+          "url": "/downloads"
+        },
+        {
+          "id": "faq",
+          "title": "FAQ",
+          "url": "/#faq"
+        },
+        {
+          "id": "static-sample",
+          "title": "Contoh Halaman",
+          "url": "/pages/sejarah-sekolah"
+        },
+        {
+          "id": "academic-calendar",
+          "title": "Kalender Akademik",
+          "url": "/#events"
+        },
+        {
+          "id": "public-info",
+          "title": "Informasi Publik",
+          "children": [
+            {
+              "id": "transparency",
+              "title": "Transparansi",
+              "url": "/pages/sejarah-sekolah"
+            },
+            {
+              "id": "service-standards",
+              "title": "Standar Layanan",
+              "url": "/#faq"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "facilities",
+      "title": "Sarana",
+      "children": [
+        {
+          "id": "library",
+          "title": "Perpustakaan",
+          "url": "/#profile"
+        },
+        {
+          "id": "laboratories",
+          "title": "Laboratorium",
+          "children": [
+            {
+              "id": "science-lab",
+              "title": "Laboratorium Sains",
+              "url": "/#gallery"
+            },
+            {
+              "id": "computer-lab",
+              "title": "Laboratorium Komputer",
+              "url": "/#gallery"
+            }
+          ]
+        },
+        {
+          "id": "sports-facility",
+          "title": "Fasilitas Olahraga",
+          "url": "/#gallery"
+        }
+      ]
+    },
+    {
+      "id": "community",
+      "title": "Komunitas",
+      "children": [
+        {
+          "id": "alumni",
+          "title": "Alumni",
+          "url": "/#testimonials"
+        },
+        {
+          "id": "parents",
+          "title": "Orang Tua",
+          "url": "/#faq"
+        },
+        {
+          "id": "partners",
+          "title": "Mitra Sekolah",
+          "url": "/#profile"
+        }
+      ]
+    },
+    {
+      "id": "services",
+      "title": "Layanan",
+      "children": [
+        {
+          "id": "spmb-menu",
+          "title": "SPMB Online",
+          "url": "#documents"
+        },
+        {
+          "id": "complaint",
+          "title": "Pengaduan",
+          "url": "/contact"
+        },
+        {
+          "id": "documents-menu",
+          "title": "Dokumen",
+          "url": "/downloads"
+        }
+      ]
+    },
+    {
+      "id": "gallery",
+      "title": "Galeri",
+      "url": "/#gallery"
+    },
+    {
+      "id": "contact",
+      "title": "Kontak",
+      "url": "/contact"
     }
   ]
 }

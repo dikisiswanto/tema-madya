@@ -16,15 +16,19 @@ foreach (($categories ?? []) as $cat) {
 }
 $popularNews = is_array($recent_news ?? null) ? array_slice($recent_news, 0, 5) : array_slice($newsItems, 0, 5);
 ?>
-<?= $this->include('themes/madya/layouts/header') ?>
+<?php
+$newsCanonical = base_url('news');
+$newsStructured = ['@context'=>'https://schema.org','@type'=>'CollectionPage','name'=>$newsTitle,'description'=>$newsDescription,'url'=>$newsCanonical,'isPartOf'=>['@type'=>'WebSite','name'=>$site_name ?? 'SekolahKu','url'=>base_url()]];
+?>
+<?= $this->include('themes/madya/layouts/header', ['page_title' => $newsTitle, 'page_description' => $newsDescription, 'canonical_url' => $newsCanonical, 'structured_data' => $newsStructured]) ?>
 <?= $this->include('themes/madya/components/page-header', ['eyebrow' => $banner['badge'] ?? 'Berita & Artikel', 'title' => $newsTitle, 'description' => $newsDescription, 'image' => $heroNewsImage, 'breadcrumbs' => [['label' => 'Berita']]]) ?>
 <section class="section news-list-page">
     <div class="theme-container news-list-shell">
         <div class="news-list-main">
             <div class="news-list-toolbar">
                 <nav class="news-category-pills" aria-label="Kategori berita">
-                    <a class="<?= empty($category) ? 'is-active' : '' ?>" href="<?= base_url('news') ?>">Semua</a>
-                    <?php foreach ($categoryRows as $cat): ?><a class="<?= ($category ?? '') === $cat['name'] ? 'is-active' : '' ?>" href="<?= base_url('news?category=' . urlencode($cat['name'])) ?>"><?= esc($cat['name']) ?></a><?php endforeach; ?>
+                    <a class="<?= empty($category) ? 'is-active' : '' ?>" href="<?= base_url('news') ?>" data-news-category="">Semua</a>
+                    <?php foreach ($categoryRows as $cat): ?><a class="<?= ($category ?? '') === $cat['name'] ? 'is-active' : '' ?>" href="<?= base_url('news?category=' . urlencode($cat['name'])) ?>" data-news-category="<?= esc($cat['name']) ?>"><?= esc($cat['name']) ?></a><?php endforeach; ?>
                 </nav>
                 <label class="news-sort"><span class="sr-only">Urutkan berita</span><select aria-label="Urutkan berita"><option>Terbaru</option><option>Terpopuler</option><option>A-Z</option></select><i data-lucide="chevron-down" aria-hidden="true"></i></label>
             </div>
@@ -44,7 +48,7 @@ $popularNews = is_array($recent_news ?? null) ? array_slice($recent_news, 0, 5) 
             </section>
             <?php if ($categoryRows): ?><section class="news-side-card"><h2>Kategori Berita</h2><div class="news-category-list"><?php foreach ($categoryRows as $cat): ?><a href="<?= base_url('news?category=' . urlencode($cat['name'])) ?>"><span><?= esc($cat['name']) ?></span><b><?= $cat['count'] ?></b></a><?php endforeach; ?><a href="<?= base_url('news') ?>"><span>Semua Kategori</span><span class="category-more-icon"><i data-lucide="arrow-right" aria-hidden="true"></i></span></a></div></section><?php endif; ?>
             <?php if ($popularNews): ?><section class="news-side-card"><h2>Berita Populer</h2><div class="popular-news-list"><?php foreach ($popularNews as $i => $post): ?><a href="<?= base_url('news/' . rawurlencode((string)($post['slug'] ?? ''))) ?>"><b><?= str_pad((string)($i + 1), 2, '0', STR_PAD_LEFT) ?></b><span><strong><?= esc($post['title'] ?? 'Berita sekolah') ?></strong><small><?= esc($post['published_at'] ?? $post['created_at'] ?? '') ?></small></span></a><?php endforeach; ?><a class="side-card-more" href="<?= base_url('news') ?>">Lihat semua berita populer <i data-lucide="arrow-right" aria-hidden="true"></i></a></div></section><?php endif; ?>
-            <section class="news-newsletter-card"><h2>Dapatkan Informasi Terbaru</h2><p>Berlangganan newsletter kami untuk mendapatkan update berita dan kegiatan terbaru.</p><form class="news-newsletter-form" action="#" method="post" onsubmit="return false"><label class="sr-only" for="news-newsletter-email">Email untuk newsletter</label><input id="news-newsletter-email" type="email" placeholder="Masukkan email Anda"><button type="submit" aria-label="Berlangganan"><i data-lucide="arrow-right" aria-hidden="true"></i></button></form><div class="news-newsletter-art" aria-hidden="true"><i data-lucide="mail"></i></div></section>
+            <section class="news-newsletter-card faq-cta-card"><h2>Pertanyaan yang Sering Diajukan</h2><p>Temukan jawaban cepat mengenai informasi sekolah, layanan, dan kegiatan.</p><a class="button button-light" href="<?= base_url('/#faq') ?>">Buka FAQ <i data-lucide="arrow-right" aria-hidden="true"></i></a><div class="news-newsletter-art" aria-hidden="true"><i data-lucide="circle-help"></i></div></section>
         </aside>
     </div>
 </section>
