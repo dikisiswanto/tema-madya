@@ -401,7 +401,9 @@
   .mobile-nav {
     position: fixed;
     inset: var(--header-height) 0 0;
-    z-index: 55;
+    z-index: 100;
+    isolation: isolate;
+    pointer-events: none;
     overflow: hidden;
     background: rgba(255, 255, 255, 0.985);
     opacity: 0;
@@ -415,6 +417,7 @@
   body.nav-open .mobile-nav {
     opacity: 1;
     visibility: visible;
+    pointer-events: auto;
     transform: translate3d(0, 0, 0);
     transition-delay: 0s;
   }
@@ -7441,7 +7444,8 @@
   }
 
   .mobile-nav {
-    @apply fixed inset-x-0 bottom-0 z-[55] overflow-hidden bg-white opacity-0 invisible;
+    @apply fixed inset-x-0 bottom-0 z-[100] overflow-hidden bg-white opacity-0 invisible pointer-events-none;
+    isolation: isolate;
     top: 5.25rem;
     transform: translateY(1rem);
     transition:
@@ -7450,7 +7454,7 @@
       visibility 0s linear 250ms;
   }
   body.nav-open .mobile-nav {
-    @apply visible opacity-100;
+    @apply visible opacity-100 pointer-events-auto;
     transform: translateY(0);
     transition-delay: 0s;
   }

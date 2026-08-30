@@ -3,9 +3,9 @@ import { test, expect } from '@playwright/test';
 test('homepage and hybrid navigation are present', async ({ page }) => {
     await page.goto('/');
     await expect(page.locator('h1')).toContainText(/Membentuk Generasi/i);
-    await page.locator('a[href="#programs"]').first().click();
+    await page.locator('a[href="/#programs"]').first().click();
     await expect(page).toHaveURL(/#programs$/);
-    await expect(page.locator('h1')).toContainText('Program Akademik');
+    await expect(page.locator('h1')).toContainText('Program Unggulan');
 });
 
 test('mobile menu supports drill-down', async ({ page }) => {
@@ -107,12 +107,18 @@ test('deep mobile navigation drills down four levels and restores focus', async 
     await expect(
         page.getByRole('link', { name: 'Kepala Sekolah' }),
     ).toBeVisible();
-    await page.locator('[data-mobile-back]').first().click();
+    await page
+        .locator('[data-mobile-level][data-active="true"] [data-mobile-back]')
+        .click();
     await expect(
         page.locator('[data-mobile-level="leadership"]'),
     ).toHaveAttribute('aria-hidden', 'true');
-    await page.locator('[data-mobile-back]').first().click();
-    await page.locator('[data-mobile-back]').first().click();
+    await page
+        .locator('[data-mobile-level][data-active="true"] [data-mobile-back]')
+        .click();
+    await page
+        .locator('[data-mobile-level][data-active="true"] [data-mobile-back]')
+        .click();
     await page.keyboard.press('Escape');
     await expect(page.locator('#mobile-navigation')).toHaveAttribute(
         'aria-hidden',

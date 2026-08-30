@@ -3,6 +3,7 @@ const mobileState = { path: [], triggers: [], direction: 'forward' };
 let closeTimer = null;
 let openTimer = null;
 let lastMobileFocus = null;
+let suppressDesktopFocusOpen = false;
 
 const DESKTOP_QUERY = '(min-width: 1200px)';
 const OPEN_DELAY = 90;
@@ -188,9 +189,13 @@ function handleNavigationPointerOver(event) {
     // pending close just like a submenu trigger does.
     clearTimeout(closeTimer);
 
+    const enteredNavControl = Boolean(
+        event.target.closest('[data-nav-toggle], [data-nav-leaf]'),
+    );
     if (
         event.relatedTarget instanceof Node &&
-        item.contains(event.relatedTarget)
+        item.contains(event.relatedTarget) &&
+        !enteredNavControl
     )
         return;
 
@@ -280,6 +285,16 @@ function handleNavigationClick(event) {
 }
 
 function handleNavigationKeydown(event) {
+    if (event.key === 'Escape') {
+        const focusedItem = event.target.closest('[data-nav-item]');
+        const openItem = focusedItem?.closest('[data-nav-item][data-open="true"]');
+        if (!openItem) return;
+        event.preventDefault();
+        event.stopPropagation();
+        closeDesktopBranch(openItem, true);
+        return;
+    }
+
     const toggle = event.target.closest('[data-nav-toggle]');
     if (!toggle) return;
     const item = toggle.closest('[data-nav-item]');
@@ -365,6 +380,10 @@ function handleMobileKeydown(event) {
 function handleNavigationFocus(event) {
     const item = event.target.closest('[data-nav-item]');
     if (!item || !window.matchMedia(DESKTOP_QUERY).matches) return;
+    if (suppressDesktopFocusOpen) {
+        suppressDesktopFocusOpen = false;
+        return;
+    }
 
     // Keyboard focus follows the same path rules as pointer hover. A leaf
     // never opens a panel, but it still becomes the active node so stale child
@@ -580,7 +599,12 @@ function closeDesktopBranch(item, restoreFocus = false) {
             }, 280);
         }
     });
-    if (restoreFocus) trigger?.focus();
+    if (restoreFocus && trigger) {
+        // Restoring focus after Escape/ArrowLeft must not immediately reopen
+        // the branch through the focusin hover synchronisation.
+        suppressDesktopFocusOpen = true;
+        trigger.focus();
+    }
 }
 
 function closeDesktopItems() {

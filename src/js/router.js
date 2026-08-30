@@ -181,7 +181,7 @@ function updateDocumentMeta(state, route, slug = '') {
     const siteName = state.site_name || 'SekolahKu';
     const titles = {
         profile: 'Profil Sekolah',
-        programs: 'Program Akademik',
+        programs: 'Program Unggulan',
         extracurriculars: 'Kegiatan Siswa',
         teachers: 'Tenaga Pendidik',
         achievements: 'Prestasi',
