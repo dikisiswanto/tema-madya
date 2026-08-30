@@ -4,7 +4,9 @@ let state = {};
 
 export async function initState() {
     const element = document.getElementById('theme-state');
-    const source = document.documentElement.dataset.demoSource || document.querySelector('[data-demo-source]')?.dataset.demoSource;
+    const source =
+        document.documentElement.dataset.demoSource ||
+        document.querySelector('[data-demo-source]')?.dataset.demoSource;
 
     try {
         if (element?.textContent?.trim()) {
@@ -17,8 +19,11 @@ export async function initState() {
             return state;
         }
 
-        const response = await fetch(source, { headers: { Accept: 'application/json' } });
-        if (!response.ok) throw new Error(`Demo data request failed: ${response.status}`);
+        const response = await fetch(source, {
+            headers: { Accept: 'application/json' },
+        });
+        if (!response.ok)
+            throw new Error(`Demo data request failed: ${response.status}`);
         state = normalizeState(await response.json());
         return state;
     } catch (error) {

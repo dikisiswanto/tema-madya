@@ -6,12 +6,19 @@ import { hasIcon } from '../src/js/icons.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const failures = [];
-const requiredStyleFiles = ['biome.json', 'composer.json', 'phpcs.xml', '.editorconfig'];
+const requiredStyleFiles = [
+    'biome.json',
+    'composer.json',
+    'phpcs.xml',
+    '.editorconfig',
+];
 for (const relative of requiredStyleFiles) {
-    try { await access(path.join(root, relative)); }
-    catch { failures.push(`Missing code-style configuration: ${relative}`); }
+    try {
+        await access(path.join(root, relative));
+    } catch {
+        failures.push(`Missing code-style configuration: ${relative}`);
+    }
 }
-
 
 async function walk(dir, predicate, files = []) {
     for (const entry of await readdir(dir, { withFileTypes: true })) {
@@ -25,33 +32,56 @@ async function walk(dir, predicate, files = []) {
 function run(command, args, label) {
     const result = spawnSync(command, args, { cwd: root, encoding: 'utf8' });
     if (result.status !== 0) {
-        failures.push(`${label} failed${result.stderr ? `: ${result.stderr.trim()}` : ''}`);
+        failures.push(
+            `${label} failed${result.stderr ? `: ${result.stderr.trim()}` : ''}`,
+        );
     }
 }
 
 const jsFiles = [
-    ...(await walk(path.join(root, 'src', 'js'), (file) => file.endsWith('.js'))),
+    ...(await walk(path.join(root, 'src', 'js'), (file) =>
+        file.endsWith('.js'),
+    )),
     ...(await walk(path.join(root, 'scripts'), (file) => file.endsWith('.js'))),
     ...(await walk(path.join(root, 'tests'), (file) => file.endsWith('.js'))),
     path.join(root, 'vite.config.js'),
     path.join(root, 'playwright.config.js'),
 ];
-for (const file of jsFiles) run(process.execPath, ['--check', file], `JavaScript syntax: ${path.relative(root, file)}`);
+for (const file of jsFiles)
+    run(
+        process.execPath,
+        ['--check', file],
+        `JavaScript syntax: ${path.relative(root, file)}`,
+    );
 
-const phpFiles = await walk(path.join(root, 'src', 'theme'), (file) => file.endsWith('.php'));
-for (const file of phpFiles) run('php', ['-l', file], `PHP syntax: ${path.relative(root, file)}`);
+const phpFiles = await walk(path.join(root, 'src', 'theme'), (file) =>
+    file.endsWith('.php'),
+);
+for (const file of phpFiles)
+    run('php', ['-l', file], `PHP syntax: ${path.relative(root, file)}`);
 
 const jsonFiles = [
     path.join(root, 'package.json'),
     path.join(root, 'package-lock.json'),
-    path.join(root, 'src', 'theme', 'app', 'Views', 'themes', 'madya', 'theme.json'),
+    path.join(
+        root,
+        'src',
+        'theme',
+        'app',
+        'Views',
+        'themes',
+        'madya',
+        'theme.json',
+    ),
     path.join(root, 'playground', 'data', 'demo.json'),
 ];
 for (const file of jsonFiles) {
     try {
         JSON.parse(await readFile(file, 'utf8'));
     } catch (error) {
-        failures.push(`JSON syntax: ${path.relative(root, file)} — ${error.message}`);
+        failures.push(
+            `JSON syntax: ${path.relative(root, file)} — ${error.message}`,
+        );
     }
 }
 
@@ -61,16 +91,23 @@ let balance = 0;
 for (const [index, line] of css.split(/\r?\n/).entries()) {
     balance += (line.match(/\{/g) || []).length;
     balance -= (line.match(/\}/g) || []).length;
-    if (balance < 0) failures.push(`CSS brace closes before it opens at line ${index + 1}.`);
+    if (balance < 0)
+        failures.push(`CSS brace closes before it opens at line ${index + 1}.`);
 }
 if (balance !== 0) failures.push(`CSS brace balance is ${balance}.`);
-if (!css.includes('@import "tailwindcss";')) failures.push('Tailwind entry import is missing.');
-if (!css.includes('@theme')) failures.push('Tailwind theme tokens are missing.');
-if (css.includes('.lucide-icon')) failures.push('Dead .lucide-icon selectors remain; use the canonical .icon-tabler class.');
-
+if (!css.includes('@import "tailwindcss";'))
+    failures.push('Tailwind entry import is missing.');
+if (!css.includes('@theme'))
+    failures.push('Tailwind theme tokens are missing.');
+if (css.includes('.lucide-icon'))
+    failures.push(
+        'Dead .lucide-icon selectors remain; use the canonical .icon-tabler class.',
+    );
 
 function isFontAwesomeIcon(name) {
-    return /^(?:(?:fas|far|fab|fal|fat|fad)\s+fa-[a-z0-9-]+(?:\s+fa-[a-z0-9-]+)*|fa-(?:solid|regular|brands)\s+fa-[a-z0-9-]+(?:\s+fa-[a-z0-9-]+)*|fa-[a-z0-9-]+)$/i.test(String(name || '').trim());
+    return /^(?:(?:fas|far|fab|fal|fat|fad)\s+fa-[a-z0-9-]+(?:\s+fa-[a-z0-9-]+)*|fa-(?:solid|regular|brands)\s+fa-[a-z0-9-]+(?:\s+fa-[a-z0-9-]+)*|fa-[a-z0-9-]+)$/i.test(
+        String(name || '').trim(),
+    );
 }
 
 function supportsConfiguredIcon(name) {
@@ -78,42 +115,74 @@ function supportsConfiguredIcon(name) {
 }
 
 const iconNames = new Set();
-const phpSourceFiles = await walk(path.join(root, 'src', 'theme'), (file) => file.endsWith('.php'));
+const phpSourceFiles = await walk(path.join(root, 'src', 'theme'), (file) =>
+    file.endsWith('.php'),
+);
 for (const file of phpSourceFiles) {
     const source = await readFile(file, 'utf8');
     for (const match of source.matchAll(/data-lucide=["']([^"']+)["']/g)) {
         if (!/[<$?]/.test(match[1])) iconNames.add(match[1]);
     }
 }
-const jsSourceFiles = await walk(path.join(root, 'src', 'js'), (file) => file.endsWith('.js'));
+const jsSourceFiles = await walk(path.join(root, 'src', 'js'), (file) =>
+    file.endsWith('.js'),
+);
 for (const file of jsSourceFiles) {
     const source = await readFile(file, 'utf8');
-    for (const match of source.matchAll(/iconMarkup\(["']([^"']+)["']/g)) iconNames.add(match[1]);
+    for (const match of source.matchAll(/iconMarkup\(["']([^"']+)["']/g))
+        iconNames.add(match[1]);
 }
 for (const name of iconNames) {
-    if (!supportsConfiguredIcon(name)) failures.push(`Unsupported icon definition: ${name}`);
+    if (!supportsConfiguredIcon(name))
+        failures.push(`Unsupported icon definition: ${name}`);
 }
-const demoData = JSON.parse(await readFile(path.join(root, 'playground', 'data', 'demo.json'), 'utf8'));
+const demoData = JSON.parse(
+    await readFile(path.join(root, 'playground', 'data', 'demo.json'), 'utf8'),
+);
 const dynamicIconFields = ['site_logo_icon'];
-for (const field of dynamicIconFields) if (demoData[field] && !supportsConfiguredIcon(demoData[field])) failures.push(`Unsupported icon definition: ${field}=${demoData[field]}`);
+for (const field of dynamicIconFields)
+    if (demoData[field] && !supportsConfiguredIcon(demoData[field]))
+        failures.push(
+            `Unsupported icon definition: ${field}=${demoData[field]}`,
+        );
 for (const collection of ['programs', 'extracurriculars']) {
-    for (const item of Array.isArray(demoData[collection]) ? demoData[collection] : []) {
-        if (item.icon && !supportsConfiguredIcon(item.icon)) failures.push(`Unsupported icon definition: ${collection}.${item.icon}`);
+    for (const item of Array.isArray(demoData[collection])
+        ? demoData[collection]
+        : []) {
+        if (item.icon && !supportsConfiguredIcon(item.icon))
+            failures.push(
+                `Unsupported icon definition: ${collection}.${item.icon}`,
+            );
     }
 }
 
 const markupFiles = [
-    ...(await walk(path.join(root, 'src', 'theme'), (file) => file.endsWith('.php'))),
-    ...(await walk(path.join(root, 'playground'), (file) => file.endsWith('.html') || file.endsWith('.js'))),
+    ...(await walk(path.join(root, 'src', 'theme'), (file) =>
+        file.endsWith('.php'),
+    )),
+    ...(await walk(
+        path.join(root, 'playground'),
+        (file) => file.endsWith('.html') || file.endsWith('.js'),
+    )),
 ];
 for (const file of markupFiles) {
     const source = await readFile(file, 'utf8');
-    const ids = [...source.matchAll(/\bid=["']([^"']+)["']/g)].map((match) => match[1]).filter((id) => !/[<$?]/.test(id));
+    const ids = [...source.matchAll(/\bid=["']([^"']+)["']/g)]
+        .map((match) => match[1])
+        .filter((id) => !/[<$?]/.test(id));
     const duplicates = ids.filter((id, index) => ids.indexOf(id) !== index);
-    for (const id of new Set(duplicates)) failures.push(`Duplicate literal id in ${path.relative(root, file)}: ${id}`);
+    for (const id of new Set(duplicates))
+        failures.push(
+            `Duplicate literal id in ${path.relative(root, file)}: ${id}`,
+        );
 }
 
-const forbiddenMediaRoots = ['public/generated', 'public/illustrations', 'playground/public/generated', 'playground/public/illustrations'];
+const forbiddenMediaRoots = [
+    'public/generated',
+    'public/illustrations',
+    'playground/public/generated',
+    'playground/public/illustrations',
+];
 for (const relativePath of forbiddenMediaRoots) {
     try {
         await access(path.join(root, relativePath));
@@ -127,4 +196,6 @@ if (failures.length) {
     process.exit(1);
 }
 
-console.log(`Source quality: OK (${jsFiles.length} JS, ${phpFiles.length} PHP, ${jsonFiles.length} JSON files checked)`);
+console.log(
+    `Source quality: OK (${jsFiles.length} JS, ${phpFiles.length} PHP, ${jsonFiles.length} JSON files checked)`,
+);
