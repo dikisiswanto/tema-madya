@@ -10034,6 +10034,10 @@
         background: #fff;
         box-shadow: var(--shadow-soft);
     }
+    .comment-card-inner {
+        display: flex;
+        column-gap: 1rem;
+    }
     .comment-card blockquote {
         color: var(--site-ink);
         font-size: 0.84rem;
