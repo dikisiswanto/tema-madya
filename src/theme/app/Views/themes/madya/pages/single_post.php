@@ -3,18 +3,22 @@ $article = is_array($post ?? null) ? $post : [];
 $banner = !empty($page_banners) ? (json_decode($page_banners, true)['single_post'] ?? []) : [];
 $generatedHero = base_url('themes/madya/assets/generated/hero-campus.jpg');
 $publishedAt = (string)($article['published_at'] ?? $article['created_at'] ?? '');
-$monthNames = [1=>'Januari',2=>'Februari',3=>'Maret',4=>'April',5=>'Mei',6=>'Juni',7=>'Juli',8=>'Agustus',9=>'September',10=>'Oktober',11=>'November',12=>'Desember'];
+$monthNames = [1 => 'Januari',2 => 'Februari',3 => 'Maret',4 => 'April',5 => 'Mei',6 => 'Juni',7 => 'Juli',8 => 'Agustus',9 => 'September',10 => 'Oktober',11 => 'November',12 => 'Desember'];
 $timestamp = $publishedAt !== '' ? strtotime($publishedAt) : false;
-$publishedLabel = $timestamp ? date('j', $timestamp) . ' ' . ($monthNames[(int)date('n', $timestamp)] ?? date('F', $timestamp)) . ' ' . date('Y', $timestamp) : 'Tanggal terbit tidak tersedia';
+$publishedLabel = $timestamp ? date('j', $timestamp) . ' ' . ($monthNames[(int) date('n', $timestamp)] ?? date('F', $timestamp)) . ' ' . date('Y', $timestamp) : 'Tanggal terbit tidak tersedia';
 $wordCount = str_word_count(trim(strip_tags((string)($article['content'] ?? ''))));
-$readMinutes = max(1, (int)ceil($wordCount / 200));
+$readMinutes = max(1, (int) ceil($wordCount / 200));
 $relatedItems = is_array($related ?? null) ? array_values($related) : [];
 $categories = is_array($categories ?? null) ? $categories : [];
 if (class_exists('App\\Models\\NewsModel')) {
     try {
         $newsBridge = new \App\Models\NewsModel();
-        if (!$categories) $categories = $newsBridge->getPublishedCategories();
-        if (!$relatedItems) $relatedItems = $newsBridge->getRelated($article, 3);
+        if (!$categories) {
+            $categories = $newsBridge->getPublishedCategories();
+        }
+        if (!$relatedItems) {
+            $relatedItems = $newsBridge->getRelated($article, 3);
+        }
     } catch (\Throwable $e) {
         // Keep controller-provided data when the optional bridge is unavailable.
     }
@@ -66,12 +70,18 @@ $shareUrl = current_url();
     <div class="theme-container article-detail-layout">
         <article class="article-main">
 <header class="article-header">
-                <?php if (!empty($article['category'])): ?><span class="article-category"><?= esc(trim(explode(',', (string)$article['category'])[0])) ?></span><?php endif; ?>
+                <?php if (!empty($article['category'])): ?>
+<span class="article-category"><?= esc(trim(explode(',', (string) $article['category'])[0])) ?></span>
+<?php endif; ?>
                 <h1><?= esc($shareTitle) ?></h1>
                 <div class="article-meta" aria-label="Metadata artikel">
                     <span><i data-lucide="calendar-days" aria-hidden="true"></i><?= esc($publishedLabel) ?></span>
-                    <?php if (!empty($article['author'])): ?><span><i data-lucide="user-round" aria-hidden="true"></i><?= esc($article['author']) ?></span><?php endif; ?>
-                    <?php if (isset($article['view_count'])): ?><span><i data-lucide="eye" aria-hidden="true"></i><?= esc(number_format((int)$article['view_count'], 0, ',', '.')) ?> kali dibaca</span><?php endif; ?>
+                    <?php if (!empty($article['author'])): ?>
+<span><i data-lucide="user-round" aria-hidden="true"></i><?= esc($article['author']) ?></span>
+<?php endif; ?>
+                    <?php if (isset($article['view_count'])): ?>
+<span><i data-lucide="eye" aria-hidden="true"></i><?= esc(number_format((int) $article['view_count'], 0, ',', '.')) ?> kali dibaca</span>
+<?php endif; ?>
                     <span><i data-lucide="clock-3" aria-hidden="true"></i><?= esc($readMinutes) ?> menit baca</span>
                 </div>
             </header>
@@ -79,19 +89,29 @@ $shareUrl = current_url();
             <?php if (!empty($article['image'])): ?>
             <figure class="article-cover">
                 <img src="<?= esc($article['image']) ?>" width="<?= esc($article['image_width'] ?? 1600) ?>" height="<?= esc($article['image_height'] ?? 1000) ?>" alt="<?= esc($shareTitle) ?>" fetchpriority="high" decoding="async">
-                <?php if (!empty($article['image_caption'])): ?><figcaption><?= esc($article['image_caption']) ?></figcaption><?php endif; ?>
+                <?php if (!empty($article['image_caption'])): ?>
+<figcaption><?= esc($article['image_caption']) ?></figcaption>
+<?php endif; ?>
             </figure>
             <?php endif; ?>
 
             <div class="article-prose"><?= $article['content'] ?? '' ?></div>
 
             <?php if (!empty($article['category'])): ?>
-            <div class="article-tags"><strong>Tag:</strong><?php foreach (array_filter(array_map('trim', explode(',', (string)$article['category']))) as $tag): ?><a href="<?= base_url('news?category=' . urlencode($tag)) ?>"><?= esc($tag) ?></a><?php endforeach; ?></div>
+            <div class="article-tags"><strong>Tag:</strong><?php foreach (array_filter(array_map('trim', explode(',', (string) $article['category']))) as $tag): ?><a href="<?= base_url('news?category=' . urlencode($tag)) ?>"><?= esc($tag) ?></a><?php endforeach; ?></div>
             <?php endif; ?>
 
             <nav class="article-nav" aria-label="Navigasi artikel">
-                <?php if (!empty($prev_post)): ?><a class="article-nav-card" href="<?= base_url('news/' . rawurlencode((string)$prev_post['slug'])) ?>"><span><i data-lucide="arrow-left" aria-hidden="true"></i>Artikel sebelumnya</span><strong><?= esc($prev_post['title']) ?></strong></a><?php else: ?><span></span><?php endif; ?>
-                <?php if (!empty($next_post)): ?><a class="article-nav-card article-nav-next" href="<?= base_url('news/' . rawurlencode((string)$next_post['slug'])) ?>"><span>Artikel selanjutnya <i data-lucide="arrow-right" aria-hidden="true"></i></span><strong><?= esc($next_post['title']) ?></strong></a><?php else: ?><span></span><?php endif; ?>
+                <?php if (!empty($prev_post)): ?>
+<a class="article-nav-card" href="<?= base_url('news/' . rawurlencode((string) $prev_post['slug'])) ?>"><span><i data-lucide="arrow-left" aria-hidden="true"></i>Artikel sebelumnya</span><strong><?= esc($prev_post['title']) ?></strong></a>
+<?php else: ?>
+<span></span>
+<?php endif; ?>
+                <?php if (!empty($next_post)): ?>
+<a class="article-nav-card article-nav-next" href="<?= base_url('news/' . rawurlencode((string) $next_post['slug'])) ?>"><span>Artikel selanjutnya <i data-lucide="arrow-right" aria-hidden="true"></i></span><strong><?= esc($next_post['title']) ?></strong></a>
+<?php else: ?>
+<span></span>
+<?php endif; ?>
             </nav>
 
             <?php if (!empty($relatedItems)): ?>
@@ -101,7 +121,11 @@ $shareUrl = current_url();
                     <?php foreach (array_slice($relatedItems, 0, 3) as $item): ?>
                     <a class="article-related-card" href="<?= base_url('news/' . rawurlencode((string)($item['slug'] ?? ''))) ?>">
                         <div class="article-related-media">
-                            <?php if (!empty($item['image'])): ?><img src="<?= esc($item['image']) ?>" width="800" height="500" alt="<?= esc($item['title'] ?? 'Berita') ?>" loading="lazy" decoding="async"><?php else: ?><div class="article-related-placeholder"><i data-lucide="newspaper" aria-hidden="true"></i></div><?php endif; ?>
+                            <?php if (!empty($item['image'])): ?>
+<img src="<?= esc($item['image']) ?>" width="800" height="500" alt="<?= esc($item['title'] ?? 'Berita') ?>" loading="lazy" decoding="async">
+<?php else: ?>
+<div class="article-related-placeholder"><i data-lucide="newspaper" aria-hidden="true"></i></div>
+<?php endif; ?>
                         </div>
                         <div class="article-related-body">
                             <span><?= esc(trim(explode(',', (string)($item['category'] ?? 'Berita'))[0])) ?></span>
@@ -116,9 +140,14 @@ $shareUrl = current_url();
 
             <section class="comments-section" id="komentar">
                 <div class="article-section-heading"><p class="eyebrow">Ruang diskusi</p><h2>Komentar.</h2><p class="comments-intro">Bagikan tanggapan Anda. Komentar akan tampil setelah disetujui oleh pengelola sekolah.</p></div>
-                <?php if ($commentSuccess): ?><div class="comment-alert comment-alert-success" role="status"><?= esc($commentSuccess) ?></div><?php endif; ?>
-                <?php if ($commentError): ?><div class="comment-alert comment-alert-error" role="alert"><?= esc($commentError) ?></div><?php endif; ?>
-                <?php if (!empty($commentErrors)): ?><div class="comment-alert comment-alert-error" role="alert"><strong>Periksa kembali:</strong><ul><?php foreach ($commentErrors as $error): ?><li><?= esc($error) ?></li><?php endforeach; ?></ul></div><?php endif; ?>
+                <?php if ($commentSuccess): ?>
+<div class="comment-alert comment-alert-success" role="status"><?= esc($commentSuccess) ?></div>
+<?php endif; ?>
+                <?php if ($commentError): ?>
+<div class="comment-alert comment-alert-error" role="alert"><?= esc($commentError) ?></div>
+<?php endif; ?>
+                <?php if (!empty($commentErrors)): ?><div class="comment-alert comment-alert-error" role="alert"><strong>Periksa kembali:</strong><ul><?php foreach ($commentErrors as $error): ?><li><?= esc($error) ?></li><?php endforeach; ?>
+                <?php ?></ul></div><?php endif; ?>
                 <form class="comment-form" action="<?= base_url('news/' . rawurlencode((string)($article['slug'] ?? '')) . '/comment') ?>" method="post">
                     <div class="comment-form-grid">
                         <label><span>Nama</span><input type="text" name="name" value="<?= esc(old('name')) ?>" required minlength="3" maxlength="100" autocomplete="name" placeholder="Nama Anda"></label>
@@ -165,7 +194,10 @@ $shareUrl = current_url();
             <section class="sidebar-card">
                 <h2>Berita Terkait</h2>
                 <div class="sidebar-related-list">
-                    <?php foreach ($relatedItems as $item): ?><a href="<?= base_url('news/' . rawurlencode((string)($item['slug'] ?? ''))) ?>"><?php if (!empty($item['image'])): ?><img src="<?= esc($item['image']) ?>" width="96" height="64" alt="" loading="lazy" decoding="async"><?php endif; ?><span><strong><?= esc($item['title'] ?? '') ?></strong><small><?= esc($item['published_at'] ?? $item['created_at'] ?? '') ?></small></span></a><?php endforeach; ?>
+                    <?php foreach ($relatedItems as $item): ?><a href="<?= base_url('news/' . rawurlencode((string)($item['slug'] ?? ''))) ?>"><?php if (!empty($item['image'])): ?>
+<img src="<?= esc($item['image']) ?>" width="96" height="64" alt="" loading="lazy" decoding="async">
+<?php endif; ?>
+<?php ?><span><strong><?= esc($item['title'] ?? '') ?></strong><small><?= esc($item['published_at'] ?? $item['created_at'] ?? '') ?></small></span></a><?php endforeach; ?>
                 </div>
             </section>
             <?php endif; ?>
@@ -183,8 +215,9 @@ $shareUrl = current_url();
             <section class="sidebar-card">
                 <h2>Topik Populer</h2>
                 <div class="article-sidebar-tags">
-                    <?php foreach (array_slice($tags, 0, 12) as $tag): $tagName = is_array($tag) ? ($tag['name'] ?? $tag['tag'] ?? '') : $tag; if (!$tagName) continue; ?>
-                    <a href="<?= base_url('news?search=' . urlencode((string)$tagName)) ?>"><?= esc($tagName) ?></a>
+                    <?php foreach (array_slice($tags, 0, 12) as $tag): $tagName = is_array($tag) ? ($tag['name'] ?? $tag['tag'] ?? '') : $tag; ?>
+                    <?php if (!$tagName) continue; ?>
+                    <a href="<?= base_url('news?search=' . urlencode((string) $tagName)) ?>"><?= esc($tagName) ?></a>
                     <?php endforeach; ?>
                 </div>
             </section>

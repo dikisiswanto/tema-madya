@@ -16,7 +16,7 @@ $accreditation = $about['accreditation'] ?? '';
 $mapQuery = rawurlencode((string)($contact_address ?? ''));
 $contactCanonical = base_url('contact');
 $contactDescription = $banner['subtitle'] ?? 'Temukan alamat, kanal resmi, dan formulir untuk menghubungi sekolah.';
-$contactStructured = ['@context'=>'https://schema.org','@type'=>'ContactPage','name'=>$banner['title'] ?? 'Kontak Sekolah','description'=>$contactDescription,'url'=>$contactCanonical,'isPartOf'=>['@type'=>'WebSite','name'=>$site_name ?? 'SekolahKu','url'=>base_url()]];
+$contactStructured = ['@context' => 'https://schema.org','@type' => 'ContactPage','name' => $banner['title'] ?? 'Kontak Sekolah','description' => $contactDescription,'url' => $contactCanonical,'isPartOf' => ['@type' => 'WebSite','name' => $site_name ?? 'SekolahKu','url' => base_url()]];
 ?>
 <?= $this->include('themes/madya/layouts/header', ['page_title' => $banner['title'] ?? 'Kontak Sekolah', 'page_description' => $contactDescription, 'canonical_url' => $contactCanonical, 'structured_data' => $contactStructured]) ?>
 <?= $this->include('themes/madya/components/page-header', [
@@ -45,16 +45,24 @@ $contactStructured = ['@context'=>'https://schema.org','@type'=>'ContactPage','n
                         <div><span class="contact-fact-icon"><i data-lucide="map-pin" aria-hidden="true"></i></span><span><strong>Alamat Lengkap</strong><small><?= esc($contact_address ?: 'Alamat sekolah belum diatur.') ?></small></span></div>
                         <div><span class="contact-fact-icon"><i data-lucide="phone" aria-hidden="true"></i></span><span><strong>Telepon</strong><small><?= esc($contact_phone ?: 'Nomor telepon belum diatur.') ?></small></span></div>
                         <div><span class="contact-fact-icon"><i data-lucide="mail" aria-hidden="true"></i></span><span><strong>Email</strong><small><?= esc($contact_email ?: 'Email sekolah belum diatur.') ?></small></span></div>
-                        <?php if ($accreditation !== ''): ?><div><span class="contact-fact-icon"><i data-lucide="award" aria-hidden="true"></i></span><span><strong>Akreditasi</strong><small><?= esc($accreditation) ?></small></span></div><?php endif; ?>
+                        <?php if ($accreditation !== ''): ?>
+<div><span class="contact-fact-icon"><i data-lucide="award" aria-hidden="true"></i></span><span><strong>Akreditasi</strong><small><?= esc($accreditation) ?></small></span></div>
+<?php endif; ?>
                     </div>
                     <figure class="contact-campus-photo"><img src="<?= base_url(($theme_asset_base ?? 'themes/madya/assets') . '/generated/campus-aerial.jpg') ?>" alt="Lingkungan sekolah" width="1200" height="800" loading="lazy" decoding="async"><figcaption>Lingkungan SMA Negeri 1 Nusantara</figcaption></figure>
                 </div>
                 <div class="contact-location-block">
                     <h3>Lokasi Sekolah</h3>
                     <div class="contact-map-wrap">
-                        <?php if ($mapQuery): ?><iframe title="Peta lokasi sekolah" loading="lazy" src="https://www.google.com/maps?q=<?= $mapQuery ?>&output=embed" referrerpolicy="no-referrer-when-downgrade"></iframe><?php else: ?><div class="contact-map-fallback"><i data-lucide="map" aria-hidden="true"></i><span>Alamat sekolah belum tersedia untuk menampilkan peta.</span></div><?php endif; ?>
+                        <?php if ($mapQuery): ?>
+<iframe title="Peta lokasi sekolah" loading="lazy" src="https://www.google.com/maps?q=<?= $mapQuery ?>&output=embed" referrerpolicy="no-referrer-when-downgrade"></iframe>
+<?php else: ?>
+<div class="contact-map-fallback"><i data-lucide="map" aria-hidden="true"></i><span>Alamat sekolah belum tersedia untuk menampilkan peta.</span></div>
+<?php endif; ?>
                     </div>
-                    <?php if ($mapQuery): ?><a class="contact-map-link" href="https://www.google.com/maps/search/?api=1&query=<?= $mapQuery ?>" target="_blank" rel="noopener noreferrer">Buka di Google Maps <i data-lucide="external-link" aria-hidden="true"></i></a><?php endif; ?>
+                    <?php if ($mapQuery): ?>
+<a class="contact-map-link" href="https://www.google.com/maps/search/?api=1&query=<?= $mapQuery ?>" target="_blank" rel="noopener noreferrer">Buka di Google Maps <i data-lucide="external-link" aria-hidden="true"></i></a>
+<?php endif; ?>
                 </div>
             </section>
 
@@ -62,9 +70,14 @@ $contactStructured = ['@context'=>'https://schema.org','@type'=>'ContactPage','n
                 <p class="eyebrow">Kirim Pesan</p>
                 <h2>Hubungi tim sekolah.</h2>
                 <p class="contact-form-intro">Isi formulir di bawah ini, tim kami akan segera merespons pesan Anda.</p>
-                <?php if (session()->getFlashdata('success')): ?><div class="form-alert form-alert-success" role="status"><?= esc(session()->getFlashdata('success')) ?></div><?php endif; ?>
-                <?php if (session()->getFlashdata('error')): ?><div class="form-alert form-alert-error" role="alert"><?= esc(session()->getFlashdata('error')) ?></div><?php endif; ?>
-                <?php $errors = session()->getFlashdata('errors') ?? []; if ($errors): ?><div class="form-alert form-alert-error" role="alert"><?= esc(is_array($errors) ? implode(' ', $errors) : $errors) ?></div><?php endif; ?>
+                <?php if (session()->getFlashdata('success')): ?>
+<div class="form-alert form-alert-success" role="status"><?= esc(session()->getFlashdata('success')) ?></div>
+<?php endif; ?>
+                <?php if (session()->getFlashdata('error')): ?>
+<div class="form-alert form-alert-error" role="alert"><?= esc(session()->getFlashdata('error')) ?></div>
+<?php endif; ?>
+                <?php $errors = session()->getFlashdata('errors') ?? []; ?>
+                <?php if ($errors): ?><div class="form-alert form-alert-error" role="alert"><?= esc(is_array($errors) ? implode(' ', $errors) : $errors) ?></div><?php endif; ?>
                 <form class="contact-form-grid" action="<?= base_url('contact/send') ?>" method="post">
                     <?= csrf_field() ?>
                     <input type="text" name="website" class="sr-only" tabindex="-1" autocomplete="off">

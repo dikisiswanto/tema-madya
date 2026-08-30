@@ -1,9 +1,13 @@
 <?php
 $aboutData = is_array($about ?? null) ? $about : (json_decode($about ?? '[]', true) ?: []);
 $mediaUrl = static function (?string $value, string $uploadDir = ''): string {
-    $value = trim((string)$value);
-    if ($value === '') return '';
-    if (preg_match('#^https?://#i', $value) || str_starts_with($value, '//') || str_starts_with($value, '/themes/')) return $value;
+    $value = trim((string) $value);
+    if ($value === '') {
+        return '';
+    }
+    if (preg_match('#^https?://#i', $value) || str_starts_with($value, '//') || str_starts_with($value, '/themes/')) {
+        return $value;
+    }
     return base_url($uploadDir !== '' ? 'uploads/' . trim($uploadDir, '/') . '/' . ltrim($value, '/') : ltrim($value, '/'));
 };
 $generatedImageBase = base_url(($theme_asset_base ?? 'themes/madya/assets') . '/generated');
@@ -12,7 +16,7 @@ $sectionSettings = is_array($section_settings ?? null) ? $section_settings : (js
 $sectionMeta = static function (string $key, string $fallbackTitle, string $fallbackSubtitle = '') use ($sectionSettings): array {
     $meta = is_array($sectionSettings[$key] ?? null) ? $sectionSettings[$key] : [];
     return [
-        'show' => !array_key_exists('show', $meta) || (bool)$meta['show'],
+        'show' => !array_key_exists('show', $meta) || (bool) $meta['show'],
         'title' => trim((string)($meta['title'] ?? $fallbackTitle)) ?: $fallbackTitle,
         'subtitle' => trim((string)($meta['subtitle'] ?? $fallbackSubtitle)) ?: $fallbackSubtitle,
     ];
@@ -82,10 +86,13 @@ $homeStructured = [
 ]) ?>
 <div class="home-page">
   <section class="home-hero" aria-labelledby="hero-title" <?php if ($heroImage): ?>
-    style="--hero-bg-image: url('<?= esc($heroImage) ?>')" <?php endif; ?>>
+    style="--hero-bg-image: url('<?= esc($heroImage) ?>')" 
+<?php endif; ?>>
     <div class="theme-container home-hero-grid">
       <div class="home-hero-copy">
-        <?php if (!empty($hero_badge)): ?><p class="hero-kicker"><?= esc($hero_badge) ?></p><?php endif; ?>
+        <?php if (!empty($hero_badge)): ?>
+<p class="hero-kicker"><?= esc($hero_badge) ?></p>
+<?php endif; ?>
         <h1 id="hero-title"><?= $heroTitleMarkup ?></h1>
         <p class="hero-lead"><?= esc($hero_subtitle ?: ($site_description ?? $site_tagline ?? '')) ?></p>
         <div class="home-hero-actions">
@@ -106,7 +113,8 @@ $homeStructured = [
         <span class="quick-service-icon"><i data-lucide="<?= esc($service['icon']) ?>" aria-hidden="true"></i></span>
         <span><strong><?= esc($service['label']) ?></strong><small><?= esc($service['desc']) ?></small></span>
       </a>
-      <?php endforeach; ?>
+      
+<?php endforeach; ?>
     </div>
   </section>
 
@@ -148,12 +156,14 @@ $homeStructured = [
                             ['briefcase-business', 'Pengabdian', $principalData['years_of_service'] ?? ''],
                             ['award', 'Akreditasi', $aboutData['accreditation'] ?? ''],
                         ];
-                        $principalFacts = array_values(array_filter($principalFacts, static fn($fact) => (string)$fact[2] !== ''));
+                        $principalFacts = array_values(array_filter($principalFacts, static fn($fact) => (string) $fact[2] !== ''));
                         if ($principalFacts):
                         ?><div class="principal-facts">
-              <?php foreach ($principalFacts as $fact): ?><div><i data-lucide="<?= esc($fact[0]) ?>"
+              <?php foreach ($principalFacts as $fact): ?>
+<div><i data-lucide="<?= esc($fact[0]) ?>"
                   aria-hidden="true"></i><span><b><?= esc($fact[1]) ?></b><?= esc($fact[2]) ?></span></div>
-              <?php endforeach; ?>
+              
+<?php endforeach; ?>
             </div><?php endif; ?>
           </div>
         </article>
@@ -243,7 +253,8 @@ $homeStructured = [
                 aria-hidden="true"></i></a>
           </div>
           <div class="news-home-row">
-            <?php if ($newsFeatured): ?><a class="featured-news-home"
+            <?php if ($newsFeatured): ?>
+<a class="featured-news-home"
               href="<?= base_url('news/' . rawurlencode((string)($newsFeatured['slug'] ?? ''))) ?>"><img
                 src="<?= esc($newsFeatured['image'] ?? $generated('news-campus.jpg')) ?>" width="900" height="600"
                 alt="<?= esc($newsFeatured['title'] ?? 'Berita sekolah') ?>" loading="lazy" decoding="async">
@@ -251,12 +262,15 @@ $homeStructured = [
                 <h3><?= esc($newsFeatured['title'] ?? 'Berita sekolah') ?></h3>
                 <small><?= esc($newsFeatured['published_at'] ?? '') ?></small>
               </div>
-            </a><?php endif; ?>
-            <div class="news-home-side"><?php foreach (array_slice($newsItems, 1, 3) as $item): ?><a
+            </a>
+<?php endif; ?>
+            <div class="news-home-side"><?php foreach (array_slice($newsItems, 1, 3) as $item): ?>
+<a
                 href="<?= base_url('news/' . rawurlencode((string)($item['slug'] ?? ''))) ?>"><img
                   src="<?= esc($item['image'] ?? $generated('news-campus.jpg')) ?>" width="180" height="120" alt=""
                   loading="lazy"
-                  decoding="async"><span><strong><?= esc($item['title'] ?? '') ?></strong><small><?= esc($item['published_at'] ?? '') ?></small></span></a><?php endforeach; ?>
+                  decoding="async"><span><strong><?= esc($item['title'] ?? '') ?></strong><small><?= esc($item['published_at'] ?? '') ?></small></span></a>
+<?php endforeach; ?>
             </div>
           </div>
         </article><?php endif; ?>
@@ -270,7 +284,7 @@ $homeStructured = [
           </div>
           <div class="agenda-list" id="events"><?php foreach (array_slice($eventItems, 0, 3) as $item): ?><article
               class="agenda-item"><time
-                datetime="<?= esc($item['event_date'] ?? $item['date'] ?? '') ?>"><b><?= esc(!empty($item['event_date']) ? date('d', strtotime((string)$item['event_date'])) : '—') ?></b><span><?= esc(!empty($item['event_date']) ? strtoupper(date('M', strtotime((string)$item['event_date']))) : '') ?></span></time>
+                datetime="<?= esc($item['event_date'] ?? $item['date'] ?? '') ?>"><b><?= esc(!empty($item['event_date']) ? date('d', strtotime((string) $item['event_date'])) : '—') ?></b><span><?= esc(!empty($item['event_date']) ? strtoupper(date('M', strtotime((string) $item['event_date']))) : '') ?></span></time>
               <div>
                 <h3><?= esc($item['title'] ?? 'Kegiatan sekolah') ?></h3>
                 <p>
@@ -329,14 +343,17 @@ $homeStructured = [
           <p>Bergabung bersama kami dan raih masa depan gemilang.</p><a class="button button-accent"
             href="<?= esc($spmb_url) ?>">Daftar Sekarang <i data-lucide="arrow-right" aria-hidden="true"></i></a>
         </div>
-        <?php if ($heroImage): ?><img src="<?= esc($heroImage) ?>" width="800" height="600" alt="" loading="lazy"
-          decoding="async"><?php endif; ?>
+        <?php if ($heroImage): ?>
+<img src="<?= esc($heroImage) ?>" width="800" height="600" alt="" loading="lazy"
+          decoding="async">
+<?php endif; ?>
       </aside>
     </div>
   </section>
   <?php endif; ?>
 
-  <?php if ($contactMeta['show']): ?><section class="home-contact-strip" id="contact" aria-label="Kontak sekolah">
+  <?php if ($contactMeta['show']): ?>
+<section class="home-contact-strip" id="contact" aria-label="Kontak sekolah">
     <div class="theme-container contact-strip-grid">
       <div><i data-lucide="map-pin"
           aria-hidden="true"></i><span><b>Alamat</b><small><?= esc($contact_address ?? '—') ?></small></span></div>
@@ -347,6 +364,7 @@ $homeStructured = [
       <div><i data-lucide="clock-3" aria-hidden="true"></i><span><b>Jam
             Layanan</b><small><?= esc($contact_hours ?? '—') ?></small></span></div>
     </div>
-  </section><?php endif; ?>
+  </section>
+<?php endif; ?>
 </div>
 <?= $this->include('themes/madya/layouts/footer') ?>

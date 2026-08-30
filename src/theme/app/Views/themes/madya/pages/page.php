@@ -37,7 +37,8 @@ $relatedDocuments = array_slice($relatedDocuments, 0, 3);
             </div>
             <?php if (!empty($page['image'])): ?>
                 <figure class="static-feature-image"><img src="<?= esc($page['image']) ?>" width="<?= esc($page['image_width'] ?? 1600) ?>" height="<?= esc($page['image_height'] ?? 1000) ?>" alt="<?= esc($pageTitle) ?>" loading="lazy" decoding="async"></figure>
-            <?php endif; ?>
+            
+<?php endif; ?>
         </article>
         <aside class="static-page-sidebar">
             <?php if (!empty($all_pages)): ?>

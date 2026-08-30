@@ -1,24 +1,31 @@
 <?php
 $themeHasNewsFilters = trim((string)($search ?? '')) !== '' || trim((string)($category ?? '')) !== '' || !empty($month);
-if ($themeHasNewsFilters) $robots = 'noindex,follow';
+if ($themeHasNewsFilters) {
+    $robots = 'noindex,follow';
+}
 $banner = !empty($page_banners) ? (json_decode($page_banners, true)['news'] ?? []) : [];
 $newsItems = is_array($news ?? null) ? $news : [];
 $heroNewsImage = $banner['image'] ?? base_url(($theme_asset_base ?? 'themes/madya/assets') . '/generated/hero-campus.jpg');
 $newsTitle = trim((string)($search ?? '')) !== '' ? 'Hasil Pencarian' : ($banner['title'] ?? 'Berita');
-$newsDescription = trim((string)($search ?? '')) !== '' ? 'Menampilkan hasil pencarian untuk kata kunci “' . trim((string)$search) . '”.' : ($banner['subtitle'] ?? 'Informasi terbaru seputar kegiatan, prestasi, dan program di sekolah.');
+$newsDescription = trim((string)($search ?? '')) !== '' ? 'Menampilkan hasil pencarian untuk kata kunci “' . trim((string) $search) . '”.' : ($banner['subtitle'] ?? 'Informasi terbaru seputar kegiatan, prestasi, dan program di sekolah.');
 $categoryRows = [];
 foreach (($categories ?? []) as $cat) {
     if (is_array($cat)) {
         $name = (string)($cat['name'] ?? $cat['title'] ?? '');
         $count = (int)($cat['count'] ?? $cat['total'] ?? 0);
-    } else { $name = (string)$cat; $count = 0; }
-    if ($name !== '') $categoryRows[] = ['name' => $name, 'count' => $count];
+    } else {
+        $name = (string) $cat;
+        $count = 0;
+    }
+    if ($name !== '') {
+        $categoryRows[] = ['name' => $name, 'count' => $count];
+    }
 }
 $popularNews = is_array($recent_news ?? null) ? array_slice($recent_news, 0, 5) : array_slice($newsItems, 0, 5);
 ?>
 <?php
 $newsCanonical = base_url('news');
-$newsStructured = ['@context'=>'https://schema.org','@type'=>'CollectionPage','name'=>$newsTitle,'description'=>$newsDescription,'url'=>$newsCanonical,'isPartOf'=>['@type'=>'WebSite','name'=>$site_name ?? 'SekolahKu','url'=>base_url()]];
+$newsStructured = ['@context' => 'https://schema.org','@type' => 'CollectionPage','name' => $newsTitle,'description' => $newsDescription,'url' => $newsCanonical,'isPartOf' => ['@type' => 'WebSite','name' => $site_name ?? 'SekolahKu','url' => base_url()]];
 ?>
 <?= $this->include('themes/madya/layouts/header', ['page_title' => $newsTitle, 'page_description' => $newsDescription, 'canonical_url' => $newsCanonical, 'structured_data' => $newsStructured]) ?>
 <?= $this->include('themes/madya/components/page-header', ['eyebrow' => $banner['badge'] ?? 'Berita & Artikel', 'title' => $newsTitle, 'description' => $newsDescription, 'image' => $heroNewsImage, 'breadcrumbs' => [['label' => 'Berita']]]) ?>
@@ -28,16 +35,26 @@ $newsStructured = ['@context'=>'https://schema.org','@type'=>'CollectionPage','n
             <div class="news-list-toolbar">
                 <nav class="news-category-pills" aria-label="Kategori berita">
                     <a class="<?= empty($category) ? 'is-active' : '' ?>" href="<?= base_url('news') ?>" data-news-category="">Semua</a>
-                    <?php foreach ($categoryRows as $cat): ?><a class="<?= ($category ?? '') === $cat['name'] ? 'is-active' : '' ?>" href="<?= base_url('news?category=' . urlencode($cat['name'])) ?>" data-news-category="<?= esc($cat['name']) ?>"><?= esc($cat['name']) ?></a><?php endforeach; ?>
+                    <?php foreach ($categoryRows as $cat): ?>
+<a class="<?= ($category ?? '') === $cat['name'] ? 'is-active' : '' ?>" href="<?= base_url('news?category=' . urlencode($cat['name'])) ?>" data-news-category="<?= esc($cat['name']) ?>"><?= esc($cat['name']) ?></a>
+<?php endforeach; ?>
                 </nav>
                 <label class="news-sort"><span class="sr-only">Urutkan berita</span><select aria-label="Urutkan berita"><option>Terbaru</option><option>Terpopuler</option><option>A-Z</option></select><i data-lucide="chevron-down" aria-hidden="true"></i></label>
             </div>
-            <?php if ($search): ?><p class="search-summary">Menampilkan <?= count($newsItems) ?> hasil untuk <strong>“<?= esc($search) ?>”</strong></p><?php endif; ?>
+            <?php if ($search): ?>
+<p class="search-summary">Menampilkan <?= count($newsItems) ?> hasil untuk <strong>“<?= esc($search) ?>”</strong></p>
+<?php endif; ?>
             <div class="news-archive-list">
-                <?php foreach ($newsItems as $post): ?><?= $this->include('themes/madya/components/content/news-card', ['post' => $post]) ?><?php endforeach; ?>
-                <?php if (!$newsItems): ?><?= $this->include('themes/madya/components/ui/empty-state', ['message' => 'Tidak ada berita yang sesuai dengan pencarian Anda.']) ?><?php endif; ?>
+                <?php foreach ($newsItems as $post): ?>
+<?= $this->include('themes/madya/components/content/news-card', ['post' => $post]) ?>
+<?php endforeach; ?>
+                <?php if (!$newsItems): ?>
+<?= $this->include('themes/madya/components/ui/empty-state', ['message' => 'Tidak ada berita yang sesuai dengan pencarian Anda.']) ?>
+<?php endif; ?>
             </div>
-            <?php if (isset($pager)): ?><div class="news-pagination pagination" aria-label="Navigasi halaman berita"><?= $pager->links() ?></div><?php endif; ?>
+            <?php if (isset($pager)): ?>
+<div class="news-pagination pagination" aria-label="Navigasi halaman berita"><?= $pager->links() ?></div>
+<?php endif; ?>
         </div>
         <aside class="news-list-sidebar">
             <section class="news-side-card news-search-card">
@@ -46,8 +63,10 @@ $newsStructured = ['@context'=>'https://schema.org','@type'=>'CollectionPage','n
                     <label class="sr-only" for="news-search">Cari berita</label><input id="news-search" name="search" value="<?= esc($search ?? '') ?>" placeholder="Cari berita..."><button type="submit" aria-label="Cari berita"><i data-lucide="search" aria-hidden="true"></i></button>
                 </form>
             </section>
-            <?php if ($categoryRows): ?><section class="news-side-card"><h2>Kategori Berita</h2><div class="news-category-list"><?php foreach ($categoryRows as $cat): ?><a href="<?= base_url('news?category=' . urlencode($cat['name'])) ?>"><span><?= esc($cat['name']) ?></span><b><?= $cat['count'] ?></b></a><?php endforeach; ?><a href="<?= base_url('news') ?>"><span>Semua Kategori</span><span class="category-more-icon"><i data-lucide="arrow-right" aria-hidden="true"></i></span></a></div></section><?php endif; ?>
-            <?php if ($popularNews): ?><section class="news-side-card"><h2>Berita Populer</h2><div class="popular-news-list"><?php foreach ($popularNews as $i => $post): ?><a href="<?= base_url('news/' . rawurlencode((string)($post['slug'] ?? ''))) ?>"><b><?= str_pad((string)($i + 1), 2, '0', STR_PAD_LEFT) ?></b><span><strong><?= esc($post['title'] ?? 'Berita sekolah') ?></strong><small><?= esc($post['published_at'] ?? $post['created_at'] ?? '') ?></small></span></a><?php endforeach; ?><a class="side-card-more" href="<?= base_url('news') ?>">Lihat semua berita populer <i data-lucide="arrow-right" aria-hidden="true"></i></a></div></section><?php endif; ?>
+            <?php if ($categoryRows): ?><section class="news-side-card"><h2>Kategori Berita</h2><div class="news-category-list"><?php foreach ($categoryRows as $cat): ?><a href="<?= base_url('news?category=' . urlencode($cat['name'])) ?>"><span><?= esc($cat['name']) ?></span><b><?= $cat['count'] ?></b></a><?php endforeach; ?>
+            <?php ?><a href="<?= base_url('news') ?>"><span>Semua Kategori</span><span class="category-more-icon"><i data-lucide="arrow-right" aria-hidden="true"></i></span></a></div></section><?php endif; ?>
+            <?php if ($popularNews): ?><section class="news-side-card"><h2>Berita Populer</h2><div class="popular-news-list"><?php foreach ($popularNews as $i => $post): ?><a href="<?= base_url('news/' . rawurlencode((string)($post['slug'] ?? ''))) ?>"><b><?= str_pad((string)($i + 1), 2, '0', STR_PAD_LEFT) ?></b><span><strong><?= esc($post['title'] ?? 'Berita sekolah') ?></strong><small><?= esc($post['published_at'] ?? $post['created_at'] ?? '') ?></small></span></a><?php endforeach; ?>
+            <?php ?><a class="side-card-more" href="<?= base_url('news') ?>">Lihat semua berita populer <i data-lucide="arrow-right" aria-hidden="true"></i></a></div></section><?php endif; ?>
             <section class="news-newsletter-card faq-cta-card"><h2>Pertanyaan yang Sering Diajukan</h2><p>Temukan jawaban cepat mengenai informasi sekolah, layanan, dan kegiatan.</p><a class="button button-light" href="<?= base_url('/#faq') ?>">Buka FAQ <i data-lucide="arrow-right" aria-hidden="true"></i></a><div class="news-newsletter-art" aria-hidden="true"><i data-lucide="circle-help" aria-hidden="true"></i></div></section>
         </aside>
     </div>

@@ -24,7 +24,7 @@ if (!function_exists('theme_render_menu')) {
                 <?php endif;
             else:
                 if ($hasChildren): ?>
-                    <li data-nav-item data-nav-depth="<?= (int)$level ?>" data-open="false">
+                    <li data-nav-item data-nav-depth="<?= (int) $level ?>" data-open="false">
                         <button class="desktop-nav-trigger" type="button" data-nav-toggle aria-expanded="false" aria-haspopup="true" aria-controls="<?= esc($panelId) ?>">
                             <span><?= $title ?></span><span class="nav-chevron" aria-hidden="true"><i data-lucide="chevron-down" aria-hidden="true"></i></span>
                         </button>
@@ -39,7 +39,7 @@ if (!function_exists('theme_render_menu')) {
                         </div>
                     </li>
                 <?php else: ?>
-                    <li data-nav-item data-nav-depth="<?= (int)$level ?>" data-open="false" data-nav-leaf>
+                    <li data-nav-item data-nav-depth="<?= (int) $level ?>" data-open="false" data-nav-leaf>
                         <a class="desktop-nav-link" href="<?= esc($url) ?>"<?= $target ?><?= str_starts_with($url, "#") ? " data-spa-link" : "" ?>><?= $title ?></a>
                     </li>
                 <?php endif;

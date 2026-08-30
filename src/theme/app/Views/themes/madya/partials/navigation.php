@@ -13,28 +13,48 @@ $brandSocialIcon = static function (string $name): string {
 <div class="site-topbar">
     <div class="theme-container topbar-inner">
         <div class="topbar-contact">
-            <?php if (!empty($contact_address)): ?><span><i data-lucide="map-pin" aria-hidden="true"></i><?= esc($contact_address) ?></span><?php endif; ?>
-            <?php if (!empty($contact_phone)): ?><a href="tel:<?= esc($contact_phone) ?>"><i data-lucide="phone" aria-hidden="true"></i><?= esc($contact_phone) ?></a><?php endif; ?>
-            <?php if (!empty($contact_email)): ?><a href="mailto:<?= esc($contact_email) ?>"><i data-lucide="mail" aria-hidden="true"></i><?= esc($contact_email) ?></a><?php endif; ?>
+            <?php if (!empty($contact_address)): ?>
+<span><i data-lucide="map-pin" aria-hidden="true"></i><?= esc($contact_address) ?></span>
+<?php endif; ?>
+            <?php if (!empty($contact_phone)): ?>
+<a href="tel:<?= esc($contact_phone) ?>"><i data-lucide="phone" aria-hidden="true"></i><?= esc($contact_phone) ?></a>
+<?php endif; ?>
+            <?php if (!empty($contact_email)): ?>
+<a href="mailto:<?= esc($contact_email) ?>"><i data-lucide="mail" aria-hidden="true"></i><?= esc($contact_email) ?></a>
+<?php endif; ?>
         </div>
         <div class="topbar-links">
             <?php $utilityLinks = is_array($footer_links ?? null) ? $footer_links : (json_decode($footer_links ?? '[]', true) ?: []); ?>
-            <?php foreach (array_slice($utilityLinks, 0, 3) as $item): ?><a href="<?= esc($item['url'] ?? '#') ?>"><?= esc($item['label'] ?? $item['title'] ?? '') ?></a><?php endforeach; ?>
-            <?php if (!empty($social_facebook) && $social_facebook !== '#'): ?><a href="<?= esc($social_facebook) ?>" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><?= $brandSocialIcon('facebook') ?></a><?php endif; ?>
-            <?php if (!empty($social_instagram) && $social_instagram !== '#'): ?><a href="<?= esc($social_instagram) ?>" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><?= $brandSocialIcon('instagram') ?></a><?php endif; ?>
-            <?php if (!empty($social_youtube) && $social_youtube !== '#'): ?><a href="<?= esc($social_youtube) ?>" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><?= $brandSocialIcon('youtube') ?></a><?php endif; ?>
+            <?php foreach (array_slice($utilityLinks, 0, 3) as $item): ?>
+<a href="<?= esc($item['url'] ?? '#') ?>"><?= esc($item['label'] ?? $item['title'] ?? '') ?></a>
+<?php endforeach; ?>
+            <?php if (!empty($social_facebook) && $social_facebook !== '#'): ?>
+<a href="<?= esc($social_facebook) ?>" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><?= $brandSocialIcon('facebook') ?></a>
+<?php endif; ?>
+            <?php if (!empty($social_instagram) && $social_instagram !== '#'): ?>
+<a href="<?= esc($social_instagram) ?>" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><?= $brandSocialIcon('instagram') ?></a>
+<?php endif; ?>
+            <?php if (!empty($social_youtube) && $social_youtube !== '#'): ?>
+<a href="<?= esc($social_youtube) ?>" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><?= $brandSocialIcon('youtube') ?></a>
+<?php endif; ?>
         </div>
     </div>
 </div>
 <header class="site-header" data-site-nav>
     <div class="theme-container header-inner">
         <a class="brand" href="<?= base_url() ?>" aria-label="Beranda <?= esc($site_name ?? 'SekolahKu') ?>">
-            <span class="brand-mark" aria-hidden="true"><?php if (!empty($site_logo_url)): ?><img src="<?= esc($site_logo_url) ?>" alt="" width="96" height="96" loading="eager" decoding="async"><?php else: ?><?= $this->include('themes/madya/components/ui/icon', ['name' => $site_logo_icon ?? 'graduation-cap', 'class' => 'brand-icon']) ?><?php endif; ?></span>
+            <span class="brand-mark" aria-hidden="true"><?php if (!empty($site_logo_url)): ?>
+<img src="<?= esc($site_logo_url) ?>" alt="" width="96" height="96" loading="eager" decoding="async">
+<?php else: ?>
+<?= $this->include('themes/madya/components/ui/icon', ['name' => $site_logo_icon ?? 'graduation-cap', 'class' => 'brand-icon']) ?>
+<?php endif; ?></span>
             <span class="brand-copy"><strong><?= esc($site_logo_text ?? $site_name ?? 'SekolahKu') ?></strong><small><?= esc($site_tagline ?? 'Situs resmi sekolah') ?></small></span>
         </a>
         <nav class="desktop-nav-wrap" aria-label="Navigasi utama"><ul class="desktop-nav"><?php theme_render_menu($tree); ?></ul></nav>
         <button class="header-search" type="button" data-search-open aria-haspopup="dialog" aria-controls="site-search-dialog" aria-label="Buka pencarian berita"><i data-lucide="search" aria-hidden="true"></i></button>
-        <?php if (!empty($spmb_url)): ?><a class="nav-cta" href="<?= esc($spmb_url) ?>" target="_blank" rel="noopener noreferrer"><span>SPMB Online</span><i data-lucide="arrow-up-right" aria-hidden="true"></i></a><?php endif; ?>
+        <?php if (!empty($spmb_url)): ?>
+<a class="nav-cta" href="<?= esc($spmb_url) ?>" target="_blank" rel="noopener noreferrer"><span>SPMB Online</span><i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
+<?php endif; ?>
         <button class="mobile-toggle" type="button" data-mobile-menu aria-expanded="false" aria-controls="mobile-navigation"><span class="menu-icon" aria-hidden="true"><span></span><span></span></span><span class="sr-only">Buka menu</span></button>
     </div>
 </header>
@@ -47,14 +67,20 @@ $brandSocialIcon = static function (string $name): string {
                 <p>Temukan informasi sekolah berdasarkan kebutuhan Anda.</p>
             </div>
             <?php theme_render_menu($tree, true); ?>
-            <?php if (!empty($spmb_url)): ?><a class="mobile-menu-cta" href="<?= esc($spmb_url) ?>" target="_blank" rel="noopener noreferrer"><span>SPMB Online</span><i data-lucide="arrow-up-right" aria-hidden="true"></i></a><?php endif; ?>
+            <?php if (!empty($spmb_url)): ?>
+<a class="mobile-menu-cta" href="<?= esc($spmb_url) ?>" target="_blank" rel="noopener noreferrer"><span>SPMB Online</span><i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
+<?php endif; ?>
         </div>
         <?php
         $flatten = function (array $items) use (&$flatten): iterable {
             foreach ($items as $item) {
-                if (empty($item['children'])) continue;
+                if (empty($item['children'])) {
+                    continue;
+                }
                 $key = (string)($item['id'] ?? '');
-                if ($key !== '') yield $item;
+                if ($key !== '') {
+                    yield $item;
+                }
                 yield from $flatten($item['children']);
             }
         };
