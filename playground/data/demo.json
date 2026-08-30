@@ -51,7 +51,7 @@
   "about": {
     "image": "/themes/madya/assets/generated/spmb-students.jpg",
     "content_title": "Mewujudkan Pendidikan Berkualitas untuk Masa Depan",
-    "content_1": "SekolahKu adalah institusi pendidikan yang berdedikasi memberikan pengalaman belajar terbaik. Dengan kurikulum terkini dan tenaga pengajar profesional, kami siap membentuk karakter dan kompetensi siswa.",
+    "content_1": "SMA Negeri 1 Nusantara adalah institusi pendidikan yang berdedikasi memberikan pengalaman belajar terbaik. Dengan kurikulum terkini dan tenaga pengajar profesional, kami siap membentuk karakter dan kompetensi siswa.",
     "content_2": "Kami percaya setiap anak memiliki potensi unik. Melalui pendekatan holistik, kami mendorong siswa tumbuh secara akademis, sosial, dan spiritual.",
     "accreditation": "A",
     "accreditation_label": "Standar Nasional",
@@ -61,7 +61,7 @@
       "Lulusan 100% Terserap",
       "Lab & Perpustakaan Digital"
     ],
-    "hero_image": "/themes/madya/assets/generated/hero-campus-new.jpg"
+    "hero_image": "/themes/madya/assets/generated/hero-image.png"
   },
   "programs": [
     {
@@ -380,7 +380,7 @@
   ],
   "faq": [
     {
-      "question": "Bagaimana cara mendaftar di SekolahKu?",
+      "question": "Bagaimana cara mendaftar di SMA Negeri 1 Nusantara?",
       "answer": "Informasi pendaftaran dan jadwal seleksi tersedia melalui kanal resmi sekolah.",
       "category": "Pendaftaran",
       "show": 1,
@@ -396,7 +396,7 @@
       "id": 2
     },
     {
-      "question": "Apakah SekolahKu menyediakan beasiswa?",
+      "question": "Apakah SMA Negeri 1 Nusantara menyediakan beasiswa?",
       "answer": "Informasi beasiswa mengikuti kebijakan dan pengumuman resmi sekolah.",
       "category": "Kesiswaan",
       "show": 1,
@@ -404,7 +404,7 @@
       "id": 3
     },
     {
-      "question": "Bagaimana sistem pembelajaran di SekolahKu?",
+      "question": "Bagaimana sistem pembelajaran di SMA Negeri 1 Nusantara?",
       "answer": "Pembelajaran memadukan penguatan akademik, karakter, proyek, kegiatan, dan pendampingan.",
       "category": "Fasilitas",
       "show": 1,
@@ -412,7 +412,7 @@
       "id": 4
     },
     {
-      "question": "Bagaimana cara menghubungi SekolahKu?",
+      "question": "Bagaimana cara menghubungi SMA Negeri 1 Nusantara?",
       "answer": "Gunakan halaman kontak untuk alamat, telepon, email, dan formulir resmi.",
       "category": "Lainnya",
       "show": 1,
@@ -549,7 +549,7 @@
   "site_logo_icon": "graduation-cap",
   "spmb_url": "#documents",
   "footer_description": "Membentuk generasi yang berilmu, berakhlak, dan berprestasi untuk masa depan yang lebih baik.",
-  "footer_copyright": "© 2025 SMA Negeri 1 Nusantara. All rights reserved.",
+  "footer_copyright": "© 2026 SMA Negeri 1 Nusantara. All rights reserved.",
   "footer_services": [
     {
       "label": "Program Unggulan",
@@ -634,18 +634,18 @@
   "site_url": "https://sekolahku.sch.id",
   "meta_author": "SekolahKu",
   "meta_keywords": "sekolah, pendidikan, kurikulum merdeka, sekolah unggulan, SPMB",
-  "meta_description": "SekolahKu adalah institusi pendidikan unggulan yang berkomitmen mencetak generasi cerdas, berkarakter, dan berprestasi dengan kurikulum Merdeka.",
+  "meta_description": "SMA Negeri 1 Nusantara adalah institusi pendidikan unggulan yang berkomitmen mencetak generasi cerdas, berkarakter, dan berprestasi dengan kurikulum Merdeka.",
   "theme_color": "default",
   "section_settings": {
     "hero": {
-      "title": "Selamat Datang di SekolahKu",
+      "title": "Selamat Datang di SMA Negeri 1 Nusantara",
       "subtitle": "Mewujudkan Generasi Cerdas, Berkarakter, dan Berdaya Saing Global",
       "icon": "fa-school",
       "show": true
     },
     "profile": {
       "title": "Profil Sekolah",
-      "subtitle": "Mengenal lebih dekat visi, misi, dan sejarah SekolahKu",
+      "subtitle": "Mengenal lebih dekat visi, misi, dan sejarah SMA Negeri 1 Nusantara",
       "icon": "fa-building-columns",
       "show": true
     },
@@ -669,19 +669,19 @@
     },
     "achievements": {
       "title": "Prestasi Siswa",
-      "subtitle": "Capaian membanggakan yang telah diraih siswa/i SekolahKu",
+      "subtitle": "Capaian membanggakan yang telah diraih siswa/i SMA Negeri 1 Nusantara",
       "icon": "fa-trophy",
       "show": true
     },
     "testimonials": {
       "title": "Testimoni",
-      "subtitle": "Apa kata mereka tentang SekolahKu?",
+      "subtitle": "Apa kata mereka tentang SMA Negeri 1 Nusantara?",
       "icon": "fa-comment",
       "show": true
     },
     "news": {
       "title": "Berita & Artikel",
-      "subtitle": "Informasi terkini seputar SekolahKu",
+      "subtitle": "Informasi terkini seputar SMA Negeri 1 Nusantara",
       "icon": "fa-newspaper",
       "show": true
     },
@@ -720,12 +720,12 @@
     "news": {
       "badge": "Berita & Artikel",
       "title": "Baca Berita Terbaru",
-      "subtitle": "Informasi terkini seputar kegiatan dan prestasi di lingkungan SekolahKu"
+      "subtitle": "Informasi terkini seputar kegiatan dan prestasi di lingkungan SMA Negeri 1 Nusantara"
     },
     "single_post": {
       "badge": "Detail Berita",
       "title": "Baca Berita",
-      "subtitle": "Informasi lengkap seputar kegiatan dan prestasi di lingkungan SekolahKu"
+      "subtitle": "Informasi lengkap seputar kegiatan dan prestasi di lingkungan SMA Negeri 1 Nusantara"
     },
     "pages": {
       "badge": "Halaman",

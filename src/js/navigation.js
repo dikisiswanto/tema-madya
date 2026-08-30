@@ -17,7 +17,10 @@ export function initNavigation() {
     root.addEventListener('click', handleNavigationClick);
     root.addEventListener('keydown', handleNavigationKeydown);
     root.addEventListener('focusin', handleNavigationFocus);
-    root.addEventListener('pointerleave', () => scheduleDesktopClose());
+    root.addEventListener('pointerleave', (event) => {
+        if (event.relatedTarget instanceof Node && root.contains(event.relatedTarget)) return;
+        scheduleDesktopClose();
+    });
     mobileNav?.addEventListener('click', handleNavigationClick);
     mobileNav?.addEventListener('keydown', handleMobileKeydown);
 
@@ -43,6 +46,10 @@ export function initNavigation() {
     // Use delegated pointer events so recursively generated menu items behave identically.
     // This is important for playground hydration and for arbitrarily deep CMS menu trees.
     root.addEventListener('pointerover', handleNavigationPointerOver);
+    // Do not close branches from item-level pointerout. Nested flyouts are
+    // viewport-positioned, so the next visual target is not necessarily a DOM
+    // descendant of the item that emitted pointerout. The navigation root is
+    // the only reliable boundary for pointer-driven closing.
     root.addEventListener('pointerout', handleNavigationPointerOut);
 
     syncMobileAccessibility();
@@ -135,16 +142,57 @@ function handleNavigationPointerOver(event) {
     if (!window.matchMedia(DESKTOP_QUERY).matches) return;
     const item = event.target.closest('[data-nav-item]');
     if (!item || !rootContainsTarget(event, item)) return;
+
+    // Any genuine pointer entry inside the navigation invalidates a pending
+    // root-close. This is especially important for fixed nested flyouts: a
+    // stale pointerleave can occur while the browser retargets the pointer
+    // between two viewport-positioned panels. A leaf must therefore cancel the
+    // pending close just like a submenu trigger does.
+    clearTimeout(closeTimer);
+
     if (event.relatedTarget instanceof Node && item.contains(event.relatedTarget)) return;
-    scheduleDesktopOpen(item);
+
+    // Hover state is path-based, not "keep everything open until nav leave".
+    // Preserve the currently hovered item's parent/grandparent chain, while
+    // immediately pruning stale descendants and sibling branches. This means a
+    // level-4 flyout disappears when the pointer moves back to level 3, but
+    // level 1/2 ancestors remain open for as long as the pointer is still
+    // travelling inside that branch of the navigation.
+    reconcileDesktopHoverPath(item);
+    if (item.querySelector(':scope > [data-nav-toggle]')) scheduleDesktopOpen(item);
+    else clearTimeout(openTimer);
+}
+
+function reconcileDesktopHoverPath(item) {
+    const keep = new Set();
+    let cursor = item;
+    while (cursor?.matches?.('[data-nav-item]')) {
+        keep.add(cursor);
+        cursor = cursor.parentElement?.closest('[data-nav-item]') || null;
+    }
+
+    // Close from deepest to shallowest. Closing an ancestor also closes all of
+    // its descendants, so depth ordering avoids redundant transitions and,
+    // crucially, never touches ancestors in the active hover path.
+    const openItems = [...document.querySelectorAll('[data-site-nav] [data-nav-item][data-open="true"]')]
+        .sort((a, b) => Number(b.dataset.navDepth || 0) - Number(a.dataset.navDepth || 0));
+
+    openItems.forEach((openItem) => {
+        if (!keep.has(openItem)) closeDesktopBranch(openItem);
+    });
 }
 
 function handleNavigationPointerOut(event) {
     if (!window.matchMedia(DESKTOP_QUERY).matches) return;
-    const item = event.target.closest('[data-nav-item]');
-    if (!item || !rootContainsTarget(event, item)) return;
-    if (event.relatedTarget instanceof Node && item.contains(event.relatedTarget)) return;
-    scheduleDesktopClose(item);
+    // A flyout may be visually outside its parent item while remaining inside
+    // the navigation root. Closing here causes the classic deep-tree
+    // disappearance when moving from level 4/5 back to a grandparent or leaf.
+    // Let the root-level pointerleave handler decide when the whole menu is
+    // actually abandoned.
+    if (event.relatedTarget instanceof Node && event.currentTarget.contains(event.relatedTarget)) {
+        clearTimeout(closeTimer);
+        return;
+    }
 }
 
 function rootContainsTarget(event, item) {
@@ -260,6 +308,10 @@ function handleNavigationFocus(event) {
 function scheduleDesktopOpen(item, immediate = false) {
     clearTimeout(openTimer);
     clearTimeout(closeTimer);
+    // Leaf items are part of the hover path so they can prune stale sibling
+    // branches, but they are never submenu triggers and must never open a
+    // navigation panel of their own.
+    if (!item.querySelector(':scope > [data-nav-toggle]')) return;
     if (item.dataset.open === 'true') return;
     openTimer = setTimeout(() => openDesktopItem(item), immediate ? 0 : OPEN_DELAY);
 }
@@ -268,7 +320,15 @@ function scheduleDesktopClose(item = null) {
     clearTimeout(openTimer);
     clearTimeout(closeTimer);
     closeTimer = setTimeout(() => {
+        const root = document.querySelector('[data-site-nav]');
+        // The root is the only boundary that closes the complete desktop nav.
+        // Do not honor a stale timer if the pointer has already returned to any
+        // navigation item/panel. Fixed nested flyouts can briefly emit a
+        // pointerleave while their hit-test target is being retargeted.
+        if (root?.matches(':hover')) return;
         if (item && (item.matches(':hover') || item.contains(document.activeElement))) return;
+        const hoveredNavItem = document.querySelector('[data-site-nav] [data-nav-item]:hover');
+        if (hoveredNavItem) return;
         closeDesktopItems();
     }, CLOSE_DELAY);
 }

@@ -1243,7 +1243,6 @@
     }
     .article-nav a {
         flex: 1;
-        padding: 1rem 0;
     }
     .article-nav-next {
         text-align: right;
@@ -7389,8 +7388,12 @@
         right: auto;
         width: min(24rem, calc(100vw - 2rem));
         max-width: calc(100vw - 2rem);
-        max-height: calc(100vh - 2rem);
-        overflow: auto;
+        /* Deep flyouts must size to their content. A forced viewport max-height
+           created an unnecessary scrollbar at level 4+ even for short trees.
+           positionPanel() keeps the panel anchored to the viewport; do not turn
+           normal nested menus into scroll containers. */
+        max-height: none;
+        overflow: visible;
         transform: none !important;
         opacity: 0;
         visibility: hidden;
@@ -7398,6 +7401,22 @@
         transition:
             opacity 150ms ease,
             visibility 0s linear 150ms;
+    }
+    /* Keep a pointer-safe corridor across the small viewport gap between a
+       level 2+ trigger and its fixed flyout. The flyout remains visually
+       separated, but the transparent bridge is still a descendant of the
+       nav item, so moving diagonally never triggers an accidental close. */
+    .nav-panel-list .nav-panel::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: -0.75rem;
+        width: 0.75rem;
+    }
+    .nav-panel-list .nav-panel[data-placement="left"]::before {
+        left: auto;
+        right: -0.75rem;
     }
     .nav-panel-list > li[data-open="true"] > .nav-panel {
         @apply visible pointer-events-auto opacity-100;
@@ -10646,7 +10665,7 @@
         @apply mt-0;
     }
     .profile-main .static-content-intro > p {
-        @apply max-w-[68ch] text-[.95rem] leading-7 text-muted;
+        @apply max-w-none text-[.95rem] leading-7 text-muted;
     }
     .profile-main .static-content-intro > p + p {
         @apply mt-3;
@@ -13199,7 +13218,9 @@
         line-height: 1.05;
     }
     .profile-main .static-content-intro > p {
-        max-width: 72ch;
+        width: 100%;
+        max-width: none;
+        margin-right: 0;
         font-family: var(--font-sans);
         font-size: 1rem;
         line-height: 1.8;

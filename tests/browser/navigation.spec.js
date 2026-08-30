@@ -88,6 +88,29 @@ test('deep mobile navigation drills down four levels and restores focus', async 
 });
 
 
+
+test('desktop sibling below submenu keeps the parent panel open', async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto('/');
+
+    const rootTrigger = page.locator('[data-nav-toggle]', { hasText: 'Profil' }).first();
+    await rootTrigger.hover();
+    const rootPanel = page.locator(`#${await rootTrigger.getAttribute('aria-controls')}`);
+    await expect(rootPanel).toBeVisible();
+
+    const submenuTrigger = rootPanel.locator('[data-nav-toggle]', { hasText: 'Sejarah' });
+    await submenuTrigger.hover();
+    await expect(submenuTrigger).toHaveAttribute('aria-expanded', 'true');
+
+    // Moving to the sibling below must close only Sejarah's branch, not Profil's
+    // root panel. This is the regression that previously made the desktop menu
+    // appear to disappear while traversing level-2+ items.
+    const sibling = rootPanel.locator('[data-nav-item]', { hasText: 'Visi & Misi' }).first();
+    await sibling.hover();
+    await expect(rootPanel).toBeVisible();
+    await expect(rootTrigger).toHaveAttribute('aria-expanded', 'true');
+});
+
 test('desktop deep flyouts stay inside the viewport at level 2+', async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 900 });
     await page.goto('/');
@@ -138,6 +161,74 @@ test('desktop deep levels share the same viewport-fixed behavior', async ({ page
     }
 });
 
+
+
+
+test('desktop deep-tree traversal keeps hover branch alive across leaf and grandparent', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto('/');
+
+    const profil = page.locator('[data-nav-toggle]', { hasText: 'Profil' }).first();
+    await profil.hover();
+    const profilePanel = page.locator(`#${await profil.getAttribute('aria-controls')}`);
+
+    const sejarah = profilePanel.locator('[data-nav-toggle]', { hasText: 'Sejarah' });
+    await sejarah.hover();
+    const sejarahPanel = page.locator(`#${await sejarah.getAttribute('aria-controls')}`);
+
+    const kepemimpinan = sejarahPanel.locator('[data-nav-toggle]', { hasText: 'Kepemimpinan' });
+    await kepemimpinan.hover();
+    const leadershipPanel = page.locator(`#${await kepemimpinan.getAttribute('aria-controls')}`);
+
+    await expect(page.getByRole('link', { name: 'Kepala Sekolah' })).toBeVisible();
+
+    // Move to a leaf at the deepest level, then back through its ancestors.
+    await page.getByRole('link', { name: 'Kepala Sekolah' }).hover();
+    await expect(leadershipPanel).toBeVisible();
+    await sejarah.hover();
+    await expect(profilePanel).toBeVisible();
+    await expect(profil).toHaveAttribute('aria-expanded', 'true');
+    // Returning to level 2 must prune the stale deeper branch, while keeping
+    // the level-1/root ancestry alive.
+    await expect(kepemimpinan).toHaveAttribute('aria-expanded', 'false');
+    await expect(leadershipPanel).toBeHidden();
+
+    // A leaf sibling closes the previously active child branch, but must not
+    // collapse its parent/grandparent branch.
+    await profilePanel.getByRole('link', { name: 'Visi & Misi' }).hover();
+    await expect(profilePanel).toBeVisible();
+    await expect(profil).toHaveAttribute('aria-expanded', 'true');
+    await expect(sejarah).toHaveAttribute('aria-expanded', 'false');
+    await expect(sejarahPanel).toBeHidden();
+});
+
+test('deep desktop flyouts do not become internal scroll containers', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto('/');
+
+    for (const label of ['Profil', 'Sejarah', 'Kepemimpinan']) {
+        const trigger = page.locator('[data-nav-toggle]', { hasText: label }).last();
+        await trigger.hover();
+        await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    }
+
+    const panels = page.locator('[data-nav-item][data-open="true"] > .nav-panel').nth(1);
+    await expect(panels).toHaveCSS('overflow', 'visible');
+    await expect(panels).toHaveCSS('max-height', 'none');
+});
+
+test('profile paragraphs follow the wrapper width on desktop', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto('/#profile');
+    const intro = page.locator('.profile-main .static-content-intro').first();
+    const paragraph = intro.locator('> p').first();
+    await expect(paragraph).toHaveCSS('max-width', 'none');
+    const introBox = await intro.boundingBox();
+    const paragraphBox = await paragraph.boundingBox();
+    expect(introBox).not.toBeNull();
+    expect(paragraphBox).not.toBeNull();
+    expect(Math.abs(paragraphBox.width - introBox.width)).toBeLessThanOrEqual(2);
+});
 
 test('static page uses the canonical rich-text renderer', async ({ page }) => {
     await page.goto('/pages/sejarah-sekolah');

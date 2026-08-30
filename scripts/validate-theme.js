@@ -67,7 +67,7 @@ async function walk(dir) {
 }
 await walk(themeRoot);
 
-const viewIncludePattern = /(?:->(?:include|renderSection)|view\s*\()\s*\(?'([^'"\)]+)'/g;
+const viewIncludePattern = /(?:->(?:include|renderSection)|view\s*\()\s*\(?'([^'")]+)'/g;
 for (const file of phpFiles) {
     const source = await readFile(file, 'utf8');
     for (const match of source.matchAll(viewIncludePattern)) {
