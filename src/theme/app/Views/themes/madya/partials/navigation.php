@@ -1,5 +1,6 @@
 <?php
 helper('menu');
+$this->include('themes/madya/partials/navigation/menu');
 $tree = $menu_tree ?? get_menu_tree($section_settings ?? null);
 $brandSocialIcon = static function (string $name): string {
     $paths = [
