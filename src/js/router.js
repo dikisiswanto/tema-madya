@@ -28,6 +28,13 @@ const sectionRoutes = new Set([
 let initialLoad = true;
 
 export function initRouter() {
+    // The CMS renders public routes server-side. Activate the SPA router only
+    // when the standalone/playground renderer provides its SPA content shell.
+    // The shared bundle can therefore power the preview without hijacking
+    // native CMS URLs such as /news and /downloads.
+    const shell = document.querySelector('[data-spa-content]');
+    if (!shell) return;
+
     window.addEventListener('hashchange', renderCurrentRoute);
     window.addEventListener('popstate', renderCurrentRoute);
     document.addEventListener('click', handleNativeNavigation);
@@ -126,6 +133,13 @@ function normalizePath(pathname) {
 }
 
 function handleNativeNavigation(event) {
+    // The CMS renders /news, /downloads, /contact, and /pages/* server-side.
+    // Only the static/playground renderer owns those routes client-side.
+    // Keeping this guard prevents the theme bundle from swallowing native CMS
+    // navigation while still allowing the standalone SPA test harness to use
+    // its client-side route renderer.
+    if (!document.querySelector('[data-spa-content]')) return;
+
     const link = event.target.closest('a[href]');
     if (
         !link ||
