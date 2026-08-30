@@ -2,7 +2,7 @@
 $pageMetaTitle = trim((string) ($page['meta_title'] ?? $page['title'] ?? 'Halaman'));
 $pageMetaDescription = trim((string) ($page['meta_description'] ?? $page['excerpt'] ?? $site_description ?? ''));
 $pageSlug = trim((string) ($page['slug'] ?? ''), '/');
-$pageCanonical = base_url('pages/' . rawurlencode($pageSlug));
+$pageCanonical = base_url(rawurlencode($pageSlug));
 $structuredPage = [
     '@context' => 'https://schema.org',
     '@type' => 'WebPage',
@@ -23,11 +23,7 @@ if (is_array($page_banners ?? null)) {
     $banner = $page_banners[$page['slug'] ?? ''] ?? $page_banners['page'] ?? '';
 }
 $banner = $banner ?: ($page['image'] ?? '');
-$relatedDocuments = is_array($downloads ?? null) ? $downloads : [];
-if (!$relatedDocuments && class_exists('App\\Models\\DownloadModel')) {
-    try { $relatedDocuments = (new \App\Models\DownloadModel())->getVisible(); } catch (\Throwable $e) { $relatedDocuments = []; }
-}
-$relatedDocuments = array_slice($relatedDocuments, 0, 3);
+$relatedDocuments = is_array($downloads ?? null) ? array_slice($downloads, 0, 3) : [];
 ?>
 <?= $this->include('themes/madya/components/page-header', ['eyebrow' => '', 'title' => $pageTitle, 'description' => $pageExcerpt, 'image' => $banner, 'breadcrumbs' => [['label' => $pageTitle]]]) ?>
 <section class="section static-page-section">
@@ -47,7 +43,7 @@ $relatedDocuments = array_slice($relatedDocuments, 0, 3);
                 <h2>Halaman Lainnya</h2>
                 <nav class="static-sidebar-links" aria-label="Halaman lainnya">
                     <?php foreach ($all_pages as $item): if (($item['id'] ?? null) == ($page['id'] ?? null)) continue; ?>
-                        <a href="<?= base_url('pages/' . rawurlencode((string)($item['slug'] ?? ''))) ?>"><i data-lucide="file-text" aria-hidden="true"></i><span><?= esc($item['title'] ?? '') ?></span></a>
+                        <a href="<?= base_url(rawurlencode((string)($item['slug'] ?? ''))) ?>"><i data-lucide="file-text" aria-hidden="true"></i><span><?= esc($item['title'] ?? '') ?></span></a>
                     <?php endforeach; ?>
                 </nav>
             </section>

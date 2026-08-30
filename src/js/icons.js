@@ -178,10 +178,10 @@ function fontAwesomeMarkup(name, className = '', color = '') {
 export function iconMarkup(name, className = '', color = '') {
     if (isFontAwesomeIcon(name))
         return fontAwesomeMarkup(name, className, color);
-    const key = aliases[name] || name || 'sparkles';
+    const key = aliases[name] || name || 'graduation-cap';
     if (!paths[key] && /^[a-z0-9-]+$/i.test(String(name || '')))
         return fontAwesomeMarkup(`fas fa-${name}`, className, color);
-    const inner = paths[key] || paths.sparkles;
+    const inner = paths[key] || paths['graduation-cap'];
     return `<svg class="icon icon-tabler ${className}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${inner}</svg>`;
 }
 
@@ -204,7 +204,7 @@ export function initIcons(root = document) {
             'class',
             `icon icon-tabler ${host.className || ''}`.trim(),
         );
-        const name = host.getAttribute('data-lucide') || 'sparkles';
+        const name = host.getAttribute('data-lucide') || 'graduation-cap';
         const key = aliases[name] || name;
         if (!paths[key] && /^[a-z0-9-]+$/i.test(name)) {
             const fallback = document.createElement('i');
@@ -216,7 +216,7 @@ export function initIcons(root = document) {
             host.replaceWith(fallback);
             return;
         }
-        svg.innerHTML = paths[key] || paths.sparkles;
+        svg.innerHTML = paths[key] || paths['graduation-cap'];
         host.replaceWith(svg);
     });
 }

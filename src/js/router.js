@@ -28,16 +28,16 @@ const sectionRoutes = new Set([
 let initialLoad = true;
 
 export function initRouter() {
-    // The CMS renders public routes server-side. Activate the SPA router only
-    // when the standalone/playground renderer provides its SPA content shell.
-    // The shared bundle can therefore power the preview without hijacking
-    // native CMS URLs such as /news and /downloads.
-    const shell = document.querySelector('[data-spa-content]');
+    const shell = document.querySelector(
+        '[data-spa-content][data-spa-runtime="standalone"], [data-spa-content][data-spa-runtime="cms-home"]',
+    );
     if (!shell) return;
 
     window.addEventListener('hashchange', renderCurrentRoute);
     window.addEventListener('popstate', renderCurrentRoute);
-    document.addEventListener('click', handleNativeNavigation);
+    if (shell.dataset.spaRuntime === 'standalone') {
+        document.addEventListener('click', handleNativeNavigation);
+    }
     renderCurrentRoute();
     initialLoad = false;
 }
@@ -50,10 +50,52 @@ function renderCurrentRouteNow() {
     const shell = document.querySelector('[data-spa-content]');
     if (!shell) return;
 
+    const runtime = shell.dataset.spaRuntime || 'standalone';
     shell.classList.remove('spa-changing');
     void shell.offsetWidth;
 
     const path = normalizePath(window.location.pathname);
+
+    // CMS theme: only the homepage shell is enhanced. Every URL-backed page
+    // remains an ordinary CMS/CI4 request and must never be rendered by this
+    // router. This is the critical MPA/SPA boundary.
+    if (runtime === 'cms-home') {
+        if (path !== '/') return;
+        const route = normalizeRoute(window.location.hash);
+        if (!route) {
+            if (initialLoad) {
+                setRouteState('home');
+                return;
+            }
+            renderHome(getState(), shell);
+            renderFooter(getState());
+            initIcons(shell);
+            updateDocumentMeta(getState(), 'home');
+            setRouteState('home');
+            return;
+        }
+        if (!sectionRoutes.has(route)) {
+            history.replaceState({}, '', '/');
+            renderHome(getState(), shell);
+            renderFooter(getState());
+            initIcons(shell);
+            updateDocumentMeta(getState(), 'home');
+            setRouteState('home');
+            return;
+        }
+        renderSection(route, getState(), shell);
+        renderFooter(getState());
+        initIcons(shell);
+        updateDocumentMeta(getState(), route);
+        setRouteState(route);
+        shell.classList.add('spa-changing');
+        focusMain();
+        scrollTop();
+        return;
+    }
+
+    // Standalone/playground is allowed to simulate native CMS routes with the
+    // demo dataset. This branch is intentionally unreachable on CMS pages.
     if (path === '/news') {
         renderNews(getState(), shell);
         renderFooter(getState());
@@ -122,7 +164,7 @@ function renderCurrentRouteNow() {
     initIcons(shell);
     updateDocumentMeta(getState(), route);
     setRouteState(route);
-    document.querySelector('[data-spa-content]')?.classList.add('spa-changing');
+    shell.classList.add('spa-changing');
     focusMain();
     scrollTop();
 }
@@ -133,13 +175,10 @@ function normalizePath(pathname) {
 }
 
 function handleNativeNavigation(event) {
-    // The CMS renders /news, /downloads, /contact, and /pages/* server-side.
-    // Only the static/playground renderer owns those routes client-side.
-    // Keeping this guard prevents the theme bundle from swallowing native CMS
-    // navigation while still allowing the standalone SPA test harness to use
-    // its client-side route renderer.
-    if (!document.querySelector('[data-spa-content]')) return;
-
+    const shell = document.querySelector(
+        '[data-spa-content][data-spa-runtime="standalone"]',
+    );
+    if (!shell) return;
     const link = event.target.closest('a[href]');
     if (
         !link ||

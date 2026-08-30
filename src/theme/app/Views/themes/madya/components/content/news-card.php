@@ -1,11 +1,9 @@
 <?php $featured = !empty($featured); ?>
-<?php $fallbackImage = (string)($fallback_image ?? base_url('themes/madya/assets/generated/hero-image.jpg')); ?>
-<?php $imageUrl = trim((string)($post['image'] ?? '')) !== '' ? (string)$post['image'] : $fallbackImage; ?>
 <?php $href = base_url('news/' . rawurlencode((string)($post['slug'] ?? ''))); ?>
 <article class="news-card<?= $featured ? ' news-card-featured' : '' ?>">
-    <?php if ($imageUrl !== ''): ?>
+    <?php if (!empty($post['image'])): ?>
         <a class="news-card-media" href="<?= esc($href) ?>" aria-label="Baca <?= esc($post['title'] ?? 'berita') ?>">
-            <img src="<?= esc($imageUrl) ?>" width="<?= esc($post['image_width'] ?? 1200) ?>" height="<?= esc($post['image_height'] ?? 800) ?>" alt="<?= esc($post['title'] ?? 'Berita sekolah') ?>" loading="<?= $featured ? 'eager' : 'lazy' ?>" decoding="async">
+            <img src="<?= esc($post['image']) ?>" width="<?= esc($post['image_width'] ?? 1200) ?>" height="<?= esc($post['image_height'] ?? 800) ?>" alt="<?= esc($post['title'] ?? 'Berita sekolah') ?>" loading="<?= $featured ? 'eager' : 'lazy' ?>" decoding="async">
             <?php if (!empty($post['category'])): ?>
 <span class="news-card-category"><?= esc($post['category']) ?></span>
 <?php endif; ?>

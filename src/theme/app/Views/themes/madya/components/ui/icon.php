@@ -1,5 +1,5 @@
 <?php
-$name = trim((string) ($name ?? 'sparkles'));
+$name = trim((string) ($name ?? 'graduation-cap'));
 $class = trim((string) ($class ?? 'theme-icon'));
 $color = trim((string) ($color ?? ''));
 

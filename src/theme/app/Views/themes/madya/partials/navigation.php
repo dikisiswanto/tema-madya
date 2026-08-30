@@ -3,14 +3,13 @@ helper('menu');
 $this->include('themes/madya/partials/navigation/menu');
 $tree = $menu_tree ?? get_menu_tree($section_settings ?? null);
 $brandSocialIcon = static function (string $name): string {
-    $paths = [
-        'facebook' => '<path d="M15 2h3V0h-3c-3.31 0-6 2.69-6 6v3H6v3h3v8h3v-8h3l1-3h-4V6c0-1.1.9-2 2-2z"/>',
-        'instagram' => '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>',
-        'youtube' => '<path d="M21.58 7.19a2.75 2.75 0 0 0-1.93-1.95C17.95 4.75 12 4.75 12 4.75s-5.95 0-7.65.49a2.75 2.75 0 0 0-1.93 1.95A28.7 28.7 0 0 0 1.95 12a28.7 28.7 0 0 0 .47 4.81 2.75 2.75 0 0 0 1.93 1.95c1.7.49 7.65.49 7.65.49s5.95 0 7.65-.49a2.75 2.75 0 0 0 1.93-1.95A28.7 28.7 0 0 0 22.05 12a28.7 28.7 0 0 0-.47-4.81Z"/><path d="m10 15.25 5-3.25-5-3.25v6.5Z" fill="currentColor" stroke="none"/>',
+    $classes = [
+        'facebook' => 'fab fa-facebook-f',
+        'instagram' => 'fab fa-instagram',
+        'youtube' => 'fab fa-youtube',
     ];
-    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' . ($paths[$name] ?? '') . '</svg>';
-};
-?>
+    return '<i class="' . esc($classes[$name] ?? 'fas fa-globe') . '" aria-hidden="true"></i>';
+}?>
 <div class="site-topbar">
     <div class="theme-container topbar-inner">
         <div class="topbar-contact">

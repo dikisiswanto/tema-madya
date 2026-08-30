@@ -10,19 +10,6 @@ $wordCount = str_word_count(trim(strip_tags((string)($article['content'] ?? ''))
 $readMinutes = max(1, (int) ceil($wordCount / 200));
 $relatedItems = is_array($related ?? null) ? array_values($related) : [];
 $categories = is_array($categories ?? null) ? $categories : [];
-if (class_exists('App\\Models\\NewsModel')) {
-    try {
-        $newsBridge = new \App\Models\NewsModel();
-        if (!$categories) {
-            $categories = $newsBridge->getPublishedCategories();
-        }
-        if (!$relatedItems) {
-            $relatedItems = $newsBridge->getRelated($article, 3);
-        }
-    } catch (\Throwable $e) {
-        // Keep controller-provided data when the optional bridge is unavailable.
-    }
-}
 $archive = is_array($archive ?? null) ? $archive : [];
 $tags = is_array($tags ?? null) ? $tags : [];
 $commentErrors = session()->getFlashdata('errors') ?? [];

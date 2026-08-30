@@ -5,26 +5,14 @@ if (!empty($page_banners)) {
     $banner = is_array($decoded) ? ($decoded['downloads'] ?? []) : [];
 }
 $heroImage = $banner['image'] ?? base_url(($theme_asset_base ?? 'themes/madya/assets') . '/generated/hero-image.jpg');
+$categories = is_array($categories ?? null) ? $categories : [];
 $allItems = [];
-foreach (($categories ?? []) as $group) foreach ($group as $item) $allItems[] = $item;
-$categoryCount = count($categories ?? []);
-$downloadSearch = trim((string)($_GET['search'] ?? ''));
-$downloadSort = (string)($_GET['sort'] ?? 'recent');
-if ($downloadSearch !== '') {
-    $needle = mb_strtolower($downloadSearch);
-    foreach ($categories as $cat => $catItems) {
-        $categories[$cat] = array_values(array_filter($catItems, static function ($item) use ($needle) {
-            return str_contains(mb_strtolower((string)($item['title'] ?? '')), $needle) || str_contains(mb_strtolower((string)($item['description'] ?? '')), $needle);
-        }));
-        if (!$categories[$cat]) {
-            unset($categories[$cat]);
-        }
+foreach ($categories as $group) {
+    foreach ((array) $group as $item) {
+        $allItems[] = $item;
     }
 }
-if ($downloadSort === 'name') {
-    foreach ($categories as &$catItems) { usort($catItems, static fn($a, $b) => strcasecmp((string)($a['title'] ?? ''), (string)($b['title'] ?? ''))); }
-    unset($catItems);
-}
+$categoryCount = count($categories);
 $categorySlugs = []; foreach (array_keys($categories ?? []) as $categoryName) { $categorySlugs[$categoryName] = trim(preg_replace('/[^a-z0-9]+/i', '-', strtolower((string) $categoryName)), '-'); }
 $pdfCount = count(array_filter($allItems, static fn($i) => strtoupper((string)($i['extension'] ?? pathinfo((string)($i['url'] ?? ''), PATHINFO_EXTENSION))) === 'PDF'));
 $otherCount = max(0, count($allItems) - $pdfCount);

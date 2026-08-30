@@ -207,6 +207,8 @@ export function normalizeState(raw = {}) {
         hero_btn_secondary_text: source.hero_btn_secondary_text || '',
         hero_btn_secondary_url: source.hero_btn_secondary_url || '',
         theme_color: source.theme_color || 'default',
+        runtime: source.runtime || 'standalone',
+        asset_base: source.asset_base || '/themes/madya/assets',
         section_settings: normalizeObject(source.section_settings),
         page_banners: normalizeObject(source.page_banners),
         about: normalizeObject(source.about),
