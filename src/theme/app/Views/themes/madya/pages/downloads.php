@@ -74,7 +74,7 @@ $downloadsStructured = ['@context'=>'https://schema.org','@type'=>'CollectionPag
             </aside>
         </div>
 
-        <section class="download-help-banner"><img src="<?= base_url(($theme_asset_base ?? 'themes/madya/assets') . '/illustrations/community.svg') ?>" alt="Bantuan dokumen" loading="lazy" decoding="async"><div><p class="eyebrow">Butuh Dokumen Lain?</p><h2>Tidak menemukan dokumen yang Anda cari?</h2><p>Hubungi admin sekolah untuk mendapatkan informasi atau mengajukan permintaan dokumen.</p><a class="button" href="<?= base_url('contact') ?>">Hubungi Kami <i data-lucide="arrow-right" aria-hidden="true"></i></a></div><span class="download-help-art" aria-hidden="true"><i data-lucide="folder-open" aria-hidden="true"></i></span></section>
+        <section class="download-help-banner"><img src="<?= base_url(($theme_asset_base ?? 'themes/madya/assets') . '/illustrations/community.svg') ?>" alt="Bantuan dokumen" width="720" height="520" loading="lazy" decoding="async"><div><p class="eyebrow">Butuh Dokumen Lain?</p><h2>Tidak menemukan dokumen yang Anda cari?</h2><p>Hubungi admin sekolah untuk mendapatkan informasi atau mengajukan permintaan dokumen.</p><a class="button" href="<?= base_url('contact') ?>">Hubungi Kami <i data-lucide="arrow-right" aria-hidden="true"></i></a></div><span class="download-help-art" aria-hidden="true"><i data-lucide="folder-open" aria-hidden="true"></i></span></section>
     </div>
 </section>
 <?= $this->include('themes/madya/layouts/footer') ?>

@@ -54,7 +54,7 @@ function renderProfile(state) {
         ${principalCard}
         <section class="identity-table"><header class="identity-table-header"><p class="eyebrow">Data Sekolah</p><h2>Identitas Sekolah</h2></header><div class="identity-table-body">${identityRows.map(([k,v]) => `<div class="identity-row"><span>${escapeHtml(k)}</span><strong>${escapeHtml(v || '—')}</strong></div>`).join('')}</div></section>
     </main>`;
-    return pageHeader('profile', state) + `<section class="section static-page-section"><div class="theme-container static-page-layout profile-no-sidebar">${main}</div></section>`;
+    return `${pageHeader('profile', state)}<section class="section static-page-section"><div class="theme-container static-page-layout profile-no-sidebar">${main}</div></section>`;
 }
 function renderPrograms(state) {
     const items = state.programs || [];
@@ -156,6 +156,5 @@ function renderFaq(state) {
 
 function renderContact(state) { return pageHeader('contact', state) + richLayout(`<main class="rich-main"><div class="contact-page-grid"><div class="contact-stack"><div><span>Alamat</span><strong>${escapeHtml(state.contact_address || '—')}</strong></div><div><span>Telepon</span><strong>${escapeHtml(state.contact_phone || '—')}</strong></div><div><span>Email</span><strong>${escapeHtml(state.contact_email || '—')}</strong></div><div><span>Jam layanan</span><strong>${escapeHtml(state.contact_hours || '—')}</strong></div></div><div><p class="eyebrow">Kanal resmi</p><h2 class="display-title contact-display-title">Mari lanjutkan percakapan.</h2><p class="mt-5 max-w-xl leading-8 text-slate-600">Gunakan kanal resmi sekolah untuk mendapatkan informasi dan bantuan.</p><a class="button mt-7" href="/contact">Buka halaman kontak</a></div></div></main>`); }
 
-function richCollectionCard(item, icon) { return `<article class="rich-program-card"><span class="rich-card-icon">${iconMarkup(icon)}</span><h2>${escapeHtml(item.title || 'Kegiatan')}</h2><p>${escapeHtml(item.description || '')}</p></article>`; }
 function emptyState(message) { return `<div class="empty-state"><span class="empty-state-mark" aria-hidden="true">—</span><p>${escapeHtml(message)}</p></div>`; }
 function escapeHtml(value) { return String(value ?? '').replace(/[&<>'"]/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[char])); }

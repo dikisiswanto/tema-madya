@@ -11,7 +11,7 @@ function renderDesktop(items, level = 0) {
     const title = esc(item.title || 'Menu');
     const url = menuUrl(item);
     const key = safe(item.id || `${level}-${index}`);
-    if (!children.length) return `<li><a class="desktop-nav-link" href="${esc(url)}" data-spa-link${targetAttr(item)}>${title}</a></li>`;
+    if (!children.length) return `<li data-nav-item data-nav-depth="${level}" data-open="false" data-nav-leaf><a class="desktop-nav-link" href="${esc(url)}" data-spa-link${targetAttr(item)}>${title}</a></li>`;
     const panelId = `playground-nav-panel-${key}-${level}-${index}`;
     return `<li data-nav-item data-nav-depth="${level}" data-open="false">
       <button class="desktop-nav-trigger" type="button" data-nav-toggle aria-expanded="false" aria-haspopup="true" aria-controls="${panelId}">
@@ -69,8 +69,7 @@ export function hydratePlaygroundNavigation() {
     return `<a class="mobile-menu-link" href="${esc(menuUrl(item))}" data-spa-link${targetAttr(item)}><span>${title}</span><span aria-hidden="true"><i data-lucide="arrow-up-right"></i></span></a>`;
   }).join('')}`;
 
-  collect(tree).forEach((item, index) => {
-    const key = safe(item.id || `level-${index}`);
+  collect(tree).forEach((item) => {
     mobileInner.insertAdjacentHTML('beforeend', renderMobileLevel(item));
   });
 }

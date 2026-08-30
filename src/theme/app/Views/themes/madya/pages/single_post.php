@@ -206,7 +206,7 @@ $shareUrl = current_url();
                 <h2>Masih ada yang ingin diketahui?</h2>
                 <p>Lihat jawaban atas pertanyaan yang sering diajukan mengenai sekolah dan layanan publik.</p>
                 <a class="button button-light" href="<?= base_url('/#faq') ?>">Buka FAQ <i data-lucide="arrow-right" aria-hidden="true"></i></a>
-                <div class="article-newsletter-art" aria-hidden="true"><i data-lucide="circle-help"></i></div>
+                <div class="article-newsletter-art" aria-hidden="true"><i data-lucide="circle-help" aria-hidden="true"></i></div>
             </section>
         </aside>
     </div>

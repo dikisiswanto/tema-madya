@@ -17,16 +17,16 @@ if (!function_exists('theme_render_menu')) {
             if ($mobile):
                 if ($hasChildren): ?>
                     <button class="mobile-menu-trigger" type="button" data-mobile-trigger="<?= esc($key) ?>" aria-expanded="false" aria-controls="<?= esc($mobilePanelId) ?>">
-                        <span><?= $title ?></span><span class="menu-arrow" aria-hidden="true"><i data-lucide="arrow-right"></i></span>
+                        <span><?= $title ?></span><span class="menu-arrow" aria-hidden="true"><i data-lucide="arrow-right" aria-hidden="true"></i></span>
                     </button>
                 <?php else: ?>
-                    <a class="mobile-menu-link" href="<?= esc($url) ?>"<?= $target ?><?= str_starts_with($url, "#") ? " data-spa-link" : "" ?>><span><?= $title ?></span><span aria-hidden="true"><i data-lucide="arrow-up-right"></i></span></a>
+                    <a class="mobile-menu-link" href="<?= esc($url) ?>"<?= $target ?><?= str_starts_with($url, "#") ? " data-spa-link" : "" ?>><span><?= $title ?></span><span aria-hidden="true"><i data-lucide="arrow-up-right" aria-hidden="true"></i></span></a>
                 <?php endif;
             else:
                 if ($hasChildren): ?>
                     <li data-nav-item data-nav-depth="<?= (int)$level ?>" data-open="false">
                         <button class="desktop-nav-trigger" type="button" data-nav-toggle aria-expanded="false" aria-haspopup="true" aria-controls="<?= esc($panelId) ?>">
-                            <span><?= $title ?></span><span class="nav-chevron" aria-hidden="true"><i data-lucide="chevron-down"></i></span>
+                            <span><?= $title ?></span><span class="nav-chevron" aria-hidden="true"><i data-lucide="chevron-down" aria-hidden="true"></i></span>
                         </button>
                         <div id="<?= esc($panelId) ?>" class="nav-panel" aria-hidden="true" hidden>
                             <div class="nav-panel-heading">
@@ -39,7 +39,9 @@ if (!function_exists('theme_render_menu')) {
                         </div>
                     </li>
                 <?php else: ?>
-                    <li><a class="desktop-nav-link" href="<?= esc($url) ?>"<?= $target ?><?= str_starts_with($url, "#") ? " data-spa-link" : "" ?>><?= $title ?></a></li>
+                    <li data-nav-item data-nav-depth="<?= (int)$level ?>" data-open="false" data-nav-leaf>
+                        <a class="desktop-nav-link" href="<?= esc($url) ?>"<?= $target ?><?= str_starts_with($url, "#") ? " data-spa-link" : "" ?>><?= $title ?></a>
+                    </li>
                 <?php endif;
             endif;
         endforeach;

@@ -302,7 +302,14 @@ function handleMobileKeydown(event) {
 
 function handleNavigationFocus(event) {
     const item = event.target.closest('[data-nav-item]');
-    if (item && window.matchMedia(DESKTOP_QUERY).matches) scheduleDesktopOpen(item, true);
+    if (!item || !window.matchMedia(DESKTOP_QUERY).matches) return;
+
+    // Keyboard focus follows the same path rules as pointer hover. A leaf
+    // never opens a panel, but it still becomes the active node so stale child
+    // branches are pruned while its parent/grandparent path remains open.
+    clearTimeout(closeTimer);
+    reconcileDesktopHoverPath(item);
+    scheduleDesktopOpen(item, true);
 }
 
 function scheduleDesktopOpen(item, immediate = false) {

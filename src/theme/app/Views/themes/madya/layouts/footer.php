@@ -9,7 +9,7 @@
         <div class="theme-container footer-grid footer-grid-rich">
             <div class="footer-intro">
                 <a class="footer-brand" href="<?= base_url() ?>" aria-label="Beranda <?= esc($site_name ?? 'SekolahKu') ?>">
-                    <span class="brand-mark footer-brand-mark" aria-hidden="true"><i data-lucide="graduation-cap"></i></span>
+                    <span class="brand-mark footer-brand-mark" aria-hidden="true"><i data-lucide="graduation-cap" aria-hidden="true"></i></span>
                     <span><strong><?= esc($site_logo_text ?? $site_name ?? 'SekolahKu') ?></strong><small><?= esc($site_tagline ?? 'Situs resmi sekolah') ?></small></span>
                 </a>
                 <p><?= esc($footer_description ?? $site_description ?? $site_tagline ?? '') ?></p>

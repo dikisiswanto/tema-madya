@@ -20,14 +20,22 @@ for (const file of phpFiles) {
     const source = await readFile(file, 'utf8');
     const rel = path.relative(root, file);
 
-    for (const line of source.split(/\r?\n/)) {
-        if (/<img\b/i.test(line) && !/\balt\s*=/i.test(line)) {
+    // Audit complete HTML tags rather than individual source lines so multiline
+    // PHP templates are checked correctly. Remove PHP blocks first so the `?>`
+    // delimiter cannot be mistaken for the end of an HTML tag.
+    const markup = source.replace(/<\?(?:php|=)?[\s\S]*?\?>/gi, ' ');
+    for (const match of markup.matchAll(/<img\b[^>]*>/gi)) {
+        const tag = match[0];
+        if (!/\balt\s*=/i.test(tag)) {
             failures.push(`${rel}: image is missing alt attribute.`);
         }
-        if (/<img\b/i.test(line) && !/\b(?:width|height)\s*=/i.test(line) && !/\baria-hidden=["']true["']/i.test(line)) {
+        if (!/\b(?:width|height)\s*=/i.test(tag) && !/\baria-hidden=["']true["']/i.test(tag)) {
             warnings.push(`${rel}: image should provide intrinsic dimensions where practical.`);
         }
-        if (/<i\b[^>]*data-lucide=/i.test(line) && !/\baria-hidden=["']true["']/i.test(line)) {
+    }
+    for (const match of markup.matchAll(/<i\b[^>]*data-lucide=[^>]*>/gi)) {
+        const tag = match[0];
+        if (!/\baria-hidden=["']true["']/i.test(tag)) {
             failures.push(`${rel}: decorative data-lucide icon should be aria-hidden.`);
         }
     }

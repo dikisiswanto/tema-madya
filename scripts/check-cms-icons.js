@@ -29,7 +29,7 @@ for (const [index, item] of (demo.extracurriculars || []).entries()) {
 }
 
 if (failures.length) {
-    console.error('CMS icon contract audit failed:\n- ' + failures.join('\n- '));
+    console.error(`CMS icon contract audit failed:\n- ${failures.join('\n- ')}`);
     process.exit(1);
 }
 console.log('CMS icon contract audit: OK');

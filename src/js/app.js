@@ -113,7 +113,7 @@ function initRichFilters() {
         const toolbar = button.closest('[data-filter-toolbar]');
         const group = toolbar?.dataset.filterToolbar;
         if (!group) return;
-        toolbar.querySelectorAll('[data-filter-value]').forEach((item) => item.classList.toggle('is-active', item === button));
+        toolbar.querySelectorAll('[data-filter-value]').forEach((item) => { item.classList.toggle('is-active', item === button); });
         applyRichFilter(root, group, button.dataset.filterValue || '', toolbar);
     });
     root.addEventListener('change', (event) => {
@@ -157,7 +157,7 @@ function initNewsInteractions() {
         history.pushState({}, '', `${url.pathname}${url.search}`);
         renderNews(getState(), root);
         initIcons(root);
-        root.querySelectorAll('[data-news-category]').forEach((item) => item.classList.toggle('is-active', item === categoryLink || item.getAttribute('data-news-category') === url.searchParams.get('category')));
+        root.querySelectorAll('[data-news-category]').forEach((item) => { item.classList.toggle('is-active', item === categoryLink || item.getAttribute('data-news-category') === url.searchParams.get('category')); });
         window.scrollTo({ top: 0, behavior: 'auto' });
     });
     root.addEventListener('change', (event) => {
@@ -171,6 +171,6 @@ function initNewsInteractions() {
             if (select.value === 'popular') return Number(b.dataset.newsViews || 0) - Number(a.dataset.newsViews || 0);
             return Number(b.dataset.newsTimestamp || 0) - Number(a.dataset.newsTimestamp || 0);
         });
-        cards.forEach((card) => list.appendChild(card));
+        cards.forEach((card) => { list.appendChild(card); });
     });
 }
