@@ -435,7 +435,7 @@
   .mobile-nav {
     position: fixed;
     inset: var(--header-height) 0 0;
-    z-index: 100;
+    z-index: 200;
     isolation: isolate;
     pointer-events: none;
     overflow: hidden;
@@ -460,9 +460,11 @@
     height: 100%;
     overflow: hidden;
     padding-top: 1.25rem;
+    pointer-events: auto;
   }
   .mobile-level {
     position: absolute;
+    pointer-events: none;
     inset: 0;
     overflow-y: auto;
     overscroll-behavior: contain;
@@ -479,14 +481,22 @@
     opacity: 1;
     visibility: visible;
     transform: translate3d(0, 0, 0);
+    pointer-events: auto;
     transition-delay: 0s;
   }
+
+  .mobile-level[data-active="false"] {
+    pointer-events: none;
+  }
+
   .mobile-level[data-direction="back"] {
     transform: translate3d(-2rem, 0, 0);
   }
+
   .mobile-level[data-direction="back"][data-active="true"] {
     transform: translate3d(0, 0, 0);
   }
+
   .mobile-level > * {
     margin-inline: var(--site-gutter);
   }
@@ -12680,6 +12690,17 @@
     object-fit: cover;
     object-position: center top;
   }
+  .rich-person-placeholder {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    place-items: center;
+    color: var(--site-muted);
+    background: var(--site-surface-alt);
+  }
+  .rich-person-placeholder i {
+    font-size: 3rem;
+  }
   .rich-person-role {
     display: inline-flex;
     margin-bottom: 0.45rem;
@@ -14662,10 +14683,13 @@
   min-height: 280px;
 }
 .madya-theme .madya-media-fallback-avatar {
-  width: 80px;
-  height: 80px;
+  width: 3rem;
+  height: 3rem;
   border-radius: 999px;
-  flex: 0 0 80px;
+  flex: 0 0 3rem;
+}
+.madya-theme .madya-media-fallback-avatar i {
+  font-size: 1.15rem;
 }
 .madya-theme .madya-media-fallback-campus {
   width: 100%;
@@ -14699,4 +14723,80 @@
 }
 .madya-theme .article-related-placeholder i {
   font-size: 2.25rem;
+}
+
+/* Quick-service grid refinement — centered desktop + clean mobile dividers. */
+@layer components {
+  .madya-theme .home-page .quick-service-grid {
+    justify-content: center;
+  }
+
+  @media (max-width: 959px) {
+    .madya-theme .home-page .quick-service-grid {
+      gap: 0;
+      overflow: hidden;
+    }
+
+    .madya-theme .home-page .quick-service-grid .quick-service {
+      border-right: 1px solid var(--home-line);
+      border-top: 0;
+      border-bottom: 1px solid var(--home-line);
+      border-radius: 0;
+    }
+
+    /* Two-column rows: vertical divider only between columns. */
+    .madya-theme .home-page .quick-service-grid .quick-service:nth-child(2n) {
+      border-right: 0;
+    }
+
+    /* Remove the bottom rule from the final row for each supported item count. */
+    .madya-theme .home-page .quick-service-grid-count-1 .quick-service,
+    .madya-theme .home-page .quick-service-grid-count-2 .quick-service,
+    .madya-theme
+      .home-page
+      .quick-service-grid-count-3
+      .quick-service:nth-last-child(-n + 1),
+    .madya-theme
+      .home-page
+      .quick-service-grid-count-4
+      .quick-service:nth-last-child(-n + 2),
+    .madya-theme
+      .home-page
+      .quick-service-grid-count-5
+      .quick-service:nth-last-child(-n + 1),
+    .madya-theme
+      .home-page
+      .quick-service-grid-count-6
+      .quick-service:nth-last-child(-n + 2) {
+      border-bottom: 0;
+    }
+
+    /* A three-item grid has one item on the final row. */
+    .madya-theme
+      .home-page
+      .quick-service-grid-count-3
+      .quick-service:last-child {
+      border-right: 0;
+    }
+
+    /* Single-item grids should not show a vertical divider. */
+    .madya-theme .home-page .quick-service-grid-count-1 .quick-service {
+      border-right: 0;
+    }
+  }
+
+  @media (max-width: 30rem) {
+    .madya-theme .home-page .quick-service-grid {
+      gap: 0;
+    }
+
+    .madya-theme .home-page .quick-service-grid .quick-service {
+      border-right: 0;
+      border-bottom: 1px solid var(--home-line);
+    }
+
+    .madya-theme .home-page .quick-service-grid .quick-service:last-child {
+      border-bottom: 0;
+    }
+  }
 }
