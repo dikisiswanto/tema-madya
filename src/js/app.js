@@ -234,7 +234,7 @@ function initNewsInteractions() {
         const list = root.querySelector('[data-news-list]');
         if (!list) return;
         const cards = [...list.children].filter((item) =>
-            item.matches('article, .news-card, .collection-card'),
+            item.matches('article, .madya-news-card, .collection-card'),
         );
         cards.sort((a, b) => {
             if (select.value === 'az')

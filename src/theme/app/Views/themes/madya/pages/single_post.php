@@ -34,7 +34,7 @@ $structuredArticle = [
     'description' => $article['excerpt'] ?? '',
     'image' => !empty($article['image']) ? [$article['image']] : null,
     'author' => ['@type' => 'Person', 'name' => $article['author'] ?? 'Redaksi'],
-    'publisher' => ['@type' => 'EducationalOrganization', 'name' => $site_name ?? 'SekolahKu', 'logo' => !empty($site_logo_url) ? ['@type' => 'ImageObject', 'url' => $site_logo_url] : null],
+    'publisher' => ['@type' => 'EducationalOrganization', 'name' => $site_name ?? 'SekolahKu'],
     'articleSection' => $article['category'] ?? null,
     'keywords' => $article['tags'] ?? null,
 ];
@@ -61,7 +61,7 @@ $shareUrl = current_url();
     'breadcrumbs' => [['url' => base_url('news'), 'label' => 'Berita'], ['label' => 'Detail']],
     'variant' => 'article-detail-hero',
 ]) ?>
-<section class="section article-detail-section">
+<section class="madya-section article-detail-section">
     <div class="theme-container article-detail-layout">
         <article class="article-main">
 <header class="article-header">

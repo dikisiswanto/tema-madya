@@ -316,7 +316,7 @@ $themeStateJson = json_encode($themeState, JSON_UNESCAPED_SLASHES | JSON_UNESCAP
           <?php if ($programItems && $programMeta['show']): ?><div class="program-showcase-grid">
             <?php foreach (array_slice($programItems, 0, 3) as $index => $item): ?>
             <article class="program-showcase-card">
-              <div class="program-showcase-icon" aria-hidden="true">
+              <div class="program-showcase-media program-showcase-icon" aria-hidden="true">
                 <?= view('themes/madya/components/ui/icon', ['name' => $item['icon'] ?? 'graduation-cap', 'class' => 'program-icon']) ?>
               </div>
               <div class="program-showcase-body">
@@ -349,7 +349,7 @@ $themeStateJson = json_encode($themeState, JSON_UNESCAPED_SLASHES | JSON_UNESCAP
                 aria-hidden="true"></i></a>
           </div>
           <div class="teacher-grid">
-            <?php foreach (array_slice($teacherItems, 0, 4) as $index => $item): ?><article class="teacher-card"><img
+            <?php foreach (array_slice($teacherItems, 0, 4) as $index => $item): ?><article class="madya-teacher-card"><img
                 src="<?= esc($mediaUrl($item['photo'] ?? '', 'teachers') ?: $portraitFallback) ?>"
                 width="900" height="1100" alt="<?= esc($item['name'] ?? 'Foto tenaga pendidik') ?>" loading="lazy"
                 decoding="async">

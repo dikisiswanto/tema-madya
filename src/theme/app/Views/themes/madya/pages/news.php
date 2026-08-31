@@ -48,7 +48,7 @@ $newsStructured = ['@context' => 'https://schema.org','@type' => 'CollectionPage
 <?php $this->setData(['page_title' => $newsTitle, 'page_description' => $newsDescription, 'canonical_url' => $newsCanonical, 'structured_data' => $newsStructured, 'og_image' => $heroNewsImage]); ?>
 <?= $this->include('themes/madya/layouts/header') ?>
 <?= view('themes/madya/components/page-header', ['eyebrow' => $banner['badge'] ?? 'Berita & Artikel', 'title' => $newsTitle, 'description' => $newsDescription, 'image' => $heroNewsImage, 'breadcrumbs' => [['label' => 'Berita']]]) ?>
-<section class="section news-list-page">
+<section class="madya-section news-list-page">
     <div class="theme-container news-list-shell">
         <div class="news-list-main">
             <div class="news-list-toolbar">
@@ -74,7 +74,7 @@ $newsStructured = ['@context' => 'https://schema.org','@type' => 'CollectionPage
 <?php endif; ?>
             </div>
             <?php if (isset($pager)): ?>
-<div class="news-pagination pagination" aria-label="Navigasi halaman berita"><?= $pager->links() ?></div>
+<div class="madya-news-pagination" aria-label="Navigasi halaman berita"><?= $pager->links() ?></div>
 <?php endif; ?>
         </div>
         <aside class="news-list-sidebar">

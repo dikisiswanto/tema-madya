@@ -60,7 +60,7 @@ $themePreloadImage = $themePreloadImageRaw === '' ? null : (preg_match('#^(?:htt
 <script type="application/ld+json"><?= json_encode($structured_data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?></script>
 <?php endif; ?>
 </head>
-<body>
+<body class="madya-theme">
 <a href="#main-content" class="skip-link">Langsung ke konten utama</a>
 <?= $this->include('themes/madya/partials/navigation') ?>
 <main id="main-content" class="page-shell">

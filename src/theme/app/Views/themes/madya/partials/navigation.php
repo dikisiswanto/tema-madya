@@ -7,6 +7,7 @@ $brandSocialIcon = static function (string $name): string {
         'facebook' => 'fab fa-facebook-f',
         'instagram' => 'fab fa-instagram',
         'youtube' => 'fab fa-youtube',
+        'tiktok' => 'fab fa-tiktok',
     ];
     return '<i class="' . esc($classes[$name] ?? 'fas fa-globe') . '" aria-hidden="true"></i>';
 }?>
@@ -37,11 +38,14 @@ $brandSocialIcon = static function (string $name): string {
             <?php if (!empty($social_youtube) && $social_youtube !== '#'): ?>
 <a href="<?= esc($social_youtube) ?>" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><?= $brandSocialIcon('youtube') ?></a>
 <?php endif; ?>
+            <?php if (!empty($social_tiktok) && $social_tiktok !== '#'): ?>
+<a href="<?= esc($social_tiktok) ?>" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><?= $brandSocialIcon('tiktok') ?></a>
+<?php endif; ?>
         </div>
     </div>
 </div>
 <header class="site-header" data-site-nav>
-    <div class="theme-container header-inner">
+    <div class="theme-container madya-header-inner">
         <a class="brand" href="<?= base_url() ?>" aria-label="Beranda <?= esc($site_name ?? 'SekolahKu') ?>">
             <span class="brand-mark" aria-hidden="true"><?php if (!empty($site_logo_url)): ?>
 <img src="<?= esc($site_logo_url) ?>" alt="" width="96" height="96" loading="eager" decoding="async">

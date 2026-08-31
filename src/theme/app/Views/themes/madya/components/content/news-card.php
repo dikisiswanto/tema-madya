@@ -7,7 +7,7 @@
 <?php if ($excerpt === '' && !empty($post['description'])): $excerpt = trim((string) $post['description']); endif; ?>
 <?php if ($excerpt === '' && !empty($post['content'])): $excerpt = trim(preg_replace('/\s+/', ' ', strip_tags((string) $post['content']))); endif; ?>
 <?php $href = $slug !== '' ? base_url('news/' . rawurlencode($slug)) : base_url('news'); ?>
-<article class="news-card<?= $featured ? ' news-card-featured' : '' ?>">
+<article class="madya-news-card<?= $featured ? ' news-card-featured' : '' ?>">
     <?php if ($image !== ''): ?>
         <a class="news-card-media" href="<?= esc($href) ?>" aria-label="Baca <?= esc($title !== '' ? $title : 'berita') ?>">
             <img src="<?= esc($image) ?>" width="<?= esc($post['image_width'] ?? 1200) ?>" height="<?= esc($post['image_height'] ?? 800) ?>" alt="<?= esc($title) ?>" loading="<?= $featured ? 'eager' : 'lazy' ?>" decoding="async">

@@ -31,7 +31,7 @@ $downloadsStructured = ['@context' => 'https://schema.org','@type' => 'Collectio
     'breadcrumbs' => [['label' => 'Download']],
 ]) ?>
 
-<section class="downloads-reference-section section">
+<section class="downloads-reference-section madya-section">
     <div class="theme-container">
         <div class="download-stat-grid download-stat-grid-reference">
             <div class="download-stat"><span class="download-stat-icon"><i data-lucide="files" aria-hidden="true"></i></span><span><strong><?= count($allItems) ?></strong><small>Total Dokumen</small></span></div>

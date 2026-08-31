@@ -82,7 +82,7 @@ function pageHeader(route, state) {
 }
 
 function richLayout(content) {
-    return `<section class="section rich-section"><div class="theme-container">${content}</div></section>`;
+    return `<section class="madya-section rich-section"><div class="theme-container">${content}</div></section>`;
 }
 
 function renderProfile(state) {
@@ -127,7 +127,7 @@ function renderProfile(state) {
         ${principalCard}
         <section class="identity-table"><header class="identity-table-header"><p class="eyebrow">Data Sekolah</p><h2>Identitas Sekolah</h2></header><div class="identity-table-body">${identityRows.map(([k, v]) => `<div class="identity-row"><span>${escapeHtml(k)}</span><strong>${escapeHtml(v || '—')}</strong></div>`).join('')}</div></section>
     </main>`;
-    return `${pageHeader('profile', state)}<section class="section static-page-section"><div class="theme-container static-page-layout profile-no-sidebar">${main}</div></section>`;
+    return `${pageHeader('profile', state)}<section class="madya-section static-page-section"><div class="theme-container static-page-layout profile-no-sidebar">${main}</div></section>`;
 }
 function renderPrograms(state) {
     const items = state.programs || [];

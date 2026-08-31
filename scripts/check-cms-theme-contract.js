@@ -17,6 +17,46 @@ const files = fs
     .filter((name) => name.endsWith('.php'));
 const errors = [];
 
+// These class names exist in SekolahKu 3.1.2's bundled public stylesheet.
+// Keep Madya's component classes namespaced so a stale/legacy CMS stylesheet
+// cannot partially restyle the theme.
+const cmsReservedClasses = [
+    'section',
+    'section-title',
+    'section-cta',
+    'header-inner',
+    'hero-grid',
+    'hero-meta',
+    'teacher-card',
+    'news-card',
+    'news-filter',
+    'news-pagination',
+    'footer-grid',
+    'footer-brand',
+    'footer-bottom',
+    'testimonial-grid',
+    'faq-list',
+    'faq-item',
+    'faq-question',
+    'faq-answer',
+    'pagination',
+];
+const cssSource = fs.readFileSync(
+    path.join(root, 'src', 'css', 'app.css'),
+    'utf8',
+);
+for (const className of cmsReservedClasses) {
+    const selector =
+        className === 'pagination'
+            ? new RegExp(`(?:^|[,{]\\s*)\\.${className}(?![A-Za-z0-9_-])`)
+            : new RegExp(`\\.${className}(?![A-Za-z0-9_-])`);
+    if (selector.test(cssSource)) {
+        errors.push(
+            `app.css: CMS-reserved class .${className} must be namespaced to prevent legacy CSS collision.`,
+        );
+    }
+}
+
 const forbidden = [
     /placehold\.co/i,
     /https?:\/\/.*example/i,
@@ -43,6 +83,53 @@ for (const name of files) {
             );
         }
     }
+}
+
+const expectedIncludeContract = {
+    'home.php': ['themes/madya/layouts/header', 'themes/madya/layouts/footer'],
+    'news.php': ['themes/madya/layouts/header', 'themes/madya/layouts/footer'],
+    'single_post.php': [
+        'themes/madya/layouts/header',
+        'themes/madya/layouts/footer',
+    ],
+    'downloads.php': [
+        'themes/madya/layouts/header',
+        'themes/madya/layouts/footer',
+    ],
+    'contact.php': [
+        'themes/madya/layouts/header',
+        'themes/madya/layouts/footer',
+    ],
+    'page.php': ['themes/madya/layouts/header', 'themes/madya/layouts/footer'],
+};
+for (const [name, includes] of Object.entries(expectedIncludeContract)) {
+    const source = fs.readFileSync(path.join(themePages, name), 'utf8');
+    for (const target of includes) {
+        if (!source.includes(`$this->include('${target}')`)) {
+            errors.push(`${name}: required ${target} include is missing.`);
+        }
+    }
+}
+const navigation = fs.readFileSync(
+    path.join(
+        root,
+        'src',
+        'theme',
+        'app',
+        'Views',
+        'themes',
+        'madya',
+        'partials',
+        'navigation.php',
+    ),
+    'utf8',
+);
+if (
+    !navigation.includes(
+        "$this->include('themes/madya/partials/navigation/menu')",
+    )
+) {
+    errors.push('navigation.php: menu bootstrap include is missing.');
 }
 
 const nativePages = [

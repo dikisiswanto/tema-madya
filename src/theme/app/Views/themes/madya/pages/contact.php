@@ -5,14 +5,9 @@ if (!empty($page_banners)) {
     $banner = is_array($decoded) ? ($decoded['contact'] ?? []) : [];
 }
 $heroImage = $banner['image'] ?? base_url(($theme_asset_base ?? 'themes/madya/assets') . '/generated/hero-image.jpg');
-$about = [];
-if (!empty($about)) {
-    $about = is_string($about) ? (json_decode($about, true) ?: []) : $about;
-}
 $facebook = trim((string)($social_facebook ?? ''));
 $instagram = trim((string)($social_instagram ?? ''));
 $youtube = trim((string)($social_youtube ?? ''));
-$accreditation = $about['accreditation'] ?? '';
 $mapQuery = rawurlencode((string)($contact_address ?? ''));
 $contactCanonical = base_url('contact');
 $contactDescription = $banner['subtitle'] ?? 'Temukan alamat, kanal resmi, dan formulir untuk menghubungi sekolah.';
@@ -28,7 +23,7 @@ $contactStructured = ['@context' => 'https://schema.org','@type' => 'ContactPage
     'breadcrumbs' => [['label' => 'Kontak']],
 ]) ?>
 
-<section class="contact-overlap-section section">
+<section class="contact-overlap-section madya-section">
     <div class="theme-container">
         <div class="contact-summary contact-summary-five">
             <div class="contact-summary-item"><span class="contact-summary-icon"><i data-lucide="map-pin" aria-hidden="true"></i></span><div><strong>Alamat</strong><small><?= esc($contact_address ?: '—') ?></small></div></div>
@@ -46,9 +41,6 @@ $contactStructured = ['@context' => 'https://schema.org','@type' => 'ContactPage
                         <div><span class="contact-fact-icon"><i data-lucide="map-pin" aria-hidden="true"></i></span><span><strong>Alamat Lengkap</strong><small><?= esc($contact_address ?: 'Alamat sekolah belum diatur.') ?></small></span></div>
                         <div><span class="contact-fact-icon"><i data-lucide="phone" aria-hidden="true"></i></span><span><strong>Telepon</strong><small><?= esc($contact_phone ?: 'Nomor telepon belum diatur.') ?></small></span></div>
                         <div><span class="contact-fact-icon"><i data-lucide="mail" aria-hidden="true"></i></span><span><strong>Email</strong><small><?= esc($contact_email ?: 'Email sekolah belum diatur.') ?></small></span></div>
-                        <?php if ($accreditation !== ''): ?>
-<div><span class="contact-fact-icon"><i data-lucide="award" aria-hidden="true"></i></span><span><strong>Akreditasi</strong><small><?= esc($accreditation) ?></small></span></div>
-<?php endif; ?>
                     </div>
                     <figure class="contact-campus-photo"><img src="<?= base_url(($theme_asset_base ?? 'themes/madya/assets') . '/generated/hero-image.jpg') ?>" alt="Lingkungan sekolah" width="1672" height="941" loading="lazy" decoding="async"><figcaption>Lingkungan sekolah</figcaption></figure>
                 </div>

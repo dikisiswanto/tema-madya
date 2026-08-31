@@ -133,7 +133,7 @@ export default function renderHome(state, container) {
                     .slice(0, 4)
                     .map(
                         (x, _i) =>
-                            `<article class="teacher-card">${imageOr(x.photo, x.name || 'Tenaga pendidik', teacherFallback, x)}<div><strong>${esc(x.name || 'Tenaga pendidik')}</strong><span>${esc(x.role || 'Tenaga pendidik')}</span></div></article>`,
+                            `<article class="madya-teacher-card">${imageOr(x.photo, x.name || 'Tenaga pendidik', teacherFallback, x)}<div><strong>${esc(x.name || 'Tenaga pendidik')}</strong><span>${esc(x.role || 'Tenaga pendidik')}</span></div></article>`,
                     )
                     .join('')}</div></article>`
               : ''

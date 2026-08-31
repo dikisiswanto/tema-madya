@@ -28,10 +28,9 @@ if (is_array($pageBanner)) {
     $banner = $pageBanner['image'] ?? '';
 }
 $banner = $banner ?: ($page['image'] ?? '');
-$relatedDocuments = is_array($downloads ?? null) ? array_slice($downloads, 0, 3) : [];
 ?>
 <?= view('themes/madya/components/page-header', ['eyebrow' => '', 'title' => $pageTitle, 'description' => $pageExcerpt, 'image' => $banner, 'breadcrumbs' => [['label' => $pageTitle]]]) ?>
-<section class="section static-page-section">
+<section class="madya-section static-page-section">
     <div class="theme-container static-page-layout">
         <article class="static-page-main">
             <div class="static-content-intro">
@@ -51,21 +50,6 @@ $relatedDocuments = is_array($downloads ?? null) ? array_slice($downloads, 0, 3)
                         <a href="<?= base_url(rawurlencode((string)($item['slug'] ?? ''))) ?>"><i data-lucide="file-text" aria-hidden="true"></i><span><?= esc($item['title'] ?? '') ?></span></a>
                     <?php endforeach; ?>
                 </nav>
-            </section>
-            <?php endif; ?>
-            <?php if ($relatedDocuments): ?>
-            <section class="static-sidebar-card">
-                <h2>Dokumen Terkait</h2>
-                <div class="static-document-list">
-                    <?php foreach ($relatedDocuments as $item): ?>
-                    <a href="<?= esc($item['url'] ?? '#') ?>" target="_blank" rel="noopener noreferrer">
-                        <span class="static-document-icon"><i data-lucide="file-text" aria-hidden="true"></i></span>
-                        <span><strong><?= esc($item['title'] ?? 'Dokumen') ?></strong><small><?= esc($item['file_size'] ?? '') ?></small></span>
-                        <i data-lucide="download" aria-hidden="true"></i>
-                    </a>
-                    <?php endforeach; ?>
-                </div>
-                <a class="static-sidebar-more" href="<?= base_url('downloads') ?>">Lihat semua dokumen <i data-lucide="arrow-right" aria-hidden="true"></i></a>
             </section>
             <?php endif; ?>
             <section class="static-help-card">
