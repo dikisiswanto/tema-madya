@@ -21,8 +21,9 @@ $downloadsCanonical = base_url('downloads');
 $downloadsDescription = $banner['subtitle'] ?? 'Formulir, panduan, dan dokumen resmi sekolah dalam satu tempat.';
 $downloadsStructured = ['@context' => 'https://schema.org','@type' => 'CollectionPage','name' => $banner['title'] ?? 'Dokumen Resmi','description' => $downloadsDescription,'url' => $downloadsCanonical,'isPartOf' => ['@type' => 'WebSite','name' => $site_name ?? 'SekolahKu','url' => base_url()]];
 ?>
-<?= $this->include('themes/madya/layouts/header', ['page_title' => $banner['title'] ?? 'Dokumen Resmi', 'page_description' => $downloadsDescription, 'canonical_url' => $downloadsCanonical, 'structured_data' => $downloadsStructured, 'og_image' => $heroImage]) ?>
-<?= $this->include('themes/madya/components/page-header', [
+<?php $this->setData(['page_title' => $banner['title'] ?? 'Dokumen Resmi', 'page_description' => $downloadsDescription, 'canonical_url' => $downloadsCanonical, 'structured_data' => $downloadsStructured, 'og_image' => $heroImage]); ?>
+<?= $this->include('themes/madya/layouts/header') ?>
+<?= view('themes/madya/components/page-header', [
     'eyebrow' => $banner['badge'] ?? 'Pusat Download',
     'title' => $banner['title'] ?? 'Pusat Download',
     'description' => $banner['subtitle'] ?? 'Unduh berbagai dokumen penting, formulir, panduan, dan informasi resmi sekolah.',
@@ -58,7 +59,7 @@ $downloadsStructured = ['@context' => 'https://schema.org','@type' => 'Collectio
                         </div>
                     </section>
                 <?php endforeach; ?>
-                <?php else: ?><?= $this->include('themes/madya/components/ui/empty-state', ['message' => 'Belum ada dokumen yang tersedia untuk diunduh.']) ?><?php endif; ?>
+                <?php else: ?><?= view('themes/madya/components/ui/empty-state', ['message' => 'Belum ada dokumen yang tersedia untuk diunduh.']) ?><?php endif; ?>
             </main>
 
             <aside class="download-sidebar-reference">

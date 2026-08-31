@@ -5,7 +5,7 @@ $href = $href ?? '/#programs';
 ?>
 <a class="program-feature-row" href="<?= esc($href) ?>">
     <span class="program-row-index"><span class="program-index"><?= str_pad((string)($index + 1), 2, '0', STR_PAD_LEFT) ?></span><?php if (!empty($item['icon'])): ?>
-<?= $this->include('themes/madya/components/ui/icon', ['name' => $item['icon']]) ?>
+<?= view('themes/madya/components/ui/icon', ['name' => $item['icon']]) ?>
 <?php endif; ?></span>
     <span class="program-title"><?= esc($item['title'] ?? $item['name'] ?? 'Program') ?></span>
     <span class="program-summary"><?= esc($item['description'] ?? $item['excerpt'] ?? '') ?></span>

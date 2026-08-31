@@ -46,7 +46,7 @@ $brandSocialIcon = static function (string $name): string {
             <span class="brand-mark" aria-hidden="true"><?php if (!empty($site_logo_url)): ?>
 <img src="<?= esc($site_logo_url) ?>" alt="" width="96" height="96" loading="eager" decoding="async">
 <?php else: ?>
-<?= $this->include('themes/madya/components/ui/icon', ['name' => $site_logo_icon ?? 'graduation-cap', 'class' => 'brand-icon']) ?>
+<?= view('themes/madya/components/ui/icon', ['name' => $site_logo_icon ?? 'graduation-cap', 'class' => 'brand-icon']) ?>
 <?php endif; ?></span>
             <span class="brand-copy"><strong><?= esc($site_logo_text ?? $site_name ?? 'SekolahKu') ?></strong><small><?= esc($site_tagline ?? 'Situs resmi sekolah') ?></small></span>
         </a>

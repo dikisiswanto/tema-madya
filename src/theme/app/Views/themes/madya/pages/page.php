@@ -18,7 +18,8 @@ if (!empty($page_banners)) {
 }
 $pageBanner = $staticBanners[$page['slug'] ?? ''] ?? $staticBanners['page'] ?? $staticBanners['pages'] ?? [];
 ?>
-<?= $this->include('themes/madya/layouts/header', ['page_title' => $pageMetaTitle, 'page_description' => $pageMetaDescription, 'canonical_url' => $pageCanonical, 'structured_data' => $structuredPage]) ?>
+<?php $this->setData(['page_title' => $pageMetaTitle, 'page_description' => $pageMetaDescription, 'canonical_url' => $pageCanonical, 'structured_data' => $structuredPage]); ?>
+<?= $this->include('themes/madya/layouts/header') ?>
 <?php
 $pageTitle = $page['title'] ?? 'Halaman';
 $pageExcerpt = $page['excerpt'] ?? '';
@@ -29,7 +30,7 @@ if (is_array($pageBanner)) {
 $banner = $banner ?: ($page['image'] ?? '');
 $relatedDocuments = is_array($downloads ?? null) ? array_slice($downloads, 0, 3) : [];
 ?>
-<?= $this->include('themes/madya/components/page-header', ['eyebrow' => '', 'title' => $pageTitle, 'description' => $pageExcerpt, 'image' => $banner, 'breadcrumbs' => [['label' => $pageTitle]]]) ?>
+<?= view('themes/madya/components/page-header', ['eyebrow' => '', 'title' => $pageTitle, 'description' => $pageExcerpt, 'image' => $banner, 'breadcrumbs' => [['label' => $pageTitle]]]) ?>
 <section class="section static-page-section">
     <div class="theme-container static-page-layout">
         <article class="static-page-main">

@@ -41,7 +41,7 @@ $structuredArticle = [
 $shareTitle = (string)($article['title'] ?? 'Berita sekolah');
 $shareUrl = current_url();
 ?>
-<?= $this->include('themes/madya/layouts/header', [
+<?php $this->setData([
     'structured_data' => $structuredArticle,
     'page_title' => $article['title'] ?? 'Berita',
     'page_description' => $article['excerpt'] ?? '',
@@ -51,8 +51,9 @@ $shareUrl = current_url();
     'article_published_time' => $article['published_at'] ?? $article['created_at'] ?? null,
     'article_modified_time' => $article['updated_at'] ?? $article['published_at'] ?? $article['created_at'] ?? null,
 ]) ?>
+<?= $this->include('themes/madya/layouts/header') ?>
 <?php $heroImage = $generatedHero; ?>
-<?= $this->include('themes/madya/components/page-header', [
+<?= view('themes/madya/components/page-header', [
     'eyebrow' => $banner['badge'] ?? 'Detail',
     'title' => 'Berita',
     'description' => $banner['subtitle'] ?? 'Informasi lengkap seputar kegiatan dan prestasi di lingkungan sekolah.',

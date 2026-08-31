@@ -211,7 +211,7 @@ $themeState = [
 ];
 $themeStateJson = json_encode($themeState, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
 ?>
-<?= $this->include('themes/madya/layouts/header', [
+<?php $this->setData([
     'page_title' => $site_name ?? 'SekolahKu',
     'page_description' => $homeDescription,
     'canonical_url' => base_url(),
@@ -219,6 +219,7 @@ $themeStateJson = json_encode($themeState, JSON_UNESCAPED_SLASHES | JSON_UNESCAP
     'og_image' => $heroImage,
     'preload_image' => $heroImage,
 ]) ?>
+<?= $this->include('themes/madya/layouts/header') ?>
 <script id="theme-state" type="application/json"><?= $themeStateJson ?></script>
 <div class="home-page" data-spa-content data-spa-runtime="cms-home">
   <section class="home-hero" aria-labelledby="hero-title" <?php if ($heroImage): ?>
@@ -232,8 +233,8 @@ $themeStateJson = json_encode($themeState, JSON_UNESCAPED_SLASHES | JSON_UNESCAP
         <h1 id="hero-title"><?= $heroTitleMarkup ?></h1>
         <p class="hero-lead"><?= esc($hero_subtitle ?: ($site_description ?? $site_tagline ?? '')) ?></p>
         <div class="home-hero-actions">
-          <a class="button" href="<?= esc($primaryUrl) ?>"><?= esc($primaryText) ?> <?= $this->include('themes/madya/components/ui/icon', ['name' => 'arrow-right']) ?></a>
-          <a class="button button-secondary" href="<?= esc($secondaryUrl) ?>"><?= $this->include('themes/madya/components/ui/icon', ['name' => 'play-circle']) ?><?= esc($secondaryText) ?></a>
+          <a class="button" href="<?= esc($primaryUrl) ?>"><?= esc($primaryText) ?> <?= view('themes/madya/components/ui/icon', ['name' => 'arrow-right']) ?></a>
+          <a class="button button-secondary" href="<?= esc($secondaryUrl) ?>"><?= view('themes/madya/components/ui/icon', ['name' => 'play-circle']) ?><?= esc($secondaryText) ?></a>
         </div>
       </div>
     </div>
@@ -244,7 +245,7 @@ $themeStateJson = json_encode($themeState, JSON_UNESCAPED_SLASHES | JSON_UNESCAP
       <?php foreach ($serviceItems as $service): ?>
       <a class="quick-service<?= $service['url'] === '#' ? ' is-disabled' : '' ?>" href="<?= esc($service['url']) ?>"
         <?= $service['url'] === '#' ? ' aria-disabled="true" tabindex="-1"' : '' ?>>
-        <span class="quick-service-icon"><?= $this->include('themes/madya/components/ui/icon', ['name' => $service['icon'] ?? 'arrow-up-right']) ?></span>
+        <span class="quick-service-icon"><?= view('themes/madya/components/ui/icon', ['name' => $service['icon'] ?? 'arrow-up-right']) ?></span>
         <span><strong><?= esc($service['label']) ?></strong><small><?= esc($service['desc']) ?></small></span>
       </a>
       
@@ -257,7 +258,7 @@ $themeStateJson = json_encode($themeState, JSON_UNESCAPED_SLASHES | JSON_UNESCAP
     <div class="theme-container">
       <div class="home-stat-grid">
         <?php foreach ($counterItems as $stat): ?><div class="home-stat-item">
-          <?= $this->include('themes/madya/components/ui/icon', ['name' => $stat['icon'] ?? 'graduation-cap']) ?><div>
+          <?= view('themes/madya/components/ui/icon', ['name' => $stat['icon'] ?? 'graduation-cap']) ?><div>
             <strong><?= esc($stat['number'] ?? '') ?><?= esc($stat['suffix'] ?? '') ?></strong><span><?= esc($stat['label'] ?? '') ?></span>
           </div>
         </div><?php endforeach; ?>
@@ -316,7 +317,7 @@ $themeStateJson = json_encode($themeState, JSON_UNESCAPED_SLASHES | JSON_UNESCAP
             <?php foreach (array_slice($programItems, 0, 3) as $index => $item): ?>
             <article class="program-showcase-card">
               <div class="program-showcase-icon" aria-hidden="true">
-                <?= $this->include('themes/madya/components/ui/icon', ['name' => $item['icon'] ?? 'graduation-cap', 'class' => 'program-icon']) ?>
+                <?= view('themes/madya/components/ui/icon', ['name' => $item['icon'] ?? 'graduation-cap', 'class' => 'program-icon']) ?>
               </div>
               <div class="program-showcase-body">
                 <h3><?= esc($item['title'] ?? '') ?></h3>
@@ -332,7 +333,7 @@ $themeStateJson = json_encode($themeState, JSON_UNESCAPED_SLASHES | JSON_UNESCAP
             <div class="extra-inline-list">
               <?php foreach (array_slice($extraItems, 0, 4) as $item): $iconColor = preg_match('/^#[0-9a-f]{6}$/i', (string)($item['icon_color'] ?? '')) ? $item['icon_color'] : ''; ?><a
                 class="extra-inline-item" href="<?= base_url('/#extracurriculars') ?>"><span class="extra-inline-icon"
-                  <?= $iconColor ? ' style="--rich-icon-color:' . esc($iconColor) . '"' : '' ?>><?= $this->include('themes/madya/components/ui/icon', ['name' => $item['icon'] ?? 'users-round', 'color' => $iconColor]) ?></span><span><?= esc($item['title'] ?? '') ?></span></a><?php endforeach; ?>
+                  <?= $iconColor ? ' style="--rich-icon-color:' . esc($iconColor) . '"' : '' ?>><?= view('themes/madya/components/ui/icon', ['name' => $item['icon'] ?? 'users-round', 'color' => $iconColor]) ?></span><span><?= esc($item['title'] ?? '') ?></span></a><?php endforeach; ?>
             </div>
           </div><?php endif; ?>
         </article>

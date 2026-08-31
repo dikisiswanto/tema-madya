@@ -18,8 +18,9 @@ $contactCanonical = base_url('contact');
 $contactDescription = $banner['subtitle'] ?? 'Temukan alamat, kanal resmi, dan formulir untuk menghubungi sekolah.';
 $contactStructured = ['@context' => 'https://schema.org','@type' => 'ContactPage','name' => $banner['title'] ?? 'Kontak Sekolah','description' => $contactDescription,'url' => $contactCanonical,'isPartOf' => ['@type' => 'WebSite','name' => $site_name ?? 'SekolahKu','url' => base_url()]];
 ?>
-<?= $this->include('themes/madya/layouts/header', ['page_title' => $banner['title'] ?? 'Kontak Sekolah', 'page_description' => $contactDescription, 'canonical_url' => $contactCanonical, 'structured_data' => $contactStructured, 'og_image' => $heroImage]) ?>
-<?= $this->include('themes/madya/components/page-header', [
+<?php $this->setData(['page_title' => $banner['title'] ?? 'Kontak Sekolah', 'page_description' => $contactDescription, 'canonical_url' => $contactCanonical, 'structured_data' => $contactStructured, 'og_image' => $heroImage]); ?>
+<?= $this->include('themes/madya/layouts/header') ?>
+<?= view('themes/madya/components/page-header', [
     'eyebrow' => $banner['badge'] ?? 'Hubungi Sekolah',
     'title' => $banner['title'] ?? 'Kontak Sekolah',
     'description' => $banner['subtitle'] ?? 'Kami siap membantu Anda. Hubungi kami untuk informasi, kerja sama, atau layanan sekolah lainnya.',
