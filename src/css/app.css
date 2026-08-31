@@ -5621,6 +5621,9 @@
     border-radius: 0.35rem;
     background: var(--home-deep);
   }
+  .featured-news-home .madya-media-fallback {
+    min-height: 12.3rem !important;
+  }
   .featured-news-home > img {
     width: 100%;
     height: 100%;
@@ -5811,6 +5814,9 @@
     margin-top: 0.08rem;
     color: var(--home-muted);
     font-size: 0.55rem;
+  }
+  .testimonial-person .madya-media-fallback {
+    min-height: 1rem !important;
   }
   .testimonial-stars {
     margin-left: auto;
@@ -6506,10 +6512,10 @@
       gap: 0.55rem;
     }
     .featured-news-home {
-      min-height: 6.7rem;
+      min-height: 8rem;
     }
     .featured-news-home > img {
-      min-height: 6.7rem;
+      min-height: 8rem;
     }
     .featured-news-home > div {
       right: 0.6rem;
@@ -12691,7 +12697,7 @@
     object-position: center top;
   }
   .rich-person-placeholder {
-    display: grid;
+    display: grid !important;
     width: 100%;
     height: 100%;
     place-items: center;
@@ -14176,6 +14182,7 @@
     .madya-theme .home-page .quick-service-grid-count-6 .quick-service {
       border-top: 0;
       border-right: 1px solid var(--home-line);
+      justify-content: center;
     }
     .madya-theme
       .home-page
@@ -14669,7 +14676,7 @@
 .madya-theme .home-news-media .madya-media-fallback {
   width: 100%;
   height: 100%;
-  min-height: 120px;
+  min-height: 30px;
 }
 .madya-theme .program-row-image .madya-media-fallback,
 .madya-theme .gallery-home-item .madya-media-fallback {

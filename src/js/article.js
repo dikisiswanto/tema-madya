@@ -14,11 +14,65 @@ function showCommentNotice(form) {
 }
 
 async function copyCurrentLink(button) {
+    const originalContent = button.innerHTML;
+    const url = window.location.href;
+
     try {
-        await navigator.clipboard.writeText(window.location.href);
-        button.textContent = 'Tautan disalin';
+        if (navigator.clipboard?.writeText) {
+            await navigator.clipboard.writeText(url);
+        } else {
+            const textarea = document.createElement('textarea');
+            textarea.value = url;
+            textarea.setAttribute('readonly', '');
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            textarea.style.pointerEvents = 'none';
+
+            document.body.appendChild(textarea);
+            textarea.focus();
+            textarea.select();
+
+            const copied = document.execCommand('copy');
+            textarea.remove();
+
+            if (!copied) {
+                throw new Error('Clipboard copy failed');
+            }
+        }
+
+        button.innerHTML =
+            '<i data-lucide="check" aria-hidden="true"></i><span>Tautan disalin</span>';
+        button.setAttribute('aria-label', 'Tautan berhasil disalin');
+
+        if (window.lucide?.createIcons) {
+            window.lucide.createIcons();
+        }
+
+        window.setTimeout(() => {
+            button.innerHTML = originalContent;
+            button.setAttribute('aria-label', 'Salin tautan');
+
+            if (window.lucide?.createIcons) {
+                window.lucide.createIcons();
+            }
+        }, 2000);
     } catch {
-        button.textContent = 'Salin gagal';
+        button.innerHTML =
+            '<i data-lucide="circle-alert" aria-hidden="true"></i><span>Salin gagal</span>';
+        button.setAttribute('aria-label', 'Gagal menyalin tautan');
+
+        if (window.lucide?.createIcons) {
+            window.lucide.createIcons();
+        }
+
+        window.setTimeout(() => {
+            button.innerHTML = originalContent;
+            button.setAttribute('aria-label', 'Salin tautan');
+
+            if (window.lucide?.createIcons) {
+                window.lucide.createIcons();
+            }
+        }, 2000);
     }
 }
 
