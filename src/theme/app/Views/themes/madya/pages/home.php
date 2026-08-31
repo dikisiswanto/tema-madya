@@ -316,7 +316,7 @@ $themeStateJson = json_encode($themeState, JSON_UNESCAPED_SLASHES | JSON_UNESCAP
           <?php if ($programItems && $programMeta['show']): ?><div class="program-showcase-grid">
             <?php foreach (array_slice($programItems, 0, 3) as $index => $item): ?>
             <article class="program-showcase-card">
-              <div class="program-showcase-icon" aria-hidden="true">
+              <div class="program-showcase-media program-showcase-icon" aria-hidden="true">
                 <?= view('themes/madya/components/ui/icon', ['name' => $item['icon'] ?? 'graduation-cap', 'class' => 'program-icon']) ?>
               </div>
               <div class="program-showcase-body">

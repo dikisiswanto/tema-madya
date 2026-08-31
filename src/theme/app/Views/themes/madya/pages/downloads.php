@@ -31,7 +31,7 @@ $downloadsStructured = ['@context' => 'https://schema.org','@type' => 'Collectio
     'breadcrumbs' => [['label' => 'Download']],
 ]) ?>
 
-<section class="downloads-reference-section madya-section">
+<section class="downloads-reference-section downloads-page madya-section">
     <div class="theme-container">
         <div class="download-stat-grid download-stat-grid-reference">
             <div class="download-stat"><span class="download-stat-icon"><i data-lucide="files" aria-hidden="true"></i></span><span><strong><?= count($allItems) ?></strong><small>Total Dokumen</small></span></div>
@@ -40,7 +40,7 @@ $downloadsStructured = ['@context' => 'https://schema.org','@type' => 'Collectio
             <div class="download-stat"><span class="download-stat-icon"><i data-lucide="files" aria-hidden="true"></i></span><span><strong><?= $otherCount ?></strong><small>Format Lain</small></span></div>
         </div>
 
-        <div class="download-content-grid">
+        <div class="download-content-grid" id="all-documents">
             <main class="download-main-column">
                 <div class="download-toolbar-reference">
                     <div><h2>Semua Dokumen</h2><p>Dokumen resmi sekolah yang tersedia untuk diunduh.</p></div>

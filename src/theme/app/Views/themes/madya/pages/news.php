@@ -92,11 +92,7 @@ $newsStructured = ['@context' => 'https://schema.org','@type' => 'CollectionPage
             <section class="news-side-card"><h2>Topik Populer</h2><div class="article-sidebar-tags">
                 <?php foreach (array_slice($tags, 0, 12) as $tagItem): $tagName = is_array($tagItem) ? ($tagItem['name'] ?? $tagItem['tag'] ?? '') : $tagItem; if (!$tagName) continue; ?>
                     <?php if ($tagName !== ''): ?>
-                        <?php if ($tagSupported): ?>
-                            <a class="<?= strcasecmp($activeTag, (string) $tagName) === 0 ? 'is-active' : '' ?>" href="<?= base_url('news?tag=' . urlencode((string) $tagName)) ?>"><?= esc($tagName) ?></a>
-                        <?php else: ?>
-                            <span class="article-sidebar-tag"><?= esc($tagName) ?></span>
-                        <?php endif; ?>
+                        <a class="<?= strcasecmp($activeTag, (string) $tagName) === 0 ? 'is-active' : '' ?>" href="<?= base_url('news?tag=' . urlencode((string) $tagName)) ?>"><?= esc($tagName) ?></a>
                     <?php endif; ?>
                 <?php endforeach; ?>
             </div></section>
