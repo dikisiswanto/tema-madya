@@ -10,8 +10,6 @@ $mediaUrl = static function (?string $value, string $uploadDir = ''): string {
     }
     return base_url($uploadDir !== '' ? 'uploads/' . trim($uploadDir, '/') . '/' . ltrim($value, '/') : ltrim($value, '/'));
 };
-$generatedImageBase = base_url(($theme_asset_base ?? 'themes/madya/assets') . '/generated');
-$generated = static fn(string $name): string => $generatedImageBase . '/' . $name;
 $sectionSettings = is_array($section_settings ?? null) ? $section_settings : (json_decode($section_settings ?? '[]', true) ?: []);
 $sectionMeta = static function (string $key, string $fallbackTitle, string $fallbackSubtitle = '') use ($sectionSettings): array {
     $meta = is_array($sectionSettings[$key] ?? null) ? $sectionSettings[$key] : [];
@@ -36,10 +34,8 @@ $testimonialItems = $visibleItems($testimonials ?? []);
 $eventItems = $visibleItems($events ?? []);
 $galleryItems = $visibleItems($galleries ?? []);
 $newsItems = $visibleItems($news ?? []);
-$heroImage = $aboutData['hero_image'] ?? $aboutData['image'] ?? $aboutData['image_url'] ?? '';
-$portraitFallback = base_url(($theme_asset_base ?? 'themes/madya/assets') . '/illustrations/portrait-placeholder.svg');
-$schoolFallback = base_url(($theme_asset_base ?? 'themes/madya/assets') . '/illustrations/school-placeholder.svg');
-$newsFallback = $schoolFallback;
+$heroImage = trim((string) ($aboutData['hero_image'] ?? $aboutData['image'] ?? $aboutData['image_url'] ?? ''));
+$heroImage = $heroImage !== '' ? $heroImage : base_url('themes/madya/assets/generated/hero-image.jpg');
 $primaryUrl = trim((string) ($hero_btn_primary_url ?? '')) ?: '/#profile';
 $primaryText = trim((string) ($hero_btn_primary_text ?? '')) ?: 'Jelajahi Sekolah';
 $secondaryUrl = trim((string) ($hero_btn_secondary_url ?? '')) ?: '/#contact';
@@ -216,15 +212,16 @@ $themeStateJson = json_encode($themeState, JSON_UNESCAPED_SLASHES | JSON_UNESCAP
     'page_description' => $homeDescription,
     'canonical_url' => base_url(),
     'structured_data' => $homeStructured,
-    'og_image' => $heroImage,
-    'preload_image' => $heroImage,
+    'og_image' => $heroImage ?: null,
+    'preload_image' => $heroImage ?: null,
 ]) ?>
 <?= $this->include('themes/madya/layouts/header') ?>
 <script id="theme-state" type="application/json"><?= $themeStateJson ?></script>
 <div class="home-page" data-spa-content data-spa-runtime="cms-home">
-  <section class="home-hero" aria-labelledby="hero-title" <?php if ($heroImage): ?>
+  <section class="home-hero<?= $heroImage ? '' : ' home-hero-no-image' ?>" aria-labelledby="hero-title" <?php if ($heroImage): ?>
     style="--hero-bg-image: url('<?= esc($heroImage) ?>')" 
 <?php endif; ?>>
+    
     <div class="theme-container home-hero-grid">
       <div class="home-hero-copy">
         <?php if (!empty($hero_badge)): ?>
@@ -241,7 +238,7 @@ $themeStateJson = json_encode($themeState, JSON_UNESCAPED_SLASHES | JSON_UNESCAP
   </section>
 
   <section class="home-quick-services" aria-label="Layanan cepat">
-    <div class="theme-container quick-service-grid">
+    <div class="theme-container quick-service-grid quick-service-grid-count-<?= count($serviceItems) ?>">
       <?php foreach ($serviceItems as $service): ?>
       <a class="quick-service<?= $service['url'] === '#' ? ' is-disabled' : '' ?>" href="<?= esc($service['url']) ?>"
         <?= $service['url'] === '#' ? ' aria-disabled="true" tabindex="-1"' : '' ?>>
@@ -253,12 +250,45 @@ $themeStateJson = json_encode($themeState, JSON_UNESCAPED_SLASHES | JSON_UNESCAP
     </div>
   </section>
 
-  <?php $counterItems = is_array($counter_stats ?? null) ? array_slice($counter_stats, 0, 4) : []; ?>
+  <?php
+$counterItems = is_array($counter_stats ?? null) ? array_slice($counter_stats, 0, 4) : [];
+$statIconClass = static function (array $stat): string {
+    $configured = trim((string) ($stat['icon'] ?? ''));
+    if (preg_match('/^(?:(?:fa|fas|far|fab|fal|fat|fad)\s+fa-[a-z0-9-]+|fa-[a-z0-9-]+)$/i', $configured)) {
+        return preg_match('/^fa-[a-z0-9-]+$/i', $configured) ? 'fas ' . $configured : $configured;
+    }
+    $label = strtolower(trim((string) ($stat['label'] ?? '')));
+    if (str_contains($label, 'guru') || str_contains($label, 'pengajar') || str_contains($label, 'tenaga')) {
+        return 'fas fa-chalkboard-user';
+    }
+    if (str_contains($label, 'prestasi') || str_contains($label, 'capaian')) {
+        return 'fas fa-trophy';
+    }
+    if (str_contains($label, 'program') || str_contains($label, 'kegiatan')) {
+        return 'fas fa-layer-group';
+    }
+    if (str_contains($label, 'siswa') || str_contains($label, 'murid') || str_contains($label, 'peserta')) {
+        return 'fas fa-user-graduate';
+    }
+    return 'fas fa-school';
+};
+$mediaFallbackIcon = static function (string $kind): string {
+    $icons = [
+        'teacher' => 'fas fa-chalkboard-user',
+        'achievement' => 'fas fa-trophy',
+        'program' => 'fas fa-graduation-cap',
+        'extracurricular' => 'fas fa-people-group',
+        'gallery' => 'fas fa-images',
+        'news' => 'fas fa-newspaper',
+    ];
+    return $icons[$kind] ?? 'fas fa-image';
+};
+?>
   <?php if ($counterItems): ?><section class="home-stat-section" aria-label="Statistik sekolah">
     <div class="theme-container">
       <div class="home-stat-grid">
         <?php foreach ($counterItems as $stat): ?><div class="home-stat-item">
-          <?= view('themes/madya/components/ui/icon', ['name' => $stat['icon'] ?? 'graduation-cap']) ?><div>
+          <span class="home-stat-icon" aria-hidden="true"><i class="<?= esc($statIconClass((array) $stat)) ?>"></i></span><div>
             <strong><?= esc($stat['number'] ?? '') ?><?= esc($stat['suffix'] ?? '') ?></strong><span><?= esc($stat['label'] ?? '') ?></span>
           </div>
         </div><?php endforeach; ?>
@@ -272,10 +302,10 @@ $themeStateJson = json_encode($themeState, JSON_UNESCAPED_SLASHES | JSON_UNESCAP
         <article class="principal-panel">
           <div class="principal-photo">
             <?php $principalPhoto = $mediaUrl($principalData['photo'] ?? '', 'principal'); ?>
-            <img src="<?= esc($principalPhoto ?: $portraitFallback) ?>"
+            <?php if ($principalPhoto): ?><img src="<?= esc($principalPhoto) ?>"
               width="<?= esc($principalData['image_width'] ?? 720) ?>"
               height="<?= esc($principalData['image_height'] ?? 900) ?>"
-              alt="<?= esc($principalData['name'] ?? 'Foto kepala sekolah') ?>" loading="lazy" decoding="async">
+              alt="<?= esc($principalData['name'] ?? 'Foto kepala sekolah') ?>" loading="lazy" decoding="async"><?php else: ?><div class="madya-media-fallback madya-media-fallback-principal" aria-hidden="true"><i class="fas fa-user-tie"></i></div><?php endif; ?>
           </div>
           <div class="principal-message">
             <p class="section-kicker">Sambutan Kepala Sekolah</p>
@@ -349,10 +379,11 @@ $themeStateJson = json_encode($themeState, JSON_UNESCAPED_SLASHES | JSON_UNESCAP
                 aria-hidden="true"></i></a>
           </div>
           <div class="teacher-grid">
-            <?php foreach (array_slice($teacherItems, 0, 4) as $index => $item): ?><article class="madya-teacher-card"><img
-                src="<?= esc($mediaUrl($item['photo'] ?? '', 'teachers') ?: $portraitFallback) ?>"
-                width="900" height="1100" alt="<?= esc($item['name'] ?? 'Foto tenaga pendidik') ?>" loading="lazy"
-                decoding="async">
+            <?php foreach (array_slice($teacherItems, 0, 4) as $index => $item): ?><article class="madya-teacher-card">
+              <?php $teacherPhoto = $mediaUrl($item['photo'] ?? '', 'teachers'); ?>
+              <?php if ($teacherPhoto): ?><img src="<?= esc($teacherPhoto) ?>" width="900" height="1100"
+                alt="<?= esc($item['name'] ?? 'Foto tenaga pendidik') ?>" loading="lazy" decoding="async">
+              <?php else: ?><div class="madya-media-fallback madya-media-fallback-teacher" aria-hidden="true"><i class="<?= esc($mediaFallbackIcon('teacher')) ?>"></i></div><?php endif; ?>
               <div>
                 <?php if (!empty($item['name'])): ?><strong><?= esc($item['name']) ?></strong><?php endif; ?><?php if (!empty($item['role'])): ?><span><?= esc($item['role']) ?></span><?php endif; ?>
               </div>
@@ -368,8 +399,7 @@ $themeStateJson = json_encode($themeState, JSON_UNESCAPED_SLASHES | JSON_UNESCAP
                 aria-hidden="true"></i></a>
           </div>
           <div class="achievement-list">
-            <?php foreach (array_slice($achievementItems, 0, 3) as $item): ?><article class="achievement-list-row"><span
-                class="achievement-list-icon"><i data-lucide="trophy" aria-hidden="true"></i></span>
+            <?php foreach (array_slice($achievementItems, 0, 3) as $item): ?><article class="achievement-list-row"><span class="achievement-list-icon" aria-hidden="true"><i class="fas fa-trophy"></i></span>
               <div>
                 <strong><?= esc(($item['achievement'] ?? 'Prestasi siswa') . (!empty($item['student_name']) ? ' — ' . $item['student_name'] : '')) ?></strong><small><?= esc(trim(($item['level'] ?? '') . (!empty($item['class_name']) ? ' · ' . $item['class_name'] : ''))) ?></small>
               </div><time><?= esc($item['year'] ?? '') ?></time>
@@ -390,9 +420,7 @@ $themeStateJson = json_encode($themeState, JSON_UNESCAPED_SLASHES | JSON_UNESCAP
           <div class="news-home-row">
             <?php if ($newsFeatured): ?>
 <a class="featured-news-home"
-              href="<?= base_url('news/' . rawurlencode((string)($newsFeatured['slug'] ?? ''))) ?>"><img
-                src="<?= esc($mediaUrl($newsFeatured['image'] ?? '', 'news') ?: $newsFallback) ?>" width="900" height="600"
-                alt="<?= esc($newsFeatured['title'] ?? '') ?>" loading="lazy" decoding="async">
+              href="<?= base_url('news/' . rawurlencode((string)($newsFeatured['slug'] ?? ''))) ?>"><span class="home-news-media"><?php if ($mediaUrl($newsFeatured['image'] ?? '', 'news')): ?><img src="<?= esc($mediaUrl($newsFeatured['image'] ?? '', 'news')) ?>" width="900" height="600" alt="<?= esc($newsFeatured['title'] ?? '') ?>" loading="lazy" decoding="async"><?php else: ?><span class="madya-media-fallback" aria-hidden="true"><i class="fas fa-newspaper"></i></span><?php endif; ?></span>
               <div><span><?= esc($newsFeatured['category'] ?? '') ?></span>
                 <h3><?= esc($newsFeatured['title'] ?? '') ?></h3>
                 <small><?= esc($newsFeatured['published_at'] ?? '') ?></small>
@@ -401,10 +429,7 @@ $themeStateJson = json_encode($themeState, JSON_UNESCAPED_SLASHES | JSON_UNESCAP
 <?php endif; ?>
             <div class="news-home-side"><?php foreach (array_slice($newsItems, 1, 3) as $item): ?>
 <a
-                href="<?= base_url('news/' . rawurlencode((string)($item['slug'] ?? ''))) ?>"><img
-                  src="<?= esc($mediaUrl($item['image'] ?? '', 'news') ?: $newsFallback) ?>" width="180" height="120" alt=""
-                  loading="lazy"
-                  decoding="async"><span><strong><?= esc($item['title'] ?? '') ?></strong><small><?= esc($item['published_at'] ?? '') ?></small></span></a>
+                href="<?= base_url('news/' . rawurlencode((string)($item['slug'] ?? ''))) ?>"><span class="home-news-media"><?php if ($mediaUrl($item['image'] ?? '', 'news')): ?><img src="<?= esc($mediaUrl($item['image'] ?? '', 'news')) ?>" width="180" height="120" alt="" loading="lazy" decoding="async"><?php else: ?><span class="madya-media-fallback" aria-hidden="true"><i class="fas fa-newspaper"></i></span><?php endif; ?></span><span><strong><?= esc($item['title'] ?? '') ?></strong><small><?= esc($item['published_at'] ?? '') ?></small></span></a>
 <?php endforeach; ?>
             </div>
           </div>
@@ -441,10 +466,10 @@ $themeStateJson = json_encode($themeState, JSON_UNESCAPED_SLASHES | JSON_UNESCAP
           </div>
           <div class="gallery-home-grid gallery-home-grid-compact">
             <?php foreach (array_slice($galleryItems, 0, 4) as $index => $item): ?><a
-              class="gallery-home-item gallery-home-item-<?= $index ?>" href="<?= base_url('/#gallery') ?>"><img
-                src="<?= esc($item['image'] ?? $schoolFallback) ?>"
+              class="gallery-home-item gallery-home-item-<?= $index ?>" href="<?= base_url('/#gallery') ?>"><?php if (!empty($item['image'])): ?><img
+                src="<?= esc($item['image']) ?>"
                 width="700" height="520" alt="<?= esc($item['caption'] ?? 'Dokumentasi sekolah') ?>" loading="lazy"
-                decoding="async"></a><?php endforeach; ?></div>
+                decoding="async"><?php else: ?><span class="madya-media-fallback" aria-hidden="true"><i class="fas fa-images"></i></span><?php endif; ?></a><?php endforeach; ?></div>
         </article><?php endif; ?>
         <?php if ($testimonialItems && $testimonialMeta['show']): ?><article class="middle-panel">
           <div class="section-head-row compact">
@@ -457,10 +482,8 @@ $themeStateJson = json_encode($themeState, JSON_UNESCAPED_SLASHES | JSON_UNESCAP
           <div class="testimonial-feature" id="testimonials"><?php $testimonial = $testimonialItems[0]; ?><div
               class="testimonial-quote-mark">“</div>
             <blockquote><?= esc($testimonial['quote'] ?? $testimonial['content'] ?? '') ?></blockquote>
-            <div class="testimonial-person"><img
-                src="<?= esc($mediaUrl($testimonial['photo'] ?? '', 'testimonials') ?: $portraitFallback) ?>"
-                width="80" height="80" alt="" loading="lazy"
-                decoding="async"><span><strong><?= esc($testimonial['name'] ?? $testimonial['author'] ?? '') ?></strong><small><?= esc($testimonial['role'] ?? '') ?></small></span>
+            <div class="testimonial-person">
+              <?php $testimonialPhoto = $mediaUrl($testimonial['photo'] ?? '', 'testimonials'); ?><?php if ($testimonialPhoto): ?><img src="<?= esc($testimonialPhoto) ?>" width="80" height="80" alt="" loading="lazy" decoding="async"><?php else: ?><span class="madya-media-fallback madya-media-fallback-avatar" aria-hidden="true"><i class="fas fa-user"></i></span><?php endif; ?><span><strong><?= esc($testimonial['name'] ?? $testimonial['author'] ?? '') ?></strong><small><?= esc($testimonial['role'] ?? '') ?></small></span>
             </div>
           </div>
         </article><?php endif; ?>
@@ -479,9 +502,8 @@ $themeStateJson = json_encode($themeState, JSON_UNESCAPED_SLASHES | JSON_UNESCAP
             href="<?= esc($spmb_url) ?>">Daftar Sekarang <i data-lucide="arrow-right" aria-hidden="true"></i></a>
         </div>
         <?php if ($heroImage): ?>
-<img src="<?= esc($heroImage) ?>" width="800" height="600" alt="" loading="lazy"
-          decoding="async">
-<?php endif; ?>
+<img src="<?= esc($heroImage) ?>" width="800" height="600" alt="" loading="lazy" decoding="async">
+<?php else: ?><span class="madya-media-fallback madya-media-fallback-spmb" aria-hidden="true"><i class="fas fa-user-plus"></i></span><?php endif; ?>
       </aside>
     </div>
   </section>

@@ -4,7 +4,7 @@ if (!empty($page_banners)) {
     $decoded = is_string($page_banners) ? json_decode($page_banners, true) : $page_banners;
     $banner = is_array($decoded) ? ($decoded['contact'] ?? []) : [];
 }
-$heroImage = $banner['image'] ?? base_url(($theme_asset_base ?? 'themes/madya/assets') . '/generated/hero-image.jpg');
+$heroImage = $banner['image'] ?? '';
 $facebook = trim((string)($social_facebook ?? ''));
 $instagram = trim((string)($social_instagram ?? ''));
 $youtube = trim((string)($social_youtube ?? ''));
@@ -13,7 +13,7 @@ $contactCanonical = base_url('contact');
 $contactDescription = $banner['subtitle'] ?? 'Temukan alamat, kanal resmi, dan formulir untuk menghubungi sekolah.';
 $contactStructured = ['@context' => 'https://schema.org','@type' => 'ContactPage','name' => $banner['title'] ?? 'Kontak Sekolah','description' => $contactDescription,'url' => $contactCanonical,'isPartOf' => ['@type' => 'WebSite','name' => $site_name ?? 'SekolahKu','url' => base_url()]];
 ?>
-<?php $this->setData(['page_title' => $banner['title'] ?? 'Kontak Sekolah', 'page_description' => $contactDescription, 'canonical_url' => $contactCanonical, 'structured_data' => $contactStructured, 'og_image' => $heroImage]); ?>
+<?php $this->setData(['page_title' => $banner['title'] ?? 'Kontak Sekolah', 'page_description' => $contactDescription, 'canonical_url' => $contactCanonical, 'structured_data' => $contactStructured, 'og_image' => $heroImage ?: null]); ?>
 <?= $this->include('themes/madya/layouts/header') ?>
 <?= view('themes/madya/components/page-header', [
     'eyebrow' => $banner['badge'] ?? 'Hubungi Sekolah',
@@ -42,7 +42,7 @@ $contactStructured = ['@context' => 'https://schema.org','@type' => 'ContactPage
                         <div><span class="contact-fact-icon"><i data-lucide="phone" aria-hidden="true"></i></span><span><strong>Telepon</strong><small><?= esc($contact_phone ?: 'Nomor telepon belum diatur.') ?></small></span></div>
                         <div><span class="contact-fact-icon"><i data-lucide="mail" aria-hidden="true"></i></span><span><strong>Email</strong><small><?= esc($contact_email ?: 'Email sekolah belum diatur.') ?></small></span></div>
                     </div>
-                    <figure class="contact-campus-photo"><img src="<?= base_url(($theme_asset_base ?? 'themes/madya/assets') . '/generated/hero-image.jpg') ?>" alt="Lingkungan sekolah" width="1672" height="941" loading="lazy" decoding="async"><figcaption>Lingkungan sekolah</figcaption></figure>
+                    <figure class="contact-campus-photo"><div class="madya-media-fallback madya-media-fallback-campus" role="img" aria-label="Lingkungan sekolah"><i class="fas fa-school" aria-hidden="true"></i></div><figcaption>Lingkungan sekolah</figcaption></figure>
                 </div>
                 <div class="contact-location-block">
                     <h3>Lokasi Sekolah</h3>

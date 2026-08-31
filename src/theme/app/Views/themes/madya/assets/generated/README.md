@@ -4,7 +4,7 @@ Asset demo/fallback bawaan Madya disimpan langsung di package theme agar playgro
 
 ## Hero production fallback
 
-- `hero-image.jpg` — 1672×941, 16:9, optimized JPEG fallback untuk production.
+- `hero-image.jpg` — 1672×941, 16:9, optimized JPEG fallback untuk production. **Pengecualian:** file ini boleh dipakai sebagai runtime fallback khusus homepage hero.
 - Tidak mengandung nama sekolah, logo, atau copy tertanam sehingga aman sebagai fallback lintas sekolah.
 - Komposisi menyisakan area visual yang cukup tenang untuk overlay headline.
 

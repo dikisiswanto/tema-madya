@@ -33,8 +33,10 @@ export default function renderHome(state, container) {
         ],
         ['photo', 'Galeri', 'Dokumentasi kegiatan sekolah', '/#gallery'],
     ];
-    const imageOr = (src, alt, fallback, item = {}) =>
-        `<img src="${esc(src || fallback)}" width="${esc(item.image_width || item.width || 900)}" height="${esc(item.image_height || item.height || 600)}" alt="${esc(alt)}" loading="lazy" decoding="async">`;
+    const imageOr = (src, alt, fallbackIcon = 'image', item = {}) =>
+        src
+            ? `<img src="${esc(src)}" width="${esc(item.image_width || item.width || 900)}" height="${esc(item.image_height || item.height || 600)}" alt="${esc(alt)}" loading="lazy" decoding="async">`
+            : iconFallback(fallbackIcon, alt || 'Media');
     const date = (value) =>
         value
             ? new Date(value).toLocaleDateString('id-ID', {
@@ -61,20 +63,11 @@ export default function renderHome(state, container) {
     const assetBase = String(
         state.asset_base || '/themes/madya/assets',
     ).replace(/\/$/, '');
-    const generated = (name) => `${assetBase}/generated/${name}`;
-    const placeholder = (name) => `${assetBase}/illustrations/${name}`;
-    const teacherFallback = cmsRuntime
-        ? placeholder('portrait-placeholder.svg')
-        : generated('teacher-1.jpg');
-    const galleryFallback = cmsRuntime
-        ? placeholder('school-placeholder.svg')
-        : generated('gallery-students.jpg');
-    const newsFallback = cmsRuntime
-        ? placeholder('school-placeholder.svg')
-        : generated('news-campus.jpg');
+    const iconFallback = (name, label = '') =>
+        `<span class="madya-media-fallback" role="img" aria-label="${esc(label)}"><i class="fas fa-${esc(name)}"></i></span>`;
 
     container.innerHTML = `<div class="home-page">
-    <section class="home-hero" aria-labelledby="hero-title" aria-label="Hero ${esc(state.site_name || 'sekolah')}" style="--hero-bg-image:url('${esc(about.hero_image || about.image || generated('hero-image.jpg'))}')"><div class="theme-container home-hero-grid"><div class="home-hero-copy">${state.hero_badge ? `<p class="hero-kicker">${esc(state.hero_badge)}</p>` : ''}<h1 id="hero-title">${heroTitle}</h1><p class="hero-lead">${esc(state.hero_subtitle || state.site_description || state.site_tagline || '')}</p><div class="home-hero-actions"><a class="button" href="${esc(state.hero_btn_primary_url || '/#profile')}">${esc(state.hero_btn_primary_text || 'Jelajahi Sekolah')} ${iconMarkup('arrow-right')}</a><a class="button button-secondary" href="${esc(state.hero_btn_secondary_url || '/#contact')}">${esc(state.hero_btn_secondary_text || 'Hubungi Kami')} ${iconMarkup('arrow-right')}</a></div></div></div></section>
+    <section class="home-hero" aria-labelledby="hero-title" aria-label="Hero ${esc(state.site_name || 'sekolah')}" style="--hero-bg-image:url('${esc(about.hero_image || about.image || '/themes/madya/assets/generated/hero-image.jpg')}')"><div class="theme-container home-hero-grid"><div class="home-hero-copy">${state.hero_badge ? `<p class="hero-kicker">${esc(state.hero_badge)}</p>` : ''}<h1 id="hero-title">${heroTitle}</h1><p class="hero-lead">${esc(state.hero_subtitle || state.site_description || state.site_tagline || '')}</p><div class="home-hero-actions"><a class="button" href="${esc(state.hero_btn_primary_url || '/#profile')}">${esc(state.hero_btn_primary_text || 'Jelajahi Sekolah')} ${iconMarkup('arrow-right')}</a><a class="button button-secondary" href="${esc(state.hero_btn_secondary_url || '/#contact')}">${esc(state.hero_btn_secondary_text || 'Hubungi Kami')} ${iconMarkup('arrow-right')}</a></div></div></div></section>
     <section class="home-quick-services" aria-label="Layanan cepat"><div class="theme-container quick-service-grid">${services.map(([i, l, d, u]) => `<a class="quick-service${u === '#' ? ' is-disabled' : ''}" href="${esc(u)}"><span class="quick-service-icon">${iconMarkup(i)}</span><span><strong>${esc(l)}</strong><small>${esc(d)}</small></span></a>`).join('')}</div></section>
     ${
         state.counter_stats?.length
@@ -88,7 +81,7 @@ export default function renderHome(state, container) {
             : ''
     }
     <section class="home-section home-middle-section" id="profile" aria-label="Profil sekolah"><div class="theme-container home-middle-stack">
-      <div class="home-middle-grid home-middle-grid-profile"><article class="principal-panel"><div class="principal-photo">${imageOr(principal.photo, principal.name || 'Kepala sekolah', cmsRuntime ? placeholder('portrait-placeholder.svg') : generated('principal.jpg'), principal)}</div><div class="principal-message"><p class="section-kicker">Sambutan Kepala Sekolah</p><blockquote>“${esc(principal.welcome_message || '')}”</blockquote><strong>${esc(principal.name || '')}</strong><span>${esc(principal.role_title || principal.role || '')}</span><div class="principal-facts">${[
+      <div class="home-middle-grid home-middle-grid-profile"><article class="principal-panel"><div class="principal-photo">${imageOr(principal.photo, principal.name || 'Kepala sekolah', 'user-tie', principal)}</div><div class="principal-message"><p class="section-kicker">Sambutan Kepala Sekolah</p><blockquote>“${esc(principal.welcome_message || '')}”</blockquote><strong>${esc(principal.name || '')}</strong><span>${esc(principal.role_title || principal.role || '')}</span><div class="principal-facts">${[
           ['award', 'Akreditasi', about.accreditation],
           ['book-open', 'Kurikulum', about.curriculum],
           ['calendar-days', 'Tahun Berdiri', about.established_year].filter(
@@ -133,7 +126,7 @@ export default function renderHome(state, container) {
                     .slice(0, 4)
                     .map(
                         (x, _i) =>
-                            `<article class="madya-teacher-card">${imageOr(x.photo, x.name || 'Tenaga pendidik', teacherFallback, x)}<div><strong>${esc(x.name || 'Tenaga pendidik')}</strong><span>${esc(x.role || 'Tenaga pendidik')}</span></div></article>`,
+                            `<article class="madya-teacher-card">${imageOr(x.photo, x.name || 'Tenaga pendidik', 'chalkboard-user', x)}<div><strong>${esc(x.name || 'Tenaga pendidik')}</strong><span>${esc(x.role || 'Tenaga pendidik')}</span></div></article>`,
                     )
                     .join('')}</div></article>`
               : ''
@@ -150,11 +143,11 @@ export default function renderHome(state, container) {
 }</div>
       <div class="home-middle-grid home-middle-grid-updates" id="updates">${
           news.length
-              ? `<article class="middle-panel"><div class="section-head-row compact"><div><p class="section-kicker">Berita Terbaru</p><h2>Informasi terkini seputar kegiatan sekolah.</h2></div><a class="text-link" href="/news">Lihat Semua ${iconMarkup('arrow-right')}</a></div><div class="news-home-row">${news[0] ? `<a class="featured-news-home" href="/news/${encodeURIComponent(news[0].slug || '')}">${imageOr(news[0].image, '', newsFallback, news[0])}<div><span>${esc(news[0].category || 'Berita')}</span><h3>${esc(news[0].title || 'Berita sekolah')}</h3><small>${esc(date(news[0].published_at))}</small></div></a>` : ''}<div class="news-home-side">${news
+              ? `<article class="middle-panel"><div class="section-head-row compact"><div><p class="section-kicker">Berita Terbaru</p><h2>Informasi terkini seputar kegiatan sekolah.</h2></div><a class="text-link" href="/news">Lihat Semua ${iconMarkup('arrow-right')}</a></div><div class="news-home-row">${news[0] ? `<a class="featured-news-home" href="/news/${encodeURIComponent(news[0].slug || '')}">${imageOr(news[0].image, '', 'newspaper', news[0])}<div><span>${esc(news[0].category || 'Berita')}</span><h3>${esc(news[0].title || 'Berita sekolah')}</h3><small>${esc(date(news[0].published_at))}</small></div></a>` : ''}<div class="news-home-side">${news
                     .slice(1, 4)
                     .map(
                         (x) =>
-                            `<a href="/news/${encodeURIComponent(x.slug || '')}">${imageOr(x.image, '', newsFallback, x)}<span><strong>${esc(x.title || '')}</strong><small>${esc(date(x.published_at))}</small></span></a>`,
+                            `<a href="/news/${encodeURIComponent(x.slug || '')}">${imageOr(x.image, '', 'newspaper', x)}<span><strong>${esc(x.title || '')}</strong><small>${esc(date(x.published_at))}</small></span></a>`,
                     )
                     .join('')}</div></div></article>`
               : ''
@@ -175,7 +168,7 @@ export default function renderHome(state, container) {
                     .slice(0, 4)
                     .map(
                         (x, i) =>
-                            `<a class="gallery-home-item gallery-home-item-${i}" href="/#gallery">${imageOr(x.image, x.caption || x.title || 'Dokumentasi sekolah', galleryFallback, x)}</a>`,
+                            `<a class="gallery-home-item gallery-home-item-${i}" href="/#gallery">${imageOr(x.image, x.caption || x.title || 'Dokumentasi sekolah', 'images', x)}</a>`,
                     )
                     .join('')}</div></article>`
               : ''
@@ -183,14 +176,14 @@ export default function renderHome(state, container) {
           testimonials.length
               ? `<article class="middle-panel"><div class="section-head-row compact"><div><p class="section-kicker">Testimoni</p><h2>Apa kata mereka tentang sekolah?</h2></div><a class="text-link" href="/#testimonials">Lihat Semua ${iconMarkup('arrow-right')}</a></div><div class="testimonial-feature" id="testimonials">${(() => {
                     const x = testimonials[0];
-                    return `<div class="testimonial-quote-mark">“</div><blockquote>${esc(x.quote || '')}</blockquote><div class="testimonial-person">${imageOr(x.photo || x.image, '', cmsRuntime ? placeholder('portrait-placeholder.svg') : generated('testimonial-1.jpg'), x)}<span><strong>${esc(x.name || 'Warga sekolah')}</strong><small>${esc(x.role || '')}</small></span></div>`;
+                    return `<div class="testimonial-quote-mark">“</div><blockquote>${esc(x.quote || '')}</blockquote><div class="testimonial-person">${imageOr(x.photo || x.image, '', 'user', x)}<span><strong>${esc(x.name || 'Warga sekolah')}</strong><small>${esc(x.role || '')}</small></span></div>`;
                 })()}</div></article>`
               : ''
 }</div>
     </div></section>
     <section class="home-section section-soft" id="spmb">
       <div class="theme-container">
-        <aside class="spmb-home-banner"><div><p class="section-kicker">SPMB Online</p><h2>Pendaftaran peserta didik baru.</h2><p>Bergabung bersama kami dan raih masa depan gemilang.</p><a class="button button-accent" href="${esc(state.spmb_url || '#')}">Daftar Sekarang ${iconMarkup('arrow-right')}</a></div>${about.image ? imageOr(about.image, '', generated('spmb-students.jpg'), about) : ''}</aside>
+        <aside class="spmb-home-banner"><div><p class="section-kicker">SPMB Online</p><h2>Pendaftaran peserta didik baru.</h2><p>Bergabung bersama kami dan raih masa depan gemilang.</p><a class="button button-accent" href="${esc(state.spmb_url || '#')}">Daftar Sekarang ${iconMarkup('arrow-right')}</a></div>${about.image ? imageOr(about.image, '', 'school', about) : iconFallback('user-plus', 'Pendaftaran siswa baru')}</aside>
       </div>
     </section>
     <section class="home-contact-strip" id="contact" aria-label="Kontak sekolah"><div class="theme-container contact-strip-grid"><div>${iconMarkup('map-pin')}<span><b>Hubungi Kami</b><small>${esc(state.contact_address || '—')}</small></span></div><div>${iconMarkup('phone')}<span><b>Telepon</b><small>${esc(state.contact_phone || '—')}</small></span></div><div>${iconMarkup('mail')}<span><b>Email</b><small>${esc(state.contact_email || '—')}</small></span></div><div>${iconMarkup('clock-3')}<span><b>Jam Layanan</b><small>${esc(state.contact_hours || '—')}</small></span></div></div></section>

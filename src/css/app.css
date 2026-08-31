@@ -33,6 +33,9 @@
 
 @layer base {
   :root {
+    /* Runtime font tokens: keep component CSS independent from Tailwind @theme output. */
+    --site-font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+    --site-font-display: "Newsreader", ui-serif, Georgia, serif;
     --site-brand: #072a63;
     --site-brand-deep: #041c46;
     --site-accent: #d89a2b;
@@ -95,7 +98,7 @@
      theme root so playground and native MPA render from the same baseline. */
   .madya-theme :where(h1, h2, h3, h4, h5, h6) {
     margin: 0;
-    font-family: var(--font-display);
+    @apply font-display;
     font-weight: 600;
     line-height: 1.12;
     color: var(--site-ink);
@@ -334,7 +337,7 @@
   }
   .nav-panel-heading span {
     color: var(--site-brand-deep);
-    font-family: var(--font-display);
+    @apply font-display;
     font-size: 1.45rem;
     line-height: 1;
   }
@@ -518,7 +521,7 @@
     margin-top: 0;
     margin-bottom: 0.8rem;
     color: var(--site-brand-deep);
-    font-family: var(--font-display);
+    @apply font-display;
     font-size: clamp(2.2rem, 8vw, 3.4rem);
     line-height: 0.95;
     font-weight: 500;
@@ -673,7 +676,7 @@
   }
   .madya-hero-meta strong {
     display: block;
-    font-family: var(--font-display);
+    @apply font-display;
     font-size: 1.8rem;
     line-height: 1;
     font-weight: 500;
@@ -735,7 +738,7 @@
   }
   .fact-item strong {
     display: block;
-    font-family: var(--font-display);
+    @apply font-display;
     font-size: 2.45rem;
     line-height: 1;
     font-weight: 500;
@@ -791,7 +794,7 @@
   .section-heading h2 {
     max-width: 16ch;
     margin: 0.6rem 0 0;
-    font-family: var(--font-display);
+    @apply font-display;
     font-size: clamp(2rem, 3.8vw, 3.35rem);
     line-height: 0.99;
     font-weight: 500;
@@ -829,7 +832,7 @@
     letter-spacing: 0.08em;
   }
   .program-title {
-    font-family: var(--font-display);
+    @apply font-display;
     font-size: 1.42rem;
     line-height: 1.05;
   }
@@ -914,7 +917,7 @@
   .madya-news-card h3 {
     max-width: 20ch;
     margin: 0.7rem 0 0.8rem;
-    font-family: var(--font-display);
+    @apply font-display;
     font-size: clamp(1.7rem, 3vw, 2.65rem);
     line-height: 1.02;
     font-weight: 500;
@@ -949,7 +952,7 @@
   }
   .agenda-row h3 {
     margin: 0;
-    font-family: var(--font-display);
+    @apply font-display;
     font-size: 1.45rem;
     line-height: 1.08;
     font-weight: 500;
@@ -1043,7 +1046,7 @@
   .page-hero-inner h1 {
     max-width: 13ch;
     margin: 0.85rem 0 0;
-    font-family: var(--font-display);
+    @apply font-display;
     font-size: clamp(2.7rem, 5.4vw, 4.9rem);
     line-height: 0.95;
     font-weight: 500;
@@ -1088,7 +1091,7 @@
   }
   .collection-card h2 {
     margin: 0.65rem 0 0.45rem;
-    font-family: var(--font-display);
+    @apply font-display;
     font-size: clamp(2rem, 3.3vw, 3rem);
     line-height: 1;
     font-weight: 500;
@@ -1119,7 +1122,7 @@
   .article-prose h2,
   .article-prose h3 {
     color: var(--site-ink);
-    font-family: var(--font-display);
+    @apply font-display;
     line-height: 1.1;
     font-weight: 500;
   }
@@ -1171,7 +1174,7 @@
   }
   .widget h2 {
     margin: 0 0 1rem;
-    font-family: var(--font-display);
+    @apply font-display;
     font-size: 1.6rem;
     font-weight: 500;
   }
@@ -1258,7 +1261,7 @@
   .related-card strong {
     display: block;
     margin-top: 0.25rem;
-    font-family: var(--font-display);
+    @apply font-display;
     font-size: 1.15rem;
     line-height: 1.08;
     font-weight: 500;
@@ -1284,7 +1287,7 @@
   .article-nav strong {
     display: block;
     margin-top: 0.35rem;
-    font-family: var(--font-display);
+    @apply font-display;
     font-size: 1.15rem;
     line-height: 1.08;
     font-weight: 500;
@@ -1366,7 +1369,7 @@
   }
   .document-group-heading h2 {
     margin: 0.35rem 0 0;
-    font-family: var(--font-display);
+    @apply font-display;
     font-size: clamp(2.2rem, 4vw, 3.4rem);
     line-height: 0.98;
     font-weight: 500;
@@ -1451,7 +1454,7 @@
   .contact-stack strong {
     display: block;
     margin-top: 0.3rem;
-    font-family: var(--font-display);
+    @apply font-display;
     font-size: 1.35rem;
     line-height: 1.08;
     font-weight: 500;
@@ -1471,7 +1474,7 @@
     padding: 1.4rem 2rem 1.4rem 0;
     cursor: pointer;
     list-style: none;
-    font-family: var(--font-display);
+    @apply font-display;
     font-size: 1.4rem;
     line-height: 1.1;
   }
@@ -1484,7 +1487,7 @@
     right: 0;
     top: 1.3rem;
     color: var(--site-accent);
-    font-family: var(--font-sans);
+    @apply font-sans;
     font-size: 1.25rem;
   }
   .madya-faq-item[open] summary::after {
@@ -1506,7 +1509,7 @@
     border-top: 1px solid var(--site-line);
   }
   .quote-card blockquote {
-    font-family: var(--font-display);
+    @apply font-display;
     font-size: 1.65rem;
     line-height: 1.18;
   }
@@ -1536,7 +1539,7 @@
   .footer-intro h2 {
     max-width: 18ch;
     margin: 0.65rem 0 1rem;
-    font-family: var(--font-display);
+    @apply font-display;
     font-size: 2.1rem;
     line-height: 1.02;
     font-weight: 500;
@@ -3545,7 +3548,7 @@
     height: 1.45rem;
   }
   .brand-copy strong {
-    font-family: var(--font-display);
+    @apply font-display;
     font-size: 1.02rem;
     color: var(--site-brand);
     letter-spacing: -0.025em;
@@ -3655,7 +3658,7 @@
   .page-hero-inner h1 {
     max-width: 18ch;
     color: #fff;
-    font-family: var(--font-display);
+    @apply font-display;
     font-weight: 600;
     letter-spacing: -0.045em;
     line-height: 0.98;
@@ -3701,7 +3704,7 @@
     font-weight: 750;
   }
   .fact-item strong {
-    font-family: var(--font-display);
+    @apply font-display;
     font-size: 1.6rem;
     line-height: 1;
   }
@@ -3801,7 +3804,7 @@
     max-width: 11ch;
     margin: 0.75rem 0 1.1rem;
     color: var(--site-brand);
-    font-family: var(--font-display);
+    @apply font-display;
     font-size: clamp(2.8rem, 5.3vw, 5.1rem);
     font-weight: 600;
     line-height: 0.94;
@@ -3877,7 +3880,7 @@
     margin-bottom: 0.55rem;
   }
   .principal-card-large blockquote {
-    font-family: var(--font-display);
+    @apply font-display;
     font-size: 1.1rem;
     line-height: 1.3;
     color: var(--site-brand);
@@ -3897,7 +3900,7 @@
   .profile-copy h2 {
     max-width: 12ch;
     color: var(--site-brand);
-    font-family: var(--font-display);
+    @apply font-display;
     font-size: clamp(2rem, 3.4vw, 3rem);
     line-height: 0.98;
     letter-spacing: -0.04em;
@@ -4034,7 +4037,7 @@
   .madya-news-card h2 {
     margin: 0.55rem 0;
     color: var(--site-brand);
-    font-family: var(--font-display);
+    @apply font-display;
     font-size: 1.25rem;
     line-height: 1.1;
   }
@@ -4100,7 +4103,7 @@
   }
   .agenda-date {
     color: #d89a2b;
-    font-family: var(--font-display);
+    @apply font-display;
     font-size: 1.25rem;
     font-weight: 650;
     text-align: center;
@@ -4167,7 +4170,7 @@
   }
   .testimonial-feature-card blockquote {
     color: var(--site-brand);
-    font-family: var(--font-display);
+    @apply font-display;
     font-size: 1.25rem;
     line-height: 1.25;
   }
@@ -4209,7 +4212,7 @@
     max-width: 13ch;
     margin: 0.4rem 0 0.8rem;
     color: #fff;
-    font-family: var(--font-display);
+    @apply font-display;
     font-size: clamp(1.8rem, 3vw, 2.7rem);
     line-height: 1;
   }
@@ -4270,7 +4273,7 @@
   }
   .contact-info-panel h2 {
     color: var(--site-brand);
-    font-family: var(--font-display);
+    @apply font-display;
     font-size: 2rem;
   }
   .contact-art {
@@ -4333,7 +4336,7 @@
   .download-stat strong {
     display: block;
     color: var(--site-brand);
-    font-family: var(--font-display);
+    @apply font-display;
     font-size: 1.5rem;
   }
   .download-stat span {
@@ -4431,7 +4434,7 @@
   .article-header h1 {
     margin: 0.55rem 0 0.8rem;
     color: var(--site-brand);
-    font-family: var(--font-display);
+    @apply font-display;
     font-size: clamp(2.2rem, 4.3vw, 4rem);
     line-height: 0.98;
     letter-spacing: -0.045em;
@@ -4463,7 +4466,7 @@
   .article-prose h2,
   .article-prose h3 {
     color: var(--site-brand);
-    font-family: var(--font-display);
+    @apply font-display;
   }
   .article-prose blockquote {
     margin: 1.5rem 0;
@@ -4471,7 +4474,7 @@
     border-left: 3px solid #d89a2b;
     background: #f8fafd;
     color: var(--site-brand);
-    font-family: var(--font-display);
+    @apply font-display;
     font-size: 1.2rem;
   }
   .article-side {
@@ -4619,7 +4622,7 @@
   .madya-footer-brand strong {
     display: block;
     color: #fff;
-    font-family: var(--font-display);
+    @apply font-display;
     font-size: 1rem;
   }
   .madya-footer-brand small {
@@ -4711,7 +4714,7 @@
   .newsletter-inner h2 {
     margin: 0.3rem 0 0.45rem;
     color: var(--site-brand);
-    font-family: var(--font-display);
+    @apply font-display;
     font-size: clamp(1.7rem, 3vw, 2.6rem);
     line-height: 1;
   }
@@ -5088,7 +5091,7 @@
     border: 0;
   }
   .brand-copy strong {
-    font-family: var(--font-sans);
+    @apply font-sans;
     font-size: 0.98rem;
     font-weight: 800;
     letter-spacing: 0.01em;
@@ -5133,7 +5136,7 @@
     max-width: 12ch;
     margin: 0;
     color: var(--home-navy);
-    font-family: var(--font-display);
+    @apply font-display;
     font-size: clamp(3.8rem, 5.05vw, 6.1rem);
     font-weight: 500;
     line-height: 0.93;
@@ -5352,7 +5355,7 @@
     max-width: 25rem;
     margin: 0.6rem 0 0.7rem;
     color: var(--home-navy);
-    font-family: var(--font-display);
+    @apply font-display;
     font-size: 1.65rem;
     font-weight: 500;
     line-height: 1.04;
@@ -5425,7 +5428,7 @@
     max-width: 19ch;
     margin: 0.5rem 0 0;
     color: var(--home-navy);
-    font-family: var(--font-display);
+    @apply font-display;
     font-size: 1.85rem;
     font-weight: 500;
     line-height: 1.02;
@@ -5640,7 +5643,7 @@
   .featured-news-home h3 {
     margin: 0;
     color: #fff;
-    font-family: var(--font-display);
+    @apply font-display;
     font-size: 1.35rem;
     font-weight: 500;
     line-height: 1.03;
@@ -5767,7 +5770,7 @@
     top: 0.7rem;
     left: 1.05rem;
     color: var(--home-navy);
-    font-family: var(--font-display);
+    @apply font-display;
     font-size: 3.6rem;
     line-height: 1;
   }
@@ -5879,7 +5882,7 @@
     max-width: 15ch;
     margin: 0.5rem 0 0.55rem;
     color: var(--home-deep);
-    font-family: var(--font-display);
+    @apply font-display;
     font-size: 2rem;
     font-weight: 500;
     line-height: 1.02;
@@ -6976,10 +6979,6 @@
     .section-head-row h2 {
       font-size: 1.65rem;
     }
-  }
-
-  /* Keep readable type at the reference's smaller desktop/tablet widths. */
-  @media (min-width: 992px) and (max-width: 1199px) {
     .principal-message .section-kicker {
       font-size: 0.68rem;
     }
@@ -7765,9 +7764,6 @@
 }
 
 @media (max-width: 599px) {
-  .site-topbar {
-    display: none;
-  }
   .site-header,
   .madya-header-inner {
     @apply min-h-[4.5rem];
@@ -7780,9 +7776,6 @@
   }
   .brand-copy strong {
     @apply text-[.9rem];
-  }
-  .brand-copy small {
-    display: none;
   }
   .header-search,
   .mobile-toggle {
@@ -9518,7 +9511,7 @@
   }
   .news-archive-list .madya-news-card h2 {
     @apply mt-0.5 mb-1 text-[1.35rem] font-medium leading-[1.08] tracking-[-.02em] text-brand;
-    font-family: var(--font-display);
+    @apply font-display;
   }
   .news-archive-list .madya-news-card h2 a:hover {
     @apply text-accent;
@@ -9560,7 +9553,7 @@
   .news-side-card h2,
   .news-newsletter-card h2 {
     @apply m-0 mb-4 text-[1rem] font-semibold leading-5 text-brand;
-    font-family: var(--font-display);
+    @apply font-display;
   }
   .news-sidebar-search {
     @apply flex overflow-hidden rounded-md border border-line bg-white;
@@ -9735,7 +9728,7 @@
     margin: 0.7rem 0 0.8rem;
     max-width: 24ch;
     color: var(--site-brand);
-    font-family: var(--font-display);
+    @apply font-display;
     font-size: clamp(2rem, 3vw, 2.65rem);
     line-height: 1.06;
     font-weight: 600;
@@ -9784,7 +9777,7 @@
   .article-prose h4 {
     margin: 2rem 0 0.75rem;
     color: var(--site-brand);
-    font-family: var(--font-display);
+    @apply font-display;
     line-height: 1.12;
     font-weight: 600;
   }
@@ -9812,7 +9805,7 @@
     border-radius: 0.45rem;
     background: var(--site-brand-soft);
     color: var(--site-brand);
-    font-family: var(--font-display);
+    @apply font-display;
     font-size: 1.05rem;
     line-height: 1.55;
   }
@@ -9875,7 +9868,7 @@
     display: block;
     margin-top: 0.35rem;
     color: var(--site-brand);
-    font-family: var(--font-display);
+    @apply font-display;
     font-size: 0.98rem;
     line-height: 1.2;
   }
@@ -9897,7 +9890,7 @@
   .article-section-heading h2 {
     margin: 0.35rem 0 0;
     color: var(--site-brand);
-    font-family: var(--font-display);
+    @apply font-display;
     font-size: 1.65rem;
     line-height: 1.08;
     font-weight: 600;
@@ -9936,7 +9929,7 @@
   }
   .article-related-body strong {
     @apply block text-[1rem] font-semibold leading-[1.2] tracking-[-.01em] text-brand;
-    font-family: var(--font-display);
+    @apply font-display;
   }
   .article-related-body small {
     @apply mt-2 block text-[.7rem] leading-5 text-muted;
@@ -9957,7 +9950,7 @@
   .share-card h2,
   .sidebar-card h2 {
     @apply m-0 mb-4 text-[1.05rem] font-semibold leading-5 text-brand;
-    font-family: var(--font-display);
+    @apply font-display;
   }
   .share-actions {
     @apply grid grid-cols-2 gap-2;
@@ -10029,7 +10022,7 @@
     margin: 0.45rem 0 0.55rem;
     max-width: 14ch;
     color: #fff;
-    font-family: var(--font-display);
+    @apply font-display;
     font-size: 1.3rem;
     line-height: 1.08;
   }
@@ -10386,7 +10379,7 @@
   }
   .news-archive-list .madya-news-card h2 {
     @apply mt-1.5 mb-2 text-[1.42rem] font-medium leading-[1.08] tracking-[-.02em] text-brand;
-    font-family: var(--font-display);
+    @apply font-display;
   }
   .news-archive-list .madya-news-card h2 a:hover {
     @apply text-accent;
@@ -10424,7 +10417,7 @@
   .news-side-card h2,
   .news-newsletter-card h2 {
     @apply m-0 mb-4 text-[1.08rem] font-semibold leading-6 text-brand;
-    font-family: var(--font-display);
+    @apply font-display;
   }
   .news-sidebar-search {
     @apply flex overflow-hidden rounded-md border border-line bg-white;
@@ -10911,7 +10904,7 @@
   max-width: 19ch;
   margin: 0.35rem 0 0.8rem;
   color: var(--site-brand);
-  font-family: var(--font-display);
+  @apply font-display;
   font-size: clamp(1.65rem, 2.4vw, 2.25rem);
   line-height: 1.02;
   font-weight: 500;
@@ -10984,7 +10977,7 @@
 .contact-location-block h3 {
   margin: 0 0 0.65rem;
   color: var(--site-brand);
-  font-family: var(--font-display);
+  @apply font-display;
   font-size: 1.15rem;
   font-weight: 500;
 }
@@ -11152,7 +11145,7 @@
 .contact-help-copy h2 {
   margin: 0.3rem 0 0.45rem;
   color: var(--site-brand);
-  font-family: var(--font-display);
+  @apply font-display;
   font-size: 1.45rem;
   line-height: 1.05;
   font-weight: 500;
@@ -11208,7 +11201,7 @@
 .contact-newsletter-card h2 {
   max-width: 16ch;
   margin: 0.35rem 0 0.55rem;
-  font-family: var(--font-display);
+  @apply font-display;
   font-size: 1.65rem;
   line-height: 1.02;
   font-weight: 500;
@@ -11300,7 +11293,7 @@
 .download-stat strong {
   display: block;
   color: var(--site-brand);
-  font-family: var(--font-display);
+  @apply font-display;
   font-size: 1.35rem;
   line-height: 1;
   font-weight: 600;
@@ -11332,7 +11325,7 @@
 .download-toolbar-reference h2 {
   margin: 0;
   color: var(--site-brand);
-  font-family: var(--font-display);
+  @apply font-display;
   font-size: 1.35rem;
   font-weight: 500;
 }
@@ -11349,7 +11342,7 @@
 }
 .document-group-reference .document-group-heading h2 {
   margin: 0.3rem 0 0;
-  font-family: var(--font-display);
+  @apply font-display;
   font-size: 1.3rem;
   line-height: 1.05;
   font-weight: 500;
@@ -11423,7 +11416,7 @@
 .document-main-reference > strong {
   display: block;
   color: var(--site-brand);
-  font-family: var(--font-display);
+  @apply font-display;
   font-size: 0.9rem;
   line-height: 1.25;
 }
@@ -11485,7 +11478,7 @@
 .download-widget h2 {
   margin: 0 0 0.75rem;
   color: var(--site-brand);
-  font-family: var(--font-display);
+  @apply font-display;
   font-size: 1.05rem;
   font-weight: 500;
 }
@@ -11652,7 +11645,7 @@
 .download-help-banner h2 {
   margin: 0.3rem 0 0.35rem;
   color: var(--site-brand);
-  font-family: var(--font-display);
+  @apply font-display;
   font-size: 1.45rem;
   line-height: 1.05;
   font-weight: 500;
@@ -12395,7 +12388,7 @@
   .home-page .principal-message blockquote {
     max-width: 34rem;
     margin-block: 0.65rem 0.85rem;
-    font-family: var(--font-sans);
+    @apply font-sans;
     font-size: 1.08rem;
     font-weight: 500;
     line-height: 1.65;
@@ -12731,14 +12724,14 @@
   .rich-achievement-body small,
   .rich-person-card figcaption > span:last-child,
   .rich-testimonial small {
-    font-family: var(--font-sans);
+    @apply font-sans;
   }
   .rich-testimonial {
     border: 1px solid var(--site-line);
     background: #fff;
   }
   .rich-testimonial blockquote {
-    font-family: var(--font-sans);
+    @apply font-sans;
     font-size: 1.12rem;
     line-height: 1.7;
     color: var(--site-ink);
@@ -12826,7 +12819,7 @@
   }
   .profile-main .static-info-card p,
   .profile-main .static-mission-copy p {
-    font-family: var(--font-sans);
+    @apply font-sans;
     font-size: 0.95rem;
     line-height: 1.75;
   }
@@ -12834,11 +12827,11 @@
     padding: 1rem 0;
   }
   .identity-table > .identity-row-legacy span {
-    font-family: var(--font-sans);
+    @apply font-sans;
     font-size: 0.8rem;
   }
   .identity-table > .identity-row-legacy strong {
-    font-family: var(--font-sans);
+    @apply font-sans;
     font-size: 1rem;
   }
 
@@ -12903,11 +12896,11 @@
   .rich-main select,
   .rich-main .meta,
   .rich-main .rich-event-tag {
-    font-family: var(--font-sans);
+    @apply font-sans;
   }
   .rich-main .rich-section-label p,
   .rich-main .rich-intro-panel > p {
-    font-family: var(--font-sans);
+    @apply font-sans;
     font-size: 0.98rem;
     line-height: 1.75;
   }
@@ -12917,7 +12910,7 @@
   .rich-main .rich-program-card h2,
   .rich-main .rich-program-card h3,
   .rich-main .rich-extra-copy h2 {
-    font-family: var(--font-display);
+    @apply font-display;
   }
   .rich-main .rich-person-card figcaption,
   .rich-main .rich-achievement-body,
@@ -13008,7 +13001,7 @@
     cursor: pointer;
   }
   .news-sort select {
-    font-family: var(--font-sans);
+    @apply font-sans;
   }
 
   @media (min-width: 1200px) {
@@ -13081,7 +13074,7 @@
     position: static;
     max-width: 18ch;
     color: var(--site-ink);
-    font-family: var(--font-sans);
+    @apply font-sans;
     font-size: 0.82rem;
     font-weight: 700;
     line-height: 1.35;
@@ -13123,7 +13116,7 @@
 
   .profile-main .static-content-intro h2 {
     max-width: none;
-    font-family: var(--font-display);
+    @apply font-display;
     font-size: clamp(2rem, 3vw, 3rem);
     font-weight: 700;
     letter-spacing: -0.025em;
@@ -13134,7 +13127,7 @@
     width: 100%;
     max-width: none;
     margin-right: 0;
-    font-family: var(--font-sans);
+    @apply font-sans;
     font-size: 1rem;
     line-height: 1.8;
   }
@@ -13160,7 +13153,7 @@
 
   .identity-table-header h2 {
     margin: 0;
-    font-family: var(--font-display);
+    @apply font-display;
     font-size: 1.35rem;
     font-weight: 700;
     line-height: 1.2;
@@ -13177,7 +13170,7 @@
     gap: 1.25rem;
     padding: 0.95rem 1.25rem;
     border-bottom: 1px solid var(--site-line);
-    font-family: var(--font-sans);
+    @apply font-sans;
   }
 
   .identity-row:last-child {
@@ -13639,7 +13632,7 @@
   .madya-theme .static-sidebar-card h2,
   .madya-theme .static-help-card h2,
   .madya-theme .static-newsletter-card h2 {
-    font-family: var(--font-sans);
+    @apply font-sans;
     letter-spacing: -0.012em;
   }
 
@@ -13665,7 +13658,7 @@
   }
 
   .madya-theme .document-main-reference > strong {
-    font-family: var(--font-sans);
+    @apply font-sans;
     font-size: 0.95rem;
     font-weight: 700;
     line-height: 1.4;
@@ -13697,7 +13690,7 @@
 
   .madya-theme .static-help-card h2,
   .madya-theme .static-newsletter-card h2 {
-    font-family: var(--font-sans);
+    @apply font-sans;
     font-size: 1.15rem;
     line-height: 1.35;
     font-weight: 700;
@@ -13749,7 +13742,7 @@
   .madya-theme .static-sidebar-card h2,
   .madya-theme .static-help-card h2,
   .madya-theme .static-newsletter-card h2 {
-    font-family: var(--font-sans);
+    @apply font-sans;
   }
 
   @media (min-width: 60rem) {
@@ -13812,7 +13805,7 @@
    scanning and reserve Newsreader for editorial content elsewhere. */
 @layer components {
   .madya-theme .downloads-page {
-    font-family: var(--font-sans);
+    @apply font-sans;
   }
 
   .madya-theme .downloads-page .download-stat strong,
@@ -13822,7 +13815,7 @@
   .madya-theme .downloads-page .download-widget h2,
   .madya-theme .downloads-page .download-newsletter-widget h2,
   .madya-theme .downloads-page .download-help-banner h2 {
-    font-family: var(--font-sans);
+    @apply font-sans;
   }
 
   .madya-theme .downloads-page .download-stat strong {
@@ -13911,4 +13904,799 @@
       line-height: 1;
     }
   }
+}
+
+/* Final readability pass: FAQ + Documents — 2026-08-31
+   Utility/information surfaces use Instrument Sans. Desktop text should not
+   fall into the micro-type scale used by older reference-lock rules. */
+@layer components {
+  .madya-theme .madya-faq-item summary,
+  .madya-theme .rich-faq-list summary {
+    @apply font-sans;
+    font-size: 0.95rem;
+    line-height: 1.45;
+    font-weight: 650;
+  }
+
+  .madya-theme .madya-faq-answer,
+  .madya-theme .rich-faq-list details > div,
+  .madya-theme .rich-faq-list .rich-faq-answer {
+    @apply font-sans;
+    font-size: 0.875rem;
+    line-height: 1.7;
+  }
+
+  .madya-theme .rich-faq-nav button {
+    @apply font-sans;
+    font-size: 0.875rem;
+    line-height: 1.4;
+  }
+}
+
+@media (min-width: 60rem) {
+  .madya-theme .madya-faq-item summary {
+    font-size: 1rem;
+    line-height: 1.45;
+  }
+
+  .madya-theme .madya-faq-answer {
+    font-size: 0.9375rem;
+    line-height: 1.75;
+  }
+
+  .madya-theme .madya-faq-item summary > span {
+    font-size: 0.75rem;
+  }
+
+  .madya-theme .rich-faq-nav button {
+    font-size: 0.875rem;
+    line-height: 1.45;
+  }
+
+  .madya-theme .rich-faq-list summary {
+    font-size: 0.9375rem;
+    line-height: 1.45;
+  }
+
+  .madya-theme .rich-faq-list details > div,
+  .madya-theme .rich-faq-list .rich-faq-answer {
+    font-size: 0.875rem;
+    line-height: 1.7;
+  }
+
+  /* Documents: readable floor for content and sidebar at large widths. */
+  .madya-theme .downloads-page .download-stat small,
+  .madya-theme .downloads-page .download-toolbar-reference p,
+  .madya-theme .downloads-page .document-group-heading > span,
+  .madya-theme .downloads-page .document-main-reference > small,
+  .madya-theme .downloads-page .document-meta-reference,
+  .madya-theme .downloads-page .document-download-button,
+  .madya-theme .downloads-page .download-category-links a,
+  .madya-theme .downloads-page .download-category-links b,
+  .madya-theme .downloads-page .download-popular-list strong,
+  .madya-theme .downloads-page .download-popular-list small,
+  .madya-theme .downloads-page .download-widget-link,
+  .madya-theme .downloads-page .download-newsletter-widget > p:not(.eyebrow),
+  .madya-theme .downloads-page .download-help-banner p:last-of-type,
+  .madya-theme .downloads-page .download-help-banner .button {
+    font-size: 0.875rem;
+    line-height: 1.55;
+  }
+
+  .madya-theme .downloads-page .document-main-reference > strong {
+    @apply font-sans;
+    font-size: 1rem;
+    line-height: 1.45;
+    font-weight: 700;
+  }
+
+  .madya-theme .downloads-page .download-popular-list strong {
+    @apply font-sans;
+    font-size: 0.875rem;
+    line-height: 1.45;
+  }
+
+  .madya-theme .downloads-page .document-file-type b {
+    font-size: 0.75rem;
+    line-height: 1.2;
+  }
+}
+
+/* Final homepage readability + fallback icon pass — 2026-08-31. */
+@layer components {
+  @media (min-width: 1024px) {
+    .madya-theme .home-page .quick-service-grid-count-1 {
+      grid-template-columns: 1fr;
+    }
+    .madya-theme .home-page .quick-service-grid-count-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .madya-theme .home-page .quick-service-grid-count-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .madya-theme .home-page .quick-service-grid-count-4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+    .madya-theme .home-page .quick-service-grid-count-5 {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+    .madya-theme .home-page .quick-service-grid-count-6 {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+  }
+
+  .madya-theme .home-stat-icon {
+    display: inline-grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    flex: 0 0 2.5rem;
+    color: var(--home-gold);
+    font-size: 1.65rem;
+    line-height: 1;
+  }
+  .madya-theme .home-stat-icon i {
+    font-size: inherit;
+    line-height: 1;
+  }
+
+  .madya-theme .madya-media-fallback {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    min-height: 12rem;
+    background: #eef2f5;
+    color: var(--home-navy);
+  }
+  .madya-theme .madya-media-fallback i {
+    font-size: 3rem;
+    line-height: 1;
+  }
+  .madya-theme .madya-media-fallback-teacher {
+    aspect-ratio: 9 / 11;
+    min-height: 0;
+  }
+
+  @media (min-width: 1200px) {
+    .madya-theme .home-page .quick-service strong,
+    .madya-theme .home-page .quick-service small,
+    .madya-theme .home-page .home-stat-item span,
+    .madya-theme .home-page .principal-description,
+    .madya-theme .home-page .principal-message strong,
+    .madya-theme .home-page .program-showcase-body p,
+    .madya-theme .home-page .program-showcase-body h3,
+    .madya-theme .home-page .extra-inline-item > span:last-child,
+    .madya-theme .home-page .madya-teacher-card strong,
+    .madya-theme .home-page .madya-teacher-card span,
+    .madya-theme .home-page .achievement-list-row strong,
+    .madya-theme .home-page .achievement-list-row small,
+    .madya-theme .home-page .achievement-list-row time,
+    .madya-theme .home-page .news-home-side strong,
+    .madya-theme .home-page .news-home-side small,
+    .madya-theme .home-page .agenda-item h3,
+    .madya-theme .home-page .agenda-item p,
+    .madya-theme .home-page .testimonial-person strong,
+    .madya-theme .home-page .testimonial-person small,
+    .madya-theme .home-page .document-home-row strong,
+    .madya-theme .home-page .document-home-row small,
+    .madya-theme .home-page .contact-strip-grid b,
+    .madya-theme .home-page .contact-strip-grid small,
+    .madya-theme .home-page .spmb-home-banner p:not(.section-kicker) {
+      font-size: 0.875rem;
+      line-height: 1.55;
+    }
+    .madya-theme .home-page .program-showcase-body h3,
+    .madya-theme .home-page .madya-teacher-card strong,
+    .madya-theme .home-page .achievement-list-row strong,
+    .madya-theme .home-page .document-home-row strong {
+      font-weight: 650;
+    }
+
+    .madya-theme .home-page .contact-strip-grid {
+      gap: 1rem;
+    }
+    .madya-theme .home-page .contact-strip-grid > div {
+      min-height: 4.5rem;
+      padding: 0.85rem 1rem;
+      gap: 0.65rem;
+    }
+    .madya-theme .home-page .contact-strip-grid > div > :is(svg, i) {
+      width: 1.25rem;
+      height: 1.25rem;
+      font-size: 1.25rem;
+      flex: 0 0 1.25rem;
+    }
+    .madya-theme .home-page .contact-strip-grid b {
+      font-size: 0.95rem;
+      line-height: 1.35;
+    }
+    .madya-theme .home-page .contact-strip-grid small {
+      font-size: 0.875rem;
+      line-height: 1.5;
+    }
+    .madya-theme .home-page .quick-service strong {
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+    .madya-theme .home-page .quick-service small {
+      font-size: 0.875rem;
+      line-height: 1.5;
+    }
+  }
+
+  @media (max-width: 699px) {
+    .madya-theme .site-footer .footer-newsletter-column > p {
+      font-size: 0.8rem;
+      line-height: 1.5;
+    }
+    .madya-theme .site-footer .footer-newsletter-column .footer-title {
+      font-size: 0.95rem;
+      line-height: 1.35;
+    }
+    .madya-theme .home-page .home-stat-icon {
+      width: 2.25rem;
+      height: 2.25rem;
+      flex-basis: 2.25rem;
+      font-size: 1.5rem;
+    }
+    .madya-theme .home-page .madya-media-fallback i {
+      font-size: 2.5rem;
+    }
+  }
+}
+
+@layer components {
+  @media (min-width: 1024px) {
+    .madya-theme .home-page .quick-service-grid-count-1 .quick-service,
+    .madya-theme .home-page .quick-service-grid-count-2 .quick-service,
+    .madya-theme .home-page .quick-service-grid-count-3 .quick-service,
+    .madya-theme .home-page .quick-service-grid-count-4 .quick-service,
+    .madya-theme .home-page .quick-service-grid-count-5 .quick-service,
+    .madya-theme .home-page .quick-service-grid-count-6 .quick-service {
+      border-top: 0;
+      border-right: 1px solid var(--home-line);
+    }
+    .madya-theme
+      .home-page
+      .quick-service-grid-count-1
+      .quick-service:last-child,
+    .madya-theme
+      .home-page
+      .quick-service-grid-count-2
+      .quick-service:last-child,
+    .madya-theme
+      .home-page
+      .quick-service-grid-count-3
+      .quick-service:last-child,
+    .madya-theme
+      .home-page
+      .quick-service-grid-count-4
+      .quick-service:last-child,
+    .madya-theme
+      .home-page
+      .quick-service-grid-count-5
+      .quick-service:last-child,
+    .madya-theme
+      .home-page
+      .quick-service-grid-count-6
+      .quick-service:last-child {
+      border-right: 0;
+    }
+  }
+}
+
+/* Final typography system — all CMS pages + all rich components — 2026-08-31.
+   Informational text is never allowed to fall into the legacy micro-type scale.
+   Decorative micro labels (eyebrows, badges, compact counters) remain compact. */
+@layer components {
+  .madya-theme .rich-component,
+  .madya-theme .rich-page,
+  .madya-theme .rich-section {
+    @apply font-sans;
+  }
+
+  /* Rich component information floor. */
+  .madya-theme
+    .rich-component
+    :where(
+      p,
+      li,
+      a,
+      button,
+      input,
+      select,
+      textarea,
+      label,
+      dt,
+      dd,
+      figcaption,
+      small,
+      time
+    ),
+  .madya-theme
+    .rich-page
+    :where(
+      p,
+      li,
+      a,
+      button,
+      input,
+      select,
+      textarea,
+      label,
+      dt,
+      dd,
+      figcaption,
+      small,
+      time
+    ),
+  .madya-theme
+    .rich-section
+    :where(
+      p,
+      li,
+      a,
+      button,
+      input,
+      select,
+      textarea,
+      label,
+      dt,
+      dd,
+      figcaption,
+      small,
+      time
+    ) {
+    font-size: max(0.8rem, 1em);
+  }
+
+  .madya-theme .rich-component :where(h2, h3, h4),
+  .madya-theme .rich-page :where(h2, h3, h4),
+  .madya-theme .rich-section :where(h2, h3, h4) {
+    @apply font-sans;
+  }
+
+  /* Rich sidebar/navigation: readable scanning size. */
+  .madya-theme .rich-sidebar-nav a {
+    font-size: 0.875rem;
+    line-height: 1.45;
+  }
+  .madya-theme .rich-sidebar-nav a small {
+    font-size: 0.8rem;
+  }
+  .madya-theme .rich-section-label h2 {
+    font-size: 1.125rem;
+    line-height: 1.35;
+  }
+
+  .madya-theme .rich-program-card h3,
+  .madya-theme .rich-program-card h2 {
+    font-size: 1.05rem;
+    line-height: 1.35;
+  }
+  .madya-theme .rich-program-card p {
+    font-size: 0.875rem;
+    line-height: 1.65;
+  }
+  .madya-theme .rich-program-card .text-link {
+    font-size: 0.8rem;
+  }
+  .madya-theme .rich-program-row h3 {
+    font-size: 0.95rem;
+  }
+  .madya-theme .rich-program-row p {
+    font-size: 0.8rem;
+    line-height: 1.55;
+  }
+  .madya-theme .rich-program-row .text-link {
+    font-size: 0.8rem;
+  }
+  .madya-theme .rich-program-image figcaption strong {
+    font-size: 1rem;
+  }
+
+  .madya-theme .identity-copy > p {
+    font-size: 0.875rem;
+    line-height: 1.7;
+  }
+  .madya-theme .identity-table h3 {
+    font-size: 0.95rem;
+  }
+  .madya-theme .identity-table > .identity-row-legacy {
+    font-size: 0.8rem;
+    line-height: 1.5;
+  }
+
+  .madya-theme .rich-filters button,
+  .madya-theme .rich-selects select,
+  .madya-theme .rich-month {
+    font-size: 0.8rem;
+    min-height: 2.25rem;
+  }
+  .madya-theme .rich-toolbar {
+    font-size: 0.875rem;
+  }
+
+  .madya-theme .rich-person-card strong {
+    font-size: 0.875rem;
+    line-height: 1.4;
+  }
+  .madya-theme .rich-person-card span {
+    font-size: 0.8rem;
+    line-height: 1.45;
+  }
+
+  .madya-theme .rich-achievement-card .meta {
+    font-size: 0.8rem;
+    line-height: 1.35;
+  }
+  .madya-theme .rich-achievement-card h2 {
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+  .madya-theme .rich-achievement-card p {
+    font-size: 0.8rem;
+    line-height: 1.6;
+  }
+  .madya-theme .rich-achievement-card small {
+    font-size: 0.8rem;
+    line-height: 1.4;
+  }
+
+  .madya-theme .rich-event-row time b {
+    font-size: 1.05rem;
+  }
+  .madya-theme .rich-event-row time span {
+    font-size: 0.8rem;
+  }
+  .madya-theme .rich-event-row h2 {
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+  .madya-theme .rich-event-row p {
+    font-size: 0.8rem;
+    line-height: 1.55;
+  }
+  .madya-theme .rich-event-tag {
+    font-size: 0.8rem;
+  }
+
+  .madya-theme .rich-gallery-item figcaption {
+    font-size: 0.8rem;
+    line-height: 1.4;
+  }
+
+  .madya-theme .rich-testimonial blockquote {
+    font-size: 1.15rem;
+  }
+  .madya-theme .rich-testimonial strong {
+    font-size: 0.875rem;
+  }
+  .madya-theme .rich-testimonial small {
+    font-size: 0.8rem;
+  }
+
+  .madya-theme .rich-faq-nav button {
+    font-size: 0.875rem;
+  }
+  .madya-theme .rich-faq-list summary {
+    font-size: 0.95rem;
+  }
+  .madya-theme .rich-faq-list details > div,
+  .madya-theme .rich-faq-list .rich-faq-answer {
+    font-size: 0.875rem;
+    line-height: 1.7;
+  }
+
+  /* Native CMS pages: shared content/sidebar floor. */
+  .madya-theme
+    :where(
+      .news-page,
+      .news-list-page,
+      .news-detail-page,
+      .downloads-page,
+      .static-page,
+      .contact-page,
+      .home-page
+    )
+    :where(
+      p,
+      li,
+      a,
+      button,
+      input,
+      select,
+      textarea,
+      label,
+      dt,
+      dd,
+      figcaption,
+      small,
+      time
+    ) {
+    font-size: max(0.8rem, 1em);
+  }
+
+  .madya-theme
+    :where(
+      .news-page,
+      .news-list-page,
+      .news-detail-page,
+      .downloads-page,
+      .static-page,
+      .contact-page
+    )
+    :where(
+      .sidebar-card,
+      .download-widget,
+      .static-sidebar-card,
+      .news-list-sidebar,
+      .article-sidebar
+    ) {
+    @apply font-sans;
+  }
+
+  /* Do not let generic h2/h3 defaults turn information widgets into editorial headlines. */
+  .madya-theme
+    :where(
+      .news-list-sidebar,
+      .article-sidebar,
+      .download-sidebar-reference,
+      .static-page-sidebar
+    )
+    :where(h2, h3, h4) {
+    @apply font-sans;
+  }
+
+  /* Main content copy is slightly more generous on large screens. */
+  @media (min-width: 60rem) {
+    .madya-theme
+      :where(
+        .news-page,
+        .news-list-page,
+        .news-detail-page,
+        .downloads-page,
+        .static-page,
+        .contact-page
+      )
+      :where(p, li, td, th, dd, figcaption) {
+      font-size: max(0.875rem, 1em);
+    }
+
+    .madya-theme
+      .rich-component
+      :where(
+        p,
+        li,
+        a,
+        button,
+        input,
+        select,
+        textarea,
+        label,
+        dt,
+        dd,
+        figcaption,
+        small,
+        time
+      ),
+    .madya-theme
+      .rich-page
+      :where(
+        p,
+        li,
+        a,
+        button,
+        input,
+        select,
+        textarea,
+        label,
+        dt,
+        dd,
+        figcaption,
+        small,
+        time
+      ),
+    .madya-theme
+      .rich-section
+      :where(
+        p,
+        li,
+        a,
+        button,
+        input,
+        select,
+        textarea,
+        label,
+        dt,
+        dd,
+        figcaption,
+        small,
+        time
+      ) {
+      font-size: max(0.8rem, 1em);
+    }
+  }
+
+  /* Mobile remains comfortable without allowing footer/help copy to dominate. */
+  @media (max-width: 699px) {
+    .madya-theme
+      .rich-component
+      :where(
+        p,
+        li,
+        a,
+        button,
+        input,
+        select,
+        textarea,
+        label,
+        dt,
+        dd,
+        figcaption,
+        small,
+        time
+      ),
+    .madya-theme
+      .rich-page
+      :where(
+        p,
+        li,
+        a,
+        button,
+        input,
+        select,
+        textarea,
+        label,
+        dt,
+        dd,
+        figcaption,
+        small,
+        time
+      ),
+    .madya-theme
+      .rich-section
+      :where(
+        p,
+        li,
+        a,
+        button,
+        input,
+        select,
+        textarea,
+        label,
+        dt,
+        dd,
+        figcaption,
+        small,
+        time
+      ) {
+      font-size: max(0.8rem, 1em);
+    }
+  }
+}
+
+/* Media fallback policy — icon-only fallbacks, never generated imagery. */
+.madya-theme .madya-media-fallback,
+.madya-theme .media-placeholder,
+.madya-theme .article-related-placeholder,
+.madya-theme .page-hero-icon-fallback {
+  display: grid;
+  place-items: center;
+  background: var(--color-surface-muted, #eef2f5);
+  color: var(--color-brand, #0c4a6e);
+}
+
+.madya-theme .madya-media-fallback i,
+.madya-theme .media-placeholder i,
+.madya-theme .article-related-placeholder i,
+.madya-theme .page-hero-icon-fallback i {
+  font-family: "Font Awesome 6 Free", "Font Awesome 5 Free", sans-serif;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.madya-theme .madya-media-fallback-hero {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(
+    135deg,
+    var(--color-brand, #0c4a6e),
+    var(--color-brand-deep, #07324b)
+  );
+  color: rgba(255, 255, 255, 0.88);
+}
+.madya-theme .madya-media-fallback-hero i {
+  font-size: clamp(3rem, 7vw, 6rem);
+}
+.madya-theme .home-hero-no-image .home-hero-grid {
+  position: relative;
+  z-index: 1;
+}
+
+.madya-theme .page-hero-icon-fallback {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(
+    135deg,
+    var(--color-brand, #0c4a6e),
+    var(--color-brand-deep, #07324b)
+  );
+  color: rgba(255, 255, 255, 0.2);
+  pointer-events: none;
+}
+.madya-theme .page-hero-icon-fallback i {
+  font-size: clamp(4rem, 10vw, 9rem);
+}
+.madya-theme .page-hero-inner {
+  position: relative;
+  z-index: 1;
+}
+
+.madya-theme .home-news-media,
+.madya-theme .program-row-image,
+.madya-theme .gallery-home-item,
+.madya-theme .testimonial-person > .madya-media-fallback,
+.madya-theme .principal-photo {
+  overflow: hidden;
+}
+.madya-theme .home-news-media {
+  display: block;
+}
+.madya-theme .home-news-media .madya-media-fallback {
+  width: 100%;
+  height: 100%;
+  min-height: 120px;
+}
+.madya-theme .program-row-image .madya-media-fallback,
+.madya-theme .gallery-home-item .madya-media-fallback {
+  width: 100%;
+  height: 100%;
+  min-height: 140px;
+}
+.madya-theme .madya-media-fallback-principal {
+  width: 100%;
+  height: 100%;
+  min-height: 280px;
+}
+.madya-theme .madya-media-fallback-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 999px;
+  flex: 0 0 80px;
+}
+.madya-theme .madya-media-fallback-campus {
+  width: 100%;
+  min-height: 320px;
+  border-radius: inherit;
+}
+.madya-theme .madya-media-fallback-spmb {
+  width: 100%;
+  height: 100%;
+  min-height: 260px;
+}
+.madya-theme .madya-media-fallback-teacher {
+  display: grid;
+  place-items: center;
+}
+.madya-theme .madya-media-fallback-teacher i {
+  font-size: 3.25rem;
+}
+.madya-theme .media-placeholder {
+  width: 100%;
+  height: 100%;
+  min-height: 160px;
+}
+.madya-theme .media-placeholder i {
+  font-size: 2.5rem;
+}
+.madya-theme .article-related-placeholder {
+  width: 100%;
+  height: 100%;
+  min-height: 160px;
+}
+.madya-theme .article-related-placeholder i {
+  font-size: 2.25rem;
 }

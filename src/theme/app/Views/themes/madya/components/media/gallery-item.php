@@ -6,7 +6,7 @@
 <img src="<?= esc($src) ?>" width="<?= esc($item['image_width'] ?? 1600) ?>" height="<?= esc($item['image_height'] ?? 1000) ?>" alt="<?= esc($item['caption'] ?? $item['title'] ?? 'Dokumentasi sekolah') ?>" loading="lazy" decoding="async">
     
 <?php else: ?>
-<div class="media-placeholder" role="img" aria-label="Dokumentasi sekolah"><span>Dokumentasi</span></div>
+<div class="media-placeholder" role="img" aria-label="Dokumentasi sekolah"><i class="fas fa-images" aria-hidden="true"></i></div>
 <?php endif; ?>
     <?php if (!empty($item['title'])): ?>
 <figcaption><?= esc($item['title']) ?></figcaption>

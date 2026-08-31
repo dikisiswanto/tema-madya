@@ -4,7 +4,7 @@ if (!empty($page_banners)) {
     $decoded = is_string($page_banners) ? json_decode($page_banners, true) : $page_banners;
     $banner = is_array($decoded) ? ($decoded['downloads'] ?? []) : [];
 }
-$heroImage = $banner['image'] ?? base_url(($theme_asset_base ?? 'themes/madya/assets') . '/generated/hero-image.jpg');
+$heroImage = $banner['image'] ?? '';
 $categories = is_array($categories ?? null) ? $categories : [];
 $allItems = [];
 foreach ($categories as $group) {
@@ -21,7 +21,7 @@ $downloadsCanonical = base_url('downloads');
 $downloadsDescription = $banner['subtitle'] ?? 'Formulir, panduan, dan dokumen resmi sekolah dalam satu tempat.';
 $downloadsStructured = ['@context' => 'https://schema.org','@type' => 'CollectionPage','name' => $banner['title'] ?? 'Dokumen Resmi','description' => $downloadsDescription,'url' => $downloadsCanonical,'isPartOf' => ['@type' => 'WebSite','name' => $site_name ?? 'SekolahKu','url' => base_url()]];
 ?>
-<?php $this->setData(['page_title' => $banner['title'] ?? 'Dokumen Resmi', 'page_description' => $downloadsDescription, 'canonical_url' => $downloadsCanonical, 'structured_data' => $downloadsStructured, 'og_image' => $heroImage]); ?>
+<?php $this->setData(['page_title' => $banner['title'] ?? 'Dokumen Resmi', 'page_description' => $downloadsDescription, 'canonical_url' => $downloadsCanonical, 'structured_data' => $downloadsStructured, 'og_image' => $heroImage ?: null]); ?>
 <?= $this->include('themes/madya/layouts/header') ?>
 <?= view('themes/madya/components/page-header', [
     'eyebrow' => $banner['badge'] ?? 'Pusat Download',

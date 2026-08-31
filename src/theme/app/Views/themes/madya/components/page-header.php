@@ -7,12 +7,14 @@ if (!$breadcrumbs && $title !== '') {
     $breadcrumbs = [['label' => $title]];
 }
 $bannerImage = $image ?? '';
+$fallbackIcon = trim((string)($fallback_icon ?? 'school'));
 $variant = trim((string)($variant ?? ''));
 ?>
 <header data-madya-native-page-header="true" class="page-hero<?= $bannerImage ? ' page-hero-has-image' : '' ?><?= $variant !== '' ? ' page-hero-' . esc($variant) : '' ?>" role="banner"<?php if ($bannerImage): ?>
  style="--page-hero-image: url('<?= esc($bannerImage) ?>')"
 <?php endif; ?>>
     <div class="page-hero-backdrop" aria-hidden="true"></div>
+    <?php if (!$bannerImage): ?><div class="page-hero-icon-fallback" aria-hidden="true"><i class="fas fa-<?= esc(preg_replace('/[^a-z0-9-]/i', '', $fallbackIcon)) ?>"></i></div><?php endif; ?>
     <div class="theme-container page-hero-inner">
         <?php if ($breadcrumbs): ?>
         <nav class="breadcrumb page-breadcrumb" aria-label="Jejak navigasi">

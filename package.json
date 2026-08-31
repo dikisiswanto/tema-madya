@@ -33,7 +33,8 @@
     "audit:cms-data": "node scripts/check-cms-data-contract.js",
     "audit:assets": "node scripts/check-theme-assets.js",
     "audit:performance": "node scripts/check-performance.js",
-    "audit:cms-theme": "node scripts/check-cms-theme-contract.js"
+    "audit:cms-theme": "node scripts/check-cms-theme-contract.js",
+    "audit:css": "node scripts/audit-css-duplication.js"
   },
   "devDependencies": {
     "@playwright/test": "^1.55.0",

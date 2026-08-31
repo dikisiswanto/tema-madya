@@ -11,6 +11,6 @@ $href = $href ?? '/#programs';
     <span class="program-summary"><?= esc($item['description'] ?? $item['excerpt'] ?? '') ?></span>
     <span class="program-row-image"><?php if (!empty($item['image'])): ?>
 <img src="<?= esc($item['image']) ?>" width="360" height="240" alt="" loading="lazy" decoding="async">
-<?php endif; ?></span>
+<?php else: ?><span class="madya-media-fallback" aria-hidden="true"><i class="fas fa-graduation-cap"></i></span><?php endif; ?></span>
     <span class="program-arrow" aria-hidden="true">↗</span>
 </a>

@@ -25,7 +25,7 @@ $newsDescription = $activeSearch !== ''
     ? 'Menampilkan hasil pencarian untuk kata kunci “' . $activeSearch . '”.'
     : ($activeCategory !== '' ? 'Menampilkan berita dalam kategori ' . $activeCategory . '.' : ($activeTag !== '' ? 'Menampilkan berita dengan topik ' . $activeTag . '.' : ($bannerSubtitle !== '' ? $bannerSubtitle : 'Informasi terbaru seputar kegiatan, prestasi, dan program di sekolah.')));
 
-$heroNewsImage = $banner['image'] ?? base_url(($theme_asset_base ?? 'themes/madya/assets') . '/generated/hero-image.jpg');
+$heroNewsImage = $banner['image'] ?? '';
 $categoryRows = [];
 foreach (($categories ?? []) as $cat) {
     if (is_array($cat)) {
@@ -45,9 +45,9 @@ $popularNews = is_array($recent_news ?? null) ? array_slice($recent_news, 0, 5) 
 $newsCanonical = base_url('news');
 $newsStructured = ['@context' => 'https://schema.org','@type' => 'CollectionPage','name' => $newsTitle,'description' => $newsDescription,'url' => $newsCanonical,'isPartOf' => ['@type' => 'WebSite','name' => $site_name ?? 'SekolahKu','url' => base_url()]];
 ?>
-<?php $this->setData(['page_title' => $newsTitle, 'page_description' => $newsDescription, 'canonical_url' => $newsCanonical, 'structured_data' => $newsStructured, 'og_image' => $heroNewsImage]); ?>
+<?php $this->setData(['page_title' => $newsTitle, 'page_description' => $newsDescription, 'canonical_url' => $newsCanonical, 'structured_data' => $newsStructured, 'og_image' => $heroNewsImage ?: null]); ?>
 <?= $this->include('themes/madya/layouts/header') ?>
-<?= view('themes/madya/components/page-header', ['eyebrow' => $banner['badge'] ?? 'Berita & Artikel', 'title' => $newsTitle, 'description' => $newsDescription, 'image' => $heroNewsImage, 'breadcrumbs' => [['label' => 'Berita']]]) ?>
+<?= view('themes/madya/components/page-header', ['eyebrow' => $banner['badge'] ?? 'Berita & Artikel', 'title' => $newsTitle, 'description' => $newsDescription, 'image' => $heroNewsImage, 'fallback_icon' => 'newspaper', 'breadcrumbs' => [['label' => 'Berita']]]) ?>
 <section class="madya-section news-list-page">
     <div class="theme-container news-list-shell">
         <div class="news-list-main">

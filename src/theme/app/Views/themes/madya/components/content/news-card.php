@@ -12,7 +12,7 @@
         <?php if ($image !== ''): ?>
             <img src="<?= esc($image) ?>" width="<?= esc($post['image_width'] ?? 1200) ?>" height="<?= esc($post['image_height'] ?? 800) ?>" alt="<?= esc($title) ?>" loading="<?= $featured ? 'eager' : 'lazy' ?>" decoding="async">
         <?php else: ?>
-            <span class="media-placeholder" aria-hidden="true"></span>
+            <span class="media-placeholder" aria-hidden="true"><i class="fas fa-newspaper"></i></span>
         <?php endif; ?>
         <?php if (!empty($post['category'])): ?>
 <span class="news-card-category"><?= esc($post['category']) ?></span>
