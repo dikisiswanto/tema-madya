@@ -7,7 +7,7 @@
     "dev": "npm run check:deps && vite --host 0.0.0.0",
     "build": "npm run check:deps && vite build",
     "check": "npm run check:source && npm run check:data && npm run check:style && npm run audit:icons && npm run audit:a11y && npm run audit:cms-data && npm run audit:assets && npm run audit:performance && npm run audit:cms-theme && node scripts/check-readability-contrast.js",
-    "check:source": "node scripts/check-source.js && node scripts/check-view-contract.js",
+    "check:source": "node scripts/check-source.js && node scripts/check-view-contract.js && node scripts/check-playground-php-class-contract.js",
     "check:data": "node scripts/check-demo-schema.js",
     "validate": "node scripts/validate-theme.js",
     "test": "npm run check:deps && playwright test",

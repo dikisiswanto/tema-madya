@@ -13026,22 +13026,17 @@
   }
 }
 
-/* RC10.12.44 — corrective parity pass. Keep these rules compact and authoritative. */
+/* Canonical component corrections — consolidated from RC10.12.44/45. */
 @layer components {
-  /* Homepage extracurriculars are icon-led cards, never image tiles. */
   .home-page .extra-inline-list {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 0.65rem;
   }
+
   .home-page .extra-inline-item {
-    display: flex;
-    min-width: 0;
+    @apply flex min-w-0 flex-col items-center justify-start gap-3 text-center;
     min-height: 7rem;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.65rem;
     padding: 0.9rem 0.7rem;
     border: 1px solid
       color-mix(
@@ -13055,44 +13050,48 @@
       var(--rich-icon-color, var(--home-navy)) 7%,
       white
     );
-    text-align: center;
   }
+
   .home-page .extra-inline-icon {
     display: grid;
-    width: 3.2rem;
-    height: 3.2rem;
-    flex: 0 0 3.2rem;
     place-items: center;
+    inline-size: 3rem;
+    block-size: 3rem;
+    aspect-ratio: 1;
+    flex: 0 0 3rem;
+    overflow: hidden;
     border: 1px solid
       color-mix(in srgb, var(--rich-icon-color, var(--home-navy)) 28%, white);
-    border-radius: 1rem;
-    background: color-mix(
-      in srgb,
-      var(--rich-icon-color, var(--home-navy)) 13%,
-      white
-    );
+    border-radius: 999px;
+    background: #fff;
     color: var(--rich-icon-color, var(--home-navy));
   }
+
   .home-page .extra-inline-icon :is(svg, i) {
+    display: grid;
+    place-items: center;
     width: 1.8rem;
     height: 1.8rem;
+    margin: 0;
     font-size: 1.8rem;
+    line-height: 1;
   }
+
   .home-page .extra-inline-item > span:last-child {
     position: static;
     max-width: 18ch;
-    color: var(--home-navy);
-    font-family: var(--font-display);
+    color: var(--site-ink);
+    font-family: var(--font-sans);
     font-size: 0.82rem;
-    font-weight: 650;
-    line-height: 1.25;
+    font-weight: 700;
+    line-height: 1.35;
     text-align: center;
   }
 
-  /* Counter icons are deliberately larger and boxed so FA and SVG render alike. */
   .home-page .home-stat-item {
     min-width: 0;
   }
+
   .home-page .home-stat-item > :is(svg, i) {
     width: 2.25rem;
     height: 2.25rem;
@@ -13102,27 +13101,112 @@
   }
 
   .article-nav-card {
-    padding-inline: 1.5rem;
+    display: block;
+    padding: 1rem 1.5rem;
   }
+
   .static-page-layout {
     align-items: start;
   }
-  .profile-no-sidebar {
-    display: block !important;
+
+  .profile-no-sidebar,
+  .profile-no-sidebar .profile-main,
+  .profile-no-sidebar .static-content-intro {
     width: 100%;
     max-width: none;
   }
+
   .static-page-layout > * {
     align-self: start;
     min-height: 0;
   }
-  .profile-no-sidebar .profile-main {
-    width: 100%;
+
+  .profile-main .static-content-intro h2 {
     max-width: none;
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 3vw, 3rem);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.05;
   }
-  .profile-no-sidebar .static-content-intro {
+
+  .profile-main .static-content-intro > p {
     width: 100%;
     max-width: none;
+    margin-right: 0;
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+
+  .identity-table {
+    overflow: hidden;
+    border: 1px solid var(--site-line);
+    border-radius: 0.85rem;
+    background: #fff;
+  }
+
+  .identity-table-header {
+    display: block;
+    width: 100%;
+    padding: 1.15rem 1.25rem;
+    border-bottom: 1px solid var(--site-line);
+    background: var(--site-surface-alt);
+  }
+
+  .identity-table-header .eyebrow {
+    margin: 0 0 0.3rem;
+  }
+
+  .identity-table-header h2 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--site-brand);
+  }
+
+  .identity-table-body {
+    display: grid;
+  }
+
+  .identity-row {
+    display: grid;
+    grid-template-columns: minmax(8.5rem, 0.36fr) minmax(0, 1fr);
+    gap: 1.25rem;
+    padding: 0.95rem 1.25rem;
+    border-bottom: 1px solid var(--site-line);
+    font-family: var(--font-sans);
+  }
+
+  .identity-row:last-child {
+    border-bottom: 0;
+  }
+
+  .identity-row span {
+    font-size: 0.84rem;
+    font-weight: 600;
+    line-height: 1.5;
+    color: var(--site-muted);
+  }
+
+  .identity-row strong {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    font-size: 0.95rem;
+    font-weight: 650;
+    line-height: 1.55;
+    color: var(--site-ink);
+  }
+
+  .faq-cta-card .button {
+    width: fit-content;
+  }
+
+  .newsletter-strip.faq-strip .newsletter-inner > .button {
+    flex: none;
+    align-self: center;
   }
 
   .news-category-pills [data-news-category],
@@ -13135,188 +13219,44 @@
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
+
   @media (max-width: 639px) {
     .home-page .extra-inline-item {
       min-height: 6.5rem;
       padding: 0.75rem 0.55rem;
     }
+
     .home-page .extra-inline-icon {
-      width: 2.8rem;
-      height: 2.8rem;
+      inline-size: 2.8rem;
+      block-size: 2.8rem;
       flex-basis: 2.8rem;
     }
+
     .home-page .extra-inline-icon :is(svg, i) {
       width: 1.55rem;
       height: 1.55rem;
       font-size: 1.55rem;
     }
+
     .home-page .extra-inline-item > span:last-child {
       font-size: 0.75rem;
     }
+
     .home-page .home-stat-item > :is(svg, i) {
       width: 2rem;
       height: 2rem;
       flex-basis: 2rem;
       font-size: 2rem;
     }
+
     .article-nav-card {
       padding-inline: 1rem;
     }
-  }
-}
 
-/* RC10.12.45 — focused visual corrections without changing CMS data contracts. */
-@layer components {
-  /* Homepage extracurricular icons: square, rounded and optically centered. */
-  .home-page .extra-inline-item {
-    @apply flex min-w-0 flex-col items-center justify-start gap-3 text-center;
-  }
-  .home-page .extra-inline-icon {
-    display: grid;
-    place-items: center;
-    inline-size: 3rem;
-    block-size: 3rem;
-    aspect-ratio: 1;
-    flex: 0 0 3rem;
-    overflow: hidden;
-    border-radius: 999px;
-    background: #fff;
-  }
-  .home-page .extra-inline-icon :is(svg, i) {
-    display: grid;
-    place-items: center;
-    margin: 0;
-    line-height: 1;
-  }
-  .home-page .extra-inline-item > span:last-child {
-    font-family: var(--font-sans);
-    font-size: 0.82rem;
-    font-weight: 700;
-    line-height: 1.35;
-    color: var(--site-ink);
-  }
-
-  /* Article header uses the full readable article column, never a ch cap. */
-  .article-header {
-    width: 100%;
-    max-width: none;
-  }
-  .article-header h1 {
-    width: 100%;
-    max-width: none;
-  }
-  .article-nav-card {
-    display: block;
-    padding: 1rem 1.5rem;
-  }
-  @media (max-width: 639px) {
-    .article-nav-card {
-      padding-inline: 1rem;
-    }
-  }
-
-  /* Static-page sidebar remains content-height and has predictable vertical rhythm. */
-  .static-page-sidebar {
-    display: grid;
-    align-self: start;
-    align-content: start;
-    gap: 1rem;
-    min-height: 0;
-  }
-  .static-page-sidebar > * {
-    margin-block: 0;
-    align-self: start;
-  }
-
-  /* Rich profile: full site rail and a structurally correct identity table. */
-  .profile-no-sidebar,
-  .profile-no-sidebar .profile-main,
-  .profile-no-sidebar .static-content-intro {
-    width: 100%;
-    max-width: none;
-  }
-  .profile-main .static-content-intro h2 {
-    max-width: none;
-    font-family: var(--font-display);
-    font-size: clamp(2rem, 3vw, 3rem);
-    font-weight: 700;
-    letter-spacing: -0.025em;
-    line-height: 1.05;
-  }
-  .profile-main .static-content-intro > p {
-    width: 100%;
-    max-width: none;
-    margin-right: 0;
-    font-family: var(--font-sans);
-    font-size: 1rem;
-    line-height: 1.8;
-  }
-  .identity-table {
-    overflow: hidden;
-    border: 1px solid var(--site-line);
-    border-radius: 0.85rem;
-    background: #fff;
-  }
-  .identity-table-header {
-    display: block;
-    width: 100%;
-    padding: 1.15rem 1.25rem;
-    border-bottom: 1px solid var(--site-line);
-    background: var(--site-surface-alt);
-  }
-  .identity-table-header .eyebrow {
-    margin: 0 0 0.3rem;
-  }
-  .identity-table-header h2 {
-    margin: 0;
-    font-family: var(--font-display);
-    font-size: 1.35rem;
-    font-weight: 700;
-    line-height: 1.2;
-    color: var(--site-brand);
-  }
-  .identity-table-body {
-    display: grid;
-  }
-  .identity-row {
-    display: grid;
-    grid-template-columns: minmax(8.5rem, 0.36fr) minmax(0, 1fr);
-    gap: 1.25rem;
-    padding: 0.95rem 1.25rem;
-    border-bottom: 1px solid var(--site-line);
-    font-family: var(--font-sans);
-  }
-  .identity-row:last-child {
-    border-bottom: 0;
-  }
-  .identity-row span {
-    font-size: 0.84rem;
-    font-weight: 600;
-    line-height: 1.5;
-    color: var(--site-muted);
-  }
-  .identity-row strong {
-    min-width: 0;
-    overflow-wrap: anywhere;
-    font-size: 0.95rem;
-    font-weight: 650;
-    line-height: 1.55;
-    color: var(--site-ink);
-  }
-  @media (max-width: 639px) {
     .identity-row {
       grid-template-columns: 1fr;
       gap: 0.25rem;
     }
-  }
-
-  /* Existing newsletter surfaces are now FAQ CTAs; forms are not required. */
-  .faq-cta-card .button {
-    width: fit-content;
-  }
-  .newsletter-strip.faq-strip .newsletter-inner > .button {
-    flex: none;
-    align-self: center;
   }
 }
 
@@ -13356,21 +13296,20 @@
   }
 }
 
-/* RC10.12.46 — large-screen readability and WCAG contrast guard.
-   Preserve Madya's editorial hierarchy, but avoid micro-copy on 1200px+ displays. */
+/* Canonical readability + contrast layer.
+   Keep informational text at a readable floor from tablet/desktop upward;
+   large desktop gets modestly stronger UI typography without inflating display type. */
 @layer base {
   :root {
-    /* #D89A2B remains the visual gold for fills, borders and icons. This darker
-       companion is reserved for small text on light surfaces (>= 5.5:1 on white). */
     --site-accent-text: #965b00;
   }
 }
 
 @layer components {
-  /* Small gold copy must not use the decorative gold token on white. */
   .madya-theme :where(.eyebrow, .section-kicker, .hero-kicker) {
     color: var(--site-accent-text);
   }
+
   .madya-theme
     :where(
       .news-archive-list .madya-news-card h2 a:hover,
@@ -13379,199 +13318,311 @@
     color: var(--site-accent-text);
   }
 
-  @media (min-width: 1200px) {
-    /* Shell / navigation */
-    .site-topbar {
-      font-size: 0.78rem;
+  /* 960px+: one predictable minimum for metadata, labels and supporting copy. */
+  @media (min-width: 60rem) {
+    .madya-theme
+      :where(
+        small,
+        .meta,
+        .card-meta,
+        .news-card-date,
+        .news-card-meta,
+        .news-card-category,
+        .article-meta,
+        .article-sidebar-tag,
+        .document-type,
+        .document-meta,
+        .download-rank,
+        .download-widget-link,
+        .form-field label,
+        .form-counter,
+        .contact-form-note,
+        .contact-response-note,
+        figcaption,
+        .rich-event-tag,
+        .rich-gallery-item figcaption
+      ) {
+      font-size: 0.8rem;
+      line-height: 1.5;
     }
+
+    .madya-theme
+      :where(
+        .quick-service strong,
+        .quick-service small,
+        .home-stat-item span,
+        .principal-message > span,
+        .principal-facts b,
+        .principal-facts span,
+        .program-showcase-body p,
+        .program-showcase-body h3,
+        .subsection-label,
+        .subsection-label a,
+        .extra-inline-item > span:last-child,
+        .madya-teacher-card strong,
+        .madya-teacher-card span,
+        .achievement-list-row strong,
+        .achievement-list-row small,
+        .achievement-list-row time,
+        .featured-news-home > div > span,
+        .featured-news-home small,
+        .news-home-side strong,
+        .news-home-side small,
+        .agenda-item h3,
+        .agenda-item p,
+        .agenda-item time span,
+        .testimonial-person strong,
+        .testimonial-person small,
+        .document-home-row strong,
+        .document-home-row small,
+        .contact-strip-grid b,
+        .contact-strip-grid small,
+        .spmb-home-banner p:not(.section-kicker),
+        .footer-intro address,
+        .footer-links a,
+        .footer-links span,
+        .footer-newsletter-column > p
+      ) {
+      font-size: 0.8rem;
+      line-height: 1.5;
+    }
+
+    .madya-theme
+      :where(
+        .news-list-sidebar .news-side-card p,
+        .news-list-sidebar .popular-news-list strong,
+        .news-list-sidebar .popular-news-list small,
+        .news-list-sidebar .news-category-list a,
+        .news-list-sidebar .side-card-more,
+        .news-newsletter-card p,
+        .download-sidebar-reference .download-widget,
+        .download-help-banner p,
+        .contact-summary-item small,
+        .contact-facts-list small,
+        .contact-help-links small,
+        .static-help-card p,
+        .static-newsletter-card p
+      ) {
+      font-size: 0.8rem;
+      line-height: 1.55;
+    }
+
+    .madya-theme
+      :where(
+        .button,
+        .text-link,
+        .news-category-pills a,
+        .news-sort select,
+        .news-sidebar-search input,
+        .download-category-links a,
+        .download-sidebar-reference a,
+        .document-download-button,
+        .rich-faq-nav button,
+        .rich-toolbar select,
+        .article-tags a
+      ) {
+      font-size: 0.8rem;
+    }
+
+    .madya-theme .news-archive-list .madya-news-card p {
+      font-size: 0.9rem;
+      line-height: 1.65;
+    }
+
+    .madya-theme .news-archive-list .madya-news-card h2 {
+      font-size: clamp(1.35rem, 1.7vw, 1.65rem);
+    }
+
+    .madya-theme .news-card-media .media-placeholder {
+      width: 100%;
+      height: 100%;
+      min-height: inherit;
+      background: #eef2f5;
+      color: #52627a;
+    }
+
+    .madya-theme .news-archive-list .news-card-media .media-placeholder {
+      min-height: 9.75rem;
+      height: 100%;
+    }
+  }
+
+  /* 1200px+: strengthen the interface slightly, while keeping display hierarchy. */
+  @media (min-width: 1200px) {
+    .site-topbar,
     .brand-copy small {
       font-size: 0.78rem;
     }
+
     .desktop-nav-link,
     .desktop-nav-trigger {
       font-size: 0.875rem;
     }
+
     .nav-cta {
       font-size: 0.84rem;
     }
+
     .eyebrow,
     .section-kicker,
     .hero-kicker {
       font-size: 0.78rem;
       line-height: 1.45;
     }
+
     .text-link,
     .button {
       font-size: 0.875rem;
     }
 
-    /* Homepage utility and metadata */
     .quick-service strong {
       font-size: 0.875rem;
     }
-    .quick-service small {
-      font-size: 0.8rem;
-      line-height: 1.5;
-    }
-    .home-stat-item span {
-      font-size: 0.82rem;
-    }
+
     .principal-description {
       font-size: 0.9rem;
       line-height: 1.65;
     }
+
     .principal-message strong {
       font-size: 0.875rem;
     }
-    .principal-message > span,
-    .principal-facts b,
-    .principal-facts span {
-      font-size: 0.78rem;
-      line-height: 1.45;
-    }
-    .program-showcase-body h3 {
-      font-size: 0.9rem;
-    }
-    .program-showcase-body p {
-      font-size: 0.84rem;
-      line-height: 1.55;
-    }
-    .subsection-label {
-      font-size: 0.8rem;
-    }
-    .subsection-label a {
-      font-size: 0.78rem;
-    }
-    .extra-inline-list span,
-    .home-page .extra-inline-item > span:last-child {
-      font-size: 0.8rem;
-      line-height: 1.4;
-    }
-    .madya-teacher-card strong {
-      font-size: 0.86rem;
-    }
-    .madya-teacher-card span {
-      font-size: 0.78rem;
-    }
-    .achievement-list-row small,
-    .achievement-list-row time,
-    .featured-news-home > div > span,
-    .featured-news-home small,
-    .news-home-side small,
-    .agenda-item time span,
-    .agenda-item p,
-    .testimonial-person small,
-    .document-home-row small,
-    .contact-strip-grid small {
-      font-size: 0.78rem;
-      line-height: 1.5;
-    }
-    .news-home-side strong,
-    .agenda-item h3,
-    .testimonial-person strong,
-    .document-home-row strong,
-    .contact-strip-grid b {
-      font-size: 0.86rem;
-    }
+
     .spmb-home-banner p:not(.section-kicker) {
       font-size: 0.875rem;
       line-height: 1.6;
     }
 
-    /* News / article / utility pages */
-    .card-meta,
-    .article-meta,
-    .news-card-date,
-    .news-card-meta,
-    .sidebar-news span,
-    .form-field label {
-      font-size: 0.8rem;
-    }
-    .madya-news-filter a,
-    .news-category-pills a,
-    .news-sort select,
-    .news-category-list a,
-    .news-archive-list .text-link,
-    .article-tags strong,
-    .article-tags a {
-      font-size: 0.8rem;
-    }
-    .news-card-category {
-      font-size: 0.75rem;
-    }
-    .news-archive-list .madya-news-card p {
-      font-size: 0.9rem;
-      line-height: 1.65;
-    }
-    .news-sidebar-search input {
-      font-size: 0.84rem;
-    }
-    .sidebar-news small,
-    .sidebar-links a,
-    .tag-list a {
-      font-size: 0.78rem;
-    }
-    .article-cover figcaption {
-      font-size: 0.8rem;
-    }
     .article-prose {
       font-size: 1.0625rem;
       line-height: 1.82;
     }
-    .article-tags span {
-      font-size: 0.8rem;
-    }
 
-    /* Rich/static content */
     .rich-sidebar-nav a {
       font-size: 0.86rem;
     }
-    .rich-sidebar-nav a small,
-    .rich-person-card span,
-    .rich-achievement-card .meta,
-    .rich-achievement-card small,
-    .rich-event-row time span,
-    .rich-event-tag,
-    .rich-gallery-item figcaption,
-    .rich-testimonial small,
-    .rich-faq-nav button,
-    .rich-help small {
-      font-size: 0.78rem;
-    }
-    .rich-program-card p,
-    .rich-program-row p,
-    .rich-achievement-card p,
-    .rich-event-row p,
-    .rich-faq-list details p {
-      font-size: 0.9rem;
-      line-height: 1.65;
-    }
+
     .identity-row span {
       font-size: 0.9rem;
     }
+
     .identity-row strong {
       font-size: 1rem;
     }
 
-    /* Footer remains secondary, but not micro-text. */
-    .madya-footer-brand small {
-      font-size: 0.78rem;
-    }
     .footer-intro > p {
       font-size: 0.875rem;
     }
-    .footer-intro address,
-    .footer-links a,
-    .footer-links span {
-      font-size: 0.8rem;
-    }
+
     .footer-title {
       font-size: 0.84rem;
     }
+
     .madya-footer-bottom .theme-container,
     .madya-footer-bottom p,
     .madya-footer-bottom a {
       font-size: 0.75rem;
+    }
+  }
+}
+
+/* Final sidebar/widget readability pass — 2026-08-31.
+   Sidebar utility copy should not fall below 0.8rem on large screens. */
+@layer components {
+  @media (min-width: 60rem) {
+    .madya-theme .news-list-sidebar .news-category-list a,
+    .madya-theme .news-list-sidebar .popular-news-list strong,
+    .madya-theme .news-list-sidebar .popular-news-list small,
+    .madya-theme .news-list-sidebar .side-card-more,
+    .madya-theme .news-list-sidebar .news-sidebar-search input,
+    .madya-theme .news-list-sidebar .news-side-card p,
+    .madya-theme .news-list-sidebar .article-sidebar-tag {
+      font-size: 0.8rem;
+      line-height: 1.55;
+    }
+
+    .madya-theme .news-list-sidebar .news-category-list b,
+    .madya-theme
+      .news-list-sidebar
+      .popular-news-list
+      > a:not(.side-card-more)
+      > b {
+      font-size: 0.75rem;
+    }
+
+    .madya-theme .article-sidebar .share-actions a,
+    .madya-theme .article-sidebar .share-actions button,
+    .madya-theme .article-sidebar .sidebar-related-list strong,
+    .madya-theme .article-sidebar .sidebar-related-list small,
+    .madya-theme .article-sidebar .sidebar-category-list a,
+    .madya-theme .article-sidebar .sidebar-more {
+      font-size: 0.8rem;
+      line-height: 1.55;
+    }
+
+    .madya-theme .article-sidebar .sidebar-category-list b {
+      font-size: 0.75rem;
+    }
+
+    .madya-theme .download-sidebar-reference .download-category-links a,
+    .madya-theme .download-sidebar-reference .download-category-links b,
+    .madya-theme .download-sidebar-reference .download-popular-list strong,
+    .madya-theme .download-sidebar-reference .download-popular-list small,
+    .madya-theme .download-sidebar-reference .download-widget-link,
+    .madya-theme
+      .download-sidebar-reference
+      .download-newsletter-widget
+      > p:not(.eyebrow),
+    .madya-theme
+      .download-sidebar-reference
+      .download-newsletter-widget
+      .newsletter-form
+      input {
+      font-size: 0.8rem;
+      line-height: 1.55;
+    }
+
+    .madya-theme .download-sidebar-reference .download-rank {
+      font-size: 0.75rem;
+    }
+
+    .madya-theme .static-page-sidebar .static-sidebar-links a,
+    .madya-theme .static-page-sidebar .static-sidebar-more,
+    .madya-theme .static-page-sidebar .static-help-card p:not(.eyebrow),
+    .madya-theme .static-page-sidebar .static-newsletter-card p:not(.eyebrow),
+    .madya-theme .static-page-sidebar .static-newsletter-card input,
+    .madya-theme .static-page-sidebar .static-document-list strong,
+    .madya-theme .static-page-sidebar .static-document-list small {
+      font-size: 0.8rem;
+      line-height: 1.55;
+    }
+
+    .madya-theme .static-page-sidebar .static-help-card .button,
+    .madya-theme .static-page-sidebar .static-newsletter-card .button {
+      font-size: 0.8rem;
+    }
+
+    .madya-theme .rich-sidebar-nav a,
+    .madya-theme .rich-sidebar-nav a small {
+      font-size: 0.8rem;
+      line-height: 1.5;
+    }
+
+    .madya-theme .document-main small,
+    .madya-theme .document-meta,
+    .madya-theme .document-type {
+      font-size: 0.8rem;
+      line-height: 1.5;
+    }
+
+    .madya-theme .document-download-button {
+      font-size: 0.8rem;
+    }
+
+    .madya-theme .article-tags span,
+    .madya-theme .article-tags a {
+      font-size: 0.8rem;
+      line-height: 1.5;
     }
   }
 }

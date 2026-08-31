@@ -28,30 +28,34 @@ const image = (item, alt = '') => {
     return `<img src="${esc(src)}" width="${esc(item?.image_width || item?.width || 1200)}" height="${esc(item?.image_height || item?.height || 800)}" alt="${esc(alt)}" loading="lazy" decoding="async">`;
 };
 function pageHeader(eyebrow, title, description, imageUrl = '') {
-    return `<header class="page-hero${imageUrl ? ' page-hero-has-image' : ''}"${imageUrl ? ` style="--page-hero-image:url('${esc(imageUrl)}')"` : ''}><div class="page-hero-backdrop" aria-hidden="true"></div><div class="theme-container page-hero-inner"><nav class="breadcrumb" aria-label="Jejak navigasi"><a href="/">Beranda</a><span aria-hidden="true">/</span><span aria-current="page">${esc(title)}</span></nav><p class="eyebrow">${esc(eyebrow)}</p><h1>${esc(title)}</h1>${description ? `<p>${esc(description)}</p>` : ''}</div></header>`;
+    return `<header class="page-hero${imageUrl ? ' page-hero-has-image' : ''}"${imageUrl ? ` style="--page-hero-image:url('${esc(imageUrl)}')"` : ''}><div class="page-hero-backdrop" aria-hidden="true"></div><div class="theme-container page-hero-inner"><nav class="breadcrumb page-breadcrumb" aria-label="Jejak navigasi"><a href="/">Beranda</a><span aria-hidden="true">/</span><span aria-current="page">${esc(title)}</span></nav><p class="eyebrow">${esc(eyebrow)}</p><h1>${esc(title)}</h1>${description ? `<p>${esc(description)}</p>` : ''}</div></header>`;
 }
 function buildFooter(state) {
-    return `<footer class="site-footer"><div class="newsletter-strip faq-strip"><div class="theme-container newsletter-inner"><div><p class="eyebrow">Pertanyaan yang Sering Diajukan</p><h2>Temukan jawaban sebelum menghubungi sekolah.</h2><p>Lihat informasi umum mengenai akademik, layanan, kegiatan, dan administrasi sekolah.</p></div><a class="button" href="/#faq">${iconMarkup('circle-help')} Buka FAQ</a></div></div><div class="footer-main"><div class="theme-container madya-footer-grid footer-grid-rich"><div class="footer-intro"><a class="madya-footer-brand" href="/"><span class="brand-mark footer-brand-mark">${iconMarkup(state.site_logo_icon || 'graduation-cap')}</span><span><strong>${esc(state.site_logo_text || state.site_name || 'SekolahKu')}</strong><small>${esc(state.site_tagline || 'Situs resmi sekolah')}</small></span></a><p>${esc(state.footer_description || state.site_description || '')}</p></div><div><h3 class="footer-title">Navigasi</h3><div class="footer-links"><a href="/">Beranda</a><a href="/news">Berita</a><a href="/downloads">Dokumen</a><a href="/contact">Kontak</a></div></div><div><h3 class="footer-title">Program</h3><div class="footer-links">${(
-        state.footer_services || []
-    )
-        .slice(0, 5)
-        .map(
-            (x) =>
-                `<a href="${esc(x.url || '/#programs')}">${esc(x.label || x.title || '')}</a>`,
-        )
-        .join(
-            '',
-        )}</div></div><div><h3 class="footer-title">Layanan</h3><div class="footer-links">${(
-        state.footer_links || []
-    )
-        .slice(0, 5)
-        .map(
-            (x) =>
-                `<a href="${esc(x.url || '#')}">${esc(x.label || x.title || '')}</a>`,
-        )
-        .join(
-            '',
-        )}</div></div><div><h3 class="footer-title">Bantuan</h3><div class="footer-links"><a href="/#faq">FAQ</a><a href="/contact">Hubungi Sekolah</a><a href="/downloads">Dokumen</a></div></div></div></div><div class="madya-footer-bottom"><div class="theme-container"><p>${esc(state.footer_copyright || `© ${new Date().getFullYear()} ${state.site_name || 'SekolahKu'}`)}</p><span>Dibuat dengan ♥ menggunakan <a href="https://sekolahku.web.id" target="_blank" rel="noopener noreferrer">CMS SekolahKu</a> · <a href="https://github.com/dikisiswanto/tema-madya" target="_blank" rel="noopener noreferrer">Tema Madya</a> oleh <a href="https://silirdev.com" target="_blank" rel="noopener noreferrer">silirdev</a></span></div></div></footer>`;
+    const social = [
+        ['facebook', state.social_facebook],
+        ['instagram', state.social_instagram],
+        ['youtube', state.social_youtube],
+        ['tiktok', state.social_tiktok],
+    ].filter(([, url]) => url && url !== '#');
+    return `<footer class="site-footer"><div class="newsletter-strip faq-strip"><div class="theme-container newsletter-inner"><div><p class="eyebrow eyebrow-dark">Pertanyaan yang Sering Diajukan</p><h2>Temukan jawaban sebelum menghubungi sekolah.</h2><p>Lihat informasi umum mengenai akademik, layanan, kegiatan, dan administrasi sekolah.</p></div><a class="button button-light" href="/#faq">${iconMarkup('circle-help')} Buka FAQ</a></div></div><div class="footer-main"><div class="theme-container madya-footer-grid footer-grid-rich"><div class="footer-intro"><a class="madya-footer-brand" href="/"><span class="brand-mark footer-brand-mark">${iconMarkup(state.site_logo_icon || 'graduation-cap')}</span><span><strong>${esc(state.site_logo_text || state.site_name || 'SekolahKu')}</strong><small>${esc(state.site_tagline || 'Situs resmi sekolah')}</small></span></a><p>${esc(state.footer_description || state.site_description || '')}</p>${state.contact_address ? `<address>${esc(state.contact_address)}</address>` : ''}</div><div><h3 class="footer-title">Navigasi</h3><div class="footer-links"><a href="/">Beranda</a><a href="/news">Berita</a><a href="/downloads">Dokumen</a><a href="/contact">Kontak</a></div></div><div><h3 class="footer-title">Program</h3><div class="footer-links">${
+        (state.footer_services || [])
+            .slice(0, 5)
+            .map(
+                (x) =>
+                    `<a href="${esc(x.url || '/#programs')}">${esc(x.label || x.title || '')}</a>`,
+            )
+            .join('') ||
+        `<a href="/#programs">Program unggulan</a><a href="/#extracurriculars">Ekstrakurikuler</a><a href="/#achievements">Prestasi</a>`
+    }</div></div><div><h3 class="footer-title">Layanan</h3><div class="footer-links">${
+        (state.footer_links || [])
+            .slice(0, 6)
+            .map(
+                (x) =>
+                    `<a href="${esc(x.url || '#')}">${esc(x.label || x.title || '')}</a>`,
+            )
+            .join('') ||
+        `<a href="${esc(state.spmb_url || '#')}">SPMB Online</a><a href="#">E-Learning</a><a href="/downloads">Download Dokumen</a>`
+    }</div></div><div class="footer-newsletter-column"><h3 class="footer-title">Bantuan</h3><p>Temukan jawaban atau hubungi sekolah melalui kanal resmi.</p><div class="footer-links"><a href="/#faq">FAQ</a><a href="/contact">Hubungi Sekolah</a><a href="/downloads">Dokumen</a></div>${social.length ? `<div class="footer-socials">${social.map(([name, url]) => `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer" aria-label="${esc(name[0].toUpperCase() + name.slice(1))}">${iconMarkup(name === 'facebook' ? 'facebook' : name === 'instagram' ? 'brand-instagram' : name === 'youtube' ? 'brand-youtube' : 'music')}</a>`).join('')}</div>` : ''}</div></div></div><div class="madya-footer-bottom"><div class="theme-container"><p>${esc(state.footer_copyright || `© ${new Date().getFullYear()} ${state.site_name || 'SekolahKu'}`)}</p><span>Dibuat dengan ♥ menggunakan <a href="https://sekolahku.web.id" target="_blank" rel="noopener noreferrer">CMS SekolahKu</a> · <a href="https://github.com/dikisiswanto/tema-madya" target="_blank" rel="noopener noreferrer">Tema Madya</a> oleh <a href="https://silirdev.com" target="_blank" rel="noopener noreferrer">silirdev</a></span></div></div></footer>`;
 }
 
 export function renderFooter(state) {
@@ -139,7 +143,7 @@ function renderCard(post, featured = false) {
     const excerpt = post.excerpt || post.description || '';
     const views = post.view_count != null ? Number(post.view_count) : null;
     return `<article class="madya-news-card${featured ? ' news-card-featured' : ''}" data-news-title="${esc(post.title || '')}" data-news-views="${esc(post.view_count || 0)}" data-news-timestamp="${Date.parse(post.published_at || post.created_at || '') || 0}">
-    ${post.image ? `<a class="news-card-media" href="${href}" aria-label="Baca ${esc(post.title || 'berita')}">${image(post, post.title || 'Berita sekolah')}${post.category ? `<span class="news-card-category">${esc(post.category)}</span>` : ''}</a>` : ''}
+    <a class="news-card-media" href="${href}" aria-label="Baca ${esc(post.title || 'berita')}">${post.image || post.image_url ? image(post, post.title || 'Berita sekolah') : '<span class="media-placeholder" aria-hidden="true"></span>'}${post.category ? `<span class="news-card-category">${esc(post.category)}</span>` : ''}</a>
     <div class="news-card-body">
       <div class="news-card-date">${iconMarkup('calendar-days')}<time datetime="${esc(date)}">${esc(date)}</time></div>
       <h2><a href="${href}">${esc(post.title || 'Berita sekolah')}</a></h2>

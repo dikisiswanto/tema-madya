@@ -8,14 +8,16 @@
 <?php if ($excerpt === '' && !empty($post['content'])): $excerpt = trim(preg_replace('/\s+/', ' ', strip_tags((string) $post['content']))); endif; ?>
 <?php $href = $slug !== '' ? base_url('news/' . rawurlencode($slug)) : base_url('news'); ?>
 <article class="madya-news-card<?= $featured ? ' news-card-featured' : '' ?>">
-    <?php if ($image !== ''): ?>
-        <a class="news-card-media" href="<?= esc($href) ?>" aria-label="Baca <?= esc($title !== '' ? $title : 'berita') ?>">
+    <a class="news-card-media" href="<?= esc($href) ?>" aria-label="Baca <?= esc($title !== '' ? $title : 'berita') ?>">
+        <?php if ($image !== ''): ?>
             <img src="<?= esc($image) ?>" width="<?= esc($post['image_width'] ?? 1200) ?>" height="<?= esc($post['image_height'] ?? 800) ?>" alt="<?= esc($title) ?>" loading="<?= $featured ? 'eager' : 'lazy' ?>" decoding="async">
-            <?php if (!empty($post['category'])): ?>
+        <?php else: ?>
+            <span class="media-placeholder" aria-hidden="true"></span>
+        <?php endif; ?>
+        <?php if (!empty($post['category'])): ?>
 <span class="news-card-category"><?= esc($post['category']) ?></span>
 <?php endif; ?>
-        </a>
-    <?php endif; ?>
+    </a>
     <div class="news-card-body">
         <div class="news-card-date"><i data-lucide="calendar-days" aria-hidden="true"></i><time datetime="<?= esc($post['published_at'] ?? $post['created_at'] ?? '') ?>"><?= esc($post['published_at'] ?? $post['created_at'] ?? 'Informasi terbaru') ?></time></div>
         <h2><a href="<?= esc($href) ?>"><?= esc($title) ?></a></h2>

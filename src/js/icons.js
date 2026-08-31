@@ -142,6 +142,8 @@ const aliases = {
 
     chevron: 'chevron-down',
     facebook: 'brand-facebook',
+    instagram: 'brand-instagram',
+    youtube: 'brand-youtube',
     twitter: 'brand-x',
     'link-2': 'brand-link',
     'arrow-up': 'arrow-up-right',
