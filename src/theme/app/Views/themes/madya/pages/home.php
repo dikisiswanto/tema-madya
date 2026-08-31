@@ -39,7 +39,7 @@ $newsItems = $visibleItems($news ?? []);
 $heroImage = $aboutData['hero_image'] ?? $aboutData['image'] ?? $aboutData['image_url'] ?? '';
 $portraitFallback = base_url(($theme_asset_base ?? 'themes/madya/assets') . '/illustrations/portrait-placeholder.svg');
 $schoolFallback = base_url(($theme_asset_base ?? 'themes/madya/assets') . '/illustrations/school-placeholder.svg');
-$newsFallback = $generated('news-campus.jpg');
+$newsFallback = $schoolFallback;
 $primaryUrl = trim((string) ($hero_btn_primary_url ?? '')) ?: '/#profile';
 $primaryText = trim((string) ($hero_btn_primary_text ?? '')) ?: 'Jelajahi Sekolah';
 $secondaryUrl = trim((string) ($hero_btn_secondary_url ?? '')) ?: '/#contact';
@@ -390,7 +390,7 @@ $themeStateJson = json_encode($themeState, JSON_UNESCAPED_SLASHES | JSON_UNESCAP
             <?php if ($newsFeatured): ?>
 <a class="featured-news-home"
               href="<?= base_url('news/' . rawurlencode((string)($newsFeatured['slug'] ?? ''))) ?>"><img
-                src="<?= esc($newsFeatured['image'] ?? $newsFallback) ?>" width="900" height="600"
+                src="<?= esc($mediaUrl($newsFeatured['image'] ?? '', 'news') ?: $newsFallback) ?>" width="900" height="600"
                 alt="<?= esc($newsFeatured['title'] ?? '') ?>" loading="lazy" decoding="async">
               <div><span><?= esc($newsFeatured['category'] ?? '') ?></span>
                 <h3><?= esc($newsFeatured['title'] ?? '') ?></h3>
@@ -401,7 +401,7 @@ $themeStateJson = json_encode($themeState, JSON_UNESCAPED_SLASHES | JSON_UNESCAP
             <div class="news-home-side"><?php foreach (array_slice($newsItems, 1, 3) as $item): ?>
 <a
                 href="<?= base_url('news/' . rawurlencode((string)($item['slug'] ?? ''))) ?>"><img
-                  src="<?= esc($item['image'] ?? $newsFallback) ?>" width="180" height="120" alt=""
+                  src="<?= esc($mediaUrl($item['image'] ?? '', 'news') ?: $newsFallback) ?>" width="180" height="120" alt=""
                   loading="lazy"
                   decoding="async"><span><strong><?= esc($item['title'] ?? '') ?></strong><small><?= esc($item['published_at'] ?? '') ?></small></span></a>
 <?php endforeach; ?>

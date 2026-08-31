@@ -78,7 +78,7 @@ const router = fs.readFileSync(
     path.join(root, 'src', 'js', 'router.js'),
     'utf8',
 );
-if (!router.includes('[data-spa-content][data-spa-runtime=\"standalone\"]')) {
+if (!router.includes('[data-spa-content][data-spa-runtime="standalone"]')) {
     errors.push(
         'router.js: SPA router must be gated to the standalone/playground shell so native CMS routes remain native.',
     );
@@ -110,7 +110,7 @@ if (
     !singlePost.includes('$article = is_array($post')
 ) {
     errors.push(
-        "single_post.php: must consume the CMS News controller\'s post variable.",
+        "single_post.php: must consume the CMS News controller's post variable.",
     );
 }
 if (!singlePost.includes("$article['tags']")) {
@@ -175,9 +175,75 @@ if (
         'home.php: CMS principal quote must map to the rich-component welcome_message field.',
     );
 }
+if (home.includes('generated/news-campus.jpg')) {
+    errors.push(
+        'home.php: CMS homepage must not use the demo news-campus image as a news fallback.',
+    );
+}
 if (!home.includes('<script id="theme-state" type="application/json">')) {
     errors.push('home.php: CMS rich-component hydration state is missing.');
 }
+if (!router.includes('restoreCmsHomepage(shell)')) {
+    errors.push(
+        'router.js: empty CMS hash must restore the server-rendered homepage instead of rendering the standalone/demo homepage.',
+    );
+}
+if (
+    router.includes('renderHome(getState(), shell);') &&
+    router.includes("if (runtime === 'cms-home')")
+) {
+    const cmsBranch =
+        router
+            .split("if (runtime === 'cms-home')", 2)[1]
+            ?.split('// Standalone/playground', 1)[0] || '';
+    if (cmsBranch.includes('renderHome(getState(), shell)')) {
+        errors.push(
+            'router.js: cms-home branch must never call the standalone renderHome() renderer.',
+        );
+    }
+}
+if (!router.includes('window.location.hash')) {
+    errors.push(
+        'router.js: hash-aware CMS homepage routing contract is missing.',
+    );
+}
+
+if (!router.includes('let cmsHomeMarkup =')) {
+    errors.push(
+        'router.js: CMS homepage snapshot storage is missing for / vs /# parity.',
+    );
+}
+if (
+    !router.includes('if (!route) {') ||
+    !router.includes('restoreCmsHomepage(shell);')
+) {
+    errors.push(
+        'router.js: empty hash must preserve/restore the server-rendered CMS homepage.',
+    );
+}
+if (home.includes("$newsFallback = $generated('news-campus.jpg')")) {
+    errors.push(
+        'home.php: demo news image fallback must not be used in CMS production.',
+    );
+}
+const newsCard = fs.readFileSync(
+    path.join(themePages, '..', 'components', 'content', 'news-card.php'),
+    'utf8',
+);
+if (
+    !newsCard.includes("$post['title']") ||
+    !newsCard.includes("$post['excerpt']")
+) {
+    errors.push(
+        'news-card.php: CMS title/excerpt fields are not consumed by the native card.',
+    );
+}
+if (newsCard.includes("'Berita sekolah'")) {
+    errors.push(
+        'news-card.php: generic demo-like title fallback must not mask missing CMS news data.',
+    );
+}
+
 if (!router.includes("if (runtime === 'cms-home')")) {
     errors.push('router.js: CMS homepage must have a separate runtime branch.');
 }
@@ -192,7 +258,9 @@ if (!router.includes("shell.dataset.spaRuntime === 'standalone'")) {
     );
 }
 const cmsState = fs.readFileSync(path.join(themePages, 'home.php'), 'utf8');
-if (/generated\/(?:teacher-|principal|testimonial-)/i.test(cmsState)) {
+if (
+    /generated\/(?:teacher-|principal|testimonial-|news-campus)/i.test(cmsState)
+) {
     errors.push('home.php: CMS state must not expose demo person images.');
 }
 
@@ -204,4 +272,7 @@ if (errors.length) {
 
 console.log(
     `CMS theme contract audit: OK (${files.length} PHP page views checked)`,
+);
+console.log(
+    'Homepage contract: / and /# preserve the same server-rendered CMS markup; non-empty supported hashes use rich components.',
 );

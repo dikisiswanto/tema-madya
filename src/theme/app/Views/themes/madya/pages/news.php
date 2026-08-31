@@ -1,15 +1,21 @@
 <?php
-$tagSupported = array_key_exists('tag', get_defined_vars());
 $themeHasNewsFilters = trim((string)($search ?? '')) !== '' || trim((string)($category ?? '')) !== '' || trim((string)($tag ?? '')) !== '' || !empty($month);
 if ($themeHasNewsFilters) {
     $robots = 'noindex,follow';
 }
 $banner = !empty($page_banners) ? (json_decode($page_banners, true)['news'] ?? []) : [];
-$newsItems = is_array($news ?? null) ? array_values($news) : [];
+if (is_array($news ?? null)) {
+    $newsItems = array_values($news);
+} elseif ($news instanceof Traversable) {
+    $newsItems = iterator_to_array($news, false);
+} else {
+    $newsItems = [];
+}
 $activeSearch = trim((string)($search ?? ''));
 $activeCategory = trim((string)($category ?? ''));
 $activeMonth = trim((string)($month ?? ''));
 $activeTag = trim((string)($tag ?? ''));
+$tagSupported = array_key_exists('tag', get_defined_vars()) && $activeTag !== '';
 $bannerTitle = trim((string)($banner['title'] ?? ''));
 $bannerSubtitle = trim((string)($banner['subtitle'] ?? ''));
 $newsTitle = $activeSearch !== ''
@@ -84,7 +90,13 @@ $newsStructured = ['@context' => 'https://schema.org','@type' => 'CollectionPage
             <?php if ($tags): ?>
             <section class="news-side-card"><h2>Topik Populer</h2><div class="article-sidebar-tags">
                 <?php foreach (array_slice($tags, 0, 12) as $tagItem): $tagName = is_array($tagItem) ? ($tagItem['name'] ?? $tagItem['tag'] ?? '') : $tagItem; if (!$tagName) continue; ?>
-                    <?php if ($tagName !== ''): ?><a class="<?= (($tag ?? '') === $tagName) ? 'is-active' : '' ?>" href="<?= base_url('news?search=' . urlencode((string) $tagName)) ?>"><?= esc($tagName) ?></a><?php endif; ?>
+                    <?php if ($tagName !== ''): ?>
+                        <?php if ($tagSupported): ?>
+                            <a class="<?= strcasecmp($activeTag, (string) $tagName) === 0 ? 'is-active' : '' ?>" href="<?= base_url('news?tag=' . urlencode((string) $tagName)) ?>"><?= esc($tagName) ?></a>
+                        <?php else: ?>
+                            <span class="article-sidebar-tag"><?= esc($tagName) ?></span>
+                        <?php endif; ?>
+                    <?php endif; ?>
                 <?php endforeach; ?>
             </div></section>
             <?php endif; ?>

@@ -132,7 +132,7 @@ export default function renderHome(state, container) {
               ? `<article class="middle-panel"><div class="section-head-row compact"><div><p class="section-kicker">Guru Berprestasi</p><h2>Tenaga pengajar pilihan.</h2></div><a class="text-link" href="/#teachers">Lihat Semua ${iconMarkup('arrow-right')}</a></div><div class="teacher-grid">${teachers
                     .slice(0, 4)
                     .map(
-                        (x, i) =>
+                        (x, _i) =>
                             `<article class="teacher-card">${imageOr(x.photo, x.name || 'Tenaga pendidik', teacherFallback, x)}<div><strong>${esc(x.name || 'Tenaga pendidik')}</strong><span>${esc(x.role || 'Tenaga pendidik')}</span></div></article>`,
                     )
                     .join('')}</div></article>`

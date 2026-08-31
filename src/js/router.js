@@ -26,12 +26,20 @@ const sectionRoutes = new Set([
 ]);
 
 let initialLoad = true;
+let cmsHomeMarkup = '';
 
 export function initRouter() {
     const shell = document.querySelector(
         '[data-spa-content][data-spa-runtime="standalone"], [data-spa-content][data-spa-runtime="cms-home"]',
     );
     if (!shell) return;
+
+    // CMS homepage HTML is authoritative for both `/` and `/#`. Keep an exact
+    // server-rendered snapshot so returning from a rich hash section restores
+    // the CMS homepage instead of rendering the playground/demo homepage.
+    if (shell.dataset.spaRuntime === 'cms-home') {
+        cmsHomeMarkup = shell.innerHTML;
+    }
 
     window.addEventListener('hashchange', renderCurrentRoute);
     window.addEventListener('popstate', renderCurrentRoute);
@@ -63,21 +71,15 @@ function renderCurrentRouteNow() {
         if (path !== '/') return;
         const route = normalizeRoute(window.location.hash);
         if (!route) {
-            if (initialLoad) {
-                setRouteState('home');
-                return;
-            }
-            renderHome(getState(), shell);
-            renderFooter(getState());
+            restoreCmsHomepage(shell);
             initIcons(shell);
             updateDocumentMeta(getState(), 'home');
             setRouteState('home');
             return;
         }
         if (!sectionRoutes.has(route)) {
-            history.replaceState({}, '', '/');
-            renderHome(getState(), shell);
-            renderFooter(getState());
+            history.replaceState({}, '', window.location.pathname);
+            restoreCmsHomepage(shell);
             initIcons(shell);
             updateDocumentMeta(getState(), 'home');
             setRouteState('home');
@@ -167,6 +169,14 @@ function renderCurrentRouteNow() {
     shell.classList.add('spa-changing');
     focusMain();
     scrollTop();
+}
+
+function restoreCmsHomepage(shell) {
+    if (!cmsHomeMarkup) return;
+    const markup = cmsHomeMarkup;
+    if (shell.innerHTML === markup) return;
+    shell.innerHTML = markup;
+    shell.classList.remove('spa-changing');
 }
 
 function normalizePath(pathname) {

@@ -1,9 +1,16 @@
 <?php $featured = !empty($featured); ?>
-<?php $href = base_url('news/' . rawurlencode((string)($post['slug'] ?? ''))); ?>
+<?php $post = is_array($post ?? null) ? $post : []; ?>
+<?php $title = trim((string) ($post['title'] ?? '')); ?>
+<?php $slug = trim((string) ($post['slug'] ?? '')); ?>
+<?php $image = trim((string) ($post['image'] ?? $post['image_url'] ?? '')); ?>
+<?php $excerpt = trim((string) ($post['excerpt'] ?? '')); ?>
+<?php if ($excerpt === '' && !empty($post['description'])): $excerpt = trim((string) $post['description']); endif; ?>
+<?php if ($excerpt === '' && !empty($post['content'])): $excerpt = trim(preg_replace('/\s+/', ' ', strip_tags((string) $post['content']))); endif; ?>
+<?php $href = $slug !== '' ? base_url('news/' . rawurlencode($slug)) : base_url('news'); ?>
 <article class="news-card<?= $featured ? ' news-card-featured' : '' ?>">
-    <?php if (!empty($post['image'])): ?>
-        <a class="news-card-media" href="<?= esc($href) ?>" aria-label="Baca <?= esc($post['title'] ?? 'berita') ?>">
-            <img src="<?= esc($post['image']) ?>" width="<?= esc($post['image_width'] ?? 1200) ?>" height="<?= esc($post['image_height'] ?? 800) ?>" alt="<?= esc($post['title'] ?? 'Berita sekolah') ?>" loading="<?= $featured ? 'eager' : 'lazy' ?>" decoding="async">
+    <?php if ($image !== ''): ?>
+        <a class="news-card-media" href="<?= esc($href) ?>" aria-label="Baca <?= esc($title !== '' ? $title : 'berita') ?>">
+            <img src="<?= esc($image) ?>" width="<?= esc($post['image_width'] ?? 1200) ?>" height="<?= esc($post['image_height'] ?? 800) ?>" alt="<?= esc($title) ?>" loading="<?= $featured ? 'eager' : 'lazy' ?>" decoding="async">
             <?php if (!empty($post['category'])): ?>
 <span class="news-card-category"><?= esc($post['category']) ?></span>
 <?php endif; ?>
@@ -11,9 +18,9 @@
     <?php endif; ?>
     <div class="news-card-body">
         <div class="news-card-date"><i data-lucide="calendar-days" aria-hidden="true"></i><time datetime="<?= esc($post['published_at'] ?? $post['created_at'] ?? '') ?>"><?= esc($post['published_at'] ?? $post['created_at'] ?? 'Informasi terbaru') ?></time></div>
-        <h2><a href="<?= esc($href) ?>"><?= esc($post['title'] ?? 'Berita sekolah') ?></a></h2>
-        <?php if (!empty($post['excerpt'])): ?>
-<p><?= esc($post['excerpt']) ?></p>
+        <h2><a href="<?= esc($href) ?>"><?= esc($title) ?></a></h2>
+        <?php if ($excerpt !== ''): ?>
+<p><?= esc($excerpt) ?></p>
 <?php endif; ?>
         <div class="news-card-footer">
             <div class="news-card-meta" aria-label="Metadata berita">

@@ -7,7 +7,9 @@ Madya is a theme override for SekolahKu 3.1.2. The CMS remains the source of tru
 ### CMS production
 
 - `pages/home.php` is server-rendered by `Home::index()`.
-- The homepage may use the Madya hash-enhancement runtime (`cms-home`) for rich sections.
+- The homepage is server-rendered by `Home::index()` and remains authoritative for both `/` and `/#`.
+- An empty hash (`/#`) is not a SPA route and must restore/preserve the exact server-rendered homepage.
+- Non-empty supported section hashes such as `/#programs` and `/#faq` may use the Madya hash-enhancement runtime (`cms-home`) for rich sections.
 - `/news`, `/news/{slug}`, `/downloads`, `/contact`, and `/{page-slug}` remain native CodeIgniter requests.
 - Native pages never receive the SPA content shell and are never intercepted by the SPA router.
 - Breadcrumbs on native pages are rendered by PHP through `components/page-header.php` so direct requests and refreshes do not depend on JavaScript.
@@ -16,7 +18,8 @@ Madya is a theme override for SekolahKu 3.1.2. The CMS remains the source of tru
 
 - `playground/data/demo.json` is the only source for demo content.
 - `standalone` is allowed to simulate native routes and client-side rendering.
-- Demo images and demo-only copy must not be introduced into CMS PHP views.
+- Demo images and demo-only copy must not be introduced into CMS PHP views. Missing CMS images use neutral theme placeholders only.
+- CMS production must never fall back to `playground/data/demo.json` when `theme-state` is missing.
 
 ## Homepage data contract
 

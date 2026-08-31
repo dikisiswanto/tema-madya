@@ -14,6 +14,20 @@ export async function initState() {
             return state;
         }
 
+        const cmsShell = document.querySelector(
+            '[data-spa-content][data-spa-runtime="cms-home"]',
+        );
+        // Never let a CMS page silently fall back to playground demo.json.
+        // Missing CMS state is an integration error, not a reason to invent
+        // production content.
+        if (cmsShell) {
+            console.error(
+                'CMS theme state is missing. Demo data fallback is disabled.',
+            );
+            state = { runtime: 'cms-home' };
+            return state;
+        }
+
         if (!source) {
             state = {};
             return state;
