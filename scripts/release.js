@@ -1,126 +1,110 @@
-import { cp, mkdir, readFile, rm, stat } from 'node:fs/promises';
+import {
+    cp,
+    mkdir,
+    readFile,
+    readdir,
+    rm,
+    stat,
+    writeFile,
+} from 'node:fs/promises';
 import { execFileSync } from 'node:child_process';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { themeVersion } from './theme-version.js';
 
-const root = process.cwd();
-const dist = path.join(root, 'dist');
-const release = path.join(root, 'release');
-const pkg = JSON.parse(await readFile(path.join(root, 'package.json'), 'utf8'));
-const themeSource = path.join(
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const version = themeVersion;
+
+if (!/^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?$/.test(version)) {
+    throw new Error(`Invalid package version: ${version}`);
+}
+
+const releaseRoot = path.join(root, '.release');
+const releaseApp = path.join(releaseRoot, 'app');
+const releasePublic = path.join(releaseRoot, 'public');
+const releaseAssets = path.join(releasePublic, 'themes', 'madya', 'assets');
+const generatedRelease = path.join(releaseAssets, 'generated');
+const heroSource = path.join(
     root,
-    'src',
-    'theme',
-    'app',
-    'Views',
-    'themes',
-    'madya',
-);
-const assetSource = path.join(root, 'dist-assets');
-const releaseRoot = path.join(release, 'madya');
-const releaseViews = path.join(releaseRoot, 'app', 'Views', 'themes', 'madya');
-const releaseBridgeViews = path.join(releaseRoot, 'app', 'Views', 'pages');
-const releaseAssets = path.join(
-    releaseRoot,
     'public',
     'themes',
     'madya',
     'assets',
+    'generated',
+    'hero-image.jpg',
 );
-const validateScript = path.join(root, 'scripts', 'validate-theme.js');
+const output = path.join(root, `tema-madya-cms-sekolahku-v${version}.zip`);
 
-execFileSync(process.execPath, [validateScript], {
-    cwd: root,
-    stdio: 'inherit',
-});
+// Never package stale staging files.
+await rm(releaseRoot, { recursive: true, force: true });
+await rm(output, { force: true });
+await mkdir(releaseApp, { recursive: true });
+await mkdir(releasePublic, { recursive: true });
 
-await rm(dist, { recursive: true, force: true });
-await rm(release, { recursive: true, force: true });
-await mkdir(releaseViews, { recursive: true });
-await mkdir(releaseBridgeViews, { recursive: true });
-await mkdir(releaseAssets, { recursive: true });
+// Release contract: app + public only.
+await cp(path.join(root, 'app'), releaseApp, { recursive: true });
+await cp(path.join(root, 'public'), releasePublic, { recursive: true });
 
-await cp(themeSource, releaseViews, { recursive: true });
-await cp(
-    path.join(root, 'src', 'theme', 'app', 'Views', 'pages'),
-    releaseBridgeViews,
-    { recursive: true },
-);
-
-try {
-    await stat(assetSource);
-} catch {
-    throw new Error(
-        'Build assets not found. Run the Vite build before packaging.',
-    );
-}
-await cp(assetSource, releaseAssets, { recursive: true });
-const canonicalAssetSource = path.join(themeSource, 'assets');
-const generatedRelease = path.join(releaseAssets, 'generated');
-const illustrationRelease = path.join(releaseAssets, 'illustrations');
+// Remove anything under the copied theme asset tree; repopulate only the
+// compiled assets plus the single approved generated hero image.
+const stagedThemeAssets = path.join(releasePublic, 'themes', 'madya', 'assets');
+await rm(stagedThemeAssets, { recursive: true, force: true });
 await mkdir(generatedRelease, { recursive: true });
-await mkdir(illustrationRelease, { recursive: true });
-await cp(path.join(canonicalAssetSource, 'generated'), generatedRelease, {
-    recursive: true,
-});
-await cp(
-    path.join(canonicalAssetSource, 'illustrations'),
-    illustrationRelease,
-    { recursive: true },
-);
 
-for (const asset of ['app.css', 'app.js']) {
-    const info = await stat(path.join(releaseAssets, asset));
-    if (info.size < 100) {
-        throw new Error(
-            `Production asset looks invalid or empty: ${asset} (${info.size} bytes)`,
-        );
-    }
+const canonicalAssets = path.join(root, 'public', 'themes', 'madya', 'assets');
+const allowedAssetFiles = new Set(['app.css', 'app.js']);
+
+for (const file of allowedAssetFiles) {
+    const source = path.join(canonicalAssets, file);
+    const info = await stat(source);
+    if (!info.isFile()) throw new Error(`Missing compiled asset: ${source}`);
+    await cp(source, path.join(releaseAssets, file));
 }
 
-const requiredViews = [
-    'pages/home.php',
-    'pages/news.php',
-    'pages/single_post.php',
-    'pages/downloads.php',
-    'pages/contact.php',
-    'pages/page.php',
+const heroInfo = await stat(heroSource);
+if (!heroInfo.isFile()) throw new Error(`Missing hero image: ${heroSource}`);
+await cp(heroSource, path.join(generatedRelease, 'hero-image.jpg'));
+
+await writeFile(path.join(releaseRoot, 'VERSION'), `${version}\n`, 'utf8');
+
+// Validate package contents before creating ZIP.
+const required = [
+    path.join(releaseRoot, 'app'),
+    path.join(releaseRoot, 'public'),
+    path.join(releaseRoot, 'VERSION'),
+    path.join(releaseAssets, 'app.css'),
+    path.join(releaseAssets, 'app.js'),
+    path.join(generatedRelease, 'hero-image.jpg'),
 ];
-for (const filename of requiredViews) {
-    await stat(path.join(releaseViews, filename));
+
+for (const item of required) {
+    await stat(item);
 }
 
-const releaseManifestPath = path.join(releaseViews, 'theme.json');
-const releaseManifest = JSON.parse(await readFile(releaseManifestPath, 'utf8'));
-if (releaseManifest.version !== pkg.version) {
+const stagedGenerated = await readdir(generatedRelease);
+if (stagedGenerated.length !== 1 || stagedGenerated[0] !== 'hero-image.jpg') {
     throw new Error(
-        `Release manifest version mismatch: theme=${releaseManifest.version}, package=${pkg.version}`,
+        `Generated asset contract failed: ${stagedGenerated.join(', ')}`,
     );
 }
 
-await mkdir(dist, { recursive: true });
-await cp(releaseRoot, path.join(dist, 'madya'), { recursive: true });
-
-const archive = path.join(
-    release,
-    `tema-madya-cms-sekolahku-${pkg.version}.zip`,
-);
-try {
-    execFileSync('zip', ['-qr', archive, 'madya'], {
-        cwd: release,
+// Use the repository's existing packaging mechanism if available.
+const zipScript = path.join(root, 'scripts', 'zip-release.js');
+if (
+    await stat(zipScript)
+        .then(() => true)
+        .catch(() => false)
+) {
+    execFileSync(process.execPath, [zipScript, releaseRoot, output], {
+        cwd: root,
         stdio: 'inherit',
     });
-} catch (error) {
-    if (process.platform !== 'win32') throw error;
-    const archiveRelative = path.relative(release, archive);
-    execFileSync(
-        'powershell.exe',
-        [
-            '-NoProfile',
-            '-NonInteractive',
-            '-Command',
-            `Compress-Archive -Path 'madya' -DestinationPath '${archiveRelative}' -Force`,
-        ],
-        { cwd: release, stdio: 'inherit' },
-    );
+} else {
+    // Fall back to the system zip command when the baseline has no packager.
+    execFileSync('zip', ['-qr', output, 'app', 'public', 'VERSION'], {
+        cwd: releaseRoot,
+        stdio: 'inherit',
+    });
 }
-console.log(`Release package created: ${archive}`);
+
+console.log(`Release ready: ${path.basename(output)}`);
