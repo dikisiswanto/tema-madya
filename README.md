@@ -1,7 +1,3 @@
-# Tema Madya — v0.9.0
-
-Baseline visual parity dan CMS UI contract.
-
 # Tema Madya CMS Sekolahku
 
 Tema Madya adalah tema website sekolah modern untuk **CMS SekolahKu**, dirancang dengan pendekatan responsive, accessible, performant, dan mudah dikustomisasi melalui data CMS.
@@ -25,7 +21,6 @@ Tema ini menyediakan tampilan publik sekolah yang mencakup halaman beranda, prof
 - Contact page
 - SEO metadata dan structured data
 - Open Graph dan Twitter Card
-- Icon system berbasis Lucide
 - Generated asset bawaan tema
 - Native/playground renderer untuk pengujian frontend
 - PHP view untuk integrasi CMS
