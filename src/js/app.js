@@ -1,6 +1,6 @@
 import '../css/app.css';
 import { initState, getState } from './state.js';
-import { initNavigation } from './navigation.js';
+import { closeMobileNavigation, initNavigation } from './navigation.js';
 import { initRouter } from './router.js';
 import { initArticleActions } from './article.js';
 import { initIcons } from './icons.js';
@@ -91,6 +91,8 @@ function initSearchDialog() {
     document.addEventListener('click', (event) => {
         if (event.target.closest('[data-search-open]')) {
             event.preventDefault();
+
+            closeMobileNavigation(false);
             open();
         } else if (event.target.closest('[data-search-close]')) close();
     });

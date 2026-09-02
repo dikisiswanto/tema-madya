@@ -55,7 +55,11 @@ $themePreloadImage = $themePreloadImageRaw === '' ? null : (preg_match('#^(?:htt
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@300;400;500;600;700&family=Newsreader:opsz,wght@6..72,300..800&display=swap">
-    <link rel="stylesheet" href="<?= base_url($theme_asset_base ?? 'themes/madya/assets') ?>/app.css">
+    <?php
+$themeVersion = trim((string)$this->include('themes/madya/partials/theme-version'));
+$themeAssetBase = $theme_asset_base ?? 'themes/madya/assets';
+?>
+    <link rel="stylesheet" href="<?= base_url($themeAssetBase) ?>/app.css?v=<?= rawurlencode($themeVersion) ?>">
     <?php if (($structured_data ?? null)): ?>
 <script type="application/ld+json"><?= json_encode($structured_data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?></script>
 <?php endif; ?>

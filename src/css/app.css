@@ -73,7 +73,7 @@
   }
 
   body.madya-theme.nav-open {
-    @apply overflow-hidden;
+    overflow-x: clip;
   }
 
   .madya-theme a {

@@ -605,7 +605,7 @@ function closeDesktopBranch(item, restoreFocus = false) {
         // Restoring focus after Escape/ArrowLeft must not immediately reopen
         // the branch through the focusin hover synchronisation.
         suppressDesktopFocusOpen = true;
-        trigger.focus();
+        focusMobileElement(trigger);
     }
 }
 
@@ -629,6 +629,12 @@ function focusSibling(siblings, index, delta) {
     target?.querySelector(':scope > a, :scope > button')?.focus();
 }
 
+function focusMobileElement(element) {
+    if (element instanceof HTMLElement) {
+        element.focus({ preventScroll: true });
+    }
+}
+
 function openMobileMenu() {
     lastMobileFocus = document.activeElement;
     document.body.classList.add('nav-open');
@@ -649,6 +655,10 @@ function openMobileMenu() {
             )
             ?.focus(),
     );
+}
+
+export function closeMobileNavigation(restoreFocus = true) {
+    closeMobileMenu(restoreFocus);
 }
 
 function closeMobileMenu(restoreFocus = true) {
