@@ -1,4 +1,4 @@
-import { readFile } from 'node:fs/promises';
+import { readFile, writeFile } from 'node:fs/promises';
 import { execFileSync } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -25,6 +25,37 @@ function runGit(...args) {
     });
 }
 
+function runNode(script, ...args) {
+    execFileSync(process.execPath, [script, ...args], {
+        cwd: root,
+        stdio: 'inherit',
+    });
+}
+
+function bumpVersion(version, type) {
+    const match = version.match(/^(\d+)\.(\d+)\.(\d+)(?:-[0-9A-Za-z.-]+)?$/);
+    if (!match) {
+        throw new Error(`Invalid package version: ${version}`);
+    }
+
+    let major = Number(match[1]);
+    let minor = Number(match[2]);
+    let patch = Number(match[3]);
+
+    if (type === 'major') {
+        major += 1;
+        minor = 0;
+        patch = 0;
+    } else if (type === 'minor') {
+        minor += 1;
+        patch = 0;
+    } else {
+        patch += 1;
+    }
+
+    return `${major}.${minor}.${patch}`;
+}
+
 const status = git('status', '--porcelain');
 if (status) {
     throw new Error(
@@ -33,60 +64,54 @@ if (status) {
 }
 
 const packagePath = path.join(root, 'package.json');
-const oldVersion = JSON.parse(await readFile(packagePath, 'utf8')).version;
-let newVersion;
-let tag;
+const lockPath = path.join(root, 'package-lock.json');
+
+const originalPackage = await readFile(packagePath, 'utf8');
+const originalLock = await readFile(lockPath, 'utf8');
+const oldVersion = JSON.parse(originalPackage).version;
+const newVersion = bumpVersion(oldVersion, args[0]);
+const tag = `v${newVersion}`;
+
 let commitCreated = false;
 let tagCreated = false;
 
 try {
-    const npm = process.platform === 'win32' ? 'npm.cmd' : 'npm';
-
-    execFileSync(
-        npm,
-        ['version', args[0], '--no-git-tag-version', '--ignore-scripts'],
-        {
-            cwd: root,
-            stdio: 'inherit',
-        },
-    );
-
-    newVersion = JSON.parse(await readFile(packagePath, 'utf8')).version;
-    tag = `v${newVersion}`;
-
-    let tagExists = false;
+    // Fail before changing anything if the target tag already exists.
     try {
         execFileSync('git', ['rev-parse', '--verify', `refs/tags/${tag}`], {
             cwd: root,
             stdio: 'ignore',
         });
-        tagExists = true;
-    } catch {}
-
-    if (tagExists) {
         throw new Error(`Git tag already exists: ${tag}`);
+    } catch (error) {
+        if (error?.message === `Git tag already exists: ${tag}`) {
+            throw error;
+        }
+        // rev-parse exits non-zero: the tag does not exist.
     }
-} catch (error) {
-    // npm exits non-zero, or the target tag already exists.
-    // Restore the pre-versioning working tree.
-    try {
-        runGit('reset', '--hard', 'HEAD');
-    } catch {}
-    throw error;
-}
 
-try {
-    execFileSync(
-        process.platform === 'win32' ? 'npm.cmd' : 'npm',
-        ['run', 'sync:version', '--ignore-scripts'],
-        { cwd: root, stdio: 'inherit' },
+    // Do the version bump directly instead of spawning npm/npm.cmd.
+    // This avoids Windows EINVAL from npm.cmd and gives us identical
+    // behavior on Windows, Linux, and macOS.
+    const packageJson = JSON.parse(originalPackage);
+    packageJson.version = newVersion;
+    await writeFile(
+        packagePath,
+        `${JSON.stringify(packageJson, null, 4)}\n`,
+        'utf8',
     );
 
-    execFileSync(
-        process.platform === 'win32' ? 'npm.cmd' : 'npm',
-        ['run', 'check:version', '--ignore-scripts'],
-        { cwd: root, stdio: 'inherit' },
-    );
+    const lockJson = JSON.parse(originalLock);
+    lockJson.version = newVersion;
+    if (lockJson.packages?.['']) {
+        lockJson.packages[''].version = newVersion;
+    }
+    await writeFile(lockPath, `${JSON.stringify(lockJson, null, 2)}\n`, 'utf8');
+
+    // package.json is now the source of truth; this syncs every generated
+    // theme-version artifact from it.
+    runNode('scripts/sync-version.js');
+    runNode('scripts/check-version.js');
 
     runGit(
         'add',
@@ -99,6 +124,7 @@ try {
     runGit('commit', '-m', `chore: release ${tag}`);
     commitCreated = true;
 
+    // Annotated tag: git push --follow-tags will publish it.
     runGit('tag', '-a', tag, '-m', `Release ${tag}`);
     tagCreated = true;
 
@@ -106,25 +132,26 @@ try {
     console.log(`Created commit and tag ${tag}`);
     console.log('Next: git push --follow-tags');
 } catch (error) {
-    // If a tag was created before a later failure, never leave it behind.
+    // Only delete the tag created by this invocation.
     if (tagCreated) {
         try {
-            execFileSync('git', ['rev-parse', '--verify', `refs/tags/${tag}`], {
-                cwd: root,
-                stdio: 'ignore',
-            });
             runGit('tag', '-d', tag);
         } catch {}
     }
 
-    // If our commit was created, remove it. Otherwise discard the version bump.
+    // Restore the exact pre-versioning state. The working tree was required
+    // to be clean before starting, so this cannot discard unrelated work.
     try {
         if (commitCreated) {
             runGit('reset', '--hard', 'HEAD~1');
         } else {
+            await writeFile(packagePath, originalPackage, 'utf8');
+            await writeFile(lockPath, originalLock, 'utf8');
             runGit('reset', '--hard', 'HEAD');
         }
-    } catch {}
+    } catch (rollbackError) {
+        console.error('Version rollback failed:', rollbackError);
+    }
 
     throw error;
 }
