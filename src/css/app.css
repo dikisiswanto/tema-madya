@@ -12397,9 +12397,13 @@
 .rich-extra-card-head .rich-card-icon {
   @apply size-12 rounded-full;
 }
-.rich-extra-card-head .rich-card-icon svg,
-.rich-extra-card-head .rich-card-icon i {
+.rich-extra-card-head .rich-card-icon svg {
   @apply size-5;
+}
+.rich-extra-card-head .rich-card-icon i {
+    @apply w-auto h-auto;
+    font-size: 1.25rem;
+    line-height: 1;
 }
 .rich-extra-copy {
   @apply mt-6 min-w-0;
