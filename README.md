@@ -2,6 +2,8 @@
 
 Tema Madya adalah tema website sekolah modern untuk **CMS SekolahKu**, dirancang dengan pendekatan responsive, accessible, performant, dan mudah dikustomisasi melalui data CMS.
 
+<img width="1536" height="1024" alt="1000221195" src="https://github.com/user-attachments/assets/b189d02c-e053-4027-85bf-4ddd573d143e" />
+
 Tema ini menyediakan tampilan publik sekolah yang mencakup halaman beranda, profil sekolah, berita, halaman statis, program, galeri, unduhan, kontak, serta navigasi multi-level hingga beberapa tingkat.
 
 ## ✨ Highlights
