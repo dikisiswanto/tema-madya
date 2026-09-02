@@ -151,7 +151,7 @@ function renderPrograms(state) {
             return `<article class="rich-program-row"><span class="rich-card-icon rich-data-icon"${iconStyle}>${iconMarkup(item.icon || 'users-round', '', iconColor)}</span><div><h3>${escapeHtml(item.title || 'Kegiatan')}</h3><p>${escapeHtml(item.description || '')}</p></div></article>`;
         })
         .join('');
-    const content = `<main class="rich-main"><section><div class="rich-section-label"><h2>Program Unggulan</h2><p>Program yang tersedia di SekolahKu.</p></div><div class="rich-program-grid">${cards || emptyState('Belum ada program unggulan yang tersedia.')}</div></section><section class="rich-program-secondary"><div class="rich-section-label"><h2>Ekstrakurikuler</h2><p>Kegiatan pengembangan minat dan bakat siswa.</p></div><div class="rich-program-list">${extraCards || emptyState('Belum ada kegiatan ekstrakurikuler.')}</div></section></main>`;
+    const content = `<main class="rich-main"><section><div class="rich-section-label"><h2>Program Unggulan</h2></div><div class="rich-program-grid">${cards || emptyState('Belum ada program unggulan yang tersedia.')}</div></section><section class="rich-program-secondary"><div class="rich-section-label"><h2>Ekstrakurikuler</h2></div><div class="rich-program-list">${extraCards || emptyState('Belum ada kegiatan ekstrakurikuler.')}</div></section></main>`;
     return pageHeader('programs', state) + richLayout(content);
 }
 

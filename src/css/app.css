@@ -12311,13 +12311,25 @@
    for extracurriculars, a per-item hex color. Keep FA and bundled SVG
    icons visually equivalent while preserving the administrator's color. */
 @layer components {
-  .rich-card-icon :is(svg, i),
-  .program-showcase-icon :is(svg, i),
-  .home-stat-item > :is(svg, i),
+  .rich-card-icon svg,
+  .program-showcase-icon svg,
+  .home-stat-item > svg,
   .brand-mark .brand-icon {
     width: 1em;
     height: 1em;
     flex: none;
+  }
+
+  /* Font Awesome is a glyph: its visual size comes from font-size, not a box. */
+  .rich-card-icon i,
+  .program-showcase-icon i,
+  .brand-mark .brand-icon:is(i) {
+    width: auto;
+    height: auto;
+    min-width: 0;
+    min-height: 0;
+    flex: none;
+    line-height: 1;
   }
 
   .rich-data-icon {
@@ -12341,10 +12353,16 @@
     font-size: 1.3rem;
   }
 
-  .rich-extra-card .rich-data-icon :is(svg, i) {
+  .rich-extra-card .rich-data-icon svg {
     width: 1.3rem;
     height: 1.3rem;
+  }
+
+  .rich-extra-card .rich-data-icon i {
+    width: auto;
+    height: auto;
     font-size: 1.3rem;
+    line-height: 1;
   }
 
   .rich-program-row .rich-data-icon :is(svg, i) {
@@ -12459,10 +12477,16 @@
     color: #a56a08;
   }
 
-  .home-page .program-showcase-media.program-showcase-icon :is(svg, i) {
+  .home-page .program-showcase-media.program-showcase-icon svg {
     width: 2.5rem;
     height: 2.5rem;
+  }
+
+  .home-page .program-showcase-media.program-showcase-icon i {
+    width: auto;
+    height: auto;
     font-size: 2.5rem;
+    line-height: 1;
   }
 
   .home-page .program-showcase-body {
@@ -12496,10 +12520,16 @@
     font-size: 1.15rem;
   }
 
-  .home-page .extra-inline-icon :is(svg, i) {
+  .home-page .extra-inline-icon svg {
     width: 1.15rem;
     height: 1.15rem;
+  }
+
+  .home-page .extra-inline-icon i {
+    width: auto;
+    height: auto;
     font-size: 1.15rem;
+    line-height: 1;
   }
 
   .rich-program-card .rich-card-icon {
@@ -12509,26 +12539,57 @@
     font-size: 1.45rem;
   }
 
-  .rich-program-card .rich-card-icon :is(svg, i) {
+  .rich-program-card .rich-card-icon svg {
     width: 1.45rem;
     height: 1.45rem;
-    font-size: 1.45rem;
   }
 
-  .rich-program-card:nth-child(1) .rich-card-icon {
+  .rich-program-card .rich-card-icon i {
+    width: auto;
+    height: auto;
+    font-size: 1.45rem;
+    line-height: 1;
+  }
+
+  .rich-program-card:nth-child(8n + 1) .rich-card-icon {
     color: #2563eb;
     background: #eff6ff;
     border-color: #bfdbfe;
   }
-  .rich-program-card:nth-child(2) .rich-card-icon {
+  .rich-program-card:nth-child(8n + 2) .rich-card-icon {
     color: #16805f;
     background: #effaf5;
     border-color: #bce8d6;
   }
-  .rich-program-card:nth-child(3) .rich-card-icon {
+  .rich-program-card:nth-child(8n + 3) .rich-card-icon {
     color: #a56a08;
     background: #fff8e8;
     border-color: #f3d89a;
+  }
+  .rich-program-card:nth-child(8n + 4) .rich-card-icon {
+    color: #7c3aed;
+    background: #f5f3ff;
+    border-color: #ddd6fe;
+  }
+  .rich-program-card:nth-child(8n + 5) .rich-card-icon {
+    color: #db2777;
+    background: #fdf2f8;
+    border-color: #fbcfe8;
+  }
+  .rich-program-card:nth-child(8n + 6) .rich-card-icon {
+    color: #0891b2;
+    background: #ecfeff;
+    border-color: #a5f3fc;
+  }
+  .rich-program-card:nth-child(8n + 7) .rich-card-icon {
+    color: #16a34a;
+    background: #f0fdf4;
+    border-color: #bbf7d0;
+  }
+  .rich-program-card:nth-child(8n + 8) .rich-card-icon {
+    color: #c026d3;
+    background: #fdf4ff;
+    border-color: #f0abfc;
   }
 
   .rich-extra-card-head .rich-card-icon {
@@ -12536,10 +12597,16 @@
     place-items: center;
   }
 
-  .rich-extra-card-head .rich-card-icon :is(svg, i) {
+  .rich-extra-card-head .rich-card-icon svg {
     width: 1.35rem;
     height: 1.35rem;
+  }
+
+  .rich-extra-card-head .rich-card-icon i {
+    width: auto;
+    height: auto;
     font-size: 1.35rem;
+    line-height: 1;
   }
 
   .contact-summary-five {
@@ -12574,10 +12641,16 @@
   .home-page .program-showcase-media.program-showcase-icon {
     min-height: 5.75rem;
   }
-  .home-page .program-showcase-media.program-showcase-icon :is(svg, i) {
+  .home-page .program-showcase-media.program-showcase-icon svg {
     width: 2.1rem;
     height: 2.1rem;
+  }
+
+  .home-page .program-showcase-media.program-showcase-icon i {
+    width: auto;
+    height: auto;
     font-size: 2.1rem;
+    line-height: 1;
   }
   .home-page .principal-message blockquote {
     font-size: 1rem;
@@ -12629,21 +12702,37 @@
     height: 3rem;
     font-size: 3rem;
   }
-  .home-page .program-showcase-card:nth-child(4n + 1) .program-showcase-media {
+  .home-page .program-showcase-card:nth-child(8n + 1) .program-showcase-media {
     color: #2563eb;
     background: #eff6ff;
   }
-  .home-page .program-showcase-card:nth-child(4n + 2) .program-showcase-media {
+  .home-page .program-showcase-card:nth-child(8n + 2) .program-showcase-media {
     color: #16805f;
     background: #effaf5;
   }
-  .home-page .program-showcase-card:nth-child(4n + 3) .program-showcase-media {
+  .home-page .program-showcase-card:nth-child(8n + 3) .program-showcase-media {
     color: #a56a08;
     background: #fff8e8;
   }
-  .home-page .program-showcase-card:nth-child(4n + 4) .program-showcase-media {
+  .home-page .program-showcase-card:nth-child(8n + 4) .program-showcase-media {
     color: #7c3aed;
     background: #f5f3ff;
+  }
+  .home-page .program-showcase-card:nth-child(8n + 5) .program-showcase-media {
+    color: #db2777;
+    background: #fdf2f8;
+  }
+  .home-page .program-showcase-card:nth-child(8n + 6) .program-showcase-media {
+    color: #0891b2;
+    background: #ecfeff;
+  }
+  .home-page .program-showcase-card:nth-child(8n + 7) .program-showcase-media {
+    color: #16a34a;
+    background: #f0fdf4;
+  }
+  .home-page .program-showcase-card:nth-child(8n + 8) .program-showcase-media {
+    color: #c026d3;
+    background: #fdf4ff;
   }
 
   .home-page .extra-inline-list {
@@ -12664,10 +12753,16 @@
     );
     color: var(--rich-icon-color, var(--home-navy));
   }
-  .home-page .extra-inline-icon :is(svg, i) {
+  .home-page .extra-inline-icon svg {
     width: 1.35rem;
     height: 1.35rem;
+  }
+
+  .home-page .extra-inline-icon i {
+    width: auto;
+    height: auto;
     font-size: 1.35rem;
+    line-height: 1;
   }
   .home-page .extra-inline-item::after {
     display: none;
@@ -12901,10 +12996,16 @@
     .home-page .program-showcase-media.program-showcase-icon {
       min-height: 6.25rem;
     }
-    .home-page .program-showcase-media.program-showcase-icon :is(svg, i) {
+    .home-page .program-showcase-media.program-showcase-icon svg {
       width: 2.5rem;
       height: 2.5rem;
+    }
+
+    .home-page .program-showcase-media.program-showcase-icon i {
+      width: auto;
+      height: auto;
       font-size: 2.5rem;
+      line-height: 1;
     }
     .rich-toolbar {
       align-items: stretch;
@@ -13102,11 +13203,17 @@
     color: var(--rich-icon-color, var(--home-navy));
   }
 
-  .home-page .extra-inline-icon :is(svg, i) {
-    display: grid;
-    place-items: center;
+  .home-page .extra-inline-icon svg {
+    display: block;
     width: 1.8rem;
     height: 1.8rem;
+    margin: 0;
+  }
+
+  .home-page .extra-inline-icon i {
+    display: inline-block;
+    width: auto;
+    height: auto;
     margin: 0;
     font-size: 1.8rem;
     line-height: 1;
@@ -13267,10 +13374,16 @@
       flex-basis: 2.8rem;
     }
 
-    .home-page .extra-inline-icon :is(svg, i) {
+    .home-page .extra-inline-icon svg {
       width: 1.55rem;
       height: 1.55rem;
+    }
+
+    .home-page .extra-inline-icon i {
+      width: auto;
+      height: auto;
       font-size: 1.55rem;
+      line-height: 1;
     }
 
     .home-page .extra-inline-item > span:last-child {
