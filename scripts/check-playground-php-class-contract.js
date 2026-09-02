@@ -16,7 +16,7 @@ function files(dir, ext) {
     });
 }
 
-function classVocabulary(filesList) {
+function _classVocabulary(filesList) {
     const out = new Set();
     for (const file of filesList) {
         const source = fs.readFileSync(file, 'utf8');

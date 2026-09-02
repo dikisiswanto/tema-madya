@@ -706,6 +706,9 @@ function showMobileLevel(id, direction = 'forward') {
         node.dataset.direction = direction;
         node.dataset.active = String(active);
         node.setAttribute('aria-hidden', String(!active));
+        if (active && direction === 'forward') {
+            node.scrollTop = 0;
+        }
     });
     document.querySelectorAll('[data-mobile-trigger]').forEach((trigger) => {
         trigger.setAttribute(

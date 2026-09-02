@@ -9,8 +9,11 @@ import { iconMarkup } from './icons.js';
 
 window.addEventListener('DOMContentLoaded', async () => {
     await initState();
-    hydratePlaygroundShell();
-    hydratePlaygroundNavigation();
+    const isPlayground = Boolean(document.querySelector('[data-demo-source]'));
+    if (isPlayground) {
+        hydratePlaygroundShell();
+        hydratePlaygroundNavigation();
+    }
     initNavigation();
     initRouter();
     initArticleActions();

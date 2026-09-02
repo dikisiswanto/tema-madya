@@ -63,11 +63,13 @@
   html {
     @apply bg-surface;
     scroll-behavior: smooth;
+    overflow-x: clip;
   }
 
   body.madya-theme {
     @apply m-0 min-w-[320px] bg-surface font-sans text-base leading-[1.55] text-ink antialiased;
     text-rendering: optimizeLegibility;
+    overflow-x: clip;
   }
 
   body.madya-theme.nav-open {
@@ -442,6 +444,7 @@
     box-sizing: border-box;
     pointer-events: none;
     overflow: hidden;
+    overflow-x: clip;
     overscroll-behavior-x: none;
     touch-action: pan-y;
     background: var(--site-surface);
@@ -469,6 +472,8 @@
     box-sizing: border-box;
     overflow: hidden;
     overflow-x: clip;
+    overscroll-behavior-x: none;
+    touch-action: pan-y;
     padding: 1.25rem 0 0;
     pointer-events: auto;
   }
@@ -483,6 +488,8 @@
     overflow-x: clip;
     overflow-y: auto;
     overscroll-behavior: contain;
+    overscroll-behavior-x: none;
+    touch-action: pan-y;
     padding: 0 var(--site-gutter) 4rem;
     background: var(--site-surface);
     opacity: 0;
@@ -527,9 +534,11 @@
   }
   .mobile-back {
     display: inline-flex;
+    max-width: 100%;
+    min-width: 0;
     align-items: center;
     gap: 0.5rem;
-    margin-bottom: 1.1rem;
+    margin: 0 0 1.1rem;
     padding: 0;
     border: 0;
     background: none;
@@ -549,6 +558,8 @@
     flex: 0 0 1.25rem;
   }
   .mobile-level-title {
+    display: block;
+    width: 100%;
     margin: 0 0 0.8rem;
     padding: 0;
     min-width: 0;
@@ -564,6 +575,7 @@
   .mobile-menu-link,
   .mobile-menu-trigger {
     width: 100%;
+    inline-size: 100%;
     min-height: 4rem;
     min-width: 0;
     max-width: 100%;
@@ -605,10 +617,13 @@
     transition: transform 220ms var(--ease-menu);
   }
   .mobile-menu-trigger .menu-arrow svg,
-  .mobile-menu-link > span:last-child svg {
+  .mobile-menu-link > span:last-child svg,
+  .mobile-back svg {
     display: block;
     width: 1.25rem;
     height: 1.25rem;
+    flex: 0 0 1.25rem;
+    stroke: currentColor;
   }
   .mobile-menu-trigger:hover .menu-arrow,
   .mobile-menu-link:hover > span:last-child {

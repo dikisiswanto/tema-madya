@@ -60,7 +60,7 @@ export default function renderHome(state, container) {
         /(Berprestasi\.?)(\s*)$/u,
         '<span class="hero-title-accent">$1</span>$2',
     );
-    const assetBase = String(
+    const _assetBase = String(
         state.asset_base || '/themes/madya/assets',
     ).replace(/\/$/, '');
     const iconFallback = (name, label = '') =>

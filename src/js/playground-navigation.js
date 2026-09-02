@@ -46,20 +46,27 @@ function renderDesktop(items, level = 0) {
         .join('');
 }
 
-function collect(items, out = []) {
-    items.forEach((item) => {
-        if (Array.isArray(item.children) && item.children.length) {
-            out.push(item);
-            collect(item.children, out);
-        }
+function collect(items, parentKey = null, out = []) {
+    items.forEach((item, index) => {
+        const children = Array.isArray(item.children) ? item.children : [];
+        if (!children.length) return;
+
+        const key = safe(
+            item.id ||
+                (parentKey !== null
+                    ? `${parentKey}-${index}`
+                    : `root-${index}`),
+        );
+        out.push([item, key]);
+        collect(children, key, out);
     });
+
     return out;
 }
 
-function renderMobileLevel(item, level = 0) {
+function renderMobileLevel(item, key) {
     const children = Array.isArray(item.children) ? item.children : [];
     const title = esc(item.title || 'Menu');
-    const key = safe(item.id || `level-${level}`);
     return `<div class="mobile-level" id="mobile-navigation-panel-${key}" data-mobile-level="${key}" data-active="false" aria-hidden="true">
     <button class="mobile-back" type="button" data-mobile-back aria-label="Kembali ke menu sebelumnya"><i data-lucide="arrow-left"></i> Kembali</button>
     <p class="mobile-level-title">${title}</p>
@@ -78,6 +85,9 @@ function renderMobileLevel(item, level = 0) {
 }
 
 export function hydratePlaygroundNavigation() {
+    if (!document.body.hasAttribute('data-demo-source')) return;
+    if (document.body.dataset.navigationHydrated === 'true') return;
+
     const state = getState();
     const tree = Array.isArray(state.navigation) ? state.navigation : [];
     const desktop = document.querySelector('.desktop-nav');
@@ -87,6 +97,7 @@ export function hydratePlaygroundNavigation() {
     const mobileInner = document.querySelector('.mobile-nav-inner');
     if (!tree.length || !desktop || !mobileRoot || !mobileInner) return;
 
+    document.body.dataset.navigationHydrated = 'true';
     desktop.innerHTML = renderDesktop(tree);
     mobileRoot.innerHTML = `<div class="mobile-nav-intro"><span class="eyebrow">Navigasi</span><p data-demo-mobile-intro>${esc(state.site_description || 'Temukan informasi sekolah berdasarkan kebutuhan Anda.')}</p></div>${tree
         .map((item, index) => {
@@ -99,7 +110,10 @@ export function hydratePlaygroundNavigation() {
         })
         .join('')}`;
 
-    collect(tree).forEach((item) => {
-        mobileInner.insertAdjacentHTML('beforeend', renderMobileLevel(item));
+    collect(tree).forEach(([item, key]) => {
+        mobileInner.insertAdjacentHTML(
+            'beforeend',
+            renderMobileLevel(item, key),
+        );
     });
 }
