@@ -19,7 +19,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
 
       - name: Install dependencies
@@ -53,7 +53,7 @@ jobs:
       - name: Verify release archive
         shell: bash
         run: |
-          FILE="tema-madya-cms-sekolahku-v${VERSION}.zip"
+          FILE="release/tema-madya-cms-sekolahku-v${VERSION}.zip"
 
           if [ ! -f "$FILE" ]; then
             echo "ERROR: Release archive not found: $FILE"
@@ -62,11 +62,21 @@ jobs:
 
           echo "Release archive found: $FILE"
 
+          echo "Top-level archive entries:"
+          unzip -Z1 "$FILE" | awk -F/ 'NF { print $1 }' | sort -u
+
+          TOP_LEVEL="$(unzip -Z1 "$FILE" | awk -F/ 'NF { print $1 }' | sort -u)"
+
+          if [ "$TOP_LEVEL" != $'app\npublic' ]; then
+            echo "ERROR: ZIP root must contain exactly app/ and public/"
+            exit 1
+          fi
+
       - name: Create GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          FILE="tema-madya-cms-sekolahku-v${VERSION}.zip"
+          FILE="release/tema-madya-cms-sekolahku-v${VERSION}.zip"
 
           gh release create \
             "v${VERSION}" \
