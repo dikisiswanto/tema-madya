@@ -32,7 +32,7 @@ Tema ini menyediakan tampilan publik sekolah yang mencakup halaman beranda, prof
 
 ## Status
 
-- Versi: **0.9.0**
+- Versi: **1.0.0**
 - CMS target: **Sekolahku CMS 3.1.2+**
 - Node lokal/CI: **22**
 - PHP target: **8.5**

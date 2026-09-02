@@ -18,7 +18,7 @@
     "build:html": "npm run build && node scripts/build-html.js",
     "build:theme": "npm run validate && npm run build && node scripts/build-html.js",
     "check:deps": "node scripts/check-dependencies.js",
-    "release": "node scripts/release.js",
+    "release": "npm run check && npm run build:theme && node scripts/release.js",
     "lint:js": "biome lint src/js scripts tests playground",
     "lint:css": "biome lint src/css",
     "lint:php": "composer validate --strict && composer run lint",

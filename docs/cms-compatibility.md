@@ -40,17 +40,3 @@ If true server-side tag filtering is required, apply the included `cms-3.1.2-new
 ## Native page behavior
 
 Native page forms, pagination, category links, download links, comments, and static-page links use ordinary browser navigation. Madya does not call `preventDefault()` for those interactions on CMS pages.
-
-### Release asset contract
-
-The production release keeps compiled `app.css` and `app.js` plus the single
-generated hero image at `public/themes/madya/assets/generated/hero-image.jpg`.
-Other generated photos and illustration assets are excluded because the theme
-uses icon fallbacks for those surfaces.
-
-### Theme versioning
-
-`package.json` is the single source of truth for the theme version.
-Use `npm run version:patch`, `npm run version:minor`, or
-`npm run version:major` for SemVer changes. The release script reads the same
-version and names the archive `tema-madya-cms-sekolahku-v<version>.zip`.

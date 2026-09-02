@@ -24,8 +24,31 @@ if (!function_exists('theme_resolve_menu_href')) {
     }
 }
 
+if (!function_exists('theme_mobile_key')) {
+    function theme_mobile_key(array $item, int $index, ?string $parentKey = null): string
+    {
+        $fallback = $parentKey !== null ? $parentKey . '-' . $index : 'root-' . $index;
+        $value = (string) ($item['id'] ?? $fallback);
+        return preg_replace('/[^a-zA-Z0-9_-]/', '-', $value) ?: 'item';
+    }
+}
+
+if (!function_exists('theme_collect_mobile_levels')) {
+    function theme_collect_mobile_levels(array $items, ?string $parentKey = null): iterable
+    {
+        foreach ($items as $index => $item) {
+            if (empty($item['children'])) {
+                continue;
+            }
+            $key = theme_mobile_key($item, (int) $index, $parentKey);
+            yield [$item, $key];
+            yield from theme_collect_mobile_levels($item['children'], $key);
+        }
+    }
+}
+
 if (!function_exists('theme_render_menu')) {
-    function theme_render_menu(array $items, bool $mobile = false, int $level = 0): void
+    function theme_render_menu(array $items, bool $mobile = false, int $level = 0, ?string $mobileParentKey = null): void
     {
         foreach ($items as $index => $item):
             $hasChildren = !empty($item['children']);
@@ -39,11 +62,12 @@ if (!function_exists('theme_render_menu')) {
             $key = (string)($item['id'] ?? $level . '-' . $index);
             $safeKey = preg_replace('/[^a-zA-Z0-9_-]/', '-', $key) ?: 'item';
             $panelId = 'nav-panel-' . $safeKey . '-' . $level . '-' . $index;
-            $mobilePanelId = 'mobile-navigation-panel-' . $safeKey;
+            $mobileKey = theme_mobile_key($item, (int) $index, $mobileParentKey);
+            $mobilePanelId = 'mobile-navigation-panel-' . $mobileKey;
 
             if ($mobile):
                 if ($hasChildren): ?>
-                    <button class="mobile-menu-trigger" type="button" data-mobile-trigger="<?= esc($key) ?>" aria-expanded="false" aria-controls="<?= esc($mobilePanelId) ?>">
+                    <button class="mobile-menu-trigger" type="button" data-mobile-trigger="<?= esc($mobileKey) ?>" aria-expanded="false" aria-controls="<?= esc($mobilePanelId) ?>">
                         <span><?= $title ?></span><span class="menu-arrow" aria-hidden="true"><i data-lucide="arrow-right" aria-hidden="true"></i></span>
                     </button>
                 <?php else: ?>
