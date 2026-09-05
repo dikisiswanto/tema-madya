@@ -1,93 +1,96 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-const file = path.resolve('src/css/app.css');
-const css = fs.readFileSync(file, 'utf8');
-const lines = css.split(/\r?\n/).length;
-const applyCount = (css.match(/@apply\b/g) || []).length;
-const fontVarCount = (css.match(/font-family\s*:\s*var\(/g) || []).length;
-const mediaMatches = [...css.matchAll(/@media\s*\(([^{}]+)\)\s*\{/g)];
-const mediaCounts = new Map();
-for (const m of mediaMatches)
-    mediaCounts.set(
-        m[1].replace(/\s+/g, ' ').trim(),
-        (mediaCounts.get(m[1].replace(/\s+/g, ' ').trim()) || 0) + 1,
-    );
+const root = path.resolve('src/css');
+const files = [];
+function walk(dir) {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+        const full = path.join(dir, entry.name);
+        if (entry.isDirectory()) walk(full);
+        else if (entry.name.endsWith('.css')) files.push(full);
+    }
+}
+walk(root);
 
-// Conservative selector scan. It intentionally does not claim that repeated selectors are redundant;
-// breakpoint/state/context differences can make them semantically necessary.
-const selectorCounts = new Map();
-let depth = 0;
-let quote = null;
-let comment = false;
-let stmtStart = 0;
-for (let i = 0; i < css.length; i++) {
-    const c = css[i];
-    const n = css[i + 1];
-    if (comment) {
-        if (c === '*' && n === '/') {
-            comment = false;
-            i++;
+const selectorLocations = new Map();
+for (const file of files) {
+    const css = fs.readFileSync(file, 'utf8');
+    const lines = css.split(/\r?\n/);
+    let depth = 0;
+    let quote = null;
+    let comment = false;
+    let statement = '';
+    let statementLine = 1;
+
+    for (let lineNo = 0; lineNo < lines.length; lineNo++) {
+        const line = lines[lineNo];
+        for (let i = 0; i < line.length; i++) {
+            const c = line[i];
+            const n = line[i + 1];
+            if (comment) {
+                if (c === '*' && n === '/') {
+                    comment = false;
+                    i++;
+                }
+                continue;
+            }
+            if (quote) {
+                if (c === '\\') i++;
+                else if (c === quote) quote = null;
+                continue;
+            }
+            if (c === '/' && n === '*') {
+                comment = true;
+                i++;
+                continue;
+            }
+            if (c === '"' || c === "'") {
+                quote = c;
+                continue;
+            }
+            if (c === '{') {
+                const pre = statement.trim().replace(/\s+/g, ' ');
+                if (depth > 0 && pre && !pre.startsWith('@')) {
+                    const key = pre;
+                    if (!selectorLocations.has(key))
+                        selectorLocations.set(key, []);
+                    selectorLocations
+                        .get(key)
+                        .push(
+                            `${path.relative(process.cwd(), file)}:${statementLine}`,
+                        );
+                }
+                depth++;
+                statement = '';
+                statementLine = lineNo + 1;
+            } else if (c === '}') {
+                depth = Math.max(0, depth - 1);
+                statement = '';
+                statementLine = lineNo + 1;
+            } else if (c === ';' && depth === 0) {
+                statement = '';
+                statementLine = lineNo + 1;
+            } else {
+                statement += c;
+            }
         }
-        continue;
-    }
-    if (quote) {
-        if (c === '\\') i++;
-        else if (c === quote) quote = null;
-        continue;
-    }
-    if (c === '/' && n === '*') {
-        comment = true;
-        i++;
-        continue;
-    }
-    if (c === '"' || c === "'") {
-        quote = c;
-        continue;
-    }
-    if (c === '{') {
-        const pre = css.slice(stmtStart, i).trim();
-        if (depth > 0 && !pre.startsWith('@')) {
-            const selector = pre.replace(/\s+/g, ' ').trim();
-            if (selector)
-                selectorCounts.set(
-                    selector,
-                    (selectorCounts.get(selector) || 0) + 1,
-                );
-        }
-        depth++;
-        stmtStart = i + 1;
-    } else if (c === '}') {
-        depth = Math.max(0, depth - 1);
-        stmtStart = i + 1;
-    } else if (c === ';' && depth === 0) {
-        stmtStart = i + 1;
+        statement += '\n';
     }
 }
 
-const repeated = [...selectorCounts.entries()]
-    .filter(([, count]) => count > 1)
-    .sort((a, b) => b[1] - a[1]);
-const repeatedMedia = [...mediaCounts.entries()]
-    .filter(([, count]) => count > 1)
-    .sort((a, b) => b[1] - a[1]);
+const repeated = [...selectorLocations.entries()]
+    .filter(([, locations]) => locations.length > 1)
+    .sort((a, b) => b[1].length - a[1].length);
 
-console.log(`CSS lines: ${lines}`);
-console.log(`@apply usages: ${applyCount}`);
-console.log(`font-family: var(...) usages: ${fontVarCount}`);
-console.log(`@media blocks: ${mediaMatches.length}`);
+console.log(`CSS files scanned: ${files.length}`);
 console.log(
-    `Repeated selector groups (not automatically redundant): ${repeated.length}`,
+    `CSS lines scanned: ${files.reduce((n, f) => n + fs.readFileSync(f, 'utf8').split(/\r?\n/).length, 0)}`,
 );
-for (const [selector, count] of repeated.slice(0, 20))
-    console.log(`  ${count}x ${selector}`);
-console.log('Repeated breakpoint conditions:');
-for (const [condition, count] of repeatedMedia)
-    console.log(`  ${count}x @media (${condition})`);
-
-if (fontVarCount > 0) {
-    console.error(
-        'ERROR: direct font-family var(...) usage remains. Prefer @apply font-sans/font-display for Tailwind-managed typography.',
-    );
-    process.exitCode = 1;
+console.log(`Repeated selector groups: ${repeated.length}`);
+console.log(
+    'Top repeated selectors (review required; repeats can be valid responsive/state rules):',
+);
+for (const [selector, locations] of repeated.slice(0, 30)) {
+    console.log(`  ${locations.length}x ${selector}`);
+    console.log(`     ${locations.join(', ')}`);
 }

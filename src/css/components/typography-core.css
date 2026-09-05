@@ -1,0 +1,79 @@
+@layer components {
+  /* Shared typography / controls */
+  .display-title {
+    @apply m-0 font-display madya-text-balance font-medium leading-[.96] tracking-[-.045em];
+  }
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[.16em] text-brand;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 1.65rem;
+    height: 1px;
+    background: currentColor;
+  }
+  .eyebrow-dark {
+    color: #d6b46e;
+  }
+  .text-link {
+    @apply inline-flex items-center gap-2 text-sm font-bold leading-5 text-brand-deep;
+  }
+  .text-link {
+    transition:
+      color 200ms var(--ease-madya),
+      transform 200ms var(--ease-madya);
+  }
+  .text-link:hover {
+    @apply text-brand;
+  }
+  .text-link span {
+    transition: transform 200ms var(--ease-madya);
+  }
+  .text-link:hover span {
+    transform: translateX(3px);
+  }
+  .button {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-md border border-brand bg-brand px-4 py-2 text-sm font-semibold text-white;
+    transition:
+      transform 150ms var(--ease-madya),
+      background-color 150ms var(--ease-madya),
+      box-shadow 150ms var(--ease-madya);
+  }
+  .button:hover {
+    @apply -translate-y-px bg-brand-deep shadow-md;
+  }
+  .button-secondary {
+    @apply border-line bg-white text-brand;
+  }
+  .button-secondary:hover {
+    @apply bg-surface-alt;
+  }
+  .button-light {
+    @apply border-white bg-white text-brand-deep;
+  }
+  .button-light:hover {
+    background: #f8f8f3;
+  }
+  .section-heading h2,
+  .madya-section-title,
+  .contact-display-title,
+  .page-hero-inner h1,
+  .display-title,
+  .program-feature-panel h3,
+  .testimonial-feature-card blockquote {
+    text-wrap: balance;
+  }
+
+  /* Canonical shared section heading scale. */
+  .section-heading h2 {
+    @apply leading-tight text-[clamp(1.9rem,3.2vw,3rem)];
+  }
+  @variant max-md {
+    .section-heading {
+      margin-bottom: 2rem;
+    }
+    .section-heading h2 {
+      @apply text-[clamp(1.85rem,8.4vw,2.55rem)];
+    }
+  }
+}

@@ -1,0 +1,441 @@
+@layer components {
+  .news-list-page {
+    padding-top: 2rem;
+  }
+  .news-list-shell {
+    @apply grid items-start gap-6;
+    grid-template-columns: minmax(0, 1fr) 17rem;
+  }
+  .news-list-main {
+    @apply min-w-0;
+  }
+  .news-list-toolbar {
+    @apply flex items-center justify-between gap-4 mb-5;
+  }
+  .news-category-pills {
+    @apply flex min-w-0 flex-wrap gap-2;
+  }
+  .news-category-pills a {
+    @apply inline-flex min-h-9 items-center rounded-md border border-line bg-white px-3.5 text-xs font-semibold leading-5 text-brand transition-colors;
+  }
+  .news-category-pills a:hover {
+    @apply border-brand bg-brand text-white;
+  }
+  .news-category-pills a.is-active {
+    @apply border-brand bg-brand text-white;
+  }
+  .news-sort {
+    @apply relative shrink-0;
+  }
+  .news-sort select {
+    @apply h-9 w-26 appearance-none rounded-md border border-line bg-white px-3 pr-8 text-xs font-semibold text-brand shadow-soft;
+  }
+  .news-sort .icon {
+    @apply pointer-events-none absolute right-2.5 top-1/2 size-3.5 -translate-y-1/2 text-muted;
+  }
+  .news-archive-list {
+    @apply grid gap-3;
+  }
+  .news-archive-list .madya-news-card {
+    @apply grid items-stretch overflow-hidden rounded-lg border border-line bg-white shadow-soft;
+    grid-template-columns: 15.5rem minmax(0, 1fr);
+  }
+  .news-archive-list .news-card-media {
+    @apply h-full min-h-39 bg-surface-alt;
+  }
+  .news-archive-list .news-card-media img {
+    @apply block h-full min-h-39 w-full object-cover;
+  }
+  .news-archive-list .news-card-body {
+    @apply flex min-w-0 flex-col justify-center px-5 py-4;
+  }
+  .news-archive-list .card-meta {
+    @apply flex flex-wrap items-center gap-2 text-xs leading-5 text-muted;
+  }
+  .news-archive-list .card-meta span + span::before {
+    content: "•";
+    margin-right: 0.5rem;
+    color: #b4bec5;
+  }
+  .news-archive-list .madya-news-card h2 {
+    @apply mt-0.5 mb-1 text-xl font-medium leading-[1.08] tracking-[-.02em] text-brand;
+    @apply font-display;
+  }
+  .news-archive-list .madya-news-card h2 a:hover {
+    @apply text-accent;
+  }
+  .news-archive-list .madya-news-card p {
+    @apply mb-3 max-w-3xl text-xs leading-6 text-muted;
+  }
+  .news-archive-list .text-link {
+    @apply mt-auto inline-flex min-h-9 items-center gap-2 self-end px-0 text-xs font-bold leading-5 text-brand;
+  }
+  .news-archive-list .text-link .icon {
+    @apply size-4;
+  }
+  .madya-news-pagination {
+    @apply mt-5 flex items-center justify-center gap-2;
+  }
+  .madya-news-pagination :where(a, span) {
+    @apply inline-grid size-9 place-items-center rounded-md border border-line bg-white text-xs font-semibold text-brand;
+  }
+
+  .madya-news-pagination :where(.page-item.disabled > span) {
+    @apply opacity-50;
+  }
+  .madya-news-pagination :where(a:hover) {
+    @apply border-brand bg-brand text-white;
+  }
+  .madya-news-pagination :where(a.is-active, .page-item.active > a) {
+    @apply border-brand bg-brand text-white;
+  }
+  .madya-news-pagination .icon {
+    @apply size-4;
+  }
+  .news-list-sidebar {
+    @apply grid min-w-0 gap-4;
+  }
+  .news-side-card {
+    @apply rounded-lg border border-line bg-white p-5 shadow-soft;
+  }
+  .news-side-card h2,
+  .news-newsletter-card h2 {
+    @apply m-0 mb-4 text-base font-semibold leading-5 text-brand;
+    @apply font-display;
+  }
+  .news-sidebar-search {
+    @apply flex overflow-hidden rounded-md border border-line bg-white;
+  }
+  .news-sidebar-search input {
+    @apply min-w-0 flex-1 border-0 px-3 py-2.5 text-xs outline-none;
+  }
+  .news-sidebar-search button {
+    @apply grid size-10 shrink-0 place-items-center bg-brand text-white;
+  }
+  .news-sidebar-search .icon {
+    @apply size-4;
+  }
+  .news-category-list {
+    @apply grid;
+  }
+  .news-category-list a {
+    @apply flex min-h-9 items-center justify-between gap-3 border-b border-line py-2 text-xs leading-5 text-brand;
+  }
+  .news-category-list a:last-child {
+    @apply border-b-0 pt-3;
+  }
+  .news-category-list a:hover {
+    @apply text-accent;
+  }
+  .news-category-list b {
+    @apply inline-grid min-w-6 place-items-center rounded-full bg-surface-alt px-1.5 py-0.5 text-xs font-bold text-brand;
+  }
+  .news-category-list i {
+    @apply inline-flex size-4 items-center justify-center not-italic;
+  }
+  .news-category-list i .icon {
+    @apply size-4;
+  }
+  .popular-news-list {
+    @apply grid;
+  }
+  .popular-news-list > a:not(.side-card-more) {
+    @apply grid grid-cols-[2rem_minmax(0,1fr)] gap-2.5 border-b border-line py-3;
+  }
+  .popular-news-list > a:not(.side-card-more) > b {
+    @apply inline-grid size-7 place-items-center rounded-md bg-[#FFF7E8] text-xs font-bold text-accent;
+  }
+  .popular-news-list strong {
+    @apply block text-xs font-bold leading-5 text-brand;
+  }
+  .popular-news-list small {
+    @apply mt-0.5 block text-xs leading-5 text-muted;
+  }
+  .popular-news-list .side-card-more {
+    @apply mt-3 inline-flex items-center justify-end gap-2 text-xs font-bold leading-5 text-brand;
+  }
+  .popular-news-list .side-card-more .icon {
+    @apply size-4;
+  }
+  .news-newsletter-card {
+    @apply relative min-h-60 overflow-hidden rounded-lg bg-brand-deep p-5 text-white;
+  }
+  .news-newsletter-card h2 {
+    @apply max-w-[13rem] text-lg text-white;
+  }
+  .news-newsletter-card p {
+    @apply max-w-[18rem] text-xs leading-6 text-white/75;
+  }
+  .news-newsletter-form .icon {
+    @apply size-4;
+  }
+  .news-newsletter-art {
+    @apply absolute -bottom-5 right-4 opacity-20;
+  }
+  .news-newsletter-art .icon {
+    @apply size-28;
+  }
+
+  @variant xl {
+    .news-list-shell {
+      grid-template-columns: minmax(0, 1fr) 17rem;
+      gap: 1.5rem;
+    }
+    .news-archive-list .madya-news-card h2 {
+      @apply text-2xl;
+    }
+    .news-archive-list .madya-news-card p {
+      @apply text-xs;
+    }
+    .news-side-card {
+      @apply p-5;
+    }
+    .news-side-card h2 {
+      @apply text-base;
+    }
+    .news-category-pills a,
+    .news-sort select {
+      @apply text-xs;
+    }
+  }
+  @variant max-md {
+    .news-list-page {
+      padding-top: 1.25rem;
+    }
+    .news-list-shell {
+      @apply grid-cols-1;
+    }
+    .news-list-toolbar {
+      @apply items-start flex-col;
+    }
+    .news-category-pills {
+      @apply w-full;
+    }
+    .news-sort {
+      @apply w-full;
+    }
+    .news-sort select {
+      @apply w-full;
+    }
+    .news-archive-list .madya-news-card {
+      @apply grid-cols-1;
+    }
+    .news-archive-list .news-card-media,
+    .news-archive-list .news-card-media img {
+      @apply min-h-0 aspect-[16/9] h-auto;
+    }
+    .news-archive-list .news-card-body {
+      @apply px-4 py-4;
+    }
+    .news-archive-list .madya-news-card h2 {
+      @apply text-lg;
+    }
+    .news-archive-list .madya-news-card p {
+      @apply text-xs leading-5;
+    }
+    .news-archive-list .text-link {
+      @apply self-start;
+    }
+    .news-list-sidebar {
+      @apply order-last;
+    }
+  }
+
+  /* RC10.12.26 — news-detail styling aligned to the visual language of news-list.png. */
+
+  /* Consolidated from historical institutional shell layer. */
+  .newsletter-strip {
+    background: #f8fafd;
+    border-top: 1px solid var(--site-line);
+    border-bottom: 1px solid var(--site-line);
+  }
+  .newsletter-inner {
+    display: grid;
+    grid-template-columns: 1fr minmax(20rem, 0.7fr);
+    align-items: center;
+    gap: 2rem;
+    padding-block: 2.2rem;
+  }
+  .newsletter-inner h2 {
+    margin: 0.3rem 0 0.45rem;
+    color: var(--site-brand);
+    font-size: clamp(1.7rem, 3vw, 2.6rem);
+    line-height: 1;
+  }
+  .newsletter-inner p:last-child {
+    max-width: 45ch;
+    margin: 0;
+    color: var(--site-muted);
+  }
+}
+
+/* Consolidated from historical institutional shell layer. */
+.madya-news-filter a.is-active,
+.madya-news-filter a:hover {
+  background: var(--site-brand);
+  color: #fff;
+  border-color: var(--site-brand);
+}
+.news-archive-grid .madya-news-card {
+  display: grid;
+  grid-template-columns: 15rem 1fr;
+}
+.news-archive-grid .news-card-media img {
+  height: 100%;
+  aspect-ratio: auto;
+  min-height: 10rem;
+}
+.news-archive-grid .madya-news-card:first-child {
+  display: grid;
+  grid-template-columns: 18rem 1fr;
+}
+
+@layer components {
+  @variant max-lg {
+    .news-layout-theme {
+      grid-template-columns: 1fr;
+    }
+    .news-feature-grid > .madya-news-card:first-child {
+      grid-row: auto;
+    }
+    .news-archive-grid .madya-news-card,
+    .news-archive-grid .madya-news-card:first-child {
+      grid-template-columns: 8rem 1fr;
+    }
+    .news-archive-grid .news-card-media img {
+      min-height: 7rem;
+    }
+  }
+  @variant max-sm {
+    .news-archive-grid .madya-news-card,
+    .news-archive-grid .madya-news-card:first-child {
+      grid-template-columns: 1fr;
+    }
+    .news-archive-grid .news-card-media img {
+      height: 12rem;
+    }
+  }
+}
+
+/* Consolidated from the former news compatibility layer. */
+@layer components {
+  .news-list-page {
+    padding-block: clamp(2rem, 4vw, 3.25rem);
+  }
+  .news-list-shell {
+    @apply grid items-start;
+    grid-template-columns: minmax(0, 1fr) 17rem;
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+  }
+  .news-list-toolbar {
+    @apply flex items-center justify-between gap-4 mb-6;
+  }
+  .news-category-pills a:hover,
+  .news-category-pills a.is-active {
+    @apply border-brand bg-brand text-white;
+  }
+  .news-sort select {
+    @apply h-10 w-[6.75rem] appearance-none rounded-md border border-line bg-white px-3 pr-8 text-xs font-semibold text-brand shadow-soft;
+  }
+  .news-sort .icon {
+    @apply pointer-events-none absolute right-2.5 top-1/2 size-4 -translate-y-1/2 text-muted;
+  }
+  .news-archive-list .news-card-media {
+    @apply relative block h-full min-h-39 overflow-hidden bg-surface-alt;
+  }
+  .news-archive-list .news-card-media img {
+    @apply block h-full min-h-39 w-full object-cover transition-transform duration-500;
+  }
+  .news-archive-list .madya-news-card:hover .news-card-media img {
+    transform: scale(1.02);
+  }
+  .news-card-category {
+    @apply absolute bottom-3 left-3 inline-flex min-h-7 items-center rounded-md bg-brand px-2.5 text-xs font-bold uppercase tracking-[.04em] text-white shadow-sm;
+  }
+  .news-card-date {
+    @apply inline-flex items-center gap-1.5 text-xs font-medium leading-5 text-muted;
+  }
+  .news-card-date .icon {
+    @apply size-4 shrink-0 text-brand;
+  }
+  .news-archive-list .madya-news-card h2 {
+    @apply mt-1.5 mb-2 text-2xl font-medium leading-[1.08] tracking-[-.02em] text-brand;
+    @apply font-display;
+  }
+  .news-archive-list .madya-news-card p {
+    @apply mb-4 max-w-3xl text-xs leading-6 text-muted;
+  }
+  .news-card-footer {
+    @apply flex flex-wrap items-center justify-between gap-x-5 gap-y-2 mt-auto;
+  }
+  .news-card-meta {
+    @apply flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-medium leading-5 text-brand;
+  }
+  .news-card-meta span {
+    @apply inline-flex items-center gap-1.5 min-w-0;
+  }
+  .news-card-meta .icon {
+    @apply size-4 shrink-0 text-brand;
+  }
+  .news-archive-list .text-link {
+    @apply inline-flex min-h-9 shrink-0 items-center gap-2 text-xs font-bold leading-5 text-brand;
+  }
+  .news-archive-list .text-link .icon {
+    @apply size-4 shrink-0 transition-transform duration-200;
+  }
+  .news-archive-list .text-link:hover .icon {
+    transform: translateX(3px);
+  }
+  .news-side-card h2,
+  .news-newsletter-card h2 {
+    @apply m-0 mb-4 text-lg font-semibold leading-6 text-brand;
+    @apply font-display;
+  }
+  .news-sidebar-search input {
+    @apply min-w-0 flex-1 border-0 px-3 py-2.5 text-xs leading-5 outline-none;
+  }
+  .news-sidebar-search button {
+    @apply grid size-10 shrink-0 place-items-center bg-brand text-white transition-colors;
+  }
+  .news-sidebar-search button:hover {
+    @apply bg-brand-deep;
+  }
+  .news-category-list b {
+    @apply inline-grid min-w-7 place-items-center rounded-full bg-surface-alt px-1.5 py-0.5 text-xs font-bold text-brand;
+  }
+  .category-more-icon {
+    @apply inline-flex size-5 items-center justify-center;
+  }
+  .category-more-icon .icon {
+    @apply size-4;
+  }
+  .news-newsletter-card h2 {
+    @apply max-w-[13rem] text-lg leading-6 text-white;
+  }
+  .news-newsletter-card p {
+    @apply max-w-[18rem] text-xs leading-6 text-white/80;
+  }
+
+  @variant xl {
+    .news-list-shell {
+      grid-template-columns: minmax(0, 1fr) 17rem;
+    }
+  }
+  @variant max-md {
+    .news-list-page {
+      padding-block: 1.5rem;
+    }
+    .news-category-pills,
+    .news-sort {
+      @apply w-full;
+    }
+    .news-archive-list .madya-news-card h2 {
+      @apply text-xl;
+    }
+    .news-card-footer {
+      @apply items-start;
+    }
+  }
+
+  /* RC10.12.27 — static-page and profile visual parity with static-page.png. */
+}

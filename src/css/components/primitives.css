@@ -1,0 +1,10 @@
+@layer components {
+  .skip-link {
+    @apply fixed left-4 top-[-4rem] z-[100] bg-brand-deep px-4 py-3 text-white shadow-soft;
+    transition: top 0.2s var(--ease);
+  }
+
+  .skip-link:focus {
+    @apply top-4;
+  }
+}

@@ -25,11 +25,7 @@ $brandSocialIcon = static function (string $name): string {
 <?php endif; ?>
         </div>
         <div class="topbar-links">
-            <?php $utilityLinks = is_array($footer_links ?? null) ? $footer_links : (json_decode($footer_links ?? '[]', true) ?: []); ?>
-            <?php foreach (array_slice($utilityLinks, 0, 3) as $item): ?>
-<a href="<?= esc($item['url'] ?? '#') ?>"><?= esc($item['label'] ?? $item['title'] ?? '') ?></a>
-<?php endforeach; ?>
-            <?php if (!empty($social_facebook) && $social_facebook !== '#'): ?>
+<?php if (!empty($social_facebook) && $social_facebook !== '#'): ?>
 <a href="<?= esc($social_facebook) ?>" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><?= $brandSocialIcon('facebook') ?></a>
 <?php endif; ?>
             <?php if (!empty($social_instagram) && $social_instagram !== '#'): ?>
@@ -47,12 +43,7 @@ $brandSocialIcon = static function (string $name): string {
 <header class="site-header" data-site-nav>
     <div class="theme-container madya-header-inner">
         <a class="brand" href="<?= base_url() ?>" aria-label="Beranda <?= esc($site_name ?? 'SekolahKu') ?>">
-            <span class="brand-mark" aria-hidden="true"><?php if (!empty($site_logo_url)): ?>
-<img src="<?= esc($site_logo_url) ?>" alt="" width="96" height="96" loading="eager" decoding="async">
-<?php else: ?>
-<?= view('themes/madya/components/ui/icon', ['name' => $site_logo_icon ?? 'graduation-cap', 'class' => 'brand-icon']) ?>
-<?php endif; ?></span>
-            <span class="brand-copy"><strong><?= esc($site_logo_text ?? $site_name ?? 'SekolahKu') ?></strong><small><?= esc($site_tagline ?? 'Situs resmi sekolah') ?></small></span>
+<span class="brand-copy"><strong><?= esc($site_logo_text ?? $site_name ?? 'SekolahKu') ?></strong><small><?= esc($site_tagline ?? 'Situs resmi sekolah') ?></small></span>
         </a>
         <nav class="desktop-nav-wrap" aria-label="Navigasi utama"><ul class="desktop-nav"><?php theme_render_menu($tree); ?></ul></nav>
         <button class="header-search" type="button" data-search-open aria-haspopup="dialog" aria-controls="site-search-dialog" aria-label="Buka pencarian berita"><i data-lucide="search" aria-hidden="true"></i></button>

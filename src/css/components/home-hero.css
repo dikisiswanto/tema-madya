@@ -1,0 +1,314 @@
+@layer components {
+  /* Hero */
+  .home-hero {
+    position: relative;
+    isolation: isolate;
+    min-height: 31rem;
+    overflow: hidden;
+    background-color: #f7faff;
+    background-image: var(--hero-bg-image);
+    background-size: cover;
+    background-position: center right;
+  }
+  .home-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(
+        ellipse 48% 88% at 14% 50%,
+        rgb(255 255 255 / 98%) 0%,
+        rgb(255 255 255 / 94%) 36%,
+        rgb(255 255 255 / 72%) 55%,
+        rgb(255 255 255 / 28%) 70%,
+        transparent 84%
+      ),
+      linear-gradient(
+        90deg,
+        rgb(255 255 255 / 96%) 0%,
+        rgb(255 255 255 / 88%) 24%,
+        rgb(255 255 255 / 42%) 48%,
+        transparent 72%
+      );
+  }
+  .home-hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: linear-gradient(180deg, rgb(4 28 70 / 2%), rgb(4 28 70 / 8%));
+  }
+  .home-hero-grid {
+    position: relative;
+    z-index: 1;
+    min-height: 31rem;
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.48fr);
+    gap: 0;
+    align-items: stretch;
+  }
+  .home-hero-copy {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 41rem;
+    padding: 4rem 3rem 4rem 0;
+    z-index: 5;
+  }
+  .home-hero-copy h1 {
+    max-width: 12ch;
+    margin: 0;
+    color: var(--home-navy);
+    @apply font-display;
+    font-size: clamp(3.8rem, 5.05vw, 6.1rem);
+    font-weight: 500;
+    line-height: 0.93;
+    letter-spacing: -0.055em;
+    text-wrap: balance;
+  }
+  .hero-title-accent {
+    color: var(--home-gold);
+  }
+  .home-hero-copy > .hero-lead {
+    max-width: 38rem;
+    margin: 1.5rem 0 0;
+    color: var(--home-muted);
+    @apply text-base;
+    line-height: 1.7;
+  }
+  .home-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-top: 1.65rem;
+  }
+  .home-hero-actions .button {
+    min-height: 3rem;
+    padding: 0.78rem 1.05rem;
+    border-radius: 0.45rem;
+    @apply text-xs;
+  }
+  .home-hero-actions .button svg {
+    width: 1rem;
+    height: 1rem;
+  }
+  .home-hero-actions .button-secondary {
+    background: #fff;
+  }
+  .hero-photo img,
+  .hero-photo .media-placeholder {
+    width: 100%;
+    height: 100%;
+    min-height: 31rem;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  /* Responsive variants co-located from home-responsive.css; cascade values preserved. */
+  @variant lg {
+    .home-hero {
+      min-height: 19.25rem;
+    }
+    .home-hero-grid {
+      min-height: 19.25rem;
+      grid-template-columns: 42.3% 57.7%;
+    }
+    .home-hero-copy {
+      max-width: none;
+      padding: 2.4rem 1.5rem 2.4rem 0;
+    }
+    .home-hero-copy h1 {
+      max-width: 9.4ch;
+      font-size: clamp(3rem, 5vw, 3.35rem);
+      line-height: 0.91;
+      letter-spacing: -0.045em;
+    }
+    .home-hero-copy > .hero-lead {
+      max-width: 24rem;
+      margin-top: 1rem;
+      @apply text-xs;
+      line-height: 1.55;
+    }
+    .home-hero-actions {
+      gap: 0.55rem;
+      margin-top: 1rem;
+    }
+    .home-hero-actions .button {
+      min-height: 2rem;
+      padding: 0.5rem 0.75rem;
+      border-radius: 0.3rem;
+      @apply text-xs;
+    }
+    .home-hero-actions .button svg {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+    .hero-photo img,
+    .hero-photo .media-placeholder {
+      min-height: 19.25rem;
+    }
+  }
+
+  @variant 2xl {
+    .home-hero {
+      min-height: 36rem;
+    }
+    .home-hero-grid {
+      min-height: 36rem;
+      grid-template-columns: 38.5% 61.5%;
+    }
+    .home-hero-copy {
+      padding: 4.5rem 3.5rem 4.5rem 0;
+    }
+    .home-hero-copy h1 {
+      max-width: 10.5ch;
+      font-size: clamp(4.1rem, 4.8vw, 6rem);
+      line-height: 0.95;
+    }
+    .home-hero-copy > .hero-lead {
+      max-width: 37rem;
+      @apply text-base;
+      line-height: 1.7;
+    }
+    .home-hero-actions .button {
+      min-height: 3.1rem;
+      @apply text-sm;
+    }
+    .hero-photo img,
+    .hero-photo .media-placeholder {
+      min-height: 36rem;
+    }
+  }
+
+  @variant xl {
+    .home-hero,
+    .home-hero-grid {
+      min-height: 27rem;
+    }
+    .home-hero-grid {
+      grid-template-columns: 42% 58%;
+    }
+    .home-hero-copy h1 {
+      font-size: clamp(3rem, 5vw, 4rem);
+    }
+    .home-hero-copy {
+      padding: 3rem 2rem 3rem 0;
+    }
+    .home-hero-copy > .hero-lead {
+      @apply text-base;
+    }
+  }
+
+  @variant md {
+    .home-hero,
+    .home-hero-grid {
+      min-height: auto;
+    }
+    .home-hero-grid {
+      grid-template-columns: 1fr;
+    }
+    .home-hero-copy {
+      padding: 3.5rem 0 2rem;
+      max-width: 42rem;
+    }
+    .home-hero-copy h1 {
+      max-width: 12ch;
+      font-size: clamp(3rem, 8vw, 4.4rem);
+    }
+    .hero-photo img,
+    .hero-photo .media-placeholder {
+      min-height: 25rem;
+    }
+  }
+
+  @variant max-md {
+    .home-hero::before {
+      background: linear-gradient(
+        180deg,
+        rgb(255 255 255 / 97%) 0%,
+        rgb(255 255 255 / 91%) 55%,
+        rgb(255 255 255 / 68%) 100%
+      );
+    }
+    .home-hero-copy {
+      padding: 2.75rem 0 1.75rem;
+    }
+    .home-hero-copy h1 {
+      max-width: 11ch;
+      font-size: clamp(2.7rem, 13vw, 3.75rem);
+      line-height: 0.96;
+    }
+    .home-hero-copy > .hero-lead {
+      @apply text-base;
+      line-height: 1.65;
+    }
+    .hero-photo img,
+    .hero-photo .media-placeholder {
+      min-height: 21rem;
+    }
+  }
+
+  /* Responsive variants kept with the canonical hero owner. */
+  @variant max-lg {
+    .home-hero-copy {
+      padding-right: 2rem;
+    }
+    .home-hero,
+    .home-hero-grid {
+      min-height: auto;
+    }
+    .home-hero-grid {
+      grid-template-columns: 1fr;
+    }
+    .home-hero-copy {
+      padding: 3.4rem 0 2rem;
+    }
+    .home-hero-copy h1 {
+      max-width: 12ch;
+      font-size: clamp(3rem, 11vw, 4.3rem);
+    }
+    .home-hero-copy > .hero-lead {
+      @apply text-sm;
+    }
+    .hero-photo img,
+    .hero-photo .media-placeholder {
+      min-height: 25rem;
+    }
+  }
+  @variant max-sm {
+    .home-hero-copy h1 {
+      @apply text-5xl;
+    }
+    .home-hero-actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .home-hero-actions .button {
+      width: 100%;
+    }
+  }
+}
+
+@layer components {
+  @variant xl {
+    .home-hero {
+      min-height: 35rem;
+    }
+    .home-hero-grid {
+      min-height: 35rem;
+      padding-block: 4rem;
+    }
+  }
+  @variant 2xl {
+    .home-hero {
+      min-height: 38rem;
+    }
+    .home-hero-grid {
+      min-height: 38rem;
+      padding-block: 5rem;
+    }
+  }
+}

@@ -1,0 +1,159 @@
+@layer components {
+  .madya-news-filter a.is-active,
+  .madya-news-filter a:hover {
+    color: var(--site-brand-deep);
+  }
+  .madya-news-pagination {
+    margin-top: 2rem;
+  }
+
+  /* CI4's default pager emits a nested <ul class="pagination">. The legacy
+     CMS uses the same class, so reset only this generated subtree and style it
+     through the Madya pager contract. */
+  .madya-news-pagination :where(ul.pagination) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .madya-news-pagination :where(ul.pagination > li) {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .document-group-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  .document-group-heading h2 {
+    margin: 0.35rem 0 0;
+    @apply font-display;
+    font-size: clamp(2.2rem, 4vw, 3.4rem);
+    line-height: 0.98;
+    font-weight: 500;
+  }
+  .document-group-heading > span {
+    color: var(--site-muted);
+    @apply text-xs;
+  }
+  .document-row {
+    display: grid;
+    grid-template-columns: 3.5rem minmax(0, 1fr) auto;
+    gap: 1rem;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--site-line);
+    transition:
+      background-color 0.18s ease,
+      color 0.18s ease;
+  }
+  .document-row:hover {
+    background: var(--site-surface-alt);
+  }
+  .document-type {
+    color: var(--site-brand);
+    @apply text-xs;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+  }
+  .document-main strong {
+    display: block;
+    @apply text-sm;
+  }
+  .document-main small {
+    display: block;
+    margin-top: 0.15rem;
+    color: var(--site-muted);
+  }
+  .document-meta {
+    color: var(--site-muted);
+    @apply text-xs;
+  }
+  .form-field label {
+    display: block;
+    margin-bottom: 0.4rem;
+    color: var(--site-ink);
+    @apply text-xs;
+    font-weight: 750;
+  }
+  .form-field input,
+  .form-field textarea {
+    width: 100%;
+    border: 1px solid var(--site-line);
+    border-radius: 0;
+    padding: 0.88rem 0.9rem;
+    background: #fff;
+    color: var(--site-ink);
+  }
+  .form-field input:focus,
+  .form-field textarea:focus {
+    border-color: var(--site-brand);
+    outline: 2px solid color-mix(in srgb, var(--site-brand) 16%, transparent);
+    outline-offset: 1px;
+  }
+  .form-field textarea {
+    min-height: 12rem;
+    resize: vertical;
+  }
+  .contact-stack {
+    @apply grid gap-0;
+  }
+  .contact-stack > div {
+    padding: 1.05rem 0;
+    border-top: 1px solid var(--site-line);
+  }
+  .contact-stack strong {
+    display: block;
+    margin-top: 0.3rem;
+    @apply font-display;
+    @apply text-xl;
+    line-height: 1.08;
+    font-weight: 500;
+  }
+  .empty-state {
+    padding: 3rem 0;
+    color: var(--site-muted);
+    border-top: 1px solid var(--site-line);
+  }
+  .empty-state-mark {
+    display: block;
+    margin-bottom: 0.45rem;
+    color: var(--site-accent);
+  }
+
+  /* Consolidated from historical institutional shell layer. */
+  .madya-theme input,
+  .madya-theme textarea,
+  .madya-theme select {
+    width: 100%;
+    border: 1px solid var(--site-line);
+    border-radius: 0.55rem;
+    background: #fff;
+    color: var(--site-ink);
+    padding: 0.72rem 0.8rem;
+    outline: none;
+  }
+  .madya-theme input:focus,
+  .madya-theme textarea:focus,
+  .madya-theme select:focus {
+    border-color: #8aa0bf;
+    box-shadow: 0 0 0 3px rgba(7, 42, 99, 0.08);
+  }
+  .madya-theme textarea {
+    min-height: 9rem;
+    resize: vertical;
+  }
+  .form-field label {
+    display: block;
+    margin-bottom: 0.35rem;
+    color: var(--site-brand);
+    font-weight: 700;
+  }
+}

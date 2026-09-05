@@ -5,7 +5,7 @@ let openTimer = null;
 let lastMobileFocus = null;
 let suppressDesktopFocusOpen = false;
 
-const DESKTOP_QUERY = '(min-width: 1200px)';
+const DESKTOP_QUERY = '(min-width: 64rem)';
 const OPEN_DELAY = 90;
 const CLOSE_DELAY = 220;
 
@@ -478,6 +478,9 @@ function positionPanel(item, panel) {
         panel.style.position = 'absolute';
         panel.style.top = `calc(100% + .7rem)`;
         panel.style.left = `${left - rect.left}px`;
+        // JS has already resolved the root panel's viewport-safe x position.
+        // Do not apply the legacy translateX(-50%) after that calculation.
+        panel.style.transform = 'none';
         panel.style.right = 'auto';
         panel.style.bottom = 'auto';
         panel.style.setProperty('--panel-x', '0px');

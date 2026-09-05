@@ -24,8 +24,8 @@ $downloadsStructured = ['@context' => 'https://schema.org','@type' => 'Collectio
 <?php $this->setData(['page_title' => $banner['title'] ?? 'Dokumen Resmi', 'page_description' => $downloadsDescription, 'canonical_url' => $downloadsCanonical, 'structured_data' => $downloadsStructured, 'og_image' => $heroImage ?: null]); ?>
 <?= $this->include('themes/madya/layouts/header') ?>
 <?= view('themes/madya/components/page-header', [
-    'eyebrow' => $banner['badge'] ?? 'Pusat Download',
-    'title' => $banner['title'] ?? 'Pusat Download',
+    'eyebrow' => $banner['badge'] ?? 'Dokumen Sekolah',
+    'title' => $banner['title'] ?? 'Dokumen Sekolah',
     'description' => $banner['subtitle'] ?? 'Unduh berbagai dokumen penting, formulir, panduan, dan informasi resmi sekolah.',
     'image' => $heroImage,
     'breadcrumbs' => [['label' => 'Download']],
@@ -51,7 +51,7 @@ $downloadsStructured = ['@context' => 'https://schema.org','@type' => 'Collectio
                         <div class="document-list-reference">
                             <?php foreach ($items as $item): ?>
                                 <?php $ext = strtoupper((string)($item['extension'] ?? pathinfo((string)($item['url'] ?? ''), PATHINFO_EXTENSION) ?: 'PDF')); ?>
-                                <?php $icon = $ext === 'PDF' ? 'file-type' : ($ext === 'XLS' || $ext === 'XLSX' ? 'file-spreadsheet' : ($ext === 'DOC' || $ext === 'DOCX' ? 'file-text' : 'file')); ?>
+                                <?php $icon = $ext === 'PDF' ? 'file-text' : ($ext === 'XLS' || $ext === 'XLSX' ? 'files' : ($ext === 'DOC' || $ext === 'DOCX' ? 'file-text' : 'file')); ?>
                                 <a class="document-row-reference" href="<?= esc($item['url'] ?? '#') ?>" target="_blank" rel="noopener noreferrer"><span class="document-file-type document-file-type-<?= esc(strtolower($ext)) ?>"><i data-lucide="<?= esc($icon) ?>" aria-hidden="true"></i><b><?= esc($ext) ?></b></span><span class="document-main-reference"><strong><?= esc($item['title'] ?? 'Dokumen') ?></strong><?php if (!empty($item['description'])): ?>
 <small><?= esc($item['description']) ?></small>
 <?php endif; ?><span class="document-meta-reference"><i data-lucide="download" aria-hidden="true"></i><?= esc($item['file_size'] ?? 'Ukuran tidak tersedia') ?></span></span><span class="document-download-button"><i data-lucide="download" aria-hidden="true"></i>Unduh</span></a>

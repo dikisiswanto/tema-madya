@@ -75,13 +75,13 @@ export default function renderHome(state, container) {
                   .slice(0, 4)
                   .map(
                       (x) =>
-                          `<div class="home-stat-item">${iconMarkup(x.icon || 'graduation-cap')}<div><strong>${esc(x.number || x.value || '')}${esc(x.suffix || '')}</strong><span>${esc(x.label || '')}</span></div></div>`,
+                          `<div class="home-stat-item"><span class="home-stat-icon" aria-hidden="true">${iconMarkup(x.icon || 'graduation-cap')}</span><div><strong>${esc(x.number || x.value || '')}${esc(x.suffix || '')}</strong><span>${esc(x.label || '')}</span></div></div>`,
                   )
                   .join('')}</div></div></section>`
             : ''
     }
     <section class="home-section home-middle-section" id="profile" aria-label="Profil sekolah"><div class="theme-container home-middle-stack">
-      <div class="home-middle-grid home-middle-grid-profile"><article class="principal-panel"><div class="principal-photo">${imageOr(principal.photo, principal.name || 'Kepala sekolah', 'user-tie', principal)}</div><div class="principal-message"><p class="section-kicker">Sambutan Kepala Sekolah</p><blockquote>“${esc(principal.welcome_message || '')}”</blockquote><strong>${esc(principal.name || '')}</strong><span>${esc(principal.role_title || principal.role || '')}</span><div class="principal-facts">${[
+      <div class="home-middle-grid home-middle-pair home-middle-grid-profile home-middle-grid-1"><article class="principal-panel"><div class="principal-photo">${imageOr(principal.photo, principal.name || 'Kepala sekolah', 'user-tie', principal)}</div><div class="principal-message"><p class="section-kicker">Sambutan Kepala Sekolah</p><blockquote>“${esc(principal.welcome_message || '')}”</blockquote><strong>${esc(principal.name || '')}</strong><span>${esc(principal.role_title || principal.role || '')}</span><div class="principal-facts">${[
           ['award', 'Akreditasi', about.accreditation],
           ['book-open', 'Kurikulum', about.curriculum],
           ['calendar-days', 'Tahun Berdiri', about.established_year].filter(
@@ -120,7 +120,7 @@ export default function renderHome(state, container) {
                     .join('')}</div></div>`
               : ''
 }</article></div>
-      <div class="home-middle-grid home-middle-grid-people" id="teachers">${
+      <div class="home-middle-grid home-middle-pair home-middle-grid-people home-middle-grid-2" id="teachers">${
           teachers.length
               ? `<article class="middle-panel"><div class="section-head-row compact"><div><p class="section-kicker">Guru Berprestasi</p><h2>Tenaga pengajar pilihan.</h2></div><a class="text-link" href="/#teachers">Lihat Semua ${iconMarkup('arrow-right')}</a></div><div class="teacher-grid">${teachers
                     .slice(0, 4)
@@ -141,7 +141,7 @@ export default function renderHome(state, container) {
                     .join('')}</div></article>`
               : ''
 }</div>
-      <div class="home-middle-grid home-middle-grid-updates" id="updates">${
+      <div class="home-middle-grid home-middle-pair home-middle-grid-updates home-middle-grid-3" id="updates">${
           news.length
               ? `<article class="middle-panel"><div class="section-head-row compact"><div><p class="section-kicker">Berita Terbaru</p><h2>Informasi terkini seputar kegiatan sekolah.</h2></div><a class="text-link" href="/news">Lihat Semua ${iconMarkup('arrow-right')}</a></div><div class="news-home-row">${news[0] ? `<a class="featured-news-home" href="/news/${encodeURIComponent(news[0].slug || '')}">${imageOr(news[0].image, '', 'newspaper', news[0])}<div><span>${esc(news[0].category || 'Berita')}</span><h3>${esc(news[0].title || 'Berita sekolah')}</h3><small>${esc(date(news[0].published_at))}</small></div></a>` : ''}<div class="news-home-side">${news
                     .slice(1, 4)
@@ -162,7 +162,7 @@ export default function renderHome(state, container) {
                     .join('')}</div></article>`
               : ''
 }</div>
-      <div class="home-middle-grid home-middle-grid-community" id="gallery">${
+      <div class="home-middle-grid home-middle-pair home-middle-grid-community home-middle-grid-4" id="gallery">${
           galleries.length
               ? `<article class="middle-panel"><div class="section-head-row compact"><div><p class="section-kicker">Galeri Kegiatan</p><h2>Momen terbaik kami.</h2></div><a class="text-link" href="/#gallery">Lihat Semua ${iconMarkup('arrow-right')}</a></div><div class="gallery-home-grid gallery-home-grid-compact">${galleries
                     .slice(0, 4)

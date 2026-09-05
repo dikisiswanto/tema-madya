@@ -87,6 +87,12 @@ for (const file of jsonFiles) {
 
 const cssFile = path.join(root, 'src', 'css', 'app.css');
 const css = await readFile(cssFile, 'utf8');
+const cssFiles = await walk(path.join(root, 'src', 'css'), (file) =>
+    file.endsWith('.css'),
+);
+const cssSource = (
+    await Promise.all(cssFiles.map((file) => readFile(file, 'utf8')))
+).join('\n');
 let balance = 0;
 for (const [index, line] of css.split(/\r?\n/).entries()) {
     balance += (line.match(/\{/g) || []).length;
@@ -97,7 +103,7 @@ for (const [index, line] of css.split(/\r?\n/).entries()) {
 if (balance !== 0) failures.push(`CSS brace balance is ${balance}.`);
 if (!css.includes('@import "tailwindcss";'))
     failures.push('Tailwind entry import is missing.');
-if (!css.includes('@theme'))
+if (!cssSource.includes('@theme'))
     failures.push('Tailwind theme tokens are missing.');
 if (css.includes('.lucide-icon'))
     failures.push(

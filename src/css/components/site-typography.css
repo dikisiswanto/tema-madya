@@ -1,0 +1,77 @@
+@layer components {
+  /* Native CMS pages: shared content/sidebar floor. */
+  .madya-theme
+    :where(
+      .news-page,
+      .news-list-page,
+      .news-detail-page,
+      .downloads-page,
+      .static-page,
+      .contact-page,
+      .home-page
+    )
+    :where(
+      p,
+      li,
+      a,
+      button,
+      input,
+      select,
+      textarea,
+      label,
+      dt,
+      dd,
+      figcaption,
+      small,
+      time
+    ) {
+    font-size: max(0.8rem, 1em);
+  }
+
+  .madya-theme
+    :where(
+      .news-page,
+      .news-list-page,
+      .news-detail-page,
+      .downloads-page,
+      .static-page,
+      .contact-page
+    )
+    :where(
+      .sidebar-card,
+      .download-widget,
+      .static-sidebar-card,
+      .news-list-sidebar,
+      .article-sidebar
+    ) {
+    @apply font-sans;
+  }
+
+  /* Do not let generic h2/h3 defaults turn information widgets into editorial headlines. */
+  .madya-theme
+    :where(
+      .news-list-sidebar,
+      .article-sidebar,
+      .download-sidebar-reference,
+      .static-page-sidebar
+    )
+    :where(h2, h3, h4) {
+    @apply font-sans;
+  }
+
+  /* Main content copy is slightly more generous on large screens. */
+  @variant lg {
+    .madya-theme
+      :where(
+        .news-page,
+        .news-list-page,
+        .news-detail-page,
+        .downloads-page,
+        .static-page,
+        .contact-page
+      )
+      :where(p, li, td, th, dd, figcaption) {
+      font-size: max(0.875rem, 1em);
+    }
+  }
+}

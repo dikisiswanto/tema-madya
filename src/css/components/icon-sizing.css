@@ -1,0 +1,97 @@
+@layer components {
+  /* --------------------------------------------------------------------------
+ * RC10.12.30 — Contact + Downloads icon sizing audit
+ * Normalize both PHP-hydrated .theme-icon SVGs and Playground .icon-tabler SVGs.
+ * Prevent native SVG intrinsic sizing from producing oversized controls.
+ * -------------------------------------------------------------------------- */
+
+  .icon-tabler {
+    width: 1rem;
+    height: 1rem;
+    flex: none;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .contact-summary-icon .theme-icon,
+  .contact-summary-icon .icon-tabler {
+    width: 1.45rem;
+    height: 1.45rem;
+  }
+  .contact-fact-icon .theme-icon,
+  .contact-fact-icon .icon-tabler {
+    width: 1rem;
+    height: 1rem;
+  }
+  .contact-map-fallback .theme-icon,
+  .contact-map-fallback .icon-tabler {
+    width: 1.7rem;
+    height: 1.7rem;
+  }
+  .contact-map-link .theme-icon,
+  .contact-map-link .icon-tabler {
+    width: 1rem;
+    height: 1rem;
+  }
+  .contact-form-note .theme-icon,
+  .contact-form-note .icon-tabler {
+    width: 1rem;
+    height: 1rem;
+  }
+  .button-contact-submit .theme-icon,
+  .button-contact-submit .icon-tabler {
+    width: 1rem;
+    height: 1rem;
+  }
+  .contact-help-links .theme-icon,
+  .contact-help-links .icon-tabler {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+  .contact-newsletter-card .newsletter-form .theme-icon,
+  .contact-newsletter-card .newsletter-form .icon-tabler {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .download-stat-icon .theme-icon,
+  .download-stat-icon .icon-tabler {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+  .document-file-type .theme-icon,
+  .document-file-type .icon-tabler {
+    width: 1.15rem;
+    height: 1.15rem;
+  }
+  .document-meta-reference .theme-icon,
+  .document-meta-reference .icon-tabler {
+    width: 0.75rem;
+    height: 0.75rem;
+  }
+  .document-download-button .theme-icon,
+  .document-download-button .icon-tabler {
+    width: 0.9rem;
+    height: 0.9rem;
+  }
+  .download-category-links .theme-icon,
+  .download-category-links .icon-tabler {
+    width: 0.72rem;
+    height: 0.72rem;
+  }
+  .download-widget-link .theme-icon,
+  .download-widget-link .icon-tabler {
+    width: 0.85rem;
+    height: 0.85rem;
+  }
+  .download-newsletter-widget .newsletter-form .theme-icon,
+  .download-newsletter-widget .newsletter-form .icon-tabler {
+    width: 0.95rem;
+    height: 0.95rem;
+  }
+  .download-help-art .theme-icon,
+  .download-help-art .icon-tabler {
+    width: 7rem;
+    height: 7rem;
+  }
+}

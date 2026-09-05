@@ -25,23 +25,17 @@ $contactStructured = ['@context' => 'https://schema.org','@type' => 'ContactPage
 
 <section class="contact-overlap-section madya-section">
     <div class="theme-container">
-        <div class="contact-summary contact-summary-five">
+        <div class="contact-summary contact-summary-four">
             <div class="contact-summary-item"><span class="contact-summary-icon"><i data-lucide="map-pin" aria-hidden="true"></i></span><div><strong>Alamat</strong><small><?= esc($contact_address ?: '—') ?></small></div></div>
             <div class="contact-summary-item"><span class="contact-summary-icon"><i data-lucide="phone" aria-hidden="true"></i></span><div><strong>Telepon</strong><small><?= esc($contact_phone ?: '—') ?></small></div></div>
             <div class="contact-summary-item"><span class="contact-summary-icon"><i data-lucide="mail" aria-hidden="true"></i></span><div><strong>Email</strong><small><?= esc($contact_email ?: '—') ?></small></div></div>
             <div class="contact-summary-item"><span class="contact-summary-icon"><i data-lucide="clock-3" aria-hidden="true"></i></span><div><strong>Jam Layanan</strong><small><?= esc($contact_hours ?: '—') ?></small></div></div>
-            <div class="contact-summary-item"><span class="contact-summary-icon contact-summary-icon-social"><i data-lucide="messages-square" aria-hidden="true"></i></span><div><strong>Media Sosial</strong><small><?= esc($instagram ?: $facebook ?: $youtube ?: 'Kanal resmi sekolah') ?></small></div></div>
         </div>
 
         <div class="contact-main-grid contact-main-grid-reference">
             <section class="contact-info-panel contact-reference-card">
                 <div class="contact-info-heading"><p class="eyebrow">Informasi Sekolah</p><h2>Temukan kami dan hubungi kanal resmi.</h2></div>
                 <div class="contact-info-body">
-                    <div class="contact-facts-list">
-                        <div><span class="contact-fact-icon"><i data-lucide="map-pin" aria-hidden="true"></i></span><span><strong>Alamat Lengkap</strong><small><?= esc($contact_address ?: 'Alamat sekolah belum diatur.') ?></small></span></div>
-                        <div><span class="contact-fact-icon"><i data-lucide="phone" aria-hidden="true"></i></span><span><strong>Telepon</strong><small><?= esc($contact_phone ?: 'Nomor telepon belum diatur.') ?></small></span></div>
-                        <div><span class="contact-fact-icon"><i data-lucide="mail" aria-hidden="true"></i></span><span><strong>Email</strong><small><?= esc($contact_email ?: 'Email sekolah belum diatur.') ?></small></span></div>
-                    </div>
                     <figure class="contact-campus-photo"><div class="madya-media-fallback madya-media-fallback-campus" role="img" aria-label="Lingkungan sekolah"><i class="fas fa-school" aria-hidden="true"></i></div><figcaption>Lingkungan sekolah</figcaption></figure>
                 </div>
                 <div class="contact-location-block">
@@ -83,21 +77,6 @@ $contactStructured = ['@context' => 'https://schema.org','@type' => 'ContactPage
                 </form>
                 <p class="contact-response-note">Pesan akan dibalas pada jam kerja (<?= esc($contact_hours ?: 'jam layanan sekolah') ?>).</p>
             </section>
-        </div>
-
-        <div class="contact-lower-grid">
-            <section class="contact-help-panel">
-                <img src="<?= base_url(($theme_asset_base ?? 'themes/madya/assets') . '/illustrations/community.svg') ?>" alt="Layanan bantuan sekolah" width="720" height="520" loading="lazy" decoding="async">
-                <div class="contact-help-copy"><p class="eyebrow">Butuh Bantuan Cepat?</p><h2>Pilih kanal informasi yang Anda perlukan.</h2><p>Gunakan halaman resmi sekolah untuk menemukan informasi dan layanan yang paling relevan.</p></div>
-                <div class="contact-help-links">
-                    <a href="<?= base_url('downloads') ?>"><i data-lucide="file-text" aria-hidden="true"></i><strong>Pusat Download</strong><small>Dokumen dan formulir resmi</small></a>
-                    <a href="<?= base_url('news') ?>"><i data-lucide="newspaper" aria-hidden="true"></i><strong>Berita Sekolah</strong><small>Informasi dan pengumuman</small></a>
-                    <a href="<?= base_url('#profile') ?>"><i data-lucide="school" aria-hidden="true"></i><strong>Profil Sekolah</strong><small>Kenali sekolah lebih dekat</small></a>
-                    <a href="<?= base_url('contact') ?>"><i data-lucide="messages-square" aria-hidden="true"></i><strong>Hubungi Kami</strong><small>Kanal komunikasi resmi</small></a>
-                </div>
-            </section>
-            <section class="contact-newsletter-card faq-cta-card"><p class="eyebrow eyebrow-dark">Pertanyaan Umum</p><h2>Mungkin jawabannya sudah tersedia.</h2><p>Lihat pertanyaan yang sering diajukan sebelum mengirim pesan ke sekolah.</p><a class="button button-light" href="<?= base_url('/#faq') ?>">Buka FAQ <i data-lucide="arrow-right" aria-hidden="true"></i></a><img src="<?= base_url(($theme_asset_base ?? 'themes/madya/assets') . '/illustrations/documents.svg') ?>" alt="" aria-hidden="true" width="640" height="480"></section>
-        </div>
-    </div>
+        </div></div>
 </section>
 <?= $this->include('themes/madya/layouts/footer') ?>

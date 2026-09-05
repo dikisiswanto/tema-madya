@@ -1,0 +1,548 @@
+@layer components {
+  .downloads-reference-section {
+    padding-top: 0;
+  }
+  .download-stat-grid-reference {
+    position: relative;
+    z-index: 3;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0;
+    margin-top: -1.8rem;
+    border: 1px solid var(--site-line);
+    border-radius: 1rem;
+    background: #fff;
+    box-shadow: 0 14px 34px rgba(4, 28, 70, 0.08);
+    overflow: hidden;
+  }
+  .download-stat-grid-reference .download-stat {
+    min-height: 6.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 1rem 1.25rem;
+    border: 0;
+    border-right: 1px solid var(--site-line);
+    border-radius: 0;
+    background: #fff;
+  }
+  .download-stat-grid-reference .download-stat:last-child {
+    border-right: 0;
+  }
+  .download-stat-icon {
+    flex: 0 0 2.6rem;
+    width: 2.6rem;
+    height: 2.6rem;
+    display: grid;
+    place-items: center;
+    color: var(--site-brand);
+  }
+  .download-stat-icon .icon-tabler {
+    width: 1.75rem;
+    height: 1.75rem;
+    stroke-width: 1.7;
+  }
+  .download-stat span:last-child {
+    min-width: 0;
+  }
+  .download-stat strong {
+    display: block;
+    color: var(--site-brand);
+    @apply font-display;
+    @apply text-xl;
+    line-height: 1;
+    font-weight: 600;
+  }
+  .download-stat small {
+    display: block;
+    margin-top: 0.25rem;
+    color: var(--site-muted);
+    @apply text-xs;
+    line-height: 1.35;
+  }
+  .download-content-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 17rem;
+    gap: 1rem;
+    align-items: start;
+    margin-top: 1.25rem;
+  }
+  .download-main-column {
+    min-width: 0;
+  }
+  .download-toolbar-reference {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.8fr);
+    gap: 1rem;
+    align-items: end;
+    margin-bottom: 1rem;
+  }
+  .download-toolbar-reference h2 {
+    margin: 0;
+    color: var(--site-brand);
+    @apply font-display;
+    @apply text-xl;
+    font-weight: 500;
+  }
+  .download-toolbar-reference p {
+    margin: 0.25rem 0 0;
+    color: var(--site-muted);
+    @apply text-xs;
+  }
+  .document-group-reference + .document-group-reference {
+    margin-top: 1.35rem;
+  }
+  .document-group-reference .document-group-heading {
+    margin-bottom: 0.65rem;
+  }
+  .document-group-reference .document-group-heading h2 {
+    margin: 0.3rem 0 0;
+    @apply font-display;
+    @apply text-xl;
+    line-height: 1.05;
+    font-weight: 500;
+  }
+  .document-group-reference .document-group-heading > span {
+    color: var(--site-muted);
+    @apply text-xs;
+  }
+  .document-list-reference {
+    border: 1px solid var(--site-line);
+    border-radius: 0.75rem;
+    background: #fff;
+    overflow: hidden;
+  }
+  .document-row-reference {
+    display: grid;
+    grid-template-columns: 3.4rem minmax(0, 1fr) auto;
+    gap: 0.85rem;
+    align-items: center;
+    min-height: 6rem;
+    padding: 0.8rem 1rem;
+    border-bottom: 1px solid var(--site-line);
+    color: var(--site-ink);
+  }
+  .document-row-reference:last-child {
+    border-bottom: 0;
+  }
+  .document-row-reference:hover {
+    background: var(--site-surface-alt);
+  }
+  .document-file-type {
+    width: 2.5rem;
+    height: 2.8rem;
+    display: grid;
+    place-items: center;
+    align-content: center;
+    gap: 0.05rem;
+    border: 1px solid #d5deeb;
+    border-radius: 0.45rem;
+    background: #f6f9fc;
+    color: var(--site-brand);
+  }
+  .document-file-type .icon-tabler {
+    width: 1.15rem;
+    height: 1.15rem;
+  }
+  .document-file-type b {
+    @apply text-xs;
+    letter-spacing: 0.04em;
+  }
+  .document-main-reference {
+    min-width: 0;
+  }
+  .document-main-reference > strong {
+    display: block;
+    color: var(--site-brand);
+    @apply font-display;
+    @apply text-sm;
+    line-height: 1.25;
+  }
+  .document-main-reference > small {
+    display: block;
+    max-width: 62ch;
+    margin-top: 0.25rem;
+    color: var(--site-muted);
+    @apply text-xs;
+    line-height: 1.45;
+  }
+  .document-meta-reference {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin-top: 0.35rem;
+    color: var(--site-muted);
+    @apply text-xs;
+  }
+  .document-meta-reference .icon-tabler {
+    width: 0.75rem;
+    height: 0.75rem;
+  }
+  .document-download-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-height: 2.25rem;
+    padding: 0.45rem 0.7rem;
+    border: 1px solid var(--site-line);
+    border-radius: 0.5rem;
+    color: var(--site-brand);
+    @apply text-xs;
+    font-weight: 750;
+    white-space: nowrap;
+  }
+  .document-row-reference:hover .document-download-button {
+    border-color: #c4d1e0;
+    background: #fff;
+  }
+  .document-download-button .icon-tabler {
+    width: 0.9rem;
+    height: 0.9rem;
+  }
+  .download-sidebar-reference {
+    position: sticky;
+    top: 6.5rem;
+    display: grid;
+    gap: 0.8rem;
+  }
+  .download-widget,
+  .download-newsletter-widget {
+    padding: 1rem;
+    border: 1px solid var(--site-line);
+    border-radius: 0.8rem;
+    background: #fff;
+    box-shadow: 0 5px 16px rgba(4, 28, 70, 0.035);
+  }
+  .download-widget h2 {
+    margin: 0 0 0.75rem;
+    color: var(--site-brand);
+    @apply font-display;
+    @apply text-base;
+    font-weight: 500;
+  }
+  .download-category-links {
+    display: grid;
+  }
+  .download-category-links a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.52rem 0;
+    border-bottom: 1px solid var(--site-line);
+    color: var(--site-muted);
+    @apply text-xs;
+  }
+  .download-category-links a:last-child {
+    border-bottom: 0;
+  }
+  .download-category-links a:hover {
+    color: var(--site-brand);
+  }
+  .download-category-links span {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    min-width: 0;
+  }
+  .download-category-links .icon-tabler {
+    width: 0.72rem;
+    height: 0.72rem;
+    color: var(--site-accent);
+  }
+  .download-category-links b {
+    flex: 0 0 auto;
+    min-width: 1.5rem;
+    padding: 0.18rem 0.3rem;
+    border-radius: 0.35rem;
+    background: #f3f6fa;
+    color: var(--site-brand);
+    @apply text-xs;
+    text-align: center;
+  }
+  .download-popular-list {
+    display: grid;
+  }
+  .download-popular-list a {
+    display: grid;
+    grid-template-columns: 2rem minmax(0, 1fr);
+    gap: 0.55rem;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--site-line);
+  }
+  .download-popular-list a:last-child {
+    border-bottom: 0;
+  }
+  .download-rank {
+    display: grid;
+    place-items: center;
+    width: 1.8rem;
+    height: 1.8rem;
+    border-radius: 0.35rem;
+    background: #fff2dc;
+    color: #bf7100;
+    @apply text-xs;
+    font-weight: 800;
+  }
+  .download-popular-list strong {
+    display: block;
+    color: var(--site-brand);
+    @apply text-xs;
+    line-height: 1.35;
+  }
+  .download-popular-list small {
+    display: block;
+    margin-top: 0.12rem;
+    color: var(--site-muted);
+    @apply text-xs;
+  }
+  .download-widget-link {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.35rem;
+    margin-top: 0.6rem;
+    color: var(--site-brand);
+    @apply text-xs;
+    font-weight: 750;
+  }
+  .download-widget-link .icon-tabler {
+    width: 0.85rem;
+    height: 0.85rem;
+  }
+  .download-newsletter-widget {
+    position: relative;
+    min-height: 14rem;
+    overflow: hidden;
+    border-color: var(--site-brand-deep);
+    background: var(--site-brand-deep);
+    color: #fff;
+  }
+  .download-newsletter-widget h2 {
+    max-width: 15ch;
+    color: #fff;
+    @apply text-xl;
+  }
+  .download-newsletter-widget > p:not(.eyebrow) {
+    position: relative;
+    z-index: 2;
+    max-width: 35ch;
+    color: rgba(255, 255, 255, 0.75);
+    @apply text-xs;
+    line-height: 1.5;
+  }
+  .download-newsletter-widget .newsletter-form {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    gap: 0;
+    margin-top: 0.9rem;
+  }
+  .download-newsletter-widget .newsletter-form input {
+    min-height: 2.45rem;
+    border: 0;
+    border-radius: 0.45rem 0 0 0.45rem;
+    @apply text-xs;
+  }
+  .download-newsletter-widget .newsletter-form .button {
+    min-width: 2.7rem;
+    border-radius: 0 0.45rem 0.45rem 0;
+    padding: 0.55rem;
+  }
+  .download-newsletter-widget .newsletter-form .icon-tabler {
+    width: 0.95rem;
+    height: 0.95rem;
+  }
+  .download-newsletter-widget > img {
+    position: absolute;
+    right: -1.2rem;
+    bottom: -2.5rem;
+    width: 12rem;
+    opacity: 0.38;
+  }
+  .download-help-banner {
+    position: relative;
+    display: grid;
+    grid-template-columns: 11rem minmax(0, 1fr) auto;
+    gap: 1rem;
+    align-items: center;
+    min-height: 9rem;
+    margin-top: 1.25rem;
+    padding: 1rem 1.25rem;
+    overflow: hidden;
+    border: 1px solid #d8e4f1;
+    border-radius: 0.9rem;
+    background: #eef5ff;
+  }
+  .download-help-banner > img {
+    width: 100%;
+    height: 8rem;
+    object-fit: cover;
+    border-radius: 0.6rem;
+  }
+  .download-help-banner h2 {
+    margin: 0.3rem 0 0.35rem;
+    color: var(--site-brand);
+    @apply font-display;
+    @apply text-2xl;
+    line-height: 1.05;
+    font-weight: 500;
+  }
+  .download-help-banner p:last-of-type {
+    max-width: 55ch;
+    margin: 0 0 0.7rem;
+    color: var(--site-muted);
+    @apply text-xs;
+    line-height: 1.5;
+  }
+  .download-help-banner .button {
+    min-width: 7.8rem;
+  }
+  .download-help-art {
+    position: absolute;
+    right: 1.25rem;
+    bottom: -1rem;
+    color: #cbd9eb;
+    opacity: 0.6;
+  }
+  .download-help-art .icon-tabler {
+    width: 7rem;
+    height: 7rem;
+    stroke-width: 1;
+  }
+
+  @variant max-xl {
+    .download-content-grid {
+      grid-template-columns: minmax(0, 1fr) 15rem;
+    }
+    .download-toolbar-reference {
+      grid-template-columns: 1fr;
+      align-items: start;
+    }
+  }
+  @variant max-lg {
+    .download-sidebar-reference {
+      position: static;
+    }
+    .download-help-banner {
+      grid-template-columns: 8rem minmax(0, 1fr);
+    }
+    .download-help-banner .button {
+      grid-column: 2;
+      justify-self: start;
+    }
+    .download-help-art {
+      display: none;
+    }
+  }
+  @variant max-sm {
+    .download-stat-grid-reference .download-stat {
+      border-right: 0;
+      border-top: 1px solid var(--site-line);
+    }
+    .download-stat-grid-reference .download-stat:first-child {
+      border-top: 0;
+    }
+    .document-row-reference {
+      grid-template-columns: 2.8rem minmax(0, 1fr);
+      gap: 0.65rem;
+      padding: 0.75rem;
+    }
+    .document-download-button {
+      grid-column: 2;
+      justify-self: start;
+      margin-top: 0.1rem;
+    }
+    .download-help-banner {
+      grid-template-columns: 1fr;
+    }
+    .download-help-banner > img {
+      height: 7rem;
+    }
+    .download-help-banner .button {
+      grid-column: auto;
+    }
+  }
+
+  /* --------------------------------------------------------------------------
+ * CMS rich-text content defaults
+ * User-authored article/page HTML is intentionally unclassed inside
+ * .article-prose. Keep one predictable editorial contract for PHP + SPA.
+ * -------------------------------------------------------------------------- */
+
+  /* Legacy SPA downloads composition. Kept here because native.js still emits these classes. */
+  .download-stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.65rem;
+    margin-bottom: 1rem;
+  }
+  .download-stat {
+    padding: 1rem;
+    border-radius: 0.8rem;
+    background: #f8fafd;
+    border: 1px solid var(--site-line);
+  }
+  .download-stat strong {
+    display: block;
+    color: var(--site-brand);
+  }
+  .download-stat span {
+    color: var(--site-muted);
+  }
+  .document-row {
+    display: grid;
+    grid-template-columns: 3rem 1fr auto;
+    gap: 0.8rem;
+    align-items: center;
+    padding: 0.8rem 0.9rem;
+    border: 1px solid var(--site-line);
+    border-radius: 0.7rem;
+    background: #fff;
+  }
+  .document-row + .document-row {
+    margin-top: 0.55rem;
+  }
+  .document-type {
+    display: grid;
+    place-items: center;
+    width: 2.3rem;
+    height: 2.3rem;
+    border-radius: 0.45rem;
+    background: #eef3f9;
+    color: var(--site-brand);
+    font-weight: 800;
+  }
+  .document-main strong {
+    display: block;
+    color: var(--site-brand);
+  }
+  .document-main small {
+    display: block;
+    margin-top: 0.2rem;
+    color: var(--site-muted);
+  }
+  .document-meta {
+    color: var(--site-muted);
+    white-space: nowrap;
+  }
+
+  @variant max-lg {
+    .download-layout {
+      grid-template-columns: 1fr;
+    }
+    .download-stat-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @variant max-sm {
+    .download-stat-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .document-row {
+      grid-template-columns: 2.5rem 1fr;
+    }
+    .document-meta {
+      display: none;
+    }
+  }
+}

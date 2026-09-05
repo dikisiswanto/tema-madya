@@ -34,12 +34,12 @@
                 <div class="footer-links">
                 <?php $footerServiceLinks = is_array($footer_links ?? null) ? $footer_links : (json_decode($footer_links ?? '[]', true) ?: []); ?>
                 <?php if ($footerServiceLinks): foreach (array_slice($footerServiceLinks, 0, 6) as $item): ?><a href="<?= esc($item['url'] ?? '#') ?>"><?= esc($item['label'] ?? $item['title'] ?? '') ?></a><?php endforeach; ?>
-                <?php else: ?><a href="<?= esc($spmb_url ?? '#') ?>">SPMB Online</a><a href="#">E-Learning</a><a href="<?= base_url('downloads') ?>">Download Dokumen</a><?php endif; ?>
+                <?php else: ?><a href="<?= esc($spmb_url ?? '#') ?>">SPMB Online</a><a href="#">E-Learning</a><a href="<?= base_url('downloads') ?>">Dokumen Sekolah</a><?php endif; ?>
                 </div>
             </div>
             <div class="footer-newsletter-column">
                 <h3 class="footer-title">Bantuan</h3>
-                <p>Temukan jawaban atau hubungi sekolah melalui kanal resmi.</p>
+                <p class="pb-2">Temukan jawaban atau hubungi sekolah melalui kanal resmi.</p>
                 <div class="footer-links"><a href="<?= base_url('/#faq') ?>">FAQ</a><a href="<?= base_url('contact') ?>">Hubungi Sekolah</a><a href="<?= base_url('downloads') ?>">Dokumen</a></div>
                 <div class="footer-socials">
                     <?php if (!empty($social_facebook) && $social_facebook !== '#'): ?>

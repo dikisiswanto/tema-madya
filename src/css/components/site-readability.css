@@ -1,0 +1,426 @@
+@layer components {
+  @layer base {
+    :root {
+      --site-accent-text: #965b00;
+    }
+  }
+
+  .madya-theme :where(.eyebrow, .section-kicker, .hero-kicker) {
+    color: var(--site-accent-text);
+  }
+
+  .madya-theme
+    :where(
+      .news-archive-list .madya-news-card h2 a:hover,
+      .news-category-list a:hover
+    ) {
+    color: var(--site-accent-text);
+  }
+
+  /* 960px+: one predictable minimum for metadata, labels and supporting copy. */
+  @variant lg {
+    .madya-theme
+      :where(
+        small,
+        .meta,
+        .card-meta,
+        .news-card-date,
+        .news-card-meta,
+        .news-card-category,
+        .article-meta,
+        .article-sidebar-tag,
+        .document-type,
+        .document-meta,
+        .download-rank,
+        .download-widget-link,
+        .form-field label,
+        .form-counter,
+        .contact-form-note,
+        .contact-response-note,
+        figcaption,
+        .rich-event-tag,
+        .rich-gallery-item figcaption
+      ) {
+      @apply text-xs;
+      line-height: 1.5;
+    }
+
+    .madya-theme
+      :where(
+        .quick-service strong,
+        .quick-service small,
+        .home-stat-item span,
+        .principal-message > span,
+        .principal-facts b,
+        .principal-facts span,
+        .program-showcase-body p,
+        .program-showcase-body h3,
+        .subsection-label,
+        .subsection-label a,
+        .extra-inline-item > span:last-child,
+        .madya-teacher-card strong,
+        .madya-teacher-card span,
+        .achievement-list-row strong,
+        .achievement-list-row small,
+        .achievement-list-row time,
+        .featured-news-home > div > span,
+        .featured-news-home small,
+        .news-home-side strong,
+        .news-home-side small,
+        .agenda-item h3,
+        .agenda-item p,
+        .agenda-item time span,
+        .testimonial-person strong,
+        .testimonial-person small,
+        .document-home-row strong,
+        .document-home-row small,
+        .contact-strip-grid b,
+        .contact-strip-grid small,
+        .spmb-home-banner p:not(.section-kicker),
+        .footer-intro address,
+        .footer-links a,
+        .footer-links span,
+        .footer-newsletter-column > p
+      ) {
+      @apply text-xs;
+      line-height: 1.5;
+    }
+
+    .madya-theme
+      :where(
+        .news-list-sidebar .news-side-card p,
+        .news-list-sidebar .popular-news-list strong,
+        .news-list-sidebar .popular-news-list small,
+        .news-list-sidebar .news-category-list a,
+        .news-list-sidebar .side-card-more,
+        .news-newsletter-card p,
+        .download-sidebar-reference .download-widget,
+        .download-help-banner p,
+        .contact-summary-item small,
+        .contact-facts-list small,
+        .contact-help-links small,
+        .static-help-card p,
+        .static-newsletter-card p
+      ) {
+      @apply text-xs;
+      line-height: 1.55;
+    }
+
+    .madya-theme
+      :where(
+        .button,
+        .text-link,
+        .news-category-pills a,
+        .news-sort select,
+        .news-sidebar-search input,
+        .download-category-links a,
+        .download-sidebar-reference a,
+        .document-download-button,
+        .rich-faq-nav button,
+        .rich-toolbar select,
+        .article-tags a
+      ) {
+      @apply text-xs;
+    }
+
+    .madya-theme .news-archive-list .madya-news-card p {
+      @apply text-sm;
+      line-height: 1.65;
+    }
+
+    .madya-theme .news-archive-list .madya-news-card h2 {
+      font-size: clamp(1.35rem, 1.7vw, 1.65rem);
+    }
+
+    .madya-theme .news-card-media .media-placeholder {
+      width: 100%;
+      height: 100%;
+      min-height: inherit;
+      background: #eef2f5;
+      color: #52627a;
+    }
+
+    .madya-theme .news-archive-list .news-card-media .media-placeholder {
+      min-height: 9.75rem;
+      height: 100%;
+    }
+  }
+
+  /* 1200px+: strengthen the interface slightly, while keeping display hierarchy. */
+  @variant xl {
+    .site-topbar,
+    .brand-copy small {
+      @apply text-xs;
+    }
+
+    .desktop-nav-link,
+    .desktop-nav-trigger {
+      @apply text-sm;
+    }
+
+    .nav-cta {
+      @apply text-sm;
+    }
+
+    .eyebrow,
+    .section-kicker,
+    .hero-kicker {
+      @apply text-xs;
+      line-height: 1.45;
+    }
+
+    .text-link,
+    .button {
+      @apply text-sm;
+    }
+
+    .quick-service strong {
+      @apply text-sm;
+    }
+
+    .principal-message strong {
+      @apply text-sm;
+    }
+
+    .spmb-home-banner p:not(.section-kicker) {
+      @apply text-sm;
+      line-height: 1.6;
+    }
+
+    .article-prose {
+      @apply text-base;
+      line-height: 1.82;
+    }
+
+    .identity-row span {
+      @apply text-sm;
+    }
+
+    .identity-row strong {
+      @apply text-base;
+    }
+
+    .footer-intro > p {
+      @apply text-sm;
+    }
+
+    .footer-title {
+      @apply text-sm;
+    }
+
+    .madya-footer-bottom .theme-container,
+    .madya-footer-bottom p,
+    .madya-footer-bottom a {
+      @apply text-xs;
+    }
+  }
+
+  /* Final sidebar/widget readability pass — 2026-08-31.
+   Sidebar utility copy should not fall below 0.8rem on large screens. */
+
+  @variant lg {
+    .madya-theme .news-list-sidebar .news-category-list a,
+    .madya-theme .news-list-sidebar .popular-news-list strong,
+    .madya-theme .news-list-sidebar .popular-news-list small,
+    .madya-theme .news-list-sidebar .side-card-more,
+    .madya-theme .news-list-sidebar .news-sidebar-search input,
+    .madya-theme .news-list-sidebar .news-side-card p,
+    .madya-theme .news-list-sidebar .article-sidebar-tag {
+      @apply text-xs;
+      line-height: 1.55;
+    }
+
+    .madya-theme .news-list-sidebar .news-category-list b,
+    .madya-theme
+      .news-list-sidebar
+      .popular-news-list
+      > a:not(.side-card-more)
+      > b {
+      @apply text-xs;
+    }
+
+    .madya-theme .article-sidebar .share-actions a,
+    .madya-theme .article-sidebar .share-actions button,
+    .madya-theme .article-sidebar .sidebar-related-list strong,
+    .madya-theme .article-sidebar .sidebar-related-list small,
+    .madya-theme .article-sidebar .sidebar-category-list a,
+    .madya-theme .article-sidebar .sidebar-more {
+      @apply text-xs;
+      line-height: 1.55;
+    }
+
+    .madya-theme .article-sidebar .sidebar-category-list b {
+      @apply text-xs;
+    }
+
+    .madya-theme .download-sidebar-reference .download-category-links a,
+    .madya-theme .download-sidebar-reference .download-category-links b,
+    .madya-theme .download-sidebar-reference .download-popular-list strong,
+    .madya-theme .download-sidebar-reference .download-popular-list small,
+    .madya-theme .download-sidebar-reference .download-widget-link,
+    .madya-theme
+      .download-sidebar-reference
+      .download-newsletter-widget
+      > p:not(.eyebrow),
+    .madya-theme
+      .download-sidebar-reference
+      .download-newsletter-widget
+      .newsletter-form
+      input {
+      @apply text-xs;
+      line-height: 1.55;
+    }
+
+    .madya-theme .download-sidebar-reference .download-rank {
+      @apply text-xs;
+    }
+
+    .madya-theme .static-page-sidebar .static-sidebar-links a,
+    .madya-theme .static-page-sidebar .static-sidebar-more,
+    .madya-theme .static-page-sidebar .static-help-card p:not(.eyebrow),
+    .madya-theme .static-page-sidebar .static-newsletter-card p:not(.eyebrow),
+    .madya-theme .static-page-sidebar .static-newsletter-card input,
+    .madya-theme .static-page-sidebar .static-document-list strong,
+    .madya-theme .static-page-sidebar .static-document-list small {
+      @apply text-xs;
+      line-height: 1.55;
+    }
+
+    .madya-theme .static-page-sidebar .static-help-card .button,
+    .madya-theme .static-page-sidebar .static-newsletter-card .button {
+      @apply text-xs;
+    }
+
+    .madya-theme .rich-sidebar-nav a,
+    .madya-theme .rich-sidebar-nav a small {
+      @apply text-xs;
+      line-height: 1.5;
+    }
+
+    .madya-theme .document-main small,
+    .madya-theme .document-meta,
+    .madya-theme .document-type {
+      @apply text-xs;
+      line-height: 1.5;
+    }
+
+    .madya-theme .document-download-button {
+      @apply text-xs;
+    }
+
+    .madya-theme .article-tags span,
+    .madya-theme .article-tags a {
+      @apply text-xs;
+      line-height: 1.5;
+    }
+  }
+
+  /* Final readability + component alignment pass -------------------------------- */
+
+  /* Sidebar headings are interface labels, not editorial headlines. */
+  .madya-theme .news-side-card h2,
+  .madya-theme .news-newsletter-card h2,
+  .madya-theme .share-card h2,
+  .madya-theme .sidebar-card h2,
+  .madya-theme .download-widget h2,
+  .madya-theme .download-newsletter-widget h2,
+  .madya-theme .static-sidebar-card h2,
+  .madya-theme .static-help-card h2,
+  .madya-theme .static-newsletter-card h2 {
+    @apply font-sans;
+    letter-spacing: -0.012em;
+  }
+
+  .madya-theme .article-sidebar-tags a,
+  .madya-theme .news-list-sidebar .article-sidebar-tags a {
+    min-height: 2rem;
+    padding-inline: 0.75rem;
+    @apply text-xs;
+    line-height: 1.4;
+  }
+
+  .madya-theme .download-toolbar-reference p,
+  .madya-theme .document-group-reference .document-group-heading > span,
+  .madya-theme .document-main-reference > small,
+  .madya-theme .document-meta-reference,
+  .madya-theme .download-category-links a,
+  .madya-theme .download-category-links b,
+  .madya-theme .download-popular-list strong,
+  .madya-theme .download-popular-list small,
+  .madya-theme .download-widget-link {
+    @apply text-xs;
+    line-height: 1.55;
+  }
+
+  .madya-theme .document-main-reference > strong {
+    @apply font-sans;
+    @apply text-base;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
+  .madya-theme .document-download-button {
+    @apply text-xs;
+  }
+
+  .madya-theme .static-sidebar-card h2,
+  .madya-theme .download-widget h2,
+  .madya-theme .share-card h2,
+  .madya-theme .sidebar-card h2,
+  .madya-theme .news-side-card h2 {
+    @apply text-base;
+    line-height: 1.4;
+    font-weight: 700;
+  }
+
+  .madya-theme .static-sidebar-links a,
+  .madya-theme .static-sidebar-more,
+  .madya-theme .static-document-list strong,
+  .madya-theme .static-document-list small,
+  .madya-theme .static-help-card p:not(.eyebrow),
+  .madya-theme .static-newsletter-card p:not(.eyebrow) {
+    @apply text-xs;
+    line-height: 1.55;
+  }
+
+  .madya-theme .static-help-card h2,
+  .madya-theme .static-newsletter-card h2 {
+    @apply font-sans;
+    @apply text-lg;
+    line-height: 1.35;
+    font-weight: 700;
+  }
+
+  /* The PHP contract already emits the combined classes; keep the icon/media
+     surface as one component rather than two unrelated wrappers. */
+  .madya-theme .program-showcase-media.program-showcase-icon {
+    position: relative;
+  }
+
+  /* On compact screens each principal fact gets its own readable row. */
+  @variant max-md {
+    .madya-theme .principal-facts {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+
+    .madya-theme .principal-facts > div {
+      min-height: 2.75rem;
+      padding: 0.65rem 0.7rem;
+    }
+
+    .madya-theme .principal-facts b {
+      @apply text-xs;
+      line-height: 1.35;
+    }
+
+    .madya-theme .principal-facts span {
+      @apply text-xs;
+      line-height: 1.4;
+    }
+  }
+
+  /* Final page-specific typography alignment -----------------------------------
+   Editorial Newsreader is reserved for editorial/content storytelling. Utility
+   surfaces such as documents and sidebars use the interface sans for scanning. */
+}

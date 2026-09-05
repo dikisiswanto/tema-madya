@@ -1,0 +1,161 @@
+@layer components {
+  .static-page-section {
+    @apply py-8 md:py-10 lg:py-12;
+  }
+  .profile-no-sidebar {
+    display: block;
+  }
+  .profile-no-sidebar .profile-main {
+    max-width: 74rem;
+  }
+  .static-page-layout {
+    @apply grid min-w-0 gap-8 lg:grid-cols-[minmax(0,1fr)_18rem] lg:gap-10 xl:grid-cols-[minmax(0,1fr)_19rem];
+  }
+  .static-page-main {
+    @apply min-w-0;
+  }
+  .static-content-intro {
+    @apply min-w-0;
+  }
+  .static-content-intro > .article-prose {
+    @apply max-w-none;
+  }
+  .static-content-intro > .article-prose > h2:first-child {
+    @apply mt-0 font-display text-[clamp(1.55rem,2.3vw,2rem)] leading-tight tracking-[-.025em] text-brand;
+  }
+  .static-content-intro > .article-prose > p:first-of-type {
+    @apply mt-4;
+  }
+  .static-feature-image {
+    @apply mt-5 overflow-hidden rounded-lg border border-line bg-surface-alt;
+  }
+  .static-feature-image img {
+    @apply block aspect-[16/7] w-full object-cover;
+  }
+
+  .static-page-sidebar {
+    @apply min-w-0;
+  }
+  .static-sidebar-card {
+    @apply rounded-lg border border-line bg-white p-5 shadow-soft;
+  }
+  .static-sidebar-card + .static-sidebar-card,
+  .static-help-card + .static-newsletter-card {
+    @apply mt-4;
+  }
+  .static-sidebar-card h2 {
+    @apply m-0 mb-4 font-display text-base font-semibold leading-tight text-brand;
+  }
+  .static-sidebar-links {
+    @apply grid;
+  }
+  .static-sidebar-links a {
+    @apply flex min-h-10 items-center gap-3 border-b border-line py-2.5 text-xs leading-5 text-brand last:border-b-0;
+  }
+  .static-sidebar-links a:hover {
+    @apply text-accent;
+  }
+  .static-sidebar-links svg {
+    @apply size-4 shrink-0 text-brand;
+  }
+  .static-document-list {
+    @apply grid;
+  }
+  .static-document-list a {
+    @apply grid min-w-0 grid-cols-[2rem_minmax(0,1fr)_1.25rem] items-center gap-2.5 border-b border-line py-3 last:border-b-0;
+  }
+  .static-document-icon {
+    @apply grid size-8 place-items-center rounded-md bg-brand-soft text-brand;
+  }
+  .static-document-icon svg {
+    @apply size-4;
+  }
+  .static-document-list strong {
+    @apply block truncate text-xs font-semibold leading-5 text-brand;
+  }
+  .static-document-list small {
+    @apply mt-0.5 block text-xs leading-5 text-muted;
+  }
+  .static-document-list > a > svg {
+    @apply size-4 text-muted;
+  }
+  .static-sidebar-more {
+    @apply mt-3 inline-flex min-h-9 items-center gap-2 text-xs font-semibold text-brand;
+  }
+  .static-sidebar-more svg {
+    @apply size-4;
+  }
+
+  .static-help-card {
+    @apply relative overflow-hidden rounded-lg bg-brand-soft p-5;
+  }
+  .static-help-card > div {
+    @apply relative z-10 max-w-[18rem];
+  }
+  .static-help-card > svg {
+    @apply absolute bottom-2 right-2 size-20 text-brand/15;
+  }
+  .static-help-card .eyebrow,
+  .static-newsletter-card .eyebrow {
+    @apply text-xs font-bold uppercase tracking-[.08em];
+  }
+  .static-help-card h2 {
+    @apply mt-1.5 font-display text-xl leading-tight text-brand;
+  }
+  .static-help-card p:not(.eyebrow) {
+    @apply mt-2 text-xs leading-6 text-muted;
+  }
+  .static-help-card .button {
+    @apply mt-4 min-h-10 text-xs;
+  }
+
+  .static-newsletter-card {
+    @apply rounded-lg bg-brand-deep p-5 text-white;
+  }
+  .static-newsletter-card h2 {
+    @apply mt-1.5 font-display text-xl leading-tight text-white;
+  }
+  .static-newsletter-card p:not(.eyebrow) {
+    @apply mt-2 text-xs leading-6 text-white/80;
+  }
+  .static-newsletter-card form {
+    @apply mt-4 grid grid-cols-[minmax(0,1fr)_2.6rem] overflow-hidden rounded-md bg-white;
+  }
+  .static-newsletter-card input {
+    @apply min-w-0 border-0 bg-transparent px-3 text-xs text-ink outline-none;
+  }
+  .static-newsletter-card .button {
+    @apply min-h-10 rounded-none px-2;
+  }
+  .static-newsletter-card .button svg {
+    @apply size-4;
+  }
+
+  @variant xl {
+    .static-page-layout {
+      grid-template-columns: minmax(0, 1fr) 19rem;
+    }
+    .static-content-intro > .article-prose {
+      @apply text-base;
+      line-height: 1.82;
+    }
+    .static-sidebar-card {
+      padding: 1.25rem;
+    }
+    .static-sidebar-links a {
+      @apply text-xs;
+    }
+    .static-document-list strong {
+      @apply text-xs;
+    }
+    .static-document-list small {
+      @apply text-xs;
+    }
+    .static-help-card p:not(.eyebrow) {
+      @apply text-xs;
+    }
+    .static-newsletter-card p:not(.eyebrow) {
+      @apply text-xs;
+    }
+  }
+}

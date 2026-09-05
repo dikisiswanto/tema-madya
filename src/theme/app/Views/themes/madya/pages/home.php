@@ -89,7 +89,7 @@ $newsMeta = $sectionMeta('news', 'Berita & Artikel', 'Informasi terkini seputar 
 $eventMeta = $sectionMeta('events', 'Agenda & Kegiatan', 'Jadwal kegiatan dan acara mendatang.');
 $galleryMeta = $sectionMeta('gallery', 'Galeri', 'Dokumentasi kegiatan dan momen berharga.');
 $faqMeta = $sectionMeta('faq', 'FAQ', 'Pertanyaan yang sering diajukan.');
-$downloadMeta = $sectionMeta('downloads', 'Download Center', 'Dokumen resmi sekolah.');
+$downloadMeta = $sectionMeta('downloads', 'Dokumen Sekolah', 'Dokumen resmi sekolah.');
 $contactMeta = $sectionMeta('contact', 'Kontak Kami', 'Hubungi kami untuk informasi lebih lanjut.');
 ?>
 <?php
@@ -298,7 +298,7 @@ $mediaFallbackIcon = static function (string $kind): string {
 
   <section class="home-section home-middle-section" id="profile" aria-label="Profil sekolah">
     <div class="theme-container home-middle-stack">
-      <div class="home-middle-grid home-middle-grid-profile">
+      <div class="home-middle-grid home-middle-pair home-middle-grid-profile home-middle-grid-1">
         <article class="principal-panel">
           <div class="principal-photo">
             <?php $principalPhoto = $mediaUrl($principalData['photo'] ?? '', 'principal'); ?>
@@ -369,7 +369,7 @@ $mediaFallbackIcon = static function (string $kind): string {
         </article>
       </div>
 
-      <div class="home-middle-grid home-middle-grid-people" id="teachers">
+      <div class="home-middle-grid home-middle-pair home-middle-grid-people home-middle-grid-2" id="teachers">
         <?php if ($teacherItems && $teacherMeta['show']): ?><article class="middle-panel">
           <div class="section-head-row compact">
             <div>
@@ -408,7 +408,7 @@ $mediaFallbackIcon = static function (string $kind): string {
         </article><?php endif; ?>
       </div>
 
-      <div class="home-middle-grid home-middle-grid-updates" id="updates">
+      <div class="home-middle-grid home-middle-pair home-middle-grid-updates home-middle-grid-3" id="updates">
         <?php if ($newsItems && $newsMeta['show']): ?><article class="middle-panel">
           <div class="section-head-row compact">
             <div>
@@ -455,7 +455,7 @@ $mediaFallbackIcon = static function (string $kind): string {
         </article><?php endif; ?>
       </div>
 
-      <div class="home-middle-grid home-middle-grid-community" id="gallery">
+      <div class="home-middle-grid home-middle-pair home-middle-grid-community home-middle-grid-4" id="gallery">
         <?php if ($galleryItems && $galleryMeta['show']): ?><article class="middle-panel">
           <div class="section-head-row compact">
             <div>
@@ -490,6 +490,21 @@ $mediaFallbackIcon = static function (string $kind): string {
       </div>
     </div>
   </section>
+
+  <?php if (!empty($faq)): ?>
+  <section class="home-section home-faq-cta-section" id="faq" aria-label="Pertanyaan yang sering diajukan">
+    <div class="theme-container">
+      <aside class="home-faq-cta">
+        <div>
+          <p class="section-kicker"><?= esc($faqMeta['title']) ?></p>
+          <h2><?= esc($faqMeta['subtitle'] ?: 'Pertanyaan yang sering diajukan.') ?></h2>
+          <p>Temukan jawaban singkat sebelum menghubungi sekolah.</p>
+        </div>
+        <a class="button button-accent" href="<?= base_url('faq') ?>">Lihat FAQ <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+      </aside>
+    </div>
+  </section>
+  <?php endif; ?>
 
   <?php if (!empty($spmb_url)): ?>
   <section class="home-section section-soft" id="spmb">

@@ -1,0 +1,165 @@
+@layer base {
+  /* Canonical page texture; disabled while the navigation overlay is open. */
+  body.madya-theme {
+    background-image: radial-gradient(
+      circle at 1px 1px,
+      rgb(31 82 104 / 0.04) 1px,
+      transparent 0
+    );
+    background-size: 18px 18px;
+  }
+
+  body.madya-theme.nav-open {
+    background-image: none;
+  }
+  :root {
+    /* Runtime font tokens: keep component CSS independent from Tailwind @theme output. */
+    --site-font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+    --site-font-display: "Newsreader", ui-serif, Georgia, serif;
+    --site-brand: #072a63;
+    --site-brand-deep: #041c46;
+    --site-accent: #d89a2b;
+    --site-ink: #11244a;
+    --site-muted: #52627a;
+    --site-surface: #ffffff;
+    --site-surface-alt: #f8fafd;
+    --site-line: #e4e9f0;
+    --site-content: 78rem;
+    --site-gutter: clamp(1.25rem, 4vw, 4rem);
+    --shadow-float: var(--shadow-madya-float);
+    --shadow-soft: var(--shadow-madya-soft);
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-menu: cubic-bezier(0.16, 1, 0.3, 1);
+    --menu-duration: 240ms;
+    --header-height: 4.75rem;
+  }
+
+  *,
+  *::before,
+  *::after {
+    @apply box-border;
+  }
+
+  html {
+    @apply bg-surface;
+    scroll-behavior: smooth;
+    overflow-x: clip;
+  }
+
+  body.madya-theme {
+    @apply m-0 min-w-[320px] bg-surface font-sans text-base leading-[1.55] text-ink antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
+
+  body.madya-theme.nav-open {
+    overflow-x: clip;
+  }
+
+  @variant max-md {
+    body.madya-theme {
+      @apply text-sm;
+    }
+  }
+
+  .madya-theme a {
+    @apply text-inherit no-underline;
+  }
+
+  .madya-theme button,
+  .madya-theme input,
+  .madya-theme textarea,
+  .madya-theme select {
+    font: inherit;
+  }
+
+  .madya-theme button {
+    @apply text-inherit;
+  }
+
+  .madya-theme img {
+    @apply block max-w-full;
+  }
+
+  /* CMS isolation firewall: the legacy CMS stylesheet styles bare HTML tags
+     (especially headings) globally. Keep Madya's document defaults inside the
+     theme root so playground and native MPA render from the same baseline. */
+  .madya-theme :where(h1, h2, h3, h4, h5, h6) {
+    margin: 0;
+    @apply font-display;
+    font-weight: 600;
+    line-height: 1.12;
+    color: var(--site-ink);
+  }
+
+  .madya-theme :where(p, ul, ol, dl, figure, blockquote) {
+    margin: 0;
+  }
+
+  .madya-theme :where(ul, ol) {
+    padding: 0;
+  }
+
+  .madya-theme :where(button, input, textarea, select) {
+    max-width: 100%;
+  }
+
+  .madya-theme :where(table) {
+    border-collapse: collapse;
+  }
+
+  .madya-theme :where(th, td) {
+    font: inherit;
+  }
+
+  .madya-theme figure,
+  .madya-theme blockquote {
+    @apply m-0;
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--site-accent) 18%, transparent);
+  }
+
+  :focus-visible {
+    outline: 3px solid color-mix(in srgb, var(--site-accent) 72%, white);
+    outline-offset: 3px;
+  }
+}
+
+@utility theme-container {
+  width: min(calc(100% - 2 * var(--site-gutter)), var(--site-content));
+  margin-inline: auto;
+}
+
+@utility page-shell {
+  min-height: 60vh;
+}
+
+@utility madya-text-balance {
+  text-wrap: balance;
+}
+
+@layer components {
+  .madya-section {
+    padding-block: clamp(3.75rem, 7vw, 6rem);
+  }
+
+  @variant max-md {
+    .madya-section {
+      padding-block: 4.25rem;
+    }
+  }
+}
+
+@variant max-md {
+  body.madya-theme {
+    @apply text-sm;
+  }
+}
+
+@variant lg {
+  body.madya-theme {
+    @apply text-base;
+  }
+}

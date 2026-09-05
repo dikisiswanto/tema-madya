@@ -38,7 +38,8 @@
         "check:version": "node scripts/check-version.js",
         "version:patch": "node scripts/version.js patch",
         "version:minor": "node scripts/version.js minor",
-        "version:major": "node scripts/version.js major"
+        "version:major": "node scripts/version.js major",
+        "audit:typography": "node scripts/audit-typography-all.js"
     },
     "devDependencies": {
         "@playwright/test": "^1.55.0",

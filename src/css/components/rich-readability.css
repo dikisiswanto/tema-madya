@@ -1,0 +1,216 @@
+@layer components {
+  /* Final typography system — all CMS pages + all rich components — 2026-08-31.
+   Informational text is never allowed to fall into the legacy micro-type scale.
+   Decorative micro labels (eyebrows, badges, compact counters) remain compact. */
+
+  .madya-theme .rich-component,
+  .madya-theme .rich-page,
+  .madya-theme .rich-section {
+    @apply font-sans;
+  }
+
+  /* Rich component information floor. */
+  .madya-theme
+    .rich-component
+    :where(
+      p,
+      li,
+      a,
+      button,
+      input,
+      select,
+      textarea,
+      label,
+      dt,
+      dd,
+      figcaption,
+      small,
+      time
+    ),
+  .madya-theme
+    .rich-page
+    :where(
+      p,
+      li,
+      a,
+      button,
+      input,
+      select,
+      textarea,
+      label,
+      dt,
+      dd,
+      figcaption,
+      small,
+      time
+    ),
+  .madya-theme
+    .rich-section
+    :where(
+      p,
+      li,
+      a,
+      button,
+      input,
+      select,
+      textarea,
+      label,
+      dt,
+      dd,
+      figcaption,
+      small,
+      time
+    ) {
+    font-size: max(0.8rem, 1em);
+  }
+
+  .madya-theme .rich-component :where(h2, h3, h4),
+  .madya-theme .rich-page :where(h2, h3, h4),
+  .madya-theme .rich-section :where(h2, h3, h4) {
+    @apply font-sans;
+  }
+
+  /* Rich sidebar/navigation: readable scanning size. */
+  .madya-theme .rich-sidebar-nav a {
+    @apply text-sm;
+    line-height: 1.45;
+  }
+  .madya-theme .rich-sidebar-nav a small {
+    @apply text-xs;
+  }
+  .madya-theme .rich-section-label h2 {
+    @apply text-lg;
+    line-height: 1.35;
+  }
+
+  .madya-theme .rich-program-card h3,
+  .madya-theme .rich-program-card h2 {
+    @apply text-base;
+    line-height: 1.35;
+  }
+  .madya-theme .rich-program-card p {
+    @apply text-sm;
+    line-height: 1.65;
+  }
+  .madya-theme .rich-program-card .text-link {
+    @apply text-xs;
+  }
+  .madya-theme .rich-program-row h3 {
+    @apply text-base;
+  }
+  .madya-theme .rich-program-row p {
+    @apply text-xs;
+    line-height: 1.55;
+  }
+  .madya-theme .rich-program-row .text-link {
+    @apply text-xs;
+  }
+  .madya-theme .rich-program-image figcaption strong {
+    @apply text-base;
+  }
+
+  .madya-theme .identity-copy > p {
+    @apply text-sm;
+    line-height: 1.7;
+  }
+  .madya-theme .identity-table h3 {
+    @apply text-base;
+  }
+  .madya-theme .identity-table > .identity-row-legacy {
+    @apply text-xs;
+    line-height: 1.5;
+  }
+
+  .madya-theme .rich-filters button,
+  .madya-theme .rich-selects select,
+  .madya-theme .rich-month {
+    @apply text-xs;
+    min-height: 2.25rem;
+  }
+  .madya-theme .rich-toolbar {
+    @apply text-sm;
+  }
+
+  .madya-theme .rich-person-card strong {
+    @apply text-sm;
+    line-height: 1.4;
+  }
+  .madya-theme .rich-person-card span {
+    @apply text-xs;
+    line-height: 1.45;
+  }
+
+  .madya-theme .rich-achievement-card .meta {
+    @apply text-xs;
+    line-height: 1.35;
+  }
+  .madya-theme .rich-achievement-card h2 {
+    @apply text-base;
+    line-height: 1.4;
+  }
+  .madya-theme .rich-achievement-card p {
+    @apply text-xs;
+    line-height: 1.6;
+  }
+  .madya-theme .rich-achievement-card small {
+    @apply text-xs;
+    line-height: 1.4;
+  }
+
+  .madya-theme .rich-event-row time b {
+    @apply text-base;
+  }
+  .madya-theme .rich-event-row time span {
+    @apply text-xs;
+  }
+  .madya-theme .rich-event-row h2 {
+    @apply text-base;
+    line-height: 1.4;
+  }
+  .madya-theme .rich-event-row p {
+    @apply text-xs;
+    line-height: 1.55;
+  }
+  .madya-theme .rich-event-tag {
+    @apply text-xs;
+  }
+
+  .madya-theme .rich-gallery-item figcaption {
+    @apply text-xs;
+    line-height: 1.4;
+  }
+
+  .madya-theme .rich-testimonial blockquote {
+    @apply text-lg;
+  }
+  .madya-theme .rich-testimonial strong {
+    @apply text-sm;
+  }
+  .madya-theme .rich-testimonial small {
+    @apply text-xs;
+  }
+
+  .madya-theme .rich-faq-nav button {
+    @apply text-sm;
+  }
+  .madya-theme .rich-faq-list summary {
+    @apply text-base;
+  }
+  .madya-theme .rich-faq-list details > div,
+  .madya-theme .rich-faq-list .rich-faq-answer {
+    @apply text-sm;
+    line-height: 1.7;
+  }
+}
+
+/* Shared rich helper typography. */
+@layer components {
+  /* Rich helper copy not covered by the consolidated rich readability rules. */
+  .rich-help strong {
+    @apply text-sm leading-5;
+  }
+
+  .rich-help small {
+    @apply text-xs leading-5;
+  }
+}

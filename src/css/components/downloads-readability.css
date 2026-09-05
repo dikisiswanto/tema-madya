@@ -1,0 +1,270 @@
+@layer components {
+  .madya-theme .download-toolbar-reference h2,
+  .madya-theme .document-group-reference .document-group-heading h2,
+  .madya-theme .download-help-banner h2,
+  .madya-theme .download-widget h2,
+  .madya-theme .download-newsletter-widget h2,
+  .madya-theme .news-side-card h2,
+  .madya-theme .news-newsletter-card h2,
+  .madya-theme .share-card h2,
+  .madya-theme .sidebar-card h2,
+  .madya-theme .static-sidebar-card h2,
+  .madya-theme .static-help-card h2,
+  .madya-theme .static-newsletter-card h2 {
+    @apply font-sans;
+  }
+
+  @variant lg {
+    .madya-theme .download-toolbar-reference h2 {
+      @apply text-2xl;
+      line-height: 1.3;
+    }
+
+    .madya-theme .document-group-reference .document-group-heading h2 {
+      @apply text-xl;
+      line-height: 1.4;
+      font-weight: 700;
+    }
+
+    .madya-theme .download-help-banner h2 {
+      @apply text-2xl;
+      line-height: 1.35;
+      font-weight: 700;
+    }
+
+    .madya-theme .download-widget h2,
+    .madya-theme .download-newsletter-widget h2,
+    .madya-theme .news-side-card h2,
+    .madya-theme .news-newsletter-card h2,
+    .madya-theme .share-card h2,
+    .madya-theme .sidebar-card h2,
+    .madya-theme .static-sidebar-card h2 {
+      @apply text-base;
+      line-height: 1.4;
+      font-weight: 700;
+    }
+
+    .madya-theme .static-help-card h2,
+    .madya-theme .static-newsletter-card h2 {
+      @apply text-lg;
+      line-height: 1.4;
+      font-weight: 700;
+    }
+
+    .madya-theme .document-main-reference > strong {
+      @apply text-base;
+      line-height: 1.45;
+    }
+
+    .madya-theme .document-main-reference > small,
+    .madya-theme .document-meta-reference,
+    .madya-theme .download-category-links a,
+    .madya-theme .download-popular-list strong,
+    .madya-theme .download-popular-list small,
+    .madya-theme .download-widget-link,
+    .madya-theme .document-download-button {
+      @apply text-xs;
+      line-height: 1.55;
+    }
+  }
+
+  /* Canonical downloads page typography — 2026-08-31
+   The downloads surface is utility/information UI. Use Instrument Sans for
+   scanning and reserve Newsreader for editorial content elsewhere. */
+
+  .madya-theme .downloads-page {
+    @apply font-sans;
+  }
+
+  .madya-theme .downloads-page .download-stat strong,
+  .madya-theme .downloads-page .download-toolbar-reference h2,
+  .madya-theme .downloads-page .document-group-heading h2,
+  .madya-theme .downloads-page .document-main-reference > strong,
+  .madya-theme .downloads-page .download-widget h2,
+  .madya-theme .downloads-page .download-newsletter-widget h2,
+  .madya-theme .downloads-page .download-help-banner h2 {
+    @apply font-sans;
+  }
+
+  .madya-theme .downloads-page .download-stat strong {
+    font-weight: 750;
+    letter-spacing: -0.02em;
+  }
+
+  .madya-theme .downloads-page .download-toolbar-reference h2,
+  .madya-theme .downloads-page .document-group-heading h2,
+  .madya-theme .downloads-page .download-widget h2,
+  .madya-theme .downloads-page .download-newsletter-widget h2,
+  .madya-theme .downloads-page .download-help-banner h2 {
+    letter-spacing: -0.018em;
+  }
+
+  .madya-theme .downloads-page .document-main-reference > strong {
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  @variant lg {
+    .madya-theme .downloads-page .download-stat small,
+    .madya-theme .downloads-page .download-toolbar-reference p,
+    .madya-theme .downloads-page .document-group-heading > span,
+    .madya-theme .downloads-page .document-main-reference > small,
+    .madya-theme .downloads-page .document-meta-reference,
+    .madya-theme .downloads-page .document-download-button,
+    .madya-theme .downloads-page .download-category-links a,
+    .madya-theme .downloads-page .download-category-links b,
+    .madya-theme .downloads-page .download-popular-list strong,
+    .madya-theme .downloads-page .download-popular-list small,
+    .madya-theme .downloads-page .download-widget-link,
+    .madya-theme .downloads-page .download-newsletter-widget > p:not(.eyebrow),
+    .madya-theme .downloads-page .download-newsletter-widget .button,
+    .madya-theme .downloads-page .download-help-banner p:last-of-type,
+    .madya-theme .downloads-page .download-help-banner .button {
+      @apply text-sm;
+      line-height: 1.55;
+    }
+
+    .madya-theme .downloads-page .download-stat small {
+      margin-top: 0.3rem;
+    }
+
+    .madya-theme .downloads-page .download-toolbar-reference h2 {
+      @apply text-xl;
+      line-height: 1.3;
+      font-weight: 750;
+    }
+
+    .madya-theme .downloads-page .document-group-heading h2 {
+      @apply text-lg;
+      line-height: 1.35;
+      font-weight: 750;
+    }
+
+    .madya-theme .downloads-page .document-main-reference > strong {
+      @apply text-base;
+    }
+
+    .madya-theme .downloads-page .download-widget h2 {
+      @apply text-base;
+      line-height: 1.35;
+      font-weight: 750;
+    }
+
+    .madya-theme .downloads-page .download-newsletter-widget h2 {
+      @apply text-lg;
+      line-height: 1.35;
+      font-weight: 750;
+    }
+
+    .madya-theme .downloads-page .download-help-banner h2 {
+      @apply text-xl;
+      line-height: 1.35;
+      font-weight: 750;
+    }
+
+    .madya-theme .downloads-page .download-rank {
+      @apply text-xs;
+    }
+
+    .madya-theme .downloads-page .document-file-type b {
+      @apply text-xs;
+    }
+  }
+
+  /* Final readability pass: FAQ + Documents — 2026-08-31
+   Utility/information surfaces use Instrument Sans. Desktop text should not
+   fall into the micro-type scale used by older reference-lock rules. */
+
+  .madya-theme .madya-faq-item summary,
+  .madya-theme .rich-faq-list summary {
+    @apply font-sans;
+    @apply text-base;
+    line-height: 1.45;
+    font-weight: 650;
+  }
+
+  .madya-theme .madya-faq-answer,
+  .madya-theme .rich-faq-list details > div,
+  .madya-theme .rich-faq-list .rich-faq-answer {
+    @apply font-sans;
+    @apply text-sm;
+    line-height: 1.7;
+  }
+
+  .madya-theme .rich-faq-nav button {
+    @apply font-sans;
+    @apply text-sm;
+    line-height: 1.4;
+  }
+
+  @variant lg {
+    .madya-theme .madya-faq-item summary {
+      @apply text-base;
+      line-height: 1.45;
+    }
+
+    .madya-theme .madya-faq-answer {
+      @apply text-sm;
+      line-height: 1.75;
+    }
+
+    .madya-theme .madya-faq-item summary > span {
+      @apply text-xs;
+    }
+
+    .madya-theme .rich-faq-nav button {
+      @apply text-sm;
+      line-height: 1.45;
+    }
+
+    .madya-theme .rich-faq-list summary {
+      @apply text-sm;
+      line-height: 1.45;
+    }
+
+    .madya-theme .rich-faq-list details > div,
+    .madya-theme .rich-faq-list .rich-faq-answer {
+      @apply text-sm;
+      line-height: 1.7;
+    }
+
+    /* Documents: readable floor for content and sidebar at large widths. */
+    .madya-theme .downloads-page .download-stat small,
+    .madya-theme .downloads-page .download-toolbar-reference p,
+    .madya-theme .downloads-page .document-group-heading > span,
+    .madya-theme .downloads-page .document-main-reference > small,
+    .madya-theme .downloads-page .document-meta-reference,
+    .madya-theme .downloads-page .document-download-button,
+    .madya-theme .downloads-page .download-category-links a,
+    .madya-theme .downloads-page .download-category-links b,
+    .madya-theme .downloads-page .download-popular-list strong,
+    .madya-theme .downloads-page .download-popular-list small,
+    .madya-theme .downloads-page .download-widget-link,
+    .madya-theme .downloads-page .download-newsletter-widget > p:not(.eyebrow),
+    .madya-theme .downloads-page .download-help-banner p:last-of-type,
+    .madya-theme .downloads-page .download-help-banner .button {
+      @apply text-sm;
+      line-height: 1.55;
+    }
+
+    .madya-theme .downloads-page .document-main-reference > strong {
+      @apply font-sans;
+      @apply text-base;
+      line-height: 1.45;
+      font-weight: 700;
+    }
+
+    .madya-theme .downloads-page .download-popular-list strong {
+      @apply font-sans;
+      @apply text-sm;
+      line-height: 1.45;
+    }
+
+    .madya-theme .downloads-page .document-file-type b {
+      @apply text-xs;
+      line-height: 1.2;
+    }
+  }
+
+  /* Final homepage readability + fallback icon pass — 2026-08-31. */
+}

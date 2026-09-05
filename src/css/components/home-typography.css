@@ -1,0 +1,186 @@
+@layer components {
+  @variant xl {
+    .madya-theme .home-page .quick-service-grid-count-1 {
+      grid-template-columns: 1fr;
+    }
+    .madya-theme .home-page .quick-service-grid-count-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .madya-theme .home-page .quick-service-grid-count-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .madya-theme .home-page .quick-service-grid-count-4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+    .madya-theme .home-page .quick-service-grid-count-5 {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+    .madya-theme .home-page .quick-service-grid-count-6 {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+  }
+
+  .madya-theme .home-stat-icon {
+    display: inline-grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    flex: 0 0 2.5rem;
+    color: var(--home-gold);
+    @apply text-2xl;
+    line-height: 1;
+  }
+  .madya-theme .home-stat-icon i {
+    font-size: inherit;
+    line-height: 1;
+  }
+
+  .madya-theme .madya-media-fallback {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    min-height: 12rem;
+    background: #eef2f5;
+    color: var(--home-navy);
+  }
+  .madya-theme .madya-media-fallback i {
+    @apply text-5xl;
+    line-height: 1;
+  }
+  .madya-theme .madya-media-fallback-teacher {
+    aspect-ratio: 9 / 11;
+    min-height: 0;
+  }
+
+  @variant xl {
+    .madya-theme .home-page .quick-service strong,
+    .madya-theme .home-page .quick-service small,
+    .madya-theme .home-page .home-stat-item span,
+    .madya-theme .home-page .principal-description,
+    .madya-theme .home-page .principal-message strong,
+    .madya-theme .home-page .program-showcase-body p,
+    .madya-theme .home-page .program-showcase-body h3,
+    .madya-theme .home-page .extra-inline-item > span:last-child,
+    .madya-theme .home-page .madya-teacher-card strong,
+    .madya-theme .home-page .madya-teacher-card span,
+    .madya-theme .home-page .achievement-list-row strong,
+    .madya-theme .home-page .achievement-list-row small,
+    .madya-theme .home-page .achievement-list-row time,
+    .madya-theme .home-page .news-home-side strong,
+    .madya-theme .home-page .news-home-side small,
+    .madya-theme .home-page .agenda-item h3,
+    .madya-theme .home-page .agenda-item p,
+    .madya-theme .home-page .testimonial-person strong,
+    .madya-theme .home-page .testimonial-person small,
+    .madya-theme .home-page .document-home-row strong,
+    .madya-theme .home-page .document-home-row small,
+    .madya-theme .home-page .contact-strip-grid b,
+    .madya-theme .home-page .contact-strip-grid small,
+    .madya-theme .home-page .spmb-home-banner p:not(.section-kicker) {
+      @apply text-sm;
+      line-height: 1.55;
+    }
+    .madya-theme .home-page .program-showcase-body h3,
+    .madya-theme .home-page .madya-teacher-card strong,
+    .madya-theme .home-page .achievement-list-row strong,
+    .madya-theme .home-page .document-home-row strong {
+      font-weight: 650;
+    }
+
+    .madya-theme .home-page .contact-strip-grid {
+      gap: 1rem;
+    }
+    .madya-theme .home-page .contact-strip-grid > div {
+      min-height: 4.5rem;
+      padding: 0.85rem 1rem;
+      gap: 0.65rem;
+    }
+    .madya-theme .home-page .contact-strip-grid > div > :is(svg, i) {
+      width: 1.25rem;
+      height: 1.25rem;
+      @apply text-xl;
+      flex: 0 0 1.25rem;
+    }
+    .madya-theme .home-page .contact-strip-grid b {
+      @apply text-base;
+      line-height: 1.35;
+    }
+    .madya-theme .home-page .contact-strip-grid small {
+      @apply text-sm;
+      line-height: 1.5;
+    }
+    .madya-theme .home-page .quick-service strong {
+      @apply text-base;
+      line-height: 1.4;
+    }
+    .madya-theme .home-page .quick-service small {
+      @apply text-sm;
+      line-height: 1.5;
+    }
+  }
+
+  @variant max-md {
+    .madya-theme .site-footer .footer-newsletter-column > p {
+      @apply text-xs;
+      line-height: 1.5;
+    }
+    .madya-theme .site-footer .footer-newsletter-column .footer-title {
+      @apply text-base;
+      line-height: 1.35;
+    }
+    .madya-theme .home-page .home-stat-icon {
+      width: 2.25rem;
+      height: 2.25rem;
+      flex-basis: 2.25rem;
+      @apply text-2xl;
+    }
+    .madya-theme .home-page .madya-media-fallback i {
+      @apply text-4xl;
+    }
+  }
+
+  @variant xl {
+    .madya-theme .home-page .quick-service-grid-count-1 .quick-service,
+    .madya-theme .home-page .quick-service-grid-count-2 .quick-service,
+    .madya-theme .home-page .quick-service-grid-count-3 .quick-service,
+    .madya-theme .home-page .quick-service-grid-count-4 .quick-service,
+    .madya-theme .home-page .quick-service-grid-count-5 .quick-service,
+    .madya-theme .home-page .quick-service-grid-count-6 .quick-service {
+      border-top: 0;
+      border-right: 1px solid var(--home-line);
+      justify-content: center;
+    }
+    .madya-theme
+      .home-page
+      .quick-service-grid-count-1
+      .quick-service:last-child,
+    .madya-theme
+      .home-page
+      .quick-service-grid-count-2
+      .quick-service:last-child,
+    .madya-theme
+      .home-page
+      .quick-service-grid-count-3
+      .quick-service:last-child,
+    .madya-theme
+      .home-page
+      .quick-service-grid-count-4
+      .quick-service:last-child,
+    .madya-theme
+      .home-page
+      .quick-service-grid-count-5
+      .quick-service:last-child,
+    .madya-theme
+      .home-page
+      .quick-service-grid-count-6
+      .quick-service:last-child {
+      border-right: 0;
+    }
+  }
+}
+
+@layer components {
+  .home-page .section-heading h2 {
+    @apply text-3xl;
+  }
+}

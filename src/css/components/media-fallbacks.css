@@ -1,0 +1,129 @@
+@layer components {
+  /* Media fallback policy — icon-only fallbacks, never generated imagery. */
+  .madya-theme .madya-media-fallback,
+  .madya-theme .media-placeholder,
+  .madya-theme .article-related-placeholder,
+  .madya-theme .page-hero-icon-fallback {
+    display: grid;
+    place-items: center;
+    background: var(--color-surface-muted, #eef2f5);
+    color: var(--color-brand, #0c4a6e);
+  }
+
+  .madya-theme .madya-media-fallback i,
+  .madya-theme .media-placeholder i,
+  .madya-theme .article-related-placeholder i,
+  .madya-theme .page-hero-icon-fallback i {
+    font-family: "Font Awesome 6 Free", "Font Awesome 5 Free", sans-serif;
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  .madya-theme .madya-media-fallback-hero {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(
+      135deg,
+      var(--color-brand, #0c4a6e),
+      var(--color-brand-deep, #07324b)
+    );
+    color: rgba(255, 255, 255, 0.88);
+  }
+  .madya-theme .madya-media-fallback-hero i {
+    font-size: clamp(3rem, 7vw, 6rem);
+  }
+  .madya-theme .home-hero-no-image .home-hero-grid {
+    position: relative;
+    z-index: 1;
+  }
+
+  .madya-theme .page-hero-icon-fallback {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(
+      135deg,
+      var(--color-brand, #0c4a6e),
+      var(--color-brand-deep, #07324b)
+    );
+    color: rgba(255, 255, 255, 0.2);
+    pointer-events: none;
+  }
+  .madya-theme .page-hero-icon-fallback i {
+    font-size: clamp(4rem, 10vw, 9rem);
+  }
+  .madya-theme .page-hero-inner {
+    position: relative;
+    z-index: 1;
+  }
+
+  .madya-theme .home-news-media,
+  .madya-theme .program-row-image,
+  .madya-theme .gallery-home-item,
+  .madya-theme .testimonial-person > .madya-media-fallback,
+  .madya-theme .principal-photo {
+    overflow: hidden;
+  }
+  .madya-theme .home-news-media {
+    display: block;
+  }
+  .madya-theme .home-news-media .madya-media-fallback {
+    width: 100%;
+    height: 100%;
+    min-height: 30px;
+  }
+  .madya-theme .program-row-image .madya-media-fallback,
+  .madya-theme .gallery-home-item .madya-media-fallback {
+    width: 100%;
+    height: 100%;
+    min-height: 140px;
+  }
+  .madya-theme .madya-media-fallback-principal {
+    width: 100%;
+    height: 100%;
+    min-height: 280px;
+  }
+  .madya-theme .madya-media-fallback-avatar {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 999px;
+    flex: 0 0 3rem;
+  }
+  .madya-theme .madya-media-fallback-avatar i {
+    @apply text-lg;
+  }
+  .madya-theme .madya-media-fallback-campus {
+    width: 100%;
+    min-height: 320px;
+    border-radius: inherit;
+  }
+  .madya-theme .madya-media-fallback-spmb {
+    width: 100%;
+    height: 100%;
+    min-height: 260px;
+  }
+  .madya-theme .madya-media-fallback-teacher {
+    display: grid;
+    place-items: center;
+  }
+  .madya-theme .madya-media-fallback-teacher i {
+    @apply text-5xl;
+  }
+  .madya-theme .media-placeholder {
+    width: 100%;
+    height: 100%;
+    min-height: 160px;
+  }
+  .madya-theme .media-placeholder i {
+    @apply text-4xl;
+  }
+  .madya-theme .article-related-placeholder {
+    width: 100%;
+    height: 100%;
+    min-height: 160px;
+  }
+  .madya-theme .article-related-placeholder i {
+    @apply text-4xl;
+  }
+}

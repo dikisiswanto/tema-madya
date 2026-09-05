@@ -1,0 +1,77 @@
+@layer components {
+  .search-dialog {
+    @apply fixed inset-0 z-[100] grid place-items-center bg-brand-deep/60 p-4 opacity-0 invisible transition-opacity duration-200;
+  }
+  .search-dialog.is-open {
+    @apply visible opacity-100;
+  }
+  .search-dialog-backdrop {
+    @apply absolute inset-0;
+  }
+  .search-dialog-panel {
+    @apply relative w-full max-w-2xl rounded-xl border border-line bg-white p-6 shadow-float md:p-8;
+  }
+  .search-dialog-close {
+    @apply absolute right-4 top-4 grid size-10 place-items-center rounded-md text-slate-500 transition-colors hover:bg-surface-alt hover:text-brand focus-visible:outline-3 focus-visible:outline-accent focus-visible:outline-offset-2;
+  }
+  .search-dialog-close svg {
+    @apply size-5;
+  }
+  .search-dialog-panel h2 {
+    @apply mt-2 text-2xl font-semibold tracking-[-.025em] text-brand md:text-3xl;
+  }
+  .search-dialog-copy {
+    @apply mt-2 max-w-xl text-base leading-7 text-slate-600;
+  }
+  .search-dialog-form {
+    @apply mt-6 flex flex-col gap-3 sm:flex-row;
+  }
+  .search-dialog-form input {
+    @apply min-w-0 flex-1 rounded-md border border-line bg-surface px-4 py-3 text-base text-ink outline-none focus:border-brand focus:ring-2 focus:ring-brand/15;
+  }
+  .search-dialog-form .button {
+    @apply min-h-12 shrink-0 justify-center;
+  }
+  .search-dialog-form .button svg {
+    @apply size-4;
+  }
+  .search-dialog-hint {
+    @apply mt-3 text-sm leading-6 text-slate-500;
+  }
+
+  .gallery-lightbox {
+    @apply fixed inset-0 z-[110] grid place-items-center bg-brand-deep/90 p-4 opacity-0 invisible transition-opacity duration-200 md:p-8;
+  }
+  .gallery-lightbox.is-open {
+    @apply visible opacity-100;
+  }
+  .gallery-lightbox-backdrop {
+    @apply absolute inset-0;
+  }
+  .gallery-lightbox-dialog {
+    @apply relative flex max-h-[90vh] max-w-[min(92vw,80rem)] flex-col overflow-hidden rounded-lg bg-white shadow-float;
+  }
+  .gallery-lightbox-dialog img {
+    @apply block max-h-[78vh] w-auto max-w-full object-contain bg-brand-deep;
+  }
+  .gallery-lightbox-dialog figcaption {
+    @apply px-5 py-3 text-sm leading-6 text-ink md:text-base;
+  }
+  .gallery-lightbox-close {
+    @apply absolute right-3 top-3 z-10 grid size-10 place-items-center rounded-full bg-white/95 text-brand shadow-md focus-visible:outline-3 focus-visible:outline-accent focus-visible:outline-offset-2;
+  }
+  .gallery-lightbox-close svg {
+    @apply size-5;
+  }
+  .gallery-lightbox-trigger {
+    @apply block h-full w-full cursor-zoom-in border-0 bg-transparent p-0 text-left;
+  }
+  .gallery-lightbox-trigger img {
+    @apply block h-full w-full object-cover;
+  }
+
+  /* CMS icon contract -------------------------------------------------------
+   Sekolahku stores configurable icon values as Font Awesome classes and,
+   for extracurriculars, a per-item hex color. Keep FA and bundled SVG
+   icons visually equivalent while preserving the administrator's color. */
+}

@@ -1,0 +1,262 @@
+@layer components {
+  /* Footer */
+  .footer-intro h2 {
+    max-width: 18ch;
+    margin: 0.65rem 0 1rem;
+    line-height: 1.02;
+    font-weight: 500;
+  }
+  .footer-intro p,
+  .footer-intro address {
+    max-width: 34rem;
+    margin: 0;
+    color: #b7c5c9;
+    font-style: normal;
+    line-height: 1.75;
+  }
+  .footer-intro address {
+    margin-top: 0.9rem;
+  }
+  .footer-kicker,
+  .footer-title {
+    color: #d5b26a;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .footer-title {
+    margin: 0 0 0.8rem;
+  }
+  .footer-links {
+    display: grid;
+    gap: 0.6rem;
+    color: #c8d4d7;
+  }
+  .madya-footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .madya-footer-bottom .theme-container {
+    @apply text-xs;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-block: 1rem;
+  }
+  .madya-footer-bottom p,
+  .madya-footer-bottom a {
+    @apply text-xs leading-5;
+    margin: 0;
+    color: #91a4aa;
+  }
+
+  @variant md {
+    .editorial-split,
+    .dark-feature-grid,
+    .section-cta-inner,
+    .contact-page-grid,
+    .article-layout {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+    .madya-news-card,
+    .news-card-featured {
+      grid-template-columns: 1fr;
+    }
+    .madya-news-card:not(.news-card-featured) {
+      grid-template-columns: 10rem minmax(0, 1fr);
+    }
+    .madya-footer-grid {
+      grid-template-columns: 1.7fr repeat(3, 1fr);
+    }
+  }
+  .news-feature-item,
+  .collection-card,
+  .activity-card,
+  .teacher-portrait,
+  .hero-principal-card {
+    transform: translateZ(0);
+  }
+
+  @variant max-md {
+    .section-heading {
+      align-items: start;
+      flex-direction: column;
+    }
+    .section-heading h2 {
+      max-width: 13ch;
+    }
+    .program-feature-row {
+      grid-template-columns: 2rem minmax(0, 1fr) auto;
+    }
+    .program-summary {
+      grid-column: 2 / -1;
+    }
+    .madya-news-card,
+    .news-card-featured {
+      grid-template-columns: 1fr;
+    }
+    .madya-news-card h3,
+    .madya-news-card:not(.news-card-featured) h3 {
+      max-width: 18ch;
+    }
+    .gallery-home-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-auto-rows: 10rem;
+    }
+    .document-row {
+      grid-template-columns: 3rem minmax(0, 1fr);
+    }
+    .document-meta {
+      grid-column: 2;
+    }
+    .madya-footer-bottom .theme-container {
+      flex-direction: column;
+    }
+  }
+
+  .contact-display-title {
+    max-width: 14ch;
+    font-size: clamp(2.25rem, 4.2vw, 3.8rem);
+  }
+
+  /* Consolidated from historical institutional shell layer. */
+  .footer-main {
+    background: var(--site-brand-deep);
+    color: #fff;
+  }
+  .footer-grid-rich {
+    display: grid;
+    grid-template-columns: 1.4fr repeat(4, minmax(0, 1fr));
+    gap: 2rem;
+    padding-block: 3rem;
+  }
+  .madya-footer-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+  }
+  .footer-brand-mark {
+    width: 2.7rem;
+    height: 2.7rem;
+    background: rgba(255, 255, 255, 0.08);
+    color: #d89a2b;
+  }
+  .madya-footer-brand strong {
+    display: block;
+    color: #fff;
+    @apply text-lg;
+  }
+  .madya-footer-brand small {
+    display: block;
+    color: #d89a2b;
+    @apply text-xs leading-5;
+  }
+  .footer-intro > p {
+    @apply text-xs leading-6;
+    max-width: 26rem;
+    margin-top: 1rem;
+    color: rgba(255, 255, 255, 0.68);
+    line-height: 1.6;
+  }
+  .footer-intro address {
+    @apply text-xs leading-6;
+    max-width: 26rem;
+    margin-top: 0.8rem;
+    color: rgba(255, 255, 255, 0.58);
+    font-style: normal;
+    line-height: 1.5;
+  }
+  .footer-title {
+    @apply text-xs leading-5;
+    color: #fff;
+    margin: 0 0 0.8rem;
+  }
+  .footer-links {
+    display: grid;
+    gap: 0.45rem;
+  }
+  .footer-links a,
+  .footer-links span {
+    color: rgba(255, 255, 255, 0.65);
+    line-height: 1.35;
+  }
+  .footer-links a:hover {
+    color: #fff;
+  }
+  .footer-socials {
+    display: flex;
+    gap: 0.4rem;
+    margin-top: 0.8rem;
+  }
+  .footer-socials a {
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 0.5rem;
+  }
+  .footer-socials svg {
+    width: 0.85rem;
+    height: 0.85rem;
+    color: #d89a2b;
+  }
+  .madya-footer-bottom {
+    background: #031738;
+    color: rgba(255, 255, 255, 0.5);
+  }
+  .madya-footer-bottom .theme-container {
+    min-height: 2.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .madya-footer-bottom p {
+    margin: 0;
+  }
+  .madya-footer-bottom strong {
+    color: #d89a2b;
+  }
+}
+
+@layer components {
+  @variant max-lg {
+    .newsletter-inner {
+      grid-template-columns: 1fr;
+    }
+    .footer-grid-rich {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .footer-intro {
+      grid-column: 1 / -1;
+    }
+  }
+  @variant max-sm {
+    .footer-grid-rich {
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+    }
+    .footer-intro {
+      grid-column: 1 / -1;
+    }
+    .madya-footer-bottom .theme-container {
+      padding-block: 0.7rem;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+}
+
+@layer components {
+  @variant max-sm {
+    .footer-main :is(p, address, li, a, small, .footer-links) {
+      @apply text-sm leading-5;
+    }
+  }
+}
+
+@layer components {
+  .site-footer .faq-cta-gray {
+    background: var(--site-surface-alt);
+  }
+}

@@ -5,7 +5,6 @@ import { initRouter } from './router.js';
 import { initArticleActions } from './article.js';
 import { initIcons } from './icons.js';
 import { hydratePlaygroundNavigation } from './playground-navigation.js';
-import { iconMarkup } from './icons.js';
 
 window.addEventListener('DOMContentLoaded', async () => {
     await initState();
@@ -56,12 +55,6 @@ function hydratePlaygroundShell() {
         email.href = `mailto:${state.contact_email || ''}`;
         email.textContent = state.contact_email || '';
     }
-    const logo = document.querySelector('[data-demo-logo-icon]');
-    if (logo)
-        logo.innerHTML = iconMarkup(
-            state.site_logo_icon || 'graduation-cap',
-            'brand-icon',
-        );
     setLink('[data-demo-spmb]', state.spmb_url, 'SPMB Online');
     setLink('[data-demo-spmb-header]', state.spmb_url, 'SPMB Online');
     setLink('[data-demo-social-facebook]', state.social_facebook, 'f');

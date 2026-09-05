@@ -1,0 +1,309 @@
+@layer components {
+  /* Teachers + achievements */
+  .middle-panel {
+    padding: 1.25rem 1.35rem;
+  }
+  .teacher-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.45rem;
+  }
+  .madya-teacher-card {
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid var(--home-line);
+    border-radius: 0.3rem;
+    background: #fff;
+  }
+  .madya-teacher-card img {
+    width: 100%;
+    aspect-ratio: 0.88;
+    object-fit: cover;
+    object-position: center top;
+    background: #edf1f6;
+  }
+  .madya-teacher-card > div {
+    padding: 0.55rem 0.55rem 0.65rem;
+  }
+  .madya-teacher-card strong {
+    display: block;
+    color: var(--home-navy);
+    @apply text-xs;
+    line-height: 1.2;
+  }
+  .madya-teacher-card span {
+    display: block;
+    margin-top: 0.16rem;
+    color: var(--home-muted);
+    @apply text-xs;
+    line-height: 1.2;
+  }
+  .achievement-list {
+    border-top: 1px solid var(--home-line);
+  }
+  .achievement-list-row {
+    display: grid;
+    grid-template-columns: 1.8rem minmax(0, 1fr) auto;
+    gap: 0.65rem;
+    align-items: center;
+    min-height: 4.25rem;
+    padding: 0.65rem 0;
+    border-bottom: 1px solid var(--home-line);
+  }
+  .achievement-list-icon {
+    display: grid;
+    place-items: center;
+    width: 1.8rem;
+    height: 1.8rem;
+    color: var(--home-gold);
+  }
+  .achievement-list-icon svg {
+    width: 1.15rem;
+    height: 1.15rem;
+  }
+  .achievement-list-row strong {
+    display: block;
+    color: var(--home-navy);
+    @apply text-xs;
+    line-height: 1.2;
+  }
+  .achievement-list-row small {
+    display: block;
+    margin-top: 0.2rem;
+    color: var(--home-muted);
+    @apply text-xs;
+    line-height: 1.35;
+  }
+  .achievement-list-row time {
+    color: var(--home-muted);
+    @apply text-xs;
+    white-space: nowrap;
+  }
+
+  /* Responsive variants co-located from home-responsive.css; cascade values preserved. */
+  @variant lg {
+    .principal-panel {
+      grid-template-columns: 7.3rem minmax(0, 1fr);
+      min-height: 12.35rem;
+    }
+    .principal-photo img {
+      min-height: 12.35rem;
+    }
+    .principal-message {
+      padding: 0.9rem 0.95rem 0.8rem;
+    }
+    .principal-message .section-kicker {
+      @apply text-xs;
+    }
+    .principal-message blockquote {
+      margin: 0.45rem 0 0.45rem;
+      @apply text-lg;
+      line-height: 1.02;
+    }
+    .principal-message strong {
+      @apply text-xs;
+    }
+    .principal-message > span {
+      @apply text-xs;
+    }
+    .principal-facts {
+      gap: 0.25rem;
+      padding-top: 0.55rem;
+    }
+    .principal-facts > div {
+      padding: 0.35rem 0.3rem;
+    }
+    .principal-facts svg {
+      width: 0.7rem;
+      height: 0.7rem;
+    }
+    .principal-facts b,
+    .principal-facts span {
+      @apply text-xs;
+    }
+    .teacher-grid {
+      gap: 0.35rem;
+    }
+    .madya-teacher-card img {
+      aspect-ratio: 0.95;
+    }
+    .madya-teacher-card > div {
+      padding: 0.35rem 0.3rem 0.4rem;
+    }
+    .madya-teacher-card strong {
+      @apply text-xs;
+    }
+    .madya-teacher-card span {
+      margin-top: 0.1rem;
+      @apply text-xs;
+    }
+    .achievement-list-row {
+      grid-template-columns: 1.5rem minmax(0, 1fr) auto;
+      gap: 0.45rem;
+      min-height: 3.05rem;
+      padding: 0.45rem 0;
+    }
+    .achievement-list-icon {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+    .achievement-list-icon svg {
+      width: 0.95rem;
+      height: 0.95rem;
+    }
+    .achievement-list-row strong {
+      @apply text-xs;
+    }
+    .achievement-list-row small {
+      margin-top: 0.1rem;
+      @apply text-xs;
+      line-height: 1.3;
+    }
+    .achievement-list-row time {
+      @apply text-xs;
+    }
+  }
+
+  @variant 2xl {
+    .principal-panel {
+      grid-template-columns: 10rem minmax(0, 1fr);
+      min-height: 17rem;
+    }
+    .principal-photo img {
+      min-height: 17rem;
+    }
+    .principal-message {
+      padding: 1.5rem 1.6rem 1.3rem;
+    }
+    .principal-message blockquote {
+      @apply text-3xl;
+      line-height: 1.08;
+    }
+    .principal-message strong {
+      @apply text-sm;
+    }
+    .principal-message > span {
+      @apply text-xs;
+    }
+    .principal-facts b,
+    .principal-facts span {
+      @apply text-xs;
+    }
+    .madya-teacher-card strong {
+      @apply text-xs;
+    }
+    .madya-teacher-card span {
+      @apply text-xs;
+    }
+    .achievement-list-row strong {
+      @apply text-sm;
+    }
+    .achievement-list-row small {
+      @apply text-xs;
+    }
+    .achievement-list-row time {
+      @apply text-xs;
+    }
+  }
+
+  @variant xl {
+    .principal-message .section-kicker {
+      @apply text-xs;
+    }
+    .principal-facts b,
+    .principal-facts span {
+      @apply text-xs;
+    }
+    .madya-teacher-card strong {
+      @apply text-xs;
+    }
+    .madya-teacher-card span {
+      @apply text-xs;
+    }
+    .achievement-list-row strong {
+      @apply text-xs;
+    }
+    .achievement-list-row small {
+      @apply text-xs;
+    }
+    .achievement-list-row time {
+      @apply text-xs;
+    }
+  }
+
+  @variant md {
+    .principal-message .section-kicker {
+      @apply text-xs;
+    }
+    .principal-facts b,
+    .principal-facts span {
+      @apply text-xs;
+    }
+    .madya-teacher-card strong {
+      @apply text-xs;
+    }
+    .madya-teacher-card span {
+      @apply text-xs;
+    }
+    .achievement-list-row strong {
+      @apply text-xs;
+    }
+    .achievement-list-row small {
+      @apply text-xs;
+    }
+    .achievement-list-row time {
+      @apply text-xs;
+    }
+    .teacher-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  @variant max-md {
+    .principal-panel {
+      grid-template-columns: 7.5rem minmax(0, 1fr);
+    }
+    .principal-photo img {
+      min-height: 14rem;
+    }
+    .principal-message blockquote {
+      @apply text-xl;
+    }
+    .teacher-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* Responsive rules relocated from home-documents-contact.css. */
+  @variant max-lg {
+    .principal-panel {
+      grid-template-columns: minmax(9.5rem, 10.5rem) minmax(0, 1fr);
+    }
+    .teacher-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  @variant max-sm {
+    .principal-panel {
+      grid-template-columns: 1fr;
+    }
+    .principal-photo img {
+      min-height: 18rem;
+      max-height: 21rem;
+    }
+    .teacher-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .testimonial-feature {
+      min-height: 14rem;
+    }
+  }
+}
+
+@layer components {
+  @variant max-lg {
+    .principal-profile {
+      grid-template-columns: 1fr;
+    }
+  }
+}

@@ -1,0 +1,28 @@
+@layer components {
+  .program-feature-row,
+  .news-compact-row,
+  .document-item,
+  .collection-card,
+  .achievement-row,
+  .fact-item,
+  .activity-card,
+  .teacher-portrait,
+  .news-feature-item,
+  .gallery-editorial-item,
+  .hero-principal-card {
+    transition-timing-function: var(--ease-madya);
+  }
+
+  .program-feature-row::after,
+  .news-compact-row::after,
+  .document-item::after,
+  .achievement-row::after {
+    content: "";
+  }
+
+  .nav-panel,
+  .mobile-nav,
+  .mobile-level {
+    transition-timing-function: var(--ease-madya-menu);
+  }
+}

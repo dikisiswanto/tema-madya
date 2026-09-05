@@ -1,0 +1,44 @@
+@layer components {
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+    }
+
+    .hero-note:hover,
+    .brand:hover .brand-mark,
+    .brand:focus-visible .brand-mark,
+    .button:hover,
+    .desktop-nav-link:hover,
+    .desktop-nav-trigger:hover,
+    .program-feature-row:hover,
+    .achievement-row:hover,
+    .news-feature-item:hover,
+    .news-compact-row:hover,
+    .agenda-row:hover,
+    .collection-card:hover,
+    .document-item:hover,
+    .activity-card:hover,
+    .teacher-portrait:hover,
+    .hero-principal-card:hover {
+      transform: none !important;
+    }
+
+    .nav-panel,
+    .mobile-nav,
+    .mobile-level,
+    .menu-icon span,
+    .button,
+    .nav-cta {
+      transition: none !important;
+    }
+  }
+}

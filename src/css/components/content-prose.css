@@ -1,0 +1,267 @@
+@layer components {
+  .article-prose {
+    @apply min-w-0 max-w-[74ch] font-sans text-base leading-[1.82] text-[#2d3b53];
+    overflow-wrap: anywhere;
+  }
+
+  .article-prose > :first-child {
+    margin-top: 0;
+  }
+  .article-prose > :last-child {
+    margin-bottom: 0;
+  }
+
+  .article-prose h1,
+  .article-prose h2,
+  .article-prose h3,
+  .article-prose h4,
+  .article-prose h5,
+  .article-prose h6 {
+    @apply scroll-mt-24 font-display font-semibold leading-[1.12] tracking-[-.025em] text-brand;
+  }
+
+  .article-prose h1 {
+    @apply mt-10 mb-4 text-[clamp(2rem,3.6vw,2.8rem)];
+  }
+  .article-prose h2 {
+    @apply mt-9 mb-3 text-[clamp(1.55rem,2.6vw,2rem)];
+  }
+  .article-prose h3 {
+    @apply mt-8 mb-3 text-[clamp(1.3rem,2vw,1.55rem)];
+  }
+  .article-prose h4 {
+    @apply mt-7 mb-2 text-xl;
+  }
+  .article-prose h5 {
+    @apply mt-6 mb-2 text-base;
+  }
+  .article-prose h6 {
+    @apply mt-5 mb-2 font-sans text-base uppercase tracking-[.08em];
+  }
+
+  .article-prose p {
+    @apply my-0 mb-5 text-base leading-[1.82] text-[#2d3b53];
+  }
+
+  .article-prose > p:first-of-type {
+    @apply text-base leading-[1.78];
+  }
+
+  .article-prose strong,
+  .article-prose b {
+    @apply font-bold text-brand;
+  }
+  .article-prose em,
+  .article-prose i {
+    font-style: italic;
+  }
+  .article-prose u {
+    text-underline-offset: 0.15em;
+  }
+  .article-prose s,
+  .article-prose del {
+    text-decoration-thickness: 1px;
+  }
+  .article-prose mark {
+    @apply rounded-sm bg-[#fff0c9] px-1 text-brand;
+  }
+  .article-prose small {
+    @apply text-xs text-muted;
+  }
+  .article-prose sup,
+  .article-prose sub {
+    @apply leading-none;
+  }
+  .article-prose abbr[title] {
+    text-decoration: underline dotted;
+    text-underline-offset: 0.15em;
+    cursor: help;
+  }
+
+  .article-prose a {
+    @apply font-medium text-brand-deep underline decoration-accent/55 underline-offset-[.16em] transition-colors;
+  }
+  .article-prose a:hover {
+    @apply text-brand;
+  }
+  .article-prose a:focus-visible {
+    @apply rounded-sm outline-2 outline-offset-2 outline-brand;
+  }
+
+  .article-prose ul,
+  .article-prose ol {
+    @apply my-0 mb-5 pl-6 text-base leading-[1.82];
+  }
+  .article-prose ul {
+    list-style: disc;
+  }
+  .article-prose ol {
+    list-style: decimal;
+  }
+  .article-prose ul ul {
+    list-style: circle;
+  }
+  .article-prose ol ol {
+    list-style: lower-alpha;
+  }
+  .article-prose li {
+    @apply mb-2 pl-1;
+  }
+  .article-prose li > ul,
+  .article-prose li > ol {
+    @apply mt-2 mb-0;
+  }
+
+  .article-prose blockquote {
+    @apply my-7 border-l-4 border-accent bg-brand-soft px-5 py-4 font-display text-[clamp(1.08rem,1.7vw,1.3rem)] font-medium leading-[1.55] text-brand;
+    border-radius: 0.45rem;
+  }
+  .article-prose blockquote > :last-child {
+    margin-bottom: 0;
+  }
+  .article-prose blockquote cite {
+    @apply mt-3 block font-sans text-xs font-semibold not-italic leading-5 tracking-[.02em] text-muted;
+  }
+
+  .article-prose hr {
+    @apply my-9 border-0 border-t border-line;
+  }
+
+  .article-prose figure {
+    @apply my-7;
+  }
+  .article-prose figure > img {
+    @apply my-0;
+  }
+  .article-prose figcaption {
+    @apply mt-2 text-xs leading-5 text-muted;
+  }
+
+  .article-prose img,
+  .article-prose video,
+  .article-prose iframe {
+    @apply max-w-full;
+  }
+  .article-prose img {
+    @apply my-6 h-auto rounded-lg border border-line;
+  }
+  .article-prose video {
+    @apply my-6 w-full rounded-lg bg-brand-deep;
+  }
+  .article-prose iframe {
+    @apply my-6 w-full min-h-[22rem] rounded-lg border border-line;
+  }
+
+  .article-prose pre {
+    @apply my-6 max-w-full overflow-x-auto rounded-lg bg-brand-deep px-5 py-4 font-mono text-sm leading-6 text-white;
+  }
+  .article-prose pre code {
+    @apply bg-transparent p-0 text-inherit;
+  }
+  .article-prose code {
+    @apply rounded bg-surface-alt px-1.5 py-0.5 font-mono text-xs text-brand-deep;
+  }
+  .article-prose kbd {
+    @apply rounded border border-line bg-surface-alt px-1.5 py-0.5 font-mono text-xs font-semibold text-brand;
+    box-shadow: inset 0 -1px 0 rgba(4, 28, 70, 0.12);
+  }
+
+  .article-prose table {
+    @apply my-7 w-full min-w-[38rem] border-collapse text-sm leading-[1.55];
+  }
+  .article-prose table caption {
+    @apply mb-2 text-left font-display text-base font-semibold text-brand;
+  }
+  .article-prose thead th {
+    @apply border border-line bg-brand-soft px-3 py-2.5 text-left font-semibold text-brand;
+  }
+  .article-prose tbody td,
+  .article-prose tbody th {
+    @apply border border-line px-3 py-2.5 text-left align-top;
+  }
+  .article-prose tbody th {
+    @apply font-semibold text-brand;
+  }
+  .article-prose tbody tr:nth-child(even) {
+    @apply bg-surface-alt;
+  }
+
+  /* Tables are user-authored and may be wider than the reading column. */
+  .article-prose > table,
+  .article-prose .table-wrap {
+    @apply max-w-full overflow-x-auto;
+  }
+  .article-prose > table {
+    display: block;
+  }
+  .article-prose > table thead,
+  .article-prose > table tbody {
+    display: table;
+    width: 100%;
+  }
+
+  .article-prose dl {
+    @apply my-0 mb-5;
+  }
+  .article-prose dt {
+    @apply mt-4 font-semibold text-brand;
+  }
+  .article-prose dd {
+    @apply mb-2 ml-5 text-base text-muted;
+  }
+
+  .article-prose details {
+    @apply my-5 rounded-lg border border-line bg-surface-alt px-4 py-3;
+  }
+  .article-prose details summary {
+    @apply cursor-pointer font-semibold text-brand;
+  }
+  .article-prose details > :last-child {
+    margin-bottom: 0;
+  }
+
+  @variant xl {
+    .article-prose {
+      @apply text-base leading-[1.86];
+    }
+    .article-prose p {
+      @apply text-base leading-[1.86];
+    }
+    .article-prose > p:first-of-type {
+      @apply text-lg;
+    }
+    .article-prose table {
+      @apply text-base;
+    }
+  }
+
+  @variant max-sm {
+    .article-prose {
+      @apply text-base leading-[1.78];
+    }
+    .article-prose p {
+      @apply text-base leading-[1.78];
+    }
+    .article-prose > p:first-of-type {
+      @apply text-base;
+    }
+    .article-prose h1 {
+      @apply mt-8 text-3xl;
+    }
+    .article-prose h2 {
+      @apply mt-7 text-2xl;
+    }
+    .article-prose h3 {
+      @apply mt-6 text-xl;
+    }
+    .article-prose blockquote {
+      @apply px-4 py-3 text-base;
+    }
+    .article-prose table {
+      @apply min-w-[34rem] text-sm;
+    }
+    .article-prose pre {
+      @apply px-4 text-xs;
+    }
+  }
+}
