@@ -239,8 +239,6 @@
     }
   }
 
-  /* RC10.12.26 — news-detail styling aligned to the visual language of news-list.png. */
-
   /* Consolidated from historical institutional shell layer. */
   .newsletter-strip {
     @apply border-t border-line border-b border-line;
