@@ -243,9 +243,8 @@
 
   /* Consolidated from historical institutional shell layer. */
   .newsletter-strip {
+    @apply border-t border-line border-b border-line;
     background: #f8fafd;
-    border-top: 1px solid var(--site-line);
-    border-bottom: 1px solid var(--site-line);
   }
   .newsletter-inner {
     @apply grid items-center gap-8;
@@ -253,24 +252,22 @@
     padding-block: 2.2rem;
   }
   .newsletter-inner h2 {
+    @apply text-brand;
     margin: 0.3rem 0 0.45rem;
-    color: var(--site-brand);
     font-size: clamp(1.7rem, 3vw, 2.6rem);
     line-height: 1;
   }
   .newsletter-inner p:last-child {
-    @apply m-0;
+    @apply m-0 text-muted;
     max-width: 45ch;
-    color: var(--site-muted);
   }
 }
 
 /* Consolidated from historical institutional shell layer. */
 .madya-news-filter a.is-active,
 .madya-news-filter a:hover {
-  background: var(--site-brand);
-  color: #fff;
-  border-color: var(--site-brand);
+  @apply bg-brand text-white;
+  border-color: var(--color-brand);
 }
 .news-archive-grid .madya-news-card {
   @apply grid;

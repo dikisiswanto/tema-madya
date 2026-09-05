@@ -1,0 +1,115 @@
+@layer components {
+  .home-page .section-head-row.compact {
+    @apply mb-4;
+  }
+  .home-page .section-head-row h2 {
+    @apply text-[clamp(1.9rem,2.5vw,2.15rem)] leading-[1.04];
+  }
+  .home-page .section-head-row .text-link {
+    @apply text-xs;
+  }
+
+  /* News + agenda: lift supporting copy slightly for parity with headings. */
+  .home-page .news-home-side strong {
+    @apply text-xs leading-[1.3];
+  }
+  .home-page .news-home-side small {
+    @apply text-xs leading-[1.35];
+  }
+  .home-page .agenda-item h3 {
+    @apply text-xs leading-[1.3];
+  }
+  .home-page .agenda-item p {
+    @apply text-xs leading-[1.4];
+  }
+  .home-page .agenda-item time b {
+    @apply text-sm;
+  }
+  .home-page .agenda-item time span {
+    @apply text-xs;
+  }
+
+  /* Gallery: deliberate 3-column editorial mosaic instead of four equal crops. */
+  .home-page .gallery-home-grid-compact {
+    @apply grid-cols-3 grid-rows-[6.5rem_6.5rem] gap-2;
+  }
+  .home-page .gallery-home-grid-compact .gallery-home-item-0 {
+    @apply col-span-1 row-span-2;
+  }
+  .home-page .gallery-home-grid-compact .gallery-home-item-1 {
+    @apply col-span-1 row-span-1;
+  }
+  .home-page .gallery-home-grid-compact .gallery-home-item-2 {
+    @apply col-span-1 row-span-1;
+  }
+  .home-page .gallery-home-grid-compact .gallery-home-item-3 {
+    @apply col-span-2 row-span-1;
+  }
+  .home-page .gallery-home-item img {
+    @apply block h-full w-full object-cover;
+  }
+
+  /* Testimonial + documents: same visual density as news/agenda. */
+  .home-page .testimonial-feature {
+    @apply min-h-52;
+  }
+  .home-page .testimonial-feature blockquote {
+    @apply text-sm leading-[1.65];
+  }
+  .home-page .testimonial-person strong {
+    @apply text-xs;
+  }
+  .home-page .testimonial-person small {
+    @apply text-xs;
+  }
+  .home-page .testimonial-stars {
+    @apply text-xs;
+  }
+  .home-page .document-home-row strong {
+    @apply text-xs leading-[1.25];
+  }
+  .home-page .document-home-row small {
+    @apply text-xs leading-[1.35];
+  }
+  .home-page .document-home-row {
+    @apply min-h-15;
+  }
+
+  /* SPMB banner follows the same heading/supporting-copy scale. */
+  .home-page .spmb-home-banner h2 {
+    @apply text-[clamp(1.9rem,2.8vw,2.15rem)];
+  }
+  .home-page .spmb-home-banner p:not(.section-kicker) {
+    @apply text-xs leading-[1.5];
+  }
+
+  @variant max-lg {
+    .home-page .gallery-home-grid-compact {
+      @apply grid-cols-2 grid-rows-[6.5rem_6.5rem_6.5rem];
+    }
+    .home-page .gallery-home-grid-compact .gallery-home-item-0 {
+      @apply col-span-1 row-span-2;
+    }
+    .home-page .gallery-home-grid-compact .gallery-home-item-1 {
+      @apply col-span-1 row-span-1;
+    }
+    .home-page .gallery-home-grid-compact .gallery-home-item-2 {
+      @apply col-span-1 row-span-1;
+    }
+    .home-page .gallery-home-grid-compact .gallery-home-item-3 {
+      @apply col-span-2 row-span-1;
+    }
+  }
+
+  @variant max-sm {
+    .home-page .gallery-home-grid-compact {
+      @apply grid-cols-2 grid-rows-[6rem_6rem_6rem] gap-1.5;
+    }
+    .home-page .section-head-row h2 {
+      @apply text-3xl;
+    }
+    .home-page .testimonial-feature blockquote {
+      @apply text-sm;
+    }
+  }
+}

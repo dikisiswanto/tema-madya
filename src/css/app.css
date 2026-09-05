@@ -31,7 +31,10 @@
 @import "./components/downloads-readability.css";
 @import "./components/news-list.css";
 @import "./components/news-detail.css";
-@import "./components/rich-components.css";
+@import "./components/rich-home.css";
+@import "./components/rich-core.css";
+@import "./components/rich-visual.css";
+@import "./components/rich-intro.css";
 @import "./components/rich-readability.css";
 @import "./components/agenda-row.css";
 @import "./components/media-fallbacks.css";
@@ -59,8 +62,6 @@
   --radius-madya: 0.55rem;
   --radius-madya-lg: 0.7rem;
   --radius-madya-xl: 1rem;
-  --shadow-madya-soft: 0 4px 20px rgba(4, 28, 70, 0.06);
-  --shadow-madya-float: 0 20px 55px rgba(4, 28, 70, 0.12);
 }
 
 @source "../theme";

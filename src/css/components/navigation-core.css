@@ -15,17 +15,15 @@
   }
   .brand-mark {
     @apply grid size-9 place-items-center border font-display text-brand text-xl;
-    border-color: var(--site-brand);
+    border-color: var(--color-brand);
     line-height: 1;
   }
   .brand-copy strong {
-    @apply text-base font-bold;
-    color: var(--site-ink);
+    @apply text-base font-bold text-ink;
     letter-spacing: -0.025em;
   }
   .brand-copy small {
-    @apply text-xs;
-    color: var(--site-muted);
+    @apply text-xs text-muted;
     letter-spacing: 0.03em;
   }
   .desktop-nav {
@@ -54,7 +52,7 @@
   .desktop-nav-link:hover,
   .desktop-nav-trigger:hover,
   .desktop-nav > li[data-open="true"] > .desktop-nav-trigger {
-    color: var(--site-brand-deep);
+    @apply text-brand-deep;
     background: rgba(244, 245, 242, 0.72);
   }
   .nav-chevron {
@@ -67,20 +65,18 @@
     transition-timing-function: var(--ease-madya);
   }
   .nav-cta:hover {
-    color: #fff;
-    background: var(--site-brand);
+    @apply text-white bg-brand;
     transform: translateY(-1px);
     box-shadow: 0 10px 24px rgba(18, 61, 80, 0.13);
   }
 
   .nav-panel {
-    @apply absolute opacity-0 invisible pointer-events-none;
+    @apply absolute opacity-0 invisible pointer-events-none border-line;
     --panel-x: 0px;
     top: 100%;
     left: var(--panel-x);
     width: min(44rem, 78vw);
     padding: 1.15rem;
-    border: 1px solid var(--site-line);
     background: rgba(255, 255, 255, 0.985);
     box-shadow: var(--shadow-float);
     transform: translate3d(-50%, -8px, 0) scale(0.985);
@@ -103,18 +99,15 @@
     transform-origin: top right;
   }
   .nav-panel-heading {
-    @apply flex items-end justify-between gap-4;
+    @apply flex items-end justify-between gap-4 border-b border-line;
     padding: 0.2rem 0.2rem 0.85rem;
-    border-bottom: 1px solid var(--site-line);
   }
   .nav-panel-heading span {
-    @apply font-display text-2xl;
-    color: var(--site-brand-deep);
+    @apply font-display text-2xl text-brand-deep;
     line-height: 1;
   }
   .nav-panel-heading small {
-    @apply text-xs;
-    color: var(--site-muted);
+    @apply text-xs text-muted;
   }
   .nav-panel-list {
     @apply grid p-0;
@@ -135,7 +128,7 @@
   .nav-panel-list .desktop-nav-link:hover,
   .nav-panel-list .desktop-nav-trigger:hover,
   .nav-panel-list > li[data-open="true"] > .desktop-nav-trigger {
-    background: var(--site-surface-alt);
+    @apply bg-surface-alt;
   }
   .nav-panel-list .nav-panel {
     top: -0.5rem;
@@ -159,25 +152,24 @@
 
   .mobile-toggle {
     @apply ml-auto inline-grid size-[2.85rem] place-items-center border bg-white cursor-pointer;
-    border-color: var(--site-line);
+    border-color: var(--color-line);
     transition:
       border-color 0.18s ease,
       background 0.18s ease;
   }
   .mobile-toggle:hover {
-    border-color: color-mix(in srgb, var(--site-brand) 50%, var(--site-line));
-    background: var(--site-surface-alt);
+    @apply bg-surface-alt;
+    border-color: color-mix(in srgb, var(--color-brand) 50%, var(--color-line));
   }
   .menu-icon {
     @apply relative h-3.5;
     width: 1.05rem;
   }
   .menu-icon span {
-    @apply absolute;
+    @apply absolute bg-ink;
     left: 0;
     width: 1.05rem;
     height: 1px;
-    background: var(--site-ink);
     transition:
       transform 280ms var(--ease-menu),
       top 280ms var(--ease-menu),
@@ -199,14 +191,13 @@
   }
 
   .mobile-nav {
-    @apply fixed w-full max-w-full overflow-hidden box-border pointer-events-none opacity-0 invisible;
+    @apply fixed w-full max-w-full overflow-hidden box-border pointer-events-none opacity-0 invisible bg-surface;
     inset: var(--header-height) 0 0;
     z-index: 200;
     isolation: isolate;
     overflow-x: clip;
     overscroll-behavior-x: none;
     touch-action: pan-y;
-    background: var(--site-surface);
     transform: translate3d(0, 2rem, 0);
     transition:
       opacity 260ms ease,
@@ -226,14 +217,13 @@
     padding: 1.25rem 0 0;
   }
   .mobile-level {
-    @apply absolute w-full max-w-full min-w-0 box-border pointer-events-none overflow-y-auto opacity-0 invisible;
+    @apply absolute w-full max-w-full min-w-0 box-border pointer-events-none overflow-y-auto opacity-0 invisible bg-surface;
     inset: 0;
     overflow-x: clip;
     overscroll-behavior: contain;
     overscroll-behavior-x: none;
     touch-action: pan-y;
     padding: 0 var(--site-gutter) 4rem;
-    background: var(--site-surface);
     transform: translate3d(2rem, 0, 0);
     transition:
       opacity 220ms ease,
@@ -260,26 +250,25 @@
     margin-inline: 0;
   }
   .mobile-nav-intro {
+    @apply border-b border-line;
     padding: 0.5rem 0 1.4rem;
-    border-bottom: 1px solid var(--site-line);
   }
   .mobile-nav-intro p {
+    @apply text-muted;
     max-width: 30rem;
     margin: 0.5rem 0 0;
-    color: var(--site-muted);
   }
   .mobile-back {
-    @apply inline-flex max-w-full min-w-0 items-center gap-2 p-0 cursor-pointer;
+    @apply inline-flex max-w-full min-w-0 items-center gap-2 p-0 cursor-pointer text-muted;
     margin: 0 0 1.1rem;
     border: 0;
     background: none;
-    color: var(--site-muted);
     transition:
       color 0.18s ease,
       transform 0.2s var(--ease);
   }
   .mobile-back:hover {
-    color: var(--site-brand);
+    @apply text-brand;
     transform: translateX(-2px);
   }
   .mobile-back svg {
@@ -287,22 +276,19 @@
     flex: 0 0 1.25rem;
   }
   .mobile-level-title {
-    @apply block w-full p-0 min-w-0 max-w-full font-display text-4xl font-medium;
+    @apply block w-full p-0 min-w-0 max-w-full font-display text-4xl font-medium text-brand-deep;
     margin: 0 0 0.8rem;
     overflow-wrap: anywhere;
-    color: var(--site-brand-deep);
     line-height: 0.95;
     letter-spacing: -0.04em;
   }
   .mobile-menu-link,
   .mobile-menu-trigger {
-    @apply w-full min-w-0 max-w-full flex items-center justify-between gap-4 m-0 text-left cursor-pointer min-h-16;
+    @apply w-full min-w-0 max-w-full flex items-center justify-between gap-4 m-0 text-left cursor-pointer min-h-16 border-b border-line text-ink;
     inline-size: 100%;
     padding: 0.95rem 0;
     border: 0;
-    border-bottom: 1px solid var(--site-line);
     background: transparent;
-    color: var(--site-ink);
     transition:
       color 180ms var(--ease-madya),
       background-color 180ms var(--ease-madya),
@@ -315,14 +301,12 @@
   }
   .mobile-menu-link:hover,
   .mobile-menu-trigger:hover {
-    color: var(--site-brand);
-    background: var(--site-surface-alt);
+    @apply text-brand bg-surface-alt;
   }
   .mobile-menu-trigger .menu-arrow,
   .mobile-menu-link > span:last-child {
-    @apply inline-flex items-center justify-center w-5 h-5;
+    @apply inline-flex items-center justify-center w-5 h-5 text-accent;
     flex: 0 0 1.25rem;
-    color: var(--site-accent);
     transition: transform 220ms var(--ease-menu);
   }
   .mobile-menu-trigger .menu-arrow svg,
@@ -337,10 +321,8 @@
     transform: translateX(3px);
   }
   .mobile-menu-cta {
-    @apply flex items-center justify-center gap-2 w-full mt-6;
+    @apply flex items-center justify-center gap-2 w-full mt-6 bg-brand-deep text-white;
     padding: 0.95rem 1rem;
-    background: var(--site-brand-deep);
-    color: #fff;
     font-weight: 750;
   }
 

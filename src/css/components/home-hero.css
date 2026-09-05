@@ -83,7 +83,7 @@
     @apply w-4 h-4;
   }
   .home-hero-actions .button-secondary {
-    background: #fff;
+    @apply bg-white;
   }
   .hero-photo img,
   .hero-photo .media-placeholder {

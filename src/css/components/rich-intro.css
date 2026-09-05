@@ -1,0 +1,37 @@
+/* Rich intro shell consolidated from the former tables utility layer. */
+.rich-intro-panel {
+  @apply mb-8 grid gap-4 rounded-xl border border-line bg-surface p-6 md:grid-cols-[minmax(0,1fr)_minmax(18rem,28rem)] md:items-end md:p-8;
+}
+.rich-intro-panel h2 {
+  @apply mt-2 max-w-2xl text-2xl font-semibold tracking-[-.025em] text-brand md:text-3xl;
+}
+.rich-intro-panel > p {
+  @apply max-w-xl text-base leading-7 text-slate-600;
+}
+.rich-extra-grid {
+  @apply grid min-w-0 grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3;
+}
+.rich-extra-card {
+  @apply flex min-w-0 min-h-60 flex-col rounded-xl border border-line bg-white p-6 shadow-soft transition-[transform,box-shadow,border-color] duration-200 hover:-translate-y-0.5 hover:shadow-float;
+}
+.rich-extra-card-head {
+  @apply flex items-start justify-between gap-4;
+}
+.rich-extra-index {
+  @apply pt-2 text-sm font-semibold tracking-[.12em] text-slate-400;
+}
+.rich-extra-copy {
+  @apply min-w-0 flex-1 pt-7;
+}
+.rich-extra-copy h2 {
+  @apply text-xl font-semibold tracking-[-.02em] text-brand;
+}
+.rich-extra-copy p {
+  @apply mt-3 text-base leading-7 text-slate-600;
+}
+.rich-extra-card .text-link {
+  @apply mt-6 inline-flex w-fit items-center gap-2 text-sm font-semibold text-brand;
+}
+.rich-extra-card .text-link svg {
+  @apply size-4;
+}

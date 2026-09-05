@@ -15,12 +15,11 @@
     @apply w-full h-full object-cover;
   }
   .testimonial-feature {
-    @apply relative;
+    @apply relative bg-white;
     min-height: 12.3rem;
     padding: 1.15rem 1.25rem 1rem 3.5rem;
     border: 1px solid var(--home-line);
     border-radius: 0.35rem;
-    background: #fff;
   }
   .testimonial-quote-mark {
     @apply absolute font-display text-6xl;
@@ -165,11 +164,10 @@
     transform: scale(1.018);
   }
   .gallery-home-item figcaption {
-    @apply absolute;
+    @apply absolute text-white;
     left: 0.7rem;
     right: 0.7rem;
     bottom: 0.65rem;
-    color: #fff;
     text-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
   }
 

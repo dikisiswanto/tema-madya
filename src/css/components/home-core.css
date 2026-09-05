@@ -1,8 +1,8 @@
 @layer components {
   .hero-lead {
+    @apply text-muted;
     max-width: 35rem;
     margin: 1.55rem 0 0;
-    color: var(--site-muted);
     line-height: 1.8;
   }
 
@@ -27,39 +27,35 @@
     text-wrap: balance;
   }
   .section-heading-description {
+    @apply text-muted;
     max-width: 32rem;
     margin: 0.85rem 0 0;
-    color: var(--site-muted);
   }
   .program-feature-row {
-    @apply grid gap-4 items-center;
+    @apply grid gap-4 items-center border-b border-line;
     grid-template-columns: 3rem minmax(0, 0.8fr) minmax(0, 1.2fr) auto;
     padding: 1.25rem 0;
-    border-bottom: 1px solid var(--site-line);
     transition:
       background-color 0.2s ease,
       color 0.2s ease;
   }
   .program-feature-row:hover {
-    background: var(--site-surface-alt);
-    color: var(--site-brand-deep);
+    @apply bg-surface-alt text-brand-deep;
   }
   .program-index {
-    @apply font-extrabold;
-    color: var(--site-accent);
+    @apply font-extrabold text-accent;
     letter-spacing: 0.08em;
   }
   .program-title {
     line-height: 1.05;
   }
   .program-summary {
-    color: var(--site-muted);
+    @apply text-muted;
   }
   .madya-news-card {
-    @apply grid gap-5;
+    @apply grid gap-5 border-t border-line;
     grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
     padding-block: 1.25rem;
-    border-top: 1px solid var(--site-line);
   }
   .news-card-media {
     @apply block overflow-hidden;
@@ -85,14 +81,14 @@
     letter-spacing: -0.03em;
   }
   .madya-news-card p {
+    @apply text-muted;
     max-width: 36rem;
     margin: 0 0 1rem;
-    color: var(--site-muted);
     line-height: 1.75;
   }
 
   .agenda-list {
-    border-top: 1px solid var(--site-line);
+    @apply border-t border-line;
   }
 
   .gallery-home-grid {

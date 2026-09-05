@@ -1,0 +1,322 @@
+/* Consolidated Rich visual/CMS exceptions. */
+@layer components {
+  /* Rich component visual/CMS compatibility exceptions. */
+  .rich-program-card .rich-card-icon {
+    @apply w-14 h-14 text-2xl;
+  }
+
+  .rich-program-card .rich-card-icon svg {
+    width: 1.45rem;
+    height: 1.45rem;
+  }
+
+  .rich-program-card .rich-card-icon i {
+    @apply w-auto h-auto text-2xl;
+    line-height: 1;
+  }
+
+  .rich-program-card:nth-child(8n + 1) .rich-card-icon {
+    color: #2563eb;
+    background: #eff6ff;
+    border-color: #bfdbfe;
+  }
+
+  .rich-program-card:nth-child(8n + 2) .rich-card-icon {
+    color: #16805f;
+    background: #effaf5;
+    border-color: #bce8d6;
+  }
+
+  .rich-program-card:nth-child(8n + 3) .rich-card-icon {
+    color: #a56a08;
+    background: #fff8e8;
+    border-color: #f3d89a;
+  }
+
+  .rich-program-card:nth-child(8n + 4) .rich-card-icon {
+    color: #7c3aed;
+    background: #f5f3ff;
+    border-color: #ddd6fe;
+  }
+
+  .rich-program-card:nth-child(8n + 5) .rich-card-icon {
+    color: #db2777;
+    background: #fdf2f8;
+    border-color: #fbcfe8;
+  }
+
+  .rich-program-card:nth-child(8n + 6) .rich-card-icon {
+    color: #0891b2;
+    background: #ecfeff;
+    border-color: #a5f3fc;
+  }
+
+  .rich-program-card:nth-child(8n + 7) .rich-card-icon {
+    color: #16a34a;
+    background: #f0fdf4;
+    border-color: #bbf7d0;
+  }
+
+  .rich-program-card:nth-child(8n + 8) .rich-card-icon {
+    color: #c026d3;
+    background: #fdf4ff;
+    border-color: #f0abfc;
+  }
+
+  .rich-extra-card-head .rich-card-icon {
+    @apply grid;
+    place-items: center;
+  }
+
+  .rich-extra-card-head .rich-card-icon svg {
+    width: 1.35rem;
+    height: 1.35rem;
+  }
+
+  .rich-filters button,
+  .rich-faq-nav button {
+    @apply cursor-pointer;
+  }
+
+  .rich-person-card,
+  .rich-achievement-card,
+  .rich-testimonial {
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease,
+      border-color 0.2s ease;
+  }
+
+  .rich-person-card:hover,
+  .rich-achievement-card:hover,
+  .rich-testimonial:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .rich-person-media {
+    @apply overflow-hidden bg-surface-alt;
+    aspect-ratio: 4 / 5;
+  }
+
+  .rich-person-media img {
+    @apply w-full h-full object-cover;
+    object-position: center top;
+  }
+
+  .rich-person-placeholder {
+    @apply grid w-full h-full text-muted bg-surface-alt;
+    place-items: center;
+  }
+
+  .rich-person-placeholder i {
+    @apply text-5xl;
+  }
+
+  .rich-person-role {
+    @apply inline-flex text-xs font-extrabold uppercase text-accent;
+    margin-bottom: 0.45rem;
+    letter-spacing: 0.08em;
+  }
+
+  .rich-achievement-card {
+    @apply overflow-hidden border-line bg-white;
+  }
+
+  .rich-achievement-media {
+    @apply min-h-40 bg-surface-alt;
+  }
+
+  .rich-achievement-media img {
+    @apply w-full h-full min-h-40 object-cover;
+  }
+
+  .rich-achievement-placeholder {
+    @apply grid;
+    place-items: center;
+    color: var(--achievement-accent);
+    background: color-mix(in srgb, var(--achievement-accent) 8%, white);
+  }
+
+  .rich-achievement-placeholder svg {
+    @apply w-12 h-12;
+  }
+
+  .rich-achievement-body {
+    padding: 1.1rem;
+  }
+
+  .rich-achievement-body h2 {
+    margin: 0.35rem 0 0.45rem;
+  }
+
+  .rich-achievement-body p,
+  .rich-achievement-body small,
+  .rich-person-card figcaption > span:last-child,
+  .rich-testimonial small {
+    @apply font-sans;
+  }
+
+  .rich-testimonial {
+    @apply border-line bg-white;
+  }
+
+  .rich-testimonial blockquote {
+    @apply font-sans text-lg text-ink;
+    line-height: 1.7;
+  }
+
+  .rich-toolbar {
+    @apply flex items-center justify-between gap-3 flex-wrap mb-5 pb-3 border-b border-line;
+  }
+
+  .rich-filters {
+    @apply flex flex-wrap;
+    gap: 0.35rem;
+  }
+
+  .rich-filters button,
+  .rich-faq-nav button {
+    @apply text-xs font-bold border-line bg-white text-muted;
+    padding: 0.55rem 0.75rem;
+    border-radius: 0.35rem;
+  }
+
+  .rich-filters button:hover,
+  .rich-filters button.is-active,
+  .rich-faq-nav button:hover,
+  .rich-faq-nav button.is-active {
+    @apply text-brand;
+    border-color: var(--color-brand);
+    background: var(--color-brand-soft, #eef4ff);
+  }
+
+  .rich-toolbar select {
+    @apply text-xs border-line bg-white text-ink;
+    min-height: 2.35rem;
+    padding: 0.45rem 0.7rem;
+    border-radius: 0.35rem;
+  }
+
+  @variant max-sm {
+    .rich-toolbar {
+      @apply items-stretch;
+    }
+
+    .rich-filters {
+      @apply w-full overflow-x-auto flex-nowrap;
+      padding-bottom: 0.15rem;
+    }
+
+    .rich-filters button {
+      flex: none;
+    }
+  }
+
+  .rich-main p,
+  .rich-main small,
+  .rich-main figcaption,
+  .rich-main label,
+  .rich-main select,
+  .rich-main .meta,
+  .rich-main .rich-event-tag {
+    @apply font-sans;
+  }
+
+  .rich-main .rich-section-label p,
+  .rich-main .rich-intro-panel > p {
+    @apply font-sans text-base;
+    line-height: 1.75;
+  }
+
+  .rich-main .rich-person-card strong,
+  .rich-main .rich-achievement-card h2,
+  .rich-main .rich-event-row h2,
+  .rich-main .rich-program-card h2,
+  .rich-main .rich-program-card h3,
+  .rich-main .rich-extra-copy h2 {
+    @apply font-display;
+  }
+
+  .rich-main .rich-person-card figcaption,
+  .rich-main .rich-achievement-body,
+  .rich-main .rich-event-row > div {
+    @apply min-w-0;
+  }
+
+  .rich-main .rich-person-card figcaption {
+    @apply p-4;
+  }
+
+  .rich-main .rich-person-card strong {
+    @apply block text-base;
+    line-height: 1.15;
+  }
+
+  .rich-main .rich-person-card figcaption > span:last-child {
+    @apply mt-1 block text-sm text-muted;
+    line-height: 1.5;
+  }
+
+  .rich-program-card,
+  .rich-extra-card {
+    @apply relative overflow-hidden;
+  }
+
+  .rich-program-card::after,
+  .rich-extra-card::after {
+    @apply absolute opacity-75;
+    content: "";
+    inset: auto 0 0;
+    height: 0.2rem;
+    background: var(--rich-icon-color, var(--color-brand));
+  }
+
+  .rich-program-card .rich-card-icon {
+    @apply grid;
+    place-items: center;
+  }
+
+  .rich-extra-card .rich-card-icon {
+    @apply grid;
+    place-items: center;
+  }
+
+  .rich-testimonial-grid {
+    @apply items-stretch;
+  }
+
+  .rich-testimonial {
+    @apply p-6;
+    min-height: 100%;
+  }
+
+  .rich-testimonial blockquote {
+    @apply m-0;
+  }
+
+  .rich-testimonial figcaption {
+    @apply flex items-center pt-4 border-t border-line;
+    gap: 0.8rem;
+    margin-top: 1.2rem;
+  }
+
+  .rich-testimonial figcaption img {
+    @apply w-11 h-11 rounded-full object-cover;
+    flex: none;
+  }
+
+  .rich-gallery-grid {
+    @apply min-w-0;
+  }
+
+  .rich-gallery-item {
+    @apply min-w-0;
+  }
+
+  .rich-gallery-item figcaption {
+    @apply text-xs text-muted;
+    padding: 0.65rem 0.1rem;
+    line-height: 1.5;
+  }
+}

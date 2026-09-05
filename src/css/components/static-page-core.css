@@ -142,9 +142,6 @@
     .static-sidebar-card {
       @apply p-5;
     }
-    .static-sidebar-links a {
-      @apply text-xs;
-    }
     .static-document-list strong {
       @apply text-xs;
     }

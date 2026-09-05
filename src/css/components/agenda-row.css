@@ -1,11 +1,10 @@
 @layer components {
   /* Canonical legacy agenda row. Historical polish layers are folded here. */
   .agenda-row {
-    @apply relative grid rounded-lg bg-white/35 transition-[background-color,padding] duration-200 items-center;
+    @apply relative grid rounded-lg bg-white/35 transition-[background-color,padding] duration-200 items-center border-b border-line;
     grid-template-columns: 3.2rem 1fr auto;
     gap: 0.8rem;
     padding: 0.8rem 1rem;
-    border-bottom: 1px solid var(--site-line);
     transition-timing-function: var(--ease-madya);
   }
 
@@ -31,14 +30,12 @@
   }
 
   .agenda-row time {
-    @apply pt-1 text-xs font-extrabold uppercase;
-    color: var(--site-accent);
+    @apply pt-1 text-xs font-extrabold uppercase text-accent;
     letter-spacing: 0.07em;
   }
 
   .agenda-row h2 {
-    @apply m-0 text-xs;
-    color: var(--site-brand);
+    @apply m-0 text-xs text-brand;
   }
 
   .agenda-row h3 {
@@ -47,14 +44,12 @@
   }
 
   .agenda-row p {
-    @apply mt-0.5 mb-0 text-xs;
-    color: var(--site-muted);
+    @apply mt-0.5 mb-0 text-xs text-muted;
   }
 
   .agenda-panel .agenda-row {
-    @apply rounded-none;
+    @apply rounded-none border-b border-line;
     border: 0;
-    border-bottom: 1px solid var(--site-line);
   }
 
   .agenda-panel .agenda-row:last-child {

@@ -32,13 +32,11 @@
     line-height: 1.45;
   }
   .spmb-home-banner .button {
-    @apply min-h-10;
+    @apply min-h-10 bg-brand-deep text-white;
     margin-top: 0.85rem;
     padding: 0.62rem 0.9rem;
     border: 0;
     border-radius: 0.35rem;
-    background: var(--site-brand-deep);
-    color: #fff;
   }
   .spmb-home-banner > img {
     @apply absolute h-full object-cover object-center;
@@ -55,10 +53,9 @@
     background: var(--home-soft);
   }
   .contact-strip-grid {
-    @apply grid overflow-hidden rounded-lg;
+    @apply grid overflow-hidden rounded-lg bg-white;
     grid-template-columns: repeat(4, 1fr);
     border: 1px solid var(--home-line);
-    background: #fff;
   }
   .contact-strip-grid > div {
     @apply flex items-center;
@@ -90,7 +87,7 @@
     @apply mt-0;
   }
   .footer-main {
-    background: var(--site-brand-deep);
+    @apply bg-brand-deep;
   }
 
   @variant max-lg {
@@ -172,11 +169,9 @@
 
 @layer components {
   .home-faq-cta {
-    @apply flex flex-col items-start justify-between gap-5 rounded-2xl;
+    @apply flex flex-col items-start justify-between gap-5 rounded-2xl bg-surface-alt text-ink;
     padding: clamp(1.5rem, 3vw, 2.5rem);
     border: 1px solid var(--home-line);
-    background: var(--site-surface-alt);
-    color: var(--site-ink);
   }
   .home-faq-cta h2 {
     @apply font-display text-3xl;
@@ -185,23 +180,20 @@
     line-height: 1.05;
   }
   .home-faq-cta p:last-child {
-    @apply text-sm leading-6;
+    @apply text-sm leading-6 text-muted;
     max-width: 42rem;
     margin: 0.65rem 0 0;
-    color: var(--site-muted);
   }
   .home-faq-cta .section-kicker {
     color: var(--home-gold);
   }
   .home-faq-cta .button {
-    @apply w-full justify-center;
-    background: var(--site-brand);
-    color: #fff;
-    border-color: var(--site-brand);
+    @apply w-full justify-center bg-brand text-white;
+    border-color: var(--color-brand);
   }
   .home-faq-cta .button:hover {
-    background: var(--site-brand-deep);
-    border-color: var(--site-brand-deep);
+    @apply bg-brand-deep;
+    border-color: var(--color-brand-deep);
   }
   @variant md {
     .home-faq-cta {

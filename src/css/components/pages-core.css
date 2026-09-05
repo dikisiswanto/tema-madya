@@ -75,8 +75,7 @@
   /* Native pages */
 
   .breadcrumb {
-    @apply flex flex-wrap items-center gap-2 text-xs mb-8;
-    color: var(--site-muted);
+    @apply flex flex-wrap items-center gap-2 text-xs mb-8 text-muted;
   }
   .breadcrumb > * {
     @apply min-w-0;
@@ -90,15 +89,14 @@
     }
   }
   .breadcrumb a:hover {
-    color: var(--site-brand);
+    @apply text-brand;
   }
   .collection-card {
+    @apply border-t border-line;
     padding: 1.6rem 0;
-    border-top: 1px solid var(--site-line);
   }
   .collection-card .meta {
-    @apply text-xs font-extrabold;
-    color: var(--site-accent);
+    @apply text-xs font-extrabold text-accent;
     letter-spacing: 0.08em;
   }
   .collection-card h2 {
@@ -109,9 +107,8 @@
     letter-spacing: -0.035em;
   }
   .collection-card p {
-    @apply m-0;
+    @apply m-0 text-muted;
     max-width: 34rem;
-    color: var(--site-muted);
     line-height: 1.75;
   }
   .collection-card img {
@@ -126,8 +123,7 @@
   }
   .article-prose h2,
   .article-prose h3 {
-    @apply font-display font-medium;
-    color: var(--site-ink);
+    @apply font-display font-medium text-ink;
     line-height: 1.1;
   }
   .article-prose h2 {
@@ -141,13 +137,10 @@
     margin: 0 0 1.35rem;
   }
   .article-prose a {
-    color: var(--site-brand-deep);
+    @apply text-brand-deep;
     text-decoration: underline;
     text-decoration-color: rgba(181, 139, 63, 0.55);
     text-underline-offset: 0.16em;
-  }
-  .article-prose a:hover {
-    color: var(--site-brand);
   }
   .article-prose ul,
   .article-prose ol {
@@ -168,20 +161,17 @@
 
   .share-row,
   .article-nav {
-    @apply flex items-center flex-wrap mt-10 pt-4;
+    @apply flex items-center flex-wrap mt-10 pt-4 border-t border-line;
     gap: 0.65rem;
-    border-top: 1px solid var(--site-line);
   }
   .related-card .meta {
-    @apply text-xs;
-    color: var(--site-muted);
+    @apply text-xs text-muted;
   }
   .article-nav a {
     flex: 1;
   }
   .article-nav span {
-    @apply block text-xs uppercase;
-    color: var(--site-muted);
+    @apply block text-xs uppercase text-muted;
     font-weight: 750;
     letter-spacing: 0.08em;
   }

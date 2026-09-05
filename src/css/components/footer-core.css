@@ -113,8 +113,7 @@
 
   /* Consolidated from historical institutional shell layer. */
   .footer-main {
-    background: var(--site-brand-deep);
-    color: #fff;
+    @apply bg-brand-deep text-white;
   }
   .footer-grid-rich {
     @apply grid gap-8;
@@ -132,8 +131,7 @@
     color: #d89a2b;
   }
   .madya-footer-brand strong {
-    @apply block text-lg;
-    color: #fff;
+    @apply block text-lg text-white;
   }
   .madya-footer-brand small {
     @apply block text-xs leading-5;
@@ -153,8 +151,7 @@
     line-height: 1.5;
   }
   .footer-title {
-    @apply text-xs leading-5;
-    color: #fff;
+    @apply text-xs leading-5 text-white;
     margin: 0 0 0.8rem;
   }
   .footer-links {
@@ -167,7 +164,7 @@
     line-height: 1.35;
   }
   .footer-links a:hover {
-    color: #fff;
+    @apply text-white;
   }
   .footer-socials {
     @apply flex;
@@ -237,6 +234,6 @@
 
 @layer components {
   .site-footer .faq-cta-gray {
-    background: var(--site-surface-alt);
+    @apply bg-surface-alt;
   }
 }

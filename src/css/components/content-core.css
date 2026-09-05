@@ -1,7 +1,7 @@
 @layer components {
   .madya-news-filter a.is-active,
   .madya-news-filter a:hover {
-    color: var(--site-brand-deep);
+    @apply text-brand-deep;
   }
   .madya-news-pagination {
     @apply mt-8;
@@ -29,56 +29,47 @@
     line-height: 0.98;
   }
   .document-group-heading > span {
-    @apply text-xs;
-    color: var(--site-muted);
+    @apply text-xs text-muted;
   }
   .document-row {
-    @apply grid gap-4 items-center;
+    @apply grid gap-4 items-center border-b border-line;
     grid-template-columns: 3.5rem minmax(0, 1fr) auto;
     padding: 1rem 0;
-    border-bottom: 1px solid var(--site-line);
     transition:
       background-color 0.18s ease,
       color 0.18s ease;
   }
   .document-row:hover {
-    background: var(--site-surface-alt);
+    @apply bg-surface-alt;
   }
   .document-type {
-    @apply text-xs font-extrabold;
-    color: var(--site-brand);
+    @apply text-xs font-extrabold text-brand;
     letter-spacing: 0.05em;
   }
   .document-main strong {
     @apply block text-sm;
   }
   .document-main small {
-    @apply block;
+    @apply block text-muted;
     margin-top: 0.15rem;
-    color: var(--site-muted);
   }
   .document-meta {
-    @apply text-xs;
-    color: var(--site-muted);
+    @apply text-xs text-muted;
   }
   .form-field label {
-    @apply block text-xs;
+    @apply block text-xs text-ink;
     margin-bottom: 0.4rem;
-    color: var(--site-ink);
     font-weight: 750;
   }
   .form-field input,
   .form-field textarea {
-    @apply w-full rounded-none;
-    border: 1px solid var(--site-line);
+    @apply w-full rounded-none border-line bg-white text-ink;
     padding: 0.88rem 0.9rem;
-    background: #fff;
-    color: var(--site-ink);
   }
   .form-field input:focus,
   .form-field textarea:focus {
-    border-color: var(--site-brand);
-    outline: 2px solid color-mix(in srgb, var(--site-brand) 16%, transparent);
+    border-color: var(--color-brand);
+    outline: 2px solid color-mix(in srgb, var(--color-brand) 16%, transparent);
     outline-offset: 1px;
   }
   .form-field textarea {
@@ -89,8 +80,8 @@
     @apply grid gap-0;
   }
   .contact-stack > div {
+    @apply border-t border-line;
     padding: 1.05rem 0;
-    border-top: 1px solid var(--site-line);
   }
   .contact-stack strong {
     @apply block font-display text-xl font-medium;
@@ -98,25 +89,20 @@
     line-height: 1.08;
   }
   .empty-state {
+    @apply text-muted border-t border-line;
     padding: 3rem 0;
-    color: var(--site-muted);
-    border-top: 1px solid var(--site-line);
   }
   .empty-state-mark {
-    @apply block;
+    @apply block text-accent;
     margin-bottom: 0.45rem;
-    color: var(--site-accent);
   }
 
   /* Consolidated from historical institutional shell layer. */
   .madya-theme input,
   .madya-theme textarea,
   .madya-theme select {
-    @apply w-full;
-    border: 1px solid var(--site-line);
+    @apply w-full border-line bg-white text-ink;
     border-radius: 0.55rem;
-    background: #fff;
-    color: var(--site-ink);
     padding: 0.72rem 0.8rem;
     outline: none;
   }
@@ -131,8 +117,7 @@
     resize: vertical;
   }
   .form-field label {
-    @apply block font-bold;
+    @apply block font-bold text-brand;
     margin-bottom: 0.35rem;
-    color: var(--site-brand);
   }
 }

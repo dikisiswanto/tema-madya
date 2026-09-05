@@ -6,12 +6,11 @@
     margin-top: -1.15rem;
   }
   .quick-service-grid {
-    @apply grid gap-0;
+    @apply grid gap-0 bg-white;
     grid-template-columns: repeat(6, minmax(0, 1fr));
     padding: 0.9rem 1rem;
     border: 1px solid var(--home-line);
     border-radius: 0.55rem;
-    background: #fff;
     box-shadow: 0 9px 28px rgba(4, 28, 70, 0.08);
   }
   .quick-service:last-child {
@@ -165,28 +164,24 @@
     @apply pt-0;
   }
   .quick-service-grid {
-    @apply grid rounded-2xl;
+    @apply grid rounded-2xl bg-white border-line;
     grid-template-columns: repeat(6, minmax(0, 1fr));
     gap: 0.65rem;
     padding: 1rem 1.1rem;
-    background: #fff;
-    border: 1px solid var(--site-line);
     box-shadow: 0 10px 30px rgba(4, 28, 70, 0.07);
   }
   .quick-service {
-    @apply flex items-center min-w-0;
+    @apply flex items-center min-w-0 border-r border-line;
     gap: 0.65rem;
     padding: 0.55rem 0.45rem;
-    border-right: 1px solid var(--site-line);
   }
   .quick-service:last-child {
     border-right: 0;
   }
   .quick-service-icon {
-    @apply grid w-8 h-8;
+    @apply grid w-8 h-8 text-brand;
     place-items: center;
     flex: none;
-    color: var(--site-brand);
   }
   .quick-service:nth-child(even) .quick-service-icon {
     color: #d89a2b;
@@ -195,13 +190,11 @@
     @apply w-5 h-5;
   }
   .quick-service strong {
-    @apply block;
-    color: var(--site-brand);
+    @apply block text-brand;
     line-height: 1.15;
   }
   .quick-service small {
-    @apply block;
-    color: var(--site-muted);
+    @apply block text-muted;
     line-height: 1.3;
     margin-top: 0.15rem;
   }
@@ -210,8 +203,8 @@
 @layer components {
   @variant max-sm {
     .quick-service {
+      @apply border-b border-line;
       border-right: 0;
-      border-bottom: 1px solid var(--site-line);
       padding-block: 0.65rem;
     }
     .quick-service:nth-last-child(-n + 2) {

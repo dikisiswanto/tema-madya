@@ -79,9 +79,6 @@
     .static-sidebar-card {
       @apply p-4;
     }
-    .static-sidebar-links a {
-      @apply text-xs;
-    }
     .static-feature-image img {
       @apply aspect-[4/2.2];
     }
@@ -126,48 +123,40 @@
 
 @layer components {
   .identity-table {
-    @apply overflow-hidden;
-    border: 1px solid var(--site-line);
+    @apply overflow-hidden border-line bg-white;
     border-radius: 0.85rem;
-    background: #fff;
   }
   .identity-table-header {
-    @apply block w-full;
+    @apply block w-full border-b border-line bg-surface-alt;
     padding: 1.15rem 1.25rem;
-    border-bottom: 1px solid var(--site-line);
-    background: var(--site-surface-alt);
   }
   .identity-table-header .eyebrow {
     margin: 0 0 0.3rem;
   }
   .identity-table-header h2 {
-    @apply m-0 font-display text-xl font-bold;
+    @apply m-0 font-display text-xl font-bold text-brand;
     line-height: 1.2;
-    color: var(--site-brand);
   }
   .identity-table-body {
     @apply grid;
   }
   .identity-row {
-    @apply grid gap-5 font-sans;
+    @apply grid gap-5 font-sans border-b border-line;
     grid-template-columns: minmax(8.5rem, 0.36fr) minmax(0, 1fr);
     padding: 0.95rem 1.25rem;
-    border-bottom: 1px solid var(--site-line);
   }
   .identity-row:last-child {
     border-bottom: 0;
   }
   .identity-row span {
-    @apply text-sm font-semibold;
+    @apply text-sm font-semibold text-muted;
     line-height: 1.5;
-    color: var(--site-muted);
   }
   .identity-row strong {
-    @apply min-w-0 text-base;
+    @apply min-w-0 text-base text-ink;
     overflow-wrap: anywhere;
     font-weight: 650;
     line-height: 1.55;
-    color: var(--site-ink);
   }
   .identity-table > .identity-row-legacy {
     padding: 1rem 0;

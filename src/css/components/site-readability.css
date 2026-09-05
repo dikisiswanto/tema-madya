@@ -6,7 +6,7 @@
   }
 
   .madya-theme :where(.eyebrow, .section-kicker, .hero-kicker) {
-    color: var(--site-accent-text);
+    color: var(--color-accent-text);
   }
 
   .madya-theme
@@ -14,7 +14,7 @@
       .news-archive-list .madya-news-card h2 a:hover,
       .news-category-list a:hover
     ) {
-    color: var(--site-accent-text);
+    color: var(--color-accent-text);
   }
 
   /* 960px+: one predictable minimum for metadata, labels and supporting copy. */
@@ -174,10 +174,6 @@
     }
 
     .quick-service strong {
-      @apply text-sm;
-    }
-
-    .principal-message strong {
       @apply text-sm;
     }
 

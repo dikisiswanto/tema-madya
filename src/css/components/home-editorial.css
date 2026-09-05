@@ -21,10 +21,9 @@
   .principal-panel,
   .program-panel,
   .middle-panel {
-    @apply min-w-0;
+    @apply min-w-0 bg-white;
     border: 1px solid var(--home-line);
     border-radius: 0.55rem;
-    background: #fff;
     box-shadow: 0 5px 18px rgba(4, 28, 70, 0.035);
   }
   .principal-panel {
@@ -126,10 +125,9 @@
     gap: 0.55rem;
   }
   .program-showcase-card {
-    @apply min-w-0 overflow-hidden;
+    @apply min-w-0 overflow-hidden bg-white;
     border: 1px solid var(--home-line);
     border-radius: 0.35rem;
-    background: #fff;
   }
   .program-showcase-media {
     @apply overflow-hidden;
@@ -445,7 +443,7 @@
     );
   }
   .home-page .extra-inline-icon {
-    @apply grid overflow-hidden rounded-full;
+    @apply grid overflow-hidden rounded-full bg-white;
     place-items: center;
     inline-size: 3rem;
     block-size: 3rem;
@@ -453,7 +451,6 @@
     flex: 0 0 3rem;
     border: 1px solid
       color-mix(in srgb, var(--rich-icon-color, var(--home-navy)) 28%, white);
-    background: #fff;
     color: var(--rich-icon-color, var(--home-navy));
   }
   .home-page .extra-inline-icon svg {
@@ -465,9 +462,8 @@
     line-height: 1;
   }
   .home-page .extra-inline-item > span:last-child {
-    @apply static font-sans text-sm font-bold text-center;
+    @apply static font-sans text-sm font-bold text-center text-ink;
     max-width: 18ch;
-    color: var(--site-ink);
     line-height: 1.35;
   }
 

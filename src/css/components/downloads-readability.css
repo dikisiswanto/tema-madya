@@ -177,10 +177,7 @@
     line-height: 1.45;
     font-weight: 650;
   }
-
-  .madya-theme .madya-faq-answer,
-  .madya-theme .rich-faq-list details > div,
-  .madya-theme .rich-faq-list .rich-faq-answer {
+  .madya-theme .madya-faq-answer {
     @apply font-sans text-sm;
     line-height: 1.7;
   }
@@ -213,12 +210,6 @@
     .madya-theme .rich-faq-list summary {
       @apply text-sm;
       line-height: 1.45;
-    }
-
-    .madya-theme .rich-faq-list details > div,
-    .madya-theme .rich-faq-list .rich-faq-answer {
-      @apply text-sm;
-      line-height: 1.7;
     }
 
     /* Documents: readable floor for content and sidebar at large widths. */

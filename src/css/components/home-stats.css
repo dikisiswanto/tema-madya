@@ -4,10 +4,9 @@
     @apply pt-4;
   }
   .home-stat-grid {
-    @apply grid overflow-hidden rounded-lg;
+    @apply grid overflow-hidden rounded-lg text-white;
     grid-template-columns: repeat(4, 1fr);
     background: var(--home-navy);
-    color: #fff;
   }
   .home-stat-item {
     @apply flex items-center gap-3.5 px-7 py-3;

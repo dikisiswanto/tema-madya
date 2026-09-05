@@ -40,8 +40,7 @@
     color: var(--home-deep);
   }
   .featured-news-home h3 {
-    @apply m-0 font-display text-xl font-medium;
-    color: #fff;
+    @apply m-0 font-display text-xl font-medium text-white;
     line-height: 1.03;
     letter-spacing: -0.02em;
   }
@@ -264,9 +263,7 @@
     grid-row: span 2;
   }
   .madya-news-card {
-    @apply rounded-2xl overflow-hidden;
-    border: 1px solid var(--site-line);
-    background: #fff;
+    @apply rounded-2xl overflow-hidden border-line bg-white;
   }
   .news-card-media {
     @apply block overflow-hidden;
@@ -289,12 +286,12 @@
     padding: 1.2rem 1.25rem 1.3rem;
   }
   .madya-news-card h2 {
+    @apply text-brand;
     margin: 0.55rem 0;
-    color: var(--site-brand);
     line-height: 1.1;
   }
   .madya-news-card p {
-    color: var(--site-muted);
+    @apply text-muted;
     line-height: 1.5;
   }
 }

@@ -7,32 +7,27 @@
     @apply pt-0;
   }
   .contact-summary-four {
-    @apply relative grid gap-0 rounded-2xl overflow-hidden;
+    @apply relative grid gap-0 rounded-2xl overflow-hidden border-line bg-white;
     z-index: 3;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     margin-top: -1.8rem;
-    border: 1px solid var(--site-line);
-    background: #fff;
     box-shadow: 0 14px 34px rgba(4, 28, 70, 0.08);
   }
   .contact-summary-four .contact-summary-item {
-    @apply flex items-center gap-3;
+    @apply flex items-center gap-3 border-r border-line bg-white;
     min-height: 7.1rem;
     padding: 1rem 1.1rem;
-    border-right: 1px solid var(--site-line);
-    background: #fff;
   }
   .contact-summary-four .contact-summary-item:last-child {
     border-right: 0;
   }
   .contact-summary-icon {
-    @apply grid rounded-full;
+    @apply grid rounded-full text-brand;
     flex: 0 0 2.65rem;
     width: 2.65rem;
     height: 2.65rem;
     place-items: center;
     background: #f4f7fb;
-    color: var(--site-brand);
   }
   .contact-summary-icon .icon-tabler {
     width: 1.45rem;
@@ -45,14 +40,12 @@
     @apply min-w-0;
   }
   .contact-summary-item strong {
-    @apply block text-xs;
+    @apply block text-xs text-brand;
     margin-bottom: 0.3rem;
-    color: var(--site-brand);
     line-height: 1.25;
   }
   .contact-summary-item small {
-    @apply block text-xs;
-    color: var(--site-muted);
+    @apply block text-xs text-muted;
     line-height: 1.55;
   }
   .contact-main-grid-reference {
@@ -62,18 +55,15 @@
   }
   .contact-reference-card,
   .contact-form-card {
-    @apply min-w-0 rounded-2xl;
+    @apply min-w-0 rounded-2xl border-line bg-white;
     padding: 1.55rem;
-    border: 1px solid var(--site-line);
-    background: #fff;
     box-shadow: 0 8px 24px rgba(4, 28, 70, 0.045);
   }
   .contact-info-heading h2,
   .contact-form-card h2 {
-    @apply font-display font-medium;
+    @apply font-display font-medium text-brand;
     max-width: 19ch;
     margin: 0.35rem 0 0.8rem;
-    color: var(--site-brand);
     font-size: clamp(1.65rem, 2.4vw, 2.25rem);
     line-height: 1.02;
     letter-spacing: -0.025em;
@@ -90,53 +80,45 @@
     gap: 0.7rem;
   }
   .contact-fact-icon {
-    @apply w-8 h-8 grid rounded-full;
+    @apply w-8 h-8 grid rounded-full text-accent;
     flex: 0 0 2rem;
     place-items: center;
     background: #fff6e8;
-    color: var(--site-accent);
   }
   .contact-fact-icon .icon-tabler {
     @apply w-4 h-4;
   }
   .contact-facts-list strong {
-    @apply block text-xs;
-    color: var(--site-brand);
+    @apply block text-xs text-brand;
   }
   .contact-facts-list small {
-    @apply block text-xs;
+    @apply block text-xs text-muted;
     margin-top: 0.12rem;
-    color: var(--site-muted);
     line-height: 1.5;
   }
   .contact-campus-photo {
-    @apply m-0 overflow-hidden;
+    @apply m-0 overflow-hidden bg-surface-alt;
     border-radius: 0.65rem;
-    background: var(--site-surface-alt);
   }
   .contact-campus-photo img {
     @apply block w-full object-cover;
     aspect-ratio: 4 / 5;
   }
   .contact-campus-photo figcaption {
-    @apply text-xs;
+    @apply text-xs text-muted;
     padding: 0.45rem 0.55rem;
-    color: var(--site-muted);
     line-height: 1.35;
   }
   .contact-location-block {
-    @apply mt-5;
+    @apply mt-5 border-t border-line;
     padding-top: 1.1rem;
-    border-top: 1px solid var(--site-line);
   }
   .contact-location-block h3 {
-    @apply font-display text-lg font-medium;
+    @apply font-display text-lg font-medium text-brand;
     margin: 0 0 0.65rem;
-    color: var(--site-brand);
   }
   .contact-map-wrap {
-    @apply min-h-48 overflow-hidden;
-    border: 1px solid var(--site-line);
+    @apply min-h-48 overflow-hidden border-line;
     border-radius: 0.65rem;
     background: #eef3f7;
   }
@@ -145,36 +127,32 @@
     border: 0;
   }
   .contact-map-fallback {
-    @apply min-h-48 grid p-4 text-center text-xs;
+    @apply min-h-48 grid p-4 text-center text-xs text-muted;
     place-items: center;
     align-content: center;
     gap: 0.55rem;
-    color: var(--site-muted);
   }
   .contact-map-fallback .icon-tabler {
+    @apply text-accent;
     width: 1.7rem;
     height: 1.7rem;
-    color: var(--site-accent);
   }
   .contact-map-link {
-    @apply flex items-center justify-center rounded-lg text-xs font-bold;
+    @apply flex items-center justify-center rounded-lg text-xs font-bold border-line text-brand;
     min-height: 2.45rem;
     gap: 0.45rem;
     margin-top: 0.55rem;
-    border: 1px solid var(--site-line);
-    color: var(--site-brand);
   }
   .contact-map-link:hover {
-    background: var(--site-surface-alt);
+    @apply bg-surface-alt;
   }
   .contact-form-card {
     padding: 1.7rem;
   }
   .contact-form-intro {
-    @apply text-xs;
+    @apply text-xs text-muted;
     max-width: 42ch;
     margin: 0 0 1.25rem;
-    color: var(--site-muted);
     line-height: 1.65;
   }
   .contact-form-grid {
@@ -188,9 +166,8 @@
     grid-column: 1 / -1;
   }
   .contact-form-grid .form-field label {
-    @apply text-xs;
+    @apply text-xs text-brand;
     margin-bottom: 0.35rem;
-    color: var(--site-brand);
     font-weight: 750;
   }
   .contact-form-grid .form-field label span {
@@ -206,12 +183,10 @@
     @apply min-h-32;
   }
   .form-counter {
-    @apply block text-xs mt-1 text-right;
-    color: var(--site-muted);
+    @apply block text-xs mt-1 text-right text-muted;
   }
   .contact-form-note {
-    @apply flex items-start gap-2 text-xs;
-    color: var(--site-muted);
+    @apply flex items-start gap-2 text-xs text-muted;
     line-height: 1.5;
   }
   .contact-form-note .icon-tabler {
@@ -227,9 +202,8 @@
     @apply w-4 h-4;
   }
   .contact-response-note {
-    @apply text-xs;
+    @apply text-xs text-muted;
     margin: 0.75rem 0 0;
-    color: var(--site-muted);
     line-height: 1.5;
   }
   .form-alert {
@@ -253,10 +227,9 @@
     grid-template-columns: minmax(0, 1.55fr) minmax(18rem, 0.9fr);
   }
   .contact-help-panel {
-    @apply grid gap-4 items-center min-w-0 rounded-2xl overflow-hidden;
+    @apply grid gap-4 items-center min-w-0 rounded-2xl overflow-hidden border-line;
     grid-template-columns: 7.5rem minmax(0, 1fr);
     padding: 1.1rem;
-    border: 1px solid var(--site-line);
     background: #f5f8fc;
   }
   .contact-help-panel > img {
@@ -265,14 +238,12 @@
     border-radius: 0.6rem;
   }
   .contact-help-copy h2 {
-    @apply font-display text-2xl font-medium;
+    @apply font-display text-2xl font-medium text-brand;
     margin: 0.3rem 0 0.45rem;
-    color: var(--site-brand);
     line-height: 1.05;
   }
   .contact-help-copy p:last-child {
-    @apply m-0 text-xs;
-    color: var(--site-muted);
+    @apply m-0 text-xs text-muted;
     line-height: 1.5;
   }
   .contact-help-links {
@@ -281,37 +252,30 @@
     grid-template-columns: repeat(4, 1fr);
   }
   .contact-help-links a {
-    @apply grid;
+    @apply grid border-line bg-white text-brand;
     gap: 0.18rem;
     min-height: 5.6rem;
     padding: 0.7rem;
-    border: 1px solid var(--site-line);
     border-radius: 0.55rem;
-    background: #fff;
-    color: var(--site-brand);
   }
   .contact-help-links a:hover {
     border-color: #c9d4e2;
     transform: translateY(-1px);
   }
   .contact-help-links .icon-tabler {
-    @apply w-5 h-5;
-    color: var(--site-accent);
+    @apply w-5 h-5 text-accent;
   }
   .contact-help-links strong {
     @apply text-xs;
   }
   .contact-help-links small {
-    @apply text-xs;
-    color: var(--site-muted);
+    @apply text-xs text-muted;
     line-height: 1.35;
   }
   .contact-newsletter-card {
-    @apply relative overflow-hidden rounded-2xl;
+    @apply relative overflow-hidden rounded-2xl bg-brand-deep text-white;
     min-height: 15rem;
     padding: 1.35rem;
-    background: var(--site-brand-deep);
-    color: #fff;
   }
   .contact-newsletter-card h2 {
     @apply font-display text-2xl font-medium;
@@ -361,35 +325,31 @@
     margin-bottom: 1.2rem;
   }
   .contact-summary-item {
-    @apply p-4;
-    border: 1px solid var(--site-line);
+    @apply p-4 border-line bg-white;
     border-radius: 0.8rem;
-    background: #fff;
   }
   .contact-summary-item .icon {
     color: #d89a2b;
   }
   .contact-summary-item strong {
-    @apply block;
+    @apply block text-brand;
     margin-top: 0.55rem;
-    color: var(--site-brand);
     line-height: 1.4;
   }
   .contact-summary-item small {
-    color: var(--site-muted);
+    @apply text-muted;
   }
   .contact-main-grid {
     @apply grid gap-6;
     grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
   }
   .contact-info-panel {
-    @apply rounded-2xl;
+    @apply rounded-2xl border-line;
     padding: 1.2rem;
     background: #f8fafd;
-    border: 1px solid var(--site-line);
   }
   .contact-info-panel h2 {
-    color: var(--site-brand);
+    @apply text-brand;
   }
 
   @variant max-lg {
@@ -416,8 +376,7 @@
   }
 
   .contact-summary-four .contact-summary-item {
-    @apply rounded-none;
-    border-top: 1px solid var(--site-line);
+    @apply rounded-none border-t border-line;
   }
 
   @variant max-lg {
@@ -434,10 +393,10 @@
       border-right: 0;
     }
     .contact-summary-four .contact-summary-item:nth-child(n + 4) {
-      border-top: 1px solid var(--site-line);
+      @apply border-t border-line;
     }
     .contact-summary-four .contact-summary-item:nth-child(4) {
-      border-right: 1px solid var(--site-line);
+      @apply border-r border-line;
     }
   }
 
@@ -449,7 +408,7 @@
       border-right: 0;
     }
     .contact-summary-four .contact-summary-item:nth-child(n + 3) {
-      border-top: 1px solid var(--site-line);
+      @apply border-t border-line;
     }
     .contact-main-grid-reference,
     .contact-lower-grid {
@@ -465,8 +424,8 @@
       grid-template-columns: 1fr;
     }
     .contact-summary-four .contact-summary-item {
+      @apply border-t border-line;
       min-height: 5.5rem;
-      border-top: 1px solid var(--site-line);
     }
     .contact-summary-four .contact-summary-item:first-child {
       border-top: 0;

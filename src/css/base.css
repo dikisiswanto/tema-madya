@@ -14,22 +14,10 @@
   }
   :root {
     /* Runtime font tokens: keep component CSS independent from Tailwind @theme output. */
-    --site-font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
-    --site-font-display: "Newsreader", ui-serif, Georgia, serif;
-    --site-brand: #072a63;
-    --site-brand-deep: #041c46;
-    --site-accent: #d89a2b;
-    --site-ink: #11244a;
-    --site-muted: #52627a;
-    --site-surface: #ffffff;
-    --site-surface-alt: #f8fafd;
-    --site-line: #e4e9f0;
     --site-content: 78rem;
     --site-gutter: clamp(1.25rem, 4vw, 4rem);
-    --shadow-float: var(--shadow-madya-float);
-    --shadow-soft: var(--shadow-madya-soft);
-    --ease: cubic-bezier(0.22, 1, 0.36, 1);
-    --ease-menu: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease: var(--ease-madya);
+    --ease-menu: var(--ease-madya-menu);
     --menu-duration: 240ms;
     --header-height: 4.75rem;
   }
@@ -85,9 +73,8 @@
      (especially headings) globally. Keep Madya's document defaults inside the
      theme root so playground and native MPA render from the same baseline. */
   .madya-theme :where(h1, h2, h3, h4, h5, h6) {
-    @apply m-0 font-display font-semibold;
+    @apply m-0 font-display font-semibold text-ink;
     line-height: 1.12;
-    color: var(--site-ink);
   }
 
   .madya-theme :where(p, ul, ol, dl, figure, blockquote) {
@@ -116,11 +103,11 @@
   }
 
   ::selection {
-    background: color-mix(in srgb, var(--site-accent) 18%, transparent);
+    background: color-mix(in srgb, var(--color-accent) 18%, transparent);
   }
 
   :focus-visible {
-    outline: 3px solid color-mix(in srgb, var(--site-accent) 72%, white);
+    outline: 3px solid color-mix(in srgb, var(--color-accent) 72%, white);
     outline-offset: 3px;
   }
 }

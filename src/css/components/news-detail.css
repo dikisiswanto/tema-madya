@@ -18,10 +18,9 @@
     @apply inline-flex min-h-7 items-center rounded-md bg-brand-soft px-3 text-xs font-bold uppercase tracking-[.06em] text-brand;
   }
   .article-header h1 {
-    @apply font-display font-semibold;
+    @apply font-display font-semibold text-brand;
     margin: 0.7rem 0 0.8rem;
     max-width: 24ch;
-    color: var(--site-brand);
     font-size: clamp(2rem, 3vw, 2.65rem);
     line-height: 1.06;
     letter-spacing: -0.025em;
@@ -37,20 +36,17 @@
     @apply size-4 text-brand;
   }
   .article-cover {
-    @apply overflow-hidden;
+    @apply overflow-hidden border-line bg-surface-alt;
     margin: 1.3rem 0 1.65rem;
-    border: 1px solid var(--site-line);
     border-radius: 0.65rem;
-    background: var(--site-surface-alt);
   }
   .article-cover img {
     @apply block w-full object-cover;
     max-height: 34rem;
   }
   .article-cover figcaption {
-    @apply text-xs;
+    @apply text-xs text-muted;
     padding: 0.65rem 0.9rem;
-    color: var(--site-muted);
     line-height: 1.5;
   }
   .article-prose {
@@ -65,9 +61,8 @@
   .article-prose h2,
   .article-prose h3,
   .article-prose h4 {
-    @apply font-display font-semibold;
+    @apply font-display font-semibold text-brand;
     margin: 2rem 0 0.75rem;
-    color: var(--site-brand);
     line-height: 1.12;
   }
   .article-prose h2 {
@@ -88,13 +83,11 @@
     margin: 0.35rem 0;
   }
   .article-prose blockquote {
-    @apply font-display text-base;
+    @apply font-display text-base bg-brand-soft text-brand;
     margin: 1.5rem 0;
     padding: 1rem 1.2rem;
-    border-left: 3px solid var(--site-accent);
+    border-left: 3px solid var(--color-accent);
     border-radius: 0.45rem;
-    background: var(--site-brand-soft);
-    color: var(--site-brand);
     line-height: 1.55;
   }
   .article-prose img {
@@ -103,7 +96,7 @@
     border-radius: 0.6rem;
   }
   .article-prose a {
-    color: var(--site-brand-deep);
+    @apply text-brand-deep;
     text-decoration: underline;
     text-decoration-color: rgba(216, 154, 43, 0.55);
     text-underline-offset: 0.16em;
@@ -121,19 +114,16 @@
     @apply border-brand bg-brand text-white;
   }
   .article-nav {
-    @apply grid;
+    @apply grid border-t border-line;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 0.85rem;
     margin-top: 1.8rem;
     padding-top: 1.2rem;
-    border-top: 1px solid var(--site-line);
   }
   .article-nav-card {
-    @apply min-w-0;
+    @apply min-w-0 border-line bg-white;
     padding: 1rem 1.1rem;
-    border: 1px solid var(--site-line);
     border-radius: 0.65rem;
-    background: #fff;
     box-shadow: var(--shadow-soft);
     transition:
       border-color 0.2s ease,
@@ -152,9 +142,8 @@
     @apply size-4 text-brand;
   }
   .article-nav-card strong {
-    @apply block font-display text-base;
+    @apply block font-display text-base text-brand;
     margin-top: 0.35rem;
-    color: var(--site-brand);
     line-height: 1.2;
   }
   .article-nav-next {
@@ -173,9 +162,8 @@
     @apply text-xs;
   }
   .article-section-heading h2 {
-    @apply font-display text-2xl font-semibold;
+    @apply font-display text-2xl font-semibold text-brand;
     margin: 0.35rem 0 0;
-    color: var(--site-brand);
     line-height: 1.08;
   }
   .article-related-grid {
@@ -283,22 +271,19 @@
     @apply size-4;
   }
   .article-newsletter {
-    @apply relative overflow-hidden;
+    @apply relative overflow-hidden bg-brand-deep text-white;
     min-height: 15rem;
     padding: 1.35rem;
     border-radius: 0.65rem;
-    background: var(--site-brand-deep);
-    color: #fff;
   }
   .article-newsletter .eyebrow {
     @apply text-xs;
     color: #d6b46e;
   }
   .article-newsletter h2 {
-    @apply font-display text-xl;
+    @apply font-display text-xl text-white;
     margin: 0.45rem 0 0.55rem;
     max-width: 14ch;
-    color: #fff;
     line-height: 1.08;
   }
   .article-newsletter p:not(.eyebrow) {
@@ -335,24 +320,20 @@
     gap: 0.8rem;
   }
   .comment-card {
-    @apply p-4;
-    border: 1px solid var(--site-line);
+    @apply p-4 border-line bg-white;
     border-radius: 0.65rem;
-    background: #fff;
     box-shadow: var(--shadow-soft);
   }
   .comment-card-inner {
     @apply flex gap-x-4;
   }
   .comment-card blockquote {
-    @apply text-sm;
-    color: var(--site-ink);
+    @apply text-sm text-ink;
     line-height: 1.65;
   }
   .comment-card figcaption {
-    @apply text-xs;
+    @apply text-xs text-muted;
     margin-top: 0.55rem;
-    color: var(--site-muted);
   }
 
   @variant xl {
@@ -580,21 +561,19 @@
     margin-bottom: 1.4rem;
   }
   .article-header h1 {
+    @apply text-brand;
     margin: 0.55rem 0 0.8rem;
-    color: var(--site-brand);
     font-size: clamp(2.2rem, 4.3vw, 4rem);
     line-height: 0.98;
     letter-spacing: -0.045em;
   }
   .article-meta {
-    @apply flex flex-wrap;
+    @apply flex flex-wrap text-muted;
     gap: 0.7rem;
-    color: var(--site-muted);
   }
   .article-cover {
-    @apply overflow-hidden rounded-2xl;
+    @apply overflow-hidden rounded-2xl border-line;
     margin: 0 0 1.5rem;
-    border: 1px solid var(--site-line);
   }
   .article-cover img {
     @apply w-full object-cover;
@@ -607,14 +586,14 @@
   }
   .article-prose h2,
   .article-prose h3 {
-    color: var(--site-brand);
+    @apply text-brand;
   }
   .article-prose blockquote {
+    @apply text-brand;
     margin: 1.5rem 0;
     padding: 1rem 1.2rem;
     border-left: 3px solid #d89a2b;
     background: #f8fafd;
-    color: var(--site-brand);
   }
 }
 
@@ -632,10 +611,9 @@
     padding: 1rem 1.5rem;
   }
   .article-tags span {
-    @apply inline-flex items-center rounded-full text-xs;
+    @apply inline-flex items-center rounded-full text-xs border-line;
     min-height: 1.8rem;
     margin: 0.25rem 0.35rem 0.25rem 0;
     padding: 0.2rem 0.65rem;
-    border: 1px solid var(--site-line);
   }
 }
