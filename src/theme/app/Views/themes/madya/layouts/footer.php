@@ -2,7 +2,7 @@
     <div class="newsletter-strip faq-strip">
         <div class="theme-container newsletter-inner">
             <div><p class="eyebrow eyebrow-dark">Pertanyaan yang Sering Diajukan</p><h2>Temukan jawaban sebelum menghubungi sekolah.</h2><p>Lihat informasi umum mengenai akademik, layanan, kegiatan, dan administrasi sekolah.</p></div>
-            <a class="button button-light" href="<?= base_url('/#faq') ?>"><i data-lucide="circle-help" aria-hidden="true"></i><span>Buka FAQ</span></a>
+            <a class="button button-accent" href="<?= base_url('/#faq') ?>"><i data-lucide="circle-help" aria-hidden="true"></i><span>Buka FAQ</span></a>
         </div>
     </div>
     <div class="footer-main">

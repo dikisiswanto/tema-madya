@@ -10,6 +10,12 @@
     @apply flex items-center gap-5;
     min-height: var(--header-height);
   }
+  .madya-header-inner .brand {
+    @apply mr-auto;
+  }
+  .desktop-nav-wrap {
+    @apply ml-auto;
+  }
   .brand {
     @apply inline-flex min-w-max items-center gap-3;
   }
@@ -287,7 +293,6 @@
     @apply w-full min-w-0 max-w-full flex items-center justify-between gap-4 m-0 text-left cursor-pointer min-h-16 border-b border-line text-ink;
     inline-size: 100%;
     padding: 0.95rem 0;
-    border: 0;
     background: transparent;
     transition:
       color 180ms var(--ease-madya),
@@ -359,6 +364,12 @@
   }
   .brand-copy {
     @apply grid gap-0.5;
+  }
+  .brand-copy strong {
+    @apply text-base leading-tight font-bold text-brand-deep;
+  }
+  .brand-copy small {
+    @apply text-sm leading-tight text-muted;
   }
 
   /* Level 1 is anchored to the trigger. Nested levels are viewport-positioned
@@ -487,7 +498,11 @@
    JS uses the same 64rem query so desktop submenu behavior and CSS never disagree. */
   @variant lg {
     .desktop-nav-wrap {
-      @apply flex;
+      @apply flex justify-end;
+    }
+    .desktop-nav,
+    .desktop-nav-wrap > ul {
+      @apply ml-auto justify-end;
     }
     .mobile-toggle,
     .mobile-nav {
@@ -520,7 +535,7 @@
       line-height: 1.05;
     }
     .desktop-nav-wrap {
-      @apply flex;
+      @apply flex justify-end;
     }
     .desktop-nav-link,
     .desktop-nav-trigger {
@@ -539,6 +554,16 @@
 
   /* Responsive rules relocated from home-documents-contact.css. */
   @variant max-lg {
+    .brand-copy strong {
+      @apply text-base;
+    }
+    .brand-copy small {
+      @apply text-xs;
+    }
+    .mobile-menu-link,
+    .mobile-menu-trigger {
+      @apply border-b border-line;
+    }
     .site-topbar {
       @apply hidden;
     }
@@ -558,9 +583,12 @@
       @apply min-h-20 gap-3;
     }
     .brand {
-      @apply min-w-0;
+      @apply min-w-0 mr-auto;
       flex: 1 1 auto;
       gap: 0.65rem;
+    }
+    .desktop-nav-wrap {
+      @apply hidden;
     }
     .brand-copy {
       @apply min-w-0;
@@ -575,8 +603,16 @@
     }
     .header-search,
     .mobile-toggle {
-      @apply w-11 h-11;
-      flex: 0 0 2.75rem;
+      @apply size-9 shrink-0;
+    }
+    .mobile-toggle {
+      @apply p-0;
+    }
+    .header-search {
+      @apply p-0;
+    }
+    .madya-header-inner {
+      @apply gap-2;
     }
     .mobile-menu-cta {
       @apply mt-5 min-h-12;

@@ -48,8 +48,7 @@
   }
 
   .agenda-panel .agenda-row {
-    @apply rounded-none border-b border-line;
-    border: 0;
+    @apply rounded-none border-0 border-b border-line;
   }
 
   .agenda-panel .agenda-row:last-child {

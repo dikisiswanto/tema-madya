@@ -25,7 +25,7 @@
     display: inline-grid;
     place-items: center;
     flex: 0 0 2.5rem;
-    color: var(--home-gold);
+    color: var(--color-accent);
     line-height: 1;
   }
   .madya-theme .home-stat-icon i {
@@ -37,7 +37,7 @@
     @apply grid w-full min-h-48;
     place-items: center;
     background: #eef2f5;
-    color: var(--home-navy);
+    color: var(--color-brand);
   }
   .madya-theme .madya-media-fallback i {
     @apply text-5xl;
@@ -140,7 +140,7 @@
     .madya-theme .home-page .quick-service-grid-count-6 .quick-service {
       @apply justify-center;
       border-top: 0;
-      border-right: 1px solid var(--home-line);
+      border-right: 1px solid var(--color-line);
     }
     .madya-theme
       .home-page

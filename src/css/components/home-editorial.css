@@ -22,7 +22,7 @@
   .program-panel,
   .middle-panel {
     @apply min-w-0 bg-white;
-    border: 1px solid var(--home-line);
+    border: 1px solid var(--color-line);
     border-radius: 0.55rem;
     box-shadow: 0 5px 18px rgba(4, 28, 70, 0.035);
   }
@@ -44,24 +44,24 @@
   }
   .principal-message .section-kicker {
     @apply text-xs;
-    color: var(--home-gold);
+    color: var(--color-accent);
   }
   .principal-message blockquote {
     @apply font-display text-2xl font-medium;
     max-width: 25rem;
     margin: 0.6rem 0 0.7rem;
-    color: var(--home-navy);
+    color: var(--color-brand);
     line-height: 1.04;
     letter-spacing: -0.025em;
   }
   .principal-message strong {
     @apply text-xs font-extrabold;
-    color: var(--home-navy);
+    color: var(--color-brand);
   }
   .principal-message > span {
     @apply text-xs;
     margin-top: 0.12rem;
-    color: var(--home-muted);
+    color: var(--color-muted);
   }
   .principal-facts {
     @apply grid;
@@ -74,22 +74,22 @@
     @apply flex items-center min-w-0;
     gap: 0.35rem;
     padding: 0.5rem 0.45rem;
-    border: 1px solid var(--home-line);
+    border: 1px solid var(--color-line);
     border-radius: 0.3rem;
   }
   .principal-facts svg {
     @apply w-3.5 h-3.5;
     flex: none;
-    color: var(--home-gold);
+    color: var(--color-accent);
   }
   .principal-facts b {
     @apply block text-xs;
-    color: var(--home-navy);
+    color: var(--color-brand);
     line-height: 1.1;
   }
   .principal-facts span {
     @apply block text-xs;
-    color: var(--home-muted);
+    color: var(--color-muted);
   }
 
   .program-panel {
@@ -105,7 +105,7 @@
     @apply font-display text-3xl font-medium;
     max-width: 19ch;
     margin: 0.5rem 0 0;
-    color: var(--home-navy);
+    color: var(--color-brand);
     line-height: 1.02;
     letter-spacing: -0.035em;
     text-wrap: balance;
@@ -113,7 +113,7 @@
   .section-head-row .text-link {
     @apply text-xs font-bold;
     flex: none;
-    color: var(--home-navy);
+    color: var(--color-brand);
   }
   .section-head-row .text-link svg {
     width: 0.82rem;
@@ -126,7 +126,7 @@
   }
   .program-showcase-card {
     @apply min-w-0 overflow-hidden bg-white;
-    border: 1px solid var(--home-line);
+    border: 1px solid var(--color-line);
     border-radius: 0.35rem;
   }
   .program-showcase-media {
@@ -143,29 +143,29 @@
   }
   .program-showcase-body h3 {
     @apply m-0 text-xs font-extrabold;
-    color: var(--home-navy);
+    color: var(--color-brand);
     line-height: 1.2;
   }
   .program-showcase-body p {
     @apply text-xs;
     margin: 0.25rem 0 0;
-    color: var(--home-muted);
+    color: var(--color-muted);
     line-height: 1.42;
   }
   .extra-inline {
     margin-top: 0.8rem;
     padding-top: 0.7rem;
-    border-top: 1px solid var(--home-line);
+    border-top: 1px solid var(--color-line);
   }
   .subsection-label {
     @apply flex justify-between items-center text-xs font-extrabold;
     margin-bottom: 0.45rem;
-    color: var(--home-navy);
+    color: var(--color-brand);
   }
   .subsection-label a {
     @apply inline-flex items-center text-xs;
     gap: 0.2rem;
-    color: var(--home-navy);
+    color: var(--color-brand);
   }
   .extra-inline-list {
     @apply grid;
@@ -175,7 +175,7 @@
   .empty-inline {
     @apply min-h-36 grid text-xs;
     place-items: center;
-    color: var(--home-muted);
+    color: var(--color-muted);
   }
 
   /* Responsive variants co-located from home-responsive.css; cascade values preserved. */
@@ -368,7 +368,11 @@
   }
 
   .home-page .program-showcase-card {
-    border-color: color-mix(in srgb, var(--home-line) 80%, var(--home-gold));
+    border-color: color-mix(
+      in srgb,
+      var(--color-line) 80%,
+      var(--color-accent)
+    );
   }
 
   .home-page
@@ -432,13 +436,13 @@
     border: 1px solid
       color-mix(
         in srgb,
-        var(--rich-icon-color, var(--home-navy)) 22%,
-        var(--home-line)
+        var(--rich-icon-color, var(--color-brand)) 22%,
+        var(--color-line)
       );
     border-radius: 0.65rem;
     background: color-mix(
       in srgb,
-      var(--rich-icon-color, var(--home-navy)) 7%,
+      var(--rich-icon-color, var(--color-brand)) 7%,
       white
     );
   }
@@ -450,8 +454,8 @@
     aspect-ratio: 1;
     flex: 0 0 3rem;
     border: 1px solid
-      color-mix(in srgb, var(--rich-icon-color, var(--home-navy)) 28%, white);
-    color: var(--rich-icon-color, var(--home-navy));
+      color-mix(in srgb, var(--rich-icon-color, var(--color-brand)) 28%, white);
+    color: var(--rich-icon-color, var(--color-brand));
   }
   .home-page .extra-inline-icon svg {
     @apply block h-7 m-0;

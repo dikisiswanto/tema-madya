@@ -237,3 +237,16 @@
     @apply bg-surface-alt;
   }
 }
+
+/* Mobile CTA contract: stacked content with full-width primary action. */
+
+@layer components {
+  @variant max-md {
+    .newsletter-inner {
+      @apply grid-cols-1;
+    }
+    .newsletter-inner > .button {
+      @apply w-full justify-center;
+    }
+  }
+}

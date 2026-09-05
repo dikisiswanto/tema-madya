@@ -53,20 +53,20 @@
   .home-hero-copy h1 {
     @apply m-0 font-display font-medium;
     max-width: 12ch;
-    color: var(--home-navy);
+    color: var(--color-brand);
     font-size: clamp(3.8rem, 5.05vw, 6.1rem);
     line-height: 0.93;
     letter-spacing: -0.055em;
     text-wrap: balance;
   }
   .hero-title-accent {
-    color: var(--home-gold);
+    color: var(--color-accent);
   }
   .home-hero-copy > .hero-lead {
     @apply text-base;
     max-width: 38rem;
     margin: 1.5rem 0 0;
-    color: var(--home-muted);
+    color: var(--color-muted);
     line-height: 1.7;
   }
   .home-hero-actions {

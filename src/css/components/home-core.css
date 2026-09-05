@@ -133,3 +133,14 @@
     letter-spacing: 0.08em;
   }
 }
+
+/* Mobile CTA contract. */
+
+@layer components {
+  @variant max-md {
+    .section-cta-inner .button,
+    .spmb-home-banner .button {
+      @apply w-full justify-center;
+    }
+  }
+}

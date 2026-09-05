@@ -9,7 +9,7 @@
     @apply grid gap-0 bg-white;
     grid-template-columns: repeat(6, minmax(0, 1fr));
     padding: 0.9rem 1rem;
-    border: 1px solid var(--home-line);
+    border: 1px solid var(--color-line);
     border-radius: 0.55rem;
     box-shadow: 0 9px 28px rgba(4, 28, 70, 0.08);
   }
@@ -25,12 +25,12 @@
     min-height: 4.1rem;
     gap: 0.7rem;
     padding: 0.5rem 1rem;
-    border-right: 1px solid var(--home-line);
+    border-right: 1px solid var(--color-line);
   }
   .quick-service-icon {
     width: 2.2rem;
     height: 2.2rem;
-    color: var(--home-navy);
+    color: var(--color-brand);
   }
   .quick-service-icon svg {
     width: 1.55rem;
@@ -39,13 +39,13 @@
   }
   .quick-service strong {
     @apply text-xs font-extrabold;
-    color: var(--home-navy);
+    color: var(--color-brand);
     line-height: 1.2;
   }
   .quick-service small {
     @apply text-xs;
     margin-top: 0.22rem;
-    color: var(--home-muted);
+    color: var(--color-muted);
     line-height: 1.35;
   }
 
@@ -106,7 +106,7 @@
       border-right: 0;
     }
     .quick-service:nth-child(n + 4) {
-      border-top: 1px solid var(--home-line);
+      border-top: 1px solid var(--color-line);
     }
   }
 
@@ -118,21 +118,12 @@
       border-right: 0;
     }
     .quick-service:nth-child(n + 3) {
-      border-top: 1px solid var(--home-line);
+      border-top: 1px solid var(--color-line);
     }
   }
 
   /* Responsive rules relocated from home-documents-contact.css. */
   @variant max-lg {
-    .quick-service-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-    .quick-service:nth-child(3) {
-      border-right: 0;
-    }
-    .quick-service:nth-child(n + 4) {
-      border-top: 1px solid var(--home-line);
-    }
     .quick-service-grid {
       grid-template-columns: repeat(2, 1fr);
     }
@@ -140,7 +131,7 @@
       border-right: 0;
     }
     .quick-service:nth-child(n + 3) {
-      border-top: 1px solid var(--home-line);
+      border-top: 1px solid var(--color-line);
     }
   }
   @variant max-sm {
@@ -151,7 +142,7 @@
       border-right: 0;
     }
     .quick-service:nth-child(n + 2) {
-      border-top: 1px solid var(--home-line);
+      border-top: 1px solid var(--color-line);
     }
   }
 
@@ -217,12 +208,12 @@
   .madya-theme .home-page .quick-service-grid {
     @apply grid justify-center gap-0 overflow-hidden rounded-lg;
     grid-template-columns: repeat(6, minmax(0, 1fr));
-    border: 1px solid var(--home-line);
+    border: 1px solid var(--color-line);
   }
 
   .madya-theme .home-page .quick-service-grid .quick-service {
     @apply min-w-0 rounded-none min-h-24;
-    border-right: 1px solid var(--home-line);
+    border-right: 1px solid var(--color-line);
     border-bottom: 0;
   }
   .madya-theme .home-page .quick-service-grid .quick-service:last-child {
@@ -240,7 +231,7 @@
       .home-page
       .quick-service-grid
       .quick-service:nth-child(n + 4) {
-      border-top: 1px solid var(--home-line);
+      border-top: 1px solid var(--color-line);
     }
   }
 
@@ -249,7 +240,7 @@
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
     .madya-theme .home-page .quick-service-grid .quick-service:nth-child(3n) {
-      border-right: 1px solid var(--home-line);
+      border-right: 1px solid var(--color-line);
     }
     .madya-theme .home-page .quick-service-grid .quick-service:nth-child(2n) {
       border-right: 0;
@@ -258,7 +249,7 @@
       .home-page
       .quick-service-grid
       .quick-service:nth-child(n + 3) {
-      border-top: 1px solid var(--home-line);
+      border-top: 1px solid var(--color-line);
     }
 
     /* Center incomplete final rows without introducing a third column. */

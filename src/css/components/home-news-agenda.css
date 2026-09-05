@@ -9,7 +9,7 @@
     @apply relative overflow-hidden;
     min-height: 12.3rem;
     border-radius: 0.35rem;
-    background: var(--home-deep);
+    background: var(--color-brand-deep);
   }
   .featured-news-home .madya-media-fallback {
     min-height: 12.3rem !important;
@@ -36,8 +36,8 @@
     margin-bottom: 0.45rem;
     padding: 0.24rem 0.4rem;
     border-radius: 0.2rem;
-    background: var(--home-gold);
-    color: var(--home-deep);
+    background: var(--color-accent);
+    color: var(--color-brand-deep);
   }
   .featured-news-home h3 {
     @apply m-0 font-display text-xl font-medium text-white;
@@ -57,7 +57,7 @@
     @apply grid min-w-0 pb-2;
     grid-template-columns: 4.7rem minmax(0, 1fr);
     gap: 0.55rem;
-    border-bottom: 1px solid var(--home-line);
+    border-bottom: 1px solid var(--color-line);
   }
   .news-home-side img {
     @apply object-cover rounded;
@@ -66,17 +66,17 @@
   }
   .news-home-side strong {
     @apply block text-xs;
-    color: var(--home-navy);
+    color: var(--color-brand);
     line-height: 1.25;
   }
   .news-home-side small {
     @apply block text-xs;
     margin-top: 0.2rem;
-    color: var(--home-muted);
+    color: var(--color-muted);
   }
   .agenda-list {
     @apply overflow-hidden;
-    border: 1px solid var(--home-line);
+    border: 1px solid var(--color-line);
     border-radius: 0.35rem;
   }
   .agenda-item {
@@ -85,7 +85,7 @@
     gap: 0.65rem;
     min-height: 4.05rem;
     padding: 0.55rem 0.7rem;
-    border-bottom: 1px solid var(--home-line);
+    border-bottom: 1px solid var(--color-line);
   }
   .agenda-item:last-child {
     border-bottom: 0;
@@ -97,7 +97,7 @@
     border: 1px solid #ead9b7;
     border-radius: 0.3rem;
     background: #fffaf0;
-    color: var(--home-navy);
+    color: var(--color-brand);
   }
   .agenda-item time b {
     @apply text-sm;
@@ -106,21 +106,21 @@
   .agenda-item time span {
     @apply text-xs font-extrabold;
     margin-top: 0.1rem;
-    color: var(--home-gold);
+    color: var(--color-accent);
   }
   .agenda-item h3 {
     @apply m-0 text-xs font-extrabold;
-    color: var(--home-navy);
+    color: var(--color-brand);
     line-height: 1.25;
   }
   .agenda-item p {
     @apply text-xs;
     margin: 0.2rem 0 0;
-    color: var(--home-muted);
+    color: var(--color-muted);
   }
   .agenda-item > svg {
     width: 0.82rem;
-    color: var(--home-gold);
+    color: var(--color-accent);
   }
 
   /* Responsive variants co-located from home-responsive.css; cascade values preserved. */

@@ -413,3 +413,13 @@
    Editorial Newsreader is reserved for editorial/content storytelling. Utility
    surfaces such as documents and sidebars use the interface sans for scanning. */
 }
+
+/* Mobile FAQ CTA contract. */
+
+@layer components {
+  @variant max-md {
+    .faq-cta-card .button {
+      @apply w-full justify-center;
+    }
+  }
+}

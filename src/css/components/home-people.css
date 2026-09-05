@@ -10,7 +10,7 @@
   }
   .madya-teacher-card {
     @apply min-w-0 overflow-hidden bg-white;
-    border: 1px solid var(--home-line);
+    border: 1px solid var(--color-line);
     border-radius: 0.3rem;
   }
   .madya-teacher-card img {
@@ -24,17 +24,17 @@
   }
   .madya-teacher-card strong {
     @apply block text-xs;
-    color: var(--home-navy);
+    color: var(--color-brand);
     line-height: 1.2;
   }
   .madya-teacher-card span {
     @apply block text-xs;
     margin-top: 0.16rem;
-    color: var(--home-muted);
+    color: var(--color-muted);
     line-height: 1.2;
   }
   .achievement-list {
-    border-top: 1px solid var(--home-line);
+    border-top: 1px solid var(--color-line);
   }
   .achievement-list-row {
     @apply grid items-center;
@@ -42,13 +42,13 @@
     gap: 0.65rem;
     min-height: 4.25rem;
     padding: 0.65rem 0;
-    border-bottom: 1px solid var(--home-line);
+    border-bottom: 1px solid var(--color-line);
   }
   .achievement-list-icon {
     @apply grid h-7;
     place-items: center;
     width: 1.8rem;
-    color: var(--home-gold);
+    color: var(--color-accent);
   }
   .achievement-list-icon svg {
     width: 1.15rem;
@@ -56,18 +56,18 @@
   }
   .achievement-list-row strong {
     @apply block text-xs;
-    color: var(--home-navy);
+    color: var(--color-brand);
     line-height: 1.2;
   }
   .achievement-list-row small {
     @apply block text-xs;
     margin-top: 0.2rem;
-    color: var(--home-muted);
+    color: var(--color-muted);
     line-height: 1.35;
   }
   .achievement-list-row time {
     @apply text-xs whitespace-nowrap;
-    color: var(--home-muted);
+    color: var(--color-muted);
   }
 
   /* Responsive variants co-located from home-responsive.css; cascade values preserved. */

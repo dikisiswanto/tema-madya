@@ -10,11 +10,10 @@
     box-shadow: 0 14px 34px rgba(4, 28, 70, 0.08);
   }
   .download-stat-grid-reference .download-stat {
-    @apply flex items-center rounded-none border-r border-line bg-white;
+    @apply flex items-center rounded-none border-0 border-r border-line bg-white;
     min-height: 6.8rem;
     gap: 0.8rem;
     padding: 1rem 1.25rem;
-    border: 0;
   }
   .download-stat-grid-reference .download-stat:last-child {
     border-right: 0;
@@ -308,6 +307,9 @@
     }
   }
   @variant max-lg {
+    .download-content-grid {
+      @apply grid-cols-1;
+    }
     .download-sidebar-reference {
       @apply static;
     }

@@ -18,19 +18,19 @@
     @apply relative bg-white;
     min-height: 12.3rem;
     padding: 1.15rem 1.25rem 1rem 3.5rem;
-    border: 1px solid var(--home-line);
+    border: 1px solid var(--color-line);
     border-radius: 0.35rem;
   }
   .testimonial-quote-mark {
     @apply absolute font-display text-6xl;
     top: 0.7rem;
     left: 1.05rem;
-    color: var(--home-navy);
+    color: var(--color-brand);
     line-height: 1;
   }
   .testimonial-feature blockquote {
     @apply text-xs;
-    color: var(--home-muted);
+    color: var(--color-muted);
     line-height: 1.65;
   }
   .testimonial-person {
@@ -45,12 +45,12 @@
   }
   .testimonial-person strong {
     @apply block text-xs;
-    color: var(--home-navy);
+    color: var(--color-brand);
   }
   .testimonial-person small {
     @apply block text-xs;
     margin-top: 0.08rem;
-    color: var(--home-muted);
+    color: var(--color-muted);
   }
   .testimonial-person .madya-media-fallback {
     min-height: 1rem !important;
@@ -83,18 +83,6 @@
     .testimonial-person img {
       width: 1.7rem;
       height: 1.7rem;
-    }
-    .testimonial-person strong {
-      @apply text-xs;
-    }
-    .testimonial-person small {
-      @apply text-xs;
-    }
-  }
-
-  @variant 2xl {
-    .testimonial-feature blockquote {
-      @apply text-sm;
     }
     .testimonial-person strong {
       @apply text-xs;

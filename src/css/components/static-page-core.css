@@ -131,6 +131,12 @@
     @apply size-4;
   }
 
+  @variant max-lg {
+    .static-page-layout {
+      @apply grid-cols-1;
+    }
+  }
+
   @variant xl {
     .static-page-layout {
       grid-template-columns: minmax(0, 1fr) 19rem;
@@ -153,6 +159,22 @@
     }
     .static-newsletter-card p:not(.eyebrow) {
       @apply text-xs;
+    }
+  }
+}
+
+/* Profile vision/mission typography. */
+
+@layer components {
+  .static-info-card .static-mission-copy,
+  .static-info-card > div:last-child > p {
+    @apply text-base;
+  }
+
+  @variant max-md {
+    .static-info-card .static-mission-copy,
+    .static-info-card > div:last-child > p {
+      @apply text-sm;
     }
   }
 }

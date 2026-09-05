@@ -88,7 +88,6 @@ $testimonialMeta = $sectionMeta('testimonials', 'Testimoni', 'Apa kata mereka te
 $newsMeta = $sectionMeta('news', 'Berita & Artikel', 'Informasi terkini seputar sekolah.');
 $eventMeta = $sectionMeta('events', 'Agenda & Kegiatan', 'Jadwal kegiatan dan acara mendatang.');
 $galleryMeta = $sectionMeta('gallery', 'Galeri', 'Dokumentasi kegiatan dan momen berharga.');
-$faqMeta = $sectionMeta('faq', 'FAQ', 'Pertanyaan yang sering diajukan.');
 $downloadMeta = $sectionMeta('downloads', 'Dokumen Sekolah', 'Dokumen resmi sekolah.');
 $contactMeta = $sectionMeta('contact', 'Kontak Kami', 'Hubungi kami untuk informasi lebih lanjut.');
 ?>
@@ -490,21 +489,6 @@ $mediaFallbackIcon = static function (string $kind): string {
       </div>
     </div>
   </section>
-
-  <?php if (!empty($faq)): ?>
-  <section class="home-section home-faq-cta-section" id="faq" aria-label="Pertanyaan yang sering diajukan">
-    <div class="theme-container">
-      <aside class="home-faq-cta">
-        <div>
-          <p class="section-kicker"><?= esc($faqMeta['title']) ?></p>
-          <h2><?= esc($faqMeta['subtitle'] ?: 'Pertanyaan yang sering diajukan.') ?></h2>
-          <p>Temukan jawaban singkat sebelum menghubungi sekolah.</p>
-        </div>
-        <a class="button button-accent" href="<?= base_url('faq') ?>">Lihat FAQ <i data-lucide="arrow-right" aria-hidden="true"></i></a>
-      </aside>
-    </div>
-  </section>
-  <?php endif; ?>
 
   <?php if (!empty($spmb_url)): ?>
   <section class="home-section section-soft" id="spmb">

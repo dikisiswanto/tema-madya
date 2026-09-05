@@ -2,14 +2,8 @@
   .home-page {
     @apply text-base;
     --home-container: min(90vw, 108rem);
-    --home-navy: #072a63;
-    --home-deep: #041c46;
-    --home-gold: #d89a2b;
-    --home-ink: #11244a;
-    --home-muted: #52627a;
-    --home-line: #e4e9f0;
     --home-soft: #f7f9fc;
-    color: var(--home-ink);
+    color: var(--color-ink);
   }
 
   .home-page .theme-container,
@@ -28,7 +22,7 @@
   .home-page .hero-kicker {
     @apply inline-flex items-center m-0 text-xs font-extrabold uppercase;
     gap: 0.55rem;
-    color: var(--home-gold);
+    color: var(--color-accent);
     line-height: 1.2;
     letter-spacing: 0.075em;
   }

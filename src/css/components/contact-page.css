@@ -175,9 +175,13 @@
   }
   .contact-form-grid input,
   .contact-form-grid textarea {
-    @apply rounded-lg text-xs;
+    @apply rounded-lg border border-line bg-white text-xs text-ink outline-none transition-colors;
     min-height: 2.7rem;
     padding: 0.72rem 0.8rem;
+  }
+  .contact-form-grid input:focus,
+  .contact-form-grid textarea:focus {
+    @apply border-brand ring-2 ring-accent/20;
   }
   .contact-form-grid textarea {
     @apply min-h-32;

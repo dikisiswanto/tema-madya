@@ -6,7 +6,7 @@
   .home-stat-grid {
     @apply grid overflow-hidden rounded-lg text-white;
     grid-template-columns: repeat(4, 1fr);
-    background: var(--home-navy);
+    background: var(--color-brand);
   }
   .home-stat-item {
     @apply flex items-center gap-3.5 px-7 py-3;
@@ -33,11 +33,11 @@
     @apply min-w-0;
   }
   .home-page .home-stat-item > .home-stat-icon {
-    @apply grid shrink-0 place-items-center w-9 h-9;
-    color: var(--home-gold);
+    @apply grid shrink-0 place-items-center;
+    color: var(--color-accent);
   }
   .home-page .home-stat-item > .home-stat-icon > :is(svg, i) {
-    @apply w-9 h-9 text-4xl;
+    @apply size-auto text-3xl;
   }
 
   @variant max-lg {
@@ -67,12 +67,11 @@
       gap: 0.65rem;
       padding-inline: 0.9rem;
     }
-    .home-page .home-stat-item > .home-stat-icon,
-    .home-page .home-stat-item > .home-stat-icon > :is(svg, i) {
-      @apply w-8 h-8;
+    .home-page .home-stat-item > .home-stat-icon {
+      @apply size-auto;
     }
     .home-page .home-stat-item > .home-stat-icon > :is(svg, i) {
-      @apply text-3xl;
+      @apply size-auto text-2xl;
     }
   }
 }
@@ -80,7 +79,7 @@
 @layer components {
   .home-page .home-stat-item {
     --stat-icon-bg: rgb(216 154 43 / 14%);
-    --stat-icon-color: var(--home-gold);
+    --stat-icon-color: var(--color-accent);
   }
   .home-page .home-stat-item:nth-child(2) {
     --stat-icon-bg: rgb(37 99 235 / 12%);
@@ -95,14 +94,19 @@
     --stat-icon-color: #7c3aed;
   }
   .home-page .home-stat-item > .home-stat-icon {
-    @apply w-12 h-12;
-    border-radius: 0.85rem;
+    @apply grid h-fit w-fit shrink-0 place-items-center rounded-xl p-1.5;
     background: var(--stat-icon-bg);
     color: var(--stat-icon-color);
     box-shadow: 0 6px 16px rgb(4 28 70 / 8%);
   }
   .home-page .home-stat-item > .home-stat-icon > :is(svg, i) {
-    @apply text-4xl;
+    @apply size-auto text-2xl;
     filter: drop-shadow(0 2px 3px rgb(4 28 70 / 12%));
+  }
+
+  @variant lg {
+    .home-page .home-stat-item > .home-stat-icon > :is(svg, i) {
+      @apply text-3xl;
+    }
   }
 }
