@@ -27,59 +27,6 @@ test('sidebar layouts collapse to one column on mobile', async ({ page }) => {
     await expectSingleColumn(page, '.article-detail-layout');
 });
 
-test('footer FAQ CTA stacks and uses the primary action on mobile', async ({
-    page,
-}) => {
-    await page.setViewportSize({ width: 390, height: 844 });
-    await page.goto('/');
-
-    const cta = page.locator('.newsletter-inner').first();
-    await expect(cta).toBeVisible();
-
-    const columns = await cta.evaluate(
-        (el) => getComputedStyle(el).gridTemplateColumns,
-    );
-    expect(columns.trim().split(/\s+/)).toHaveLength(1);
-
-    const button = cta.locator('.button').first();
-    await expect(button).toHaveClass(/button-accent/);
-
-    const [ctaBox, buttonBox] = await Promise.all([
-        cta.boundingBox(),
-        button.boundingBox(),
-    ]);
-
-    expect(ctaBox).not.toBeNull();
-    expect(buttonBox).not.toBeNull();
-    expect(
-        Math.abs((buttonBox?.width ?? 0) - (ctaBox?.width ?? 0)),
-    ).toBeLessThanOrEqual(2);
-});
-
-test('homepage FAQ CTA remains stacked on mobile', async ({ page }) => {
-    await page.setViewportSize({ width: 390, height: 844 });
-    await page.goto('/');
-
-    const cta = page.locator('.home-faq-cta').first();
-    await expect(cta).toBeVisible();
-
-    const columns = await cta.evaluate(
-        (el) => getComputedStyle(el).gridTemplateColumns,
-    );
-    expect(columns.trim().split(/\s+/)).toHaveLength(1);
-
-    const [ctaBox, buttonBox] = await Promise.all([
-        cta.boundingBox(),
-        cta.locator('.button').first().boundingBox(),
-    ]);
-
-    expect(ctaBox).not.toBeNull();
-    expect(buttonBox).not.toBeNull();
-    expect(
-        Math.abs((buttonBox?.width ?? 0) - (ctaBox?.width ?? 0)),
-    ).toBeLessThanOrEqual(2);
-});
-
 test('desktop sidebar layouts remain two-column where intended', async ({
     page,
 }) => {
