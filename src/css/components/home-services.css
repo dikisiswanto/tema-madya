@@ -6,12 +6,9 @@
     margin-top: -1.15rem;
   }
   .quick-service-grid {
-    @apply grid gap-0 bg-white;
+    @apply grid gap-0 py-2;
     grid-template-columns: repeat(6, minmax(0, 1fr));
-    padding: 0.9rem 1rem;
-    border: 1px solid var(--color-line);
     border-radius: 0.55rem;
-    box-shadow: 0 9px 28px rgba(4, 28, 70, 0.08);
   }
   .quick-service:last-child {
     border-right: 0;
@@ -155,11 +152,9 @@
     @apply pt-0;
   }
   .quick-service-grid {
-    @apply grid rounded-2xl bg-white border-line;
+    @apply grid rounded-2xl border-line;
     grid-template-columns: repeat(6, minmax(0, 1fr));
     gap: 0.65rem;
-    padding: 1rem 1.1rem;
-    box-shadow: 0 10px 30px rgba(4, 28, 70, 0.07);
   }
   .quick-service {
     @apply flex items-center min-w-0 border-r border-line;
@@ -205,26 +200,25 @@
 }
 
 @layer components {
-  .madya-theme .home-page .quick-service-grid {
+  .quick-service-grid {
     @apply grid justify-center gap-0 overflow-hidden rounded-lg;
     grid-template-columns: repeat(6, minmax(0, 1fr));
-    border: 1px solid var(--color-line);
   }
 
-  .madya-theme .home-page .quick-service-grid .quick-service {
+  .quick-service-grid .quick-service {
     @apply min-w-0 rounded-none min-h-24;
     border-right: 1px solid var(--color-line);
     border-bottom: 0;
   }
-  .madya-theme .home-page .quick-service-grid .quick-service:last-child {
+  .quick-service-grid .quick-service:last-child {
     border-right: 0;
   }
 
   @variant max-xl {
-    .madya-theme .home-page .quick-service-grid {
+    .quick-service-grid {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
-    .madya-theme .home-page .quick-service-grid .quick-service:nth-child(3n) {
+    .quick-service-grid .quick-service:nth-child(3n) {
       border-right: 0;
     }
     .madya-theme
@@ -236,13 +230,13 @@
   }
 
   @variant max-lg {
-    .madya-theme .home-page .quick-service-grid {
+    .quick-service-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
-    .madya-theme .home-page .quick-service-grid .quick-service:nth-child(3n) {
+    .quick-service-grid .quick-service:nth-child(3n) {
       border-right: 1px solid var(--color-line);
     }
-    .madya-theme .home-page .quick-service-grid .quick-service:nth-child(2n) {
+    .quick-service-grid .quick-service:nth-child(2n) {
       border-right: 0;
     }
     .madya-theme
@@ -266,18 +260,18 @@
       justify-self: center;
       border-right: 0;
     }
-    .madya-theme .home-page .quick-service-grid-count-1 .quick-service,
-    .madya-theme .home-page .quick-service-grid-count-2 .quick-service {
+    .quick-service-grid-count-1 .quick-service,
+    .quick-service-grid-count-2 .quick-service {
       border-top: 0;
     }
   }
 
   @variant max-sm {
-    .madya-theme .home-page .quick-service-grid {
+    .quick-service-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
       border-radius: 0.4rem;
     }
-    .madya-theme .home-page .quick-service-grid .quick-service {
+    .quick-service-grid .quick-service {
       min-height: 5.75rem;
       padding-block: 0.7rem;
     }
@@ -294,7 +288,7 @@
   }
 
   @variant min-md {
-    .madya-theme .home-page .quick-service-grid-count-1 .quick-service {
+    .quick-service-grid-count-1 .quick-service {
       grid-column: 1 / -1;
       width: min(50%, 20rem);
       justify-self: center;
