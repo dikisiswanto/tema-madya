@@ -4,18 +4,14 @@
   }
 
   .spmb-home-banner {
-    position: relative;
-    display: flex;
+    @apply relative flex overflow-hidden items-center rounded-lg;
     min-height: 12.8rem;
-    overflow: hidden;
-    align-items: center;
     padding: 1.45rem 1.6rem;
-    border-radius: 0.5rem;
     background: linear-gradient(120deg, var(--home-gold), #e6aa32);
     color: var(--home-deep);
   }
   .spmb-home-banner > div {
-    position: relative;
+    @apply relative;
     z-index: 2;
     max-width: 58%;
   }
@@ -23,21 +19,21 @@
     color: var(--home-deep);
   }
   .spmb-home-banner h2 {
+    @apply font-medium;
     max-width: 15ch;
     margin: 0.5rem 0 0.55rem;
     color: var(--home-deep);
-    font-weight: 500;
     line-height: 1.02;
   }
   .spmb-home-banner p:not(.section-kicker) {
+    @apply m-0;
     max-width: 31ch;
-    margin: 0;
     color: rgba(4, 28, 70, 0.76);
     line-height: 1.45;
   }
   .spmb-home-banner .button {
+    @apply min-h-10;
     margin-top: 0.85rem;
-    min-height: 2.5rem;
     padding: 0.62rem 0.9rem;
     border: 0;
     border-radius: 0.35rem;
@@ -45,13 +41,10 @@
     color: #fff;
   }
   .spmb-home-banner > img {
-    position: absolute;
+    @apply absolute h-full object-cover object-center;
     right: 0;
     bottom: 0;
     width: 49%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
     opacity: 0.96;
     mask-image: linear-gradient(90deg, transparent 0%, black 28%);
   }
@@ -62,16 +55,13 @@
     background: var(--home-soft);
   }
   .contact-strip-grid {
-    display: grid;
+    @apply grid overflow-hidden rounded-lg;
     grid-template-columns: repeat(4, 1fr);
-    overflow: hidden;
     border: 1px solid var(--home-line);
-    border-radius: 0.5rem;
     background: #fff;
   }
   .contact-strip-grid > div {
-    display: flex;
-    align-items: center;
+    @apply flex items-center;
     gap: 0.65rem;
     min-height: 4.5rem;
     padding: 0.8rem 1.2rem;
@@ -81,24 +71,23 @@
     border-right: 0;
   }
   .contact-strip-grid > div > svg {
-    width: 1.25rem;
-    height: 1.25rem;
+    @apply w-5 h-5;
     flex: none;
     color: var(--home-navy);
   }
   .contact-strip-grid b {
-    display: block;
+    @apply block;
     color: var(--home-navy);
   }
   .contact-strip-grid small {
-    display: block;
+    @apply block;
     max-width: 24ch;
     margin-top: 0.16rem;
     color: var(--home-muted);
     line-height: 1.35;
   }
   .site-footer {
-    margin-top: 0;
+    @apply mt-0;
   }
   .footer-main {
     background: var(--site-brand-deep);
@@ -157,7 +146,7 @@
       margin: 0.3rem 0 0.35rem;
     }
     .spmb-home-banner .button {
-      margin-top: 0.5rem;
+      @apply mt-2;
       min-height: 1.8rem;
       padding: 0.45rem 0.65rem;
     }
@@ -173,8 +162,7 @@
       gap: 0.4rem;
     }
     .contact-strip-grid > div > svg {
-      width: 0.9rem;
-      height: 0.9rem;
+      @apply w-3.5 h-3.5;
     }
     .contact-strip-grid small {
       margin-top: 0.08rem;
@@ -184,35 +172,29 @@
 
 @layer components {
   .home-faq-cta {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 1.25rem;
+    @apply flex flex-col items-start justify-between gap-5 rounded-2xl;
     padding: clamp(1.5rem, 3vw, 2.5rem);
     border: 1px solid var(--home-line);
-    border-radius: 1rem;
     background: var(--site-surface-alt);
     color: var(--site-ink);
   }
   .home-faq-cta h2 {
+    @apply font-display text-3xl;
     max-width: 24ch;
     margin: 0.35rem 0 0;
-    @apply font-display text-3xl;
     line-height: 1.05;
   }
   .home-faq-cta p:last-child {
+    @apply text-sm leading-6;
     max-width: 42rem;
     margin: 0.65rem 0 0;
     color: var(--site-muted);
-    @apply text-sm leading-6;
   }
   .home-faq-cta .section-kicker {
     color: var(--home-gold);
   }
   .home-faq-cta .button {
-    width: 100%;
-    justify-content: center;
+    @apply w-full justify-center;
     background: var(--site-brand);
     color: #fff;
     border-color: var(--site-brand);
@@ -223,19 +205,17 @@
   }
   @variant md {
     .home-faq-cta {
-      flex-direction: row;
-      align-items: center;
-      gap: 2rem;
+      @apply flex-row items-center gap-8;
     }
     .home-faq-cta .button {
-      width: auto;
+      @apply w-auto;
     }
   }
 }
 
 @layer components {
   .home-page .home-faq-cta {
-    display: grid;
+    @apply grid;
     grid-template-columns: minmax(0, 1fr);
   }
   .home-page .home-faq-cta .button {
@@ -243,8 +223,8 @@
   }
   @variant md {
     .home-page .home-faq-cta {
+      @apply items-center;
       grid-template-columns: minmax(0, 1fr) auto;
-      align-items: center;
     }
     .home-page .home-faq-cta .button {
       @apply w-auto;

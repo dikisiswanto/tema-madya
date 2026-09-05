@@ -1,92 +1,72 @@
 @layer components {
   .downloads-reference-section {
-    padding-top: 0;
+    @apply pt-0;
   }
   .download-stat-grid-reference {
-    position: relative;
+    @apply relative gap-0 rounded-2xl overflow-hidden;
     z-index: 3;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 0;
     margin-top: -1.8rem;
     border: 1px solid var(--site-line);
-    border-radius: 1rem;
     background: #fff;
     box-shadow: 0 14px 34px rgba(4, 28, 70, 0.08);
-    overflow: hidden;
   }
   .download-stat-grid-reference .download-stat {
+    @apply flex items-center rounded-none;
     min-height: 6.8rem;
-    display: flex;
-    align-items: center;
     gap: 0.8rem;
     padding: 1rem 1.25rem;
     border: 0;
     border-right: 1px solid var(--site-line);
-    border-radius: 0;
     background: #fff;
   }
   .download-stat-grid-reference .download-stat:last-child {
     border-right: 0;
   }
   .download-stat-icon {
+    @apply grid;
     flex: 0 0 2.6rem;
     width: 2.6rem;
     height: 2.6rem;
-    display: grid;
     place-items: center;
     color: var(--site-brand);
   }
   .download-stat-icon .icon-tabler {
-    width: 1.75rem;
-    height: 1.75rem;
+    @apply w-7 h-7;
     stroke-width: 1.7;
   }
   .download-stat span:last-child {
-    min-width: 0;
+    @apply min-w-0;
   }
   .download-stat strong {
-    display: block;
+    @apply block font-display text-xl font-semibold;
     color: var(--site-brand);
-    @apply font-display;
-    @apply text-xl;
     line-height: 1;
-    font-weight: 600;
   }
   .download-stat small {
-    display: block;
-    margin-top: 0.25rem;
+    @apply block text-xs mt-1;
     color: var(--site-muted);
-    @apply text-xs;
     line-height: 1.35;
   }
   .download-content-grid {
-    display: grid;
+    @apply grid gap-4 items-start mt-5;
     grid-template-columns: minmax(0, 1fr) 17rem;
-    gap: 1rem;
-    align-items: start;
-    margin-top: 1.25rem;
   }
   .download-main-column {
-    min-width: 0;
+    @apply min-w-0;
   }
   .download-toolbar-reference {
-    display: grid;
+    @apply grid gap-4 items-end mb-4;
     grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.8fr);
-    gap: 1rem;
-    align-items: end;
-    margin-bottom: 1rem;
   }
   .download-toolbar-reference h2 {
-    margin: 0;
+    @apply m-0 font-display text-xl font-medium;
     color: var(--site-brand);
-    @apply font-display;
-    @apply text-xl;
-    font-weight: 500;
   }
   .download-toolbar-reference p {
+    @apply text-xs;
     margin: 0.25rem 0 0;
     color: var(--site-muted);
-    @apply text-xs;
   }
   .document-group-reference + .document-group-reference {
     margin-top: 1.35rem;
@@ -95,28 +75,23 @@
     margin-bottom: 0.65rem;
   }
   .document-group-reference .document-group-heading h2 {
+    @apply font-display text-xl font-medium;
     margin: 0.3rem 0 0;
-    @apply font-display;
-    @apply text-xl;
     line-height: 1.05;
-    font-weight: 500;
   }
   .document-group-reference .document-group-heading > span {
-    color: var(--site-muted);
     @apply text-xs;
+    color: var(--site-muted);
   }
   .document-list-reference {
+    @apply rounded-xl overflow-hidden;
     border: 1px solid var(--site-line);
-    border-radius: 0.75rem;
     background: #fff;
-    overflow: hidden;
   }
   .document-row-reference {
-    display: grid;
+    @apply grid items-center min-h-24;
     grid-template-columns: 3.4rem minmax(0, 1fr) auto;
     gap: 0.85rem;
-    align-items: center;
-    min-height: 6rem;
     padding: 0.8rem 1rem;
     border-bottom: 1px solid var(--site-line);
     color: var(--site-ink);
@@ -128,9 +103,8 @@
     background: var(--site-surface-alt);
   }
   .document-file-type {
-    width: 2.5rem;
+    @apply w-10 grid;
     height: 2.8rem;
-    display: grid;
     place-items: center;
     align-content: center;
     gap: 0.05rem;
@@ -148,89 +122,68 @@
     letter-spacing: 0.04em;
   }
   .document-main-reference {
-    min-width: 0;
+    @apply min-w-0;
   }
   .document-main-reference > strong {
-    display: block;
+    @apply block font-display text-sm;
     color: var(--site-brand);
-    @apply font-display;
-    @apply text-sm;
     line-height: 1.25;
   }
   .document-main-reference > small {
-    display: block;
+    @apply block text-xs mt-1;
     max-width: 62ch;
-    margin-top: 0.25rem;
     color: var(--site-muted);
-    @apply text-xs;
     line-height: 1.45;
   }
   .document-meta-reference {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.25rem;
+    @apply inline-flex items-center gap-1 text-xs;
     margin-top: 0.35rem;
     color: var(--site-muted);
-    @apply text-xs;
   }
   .document-meta-reference .icon-tabler {
-    width: 0.75rem;
-    height: 0.75rem;
+    @apply w-3 h-3;
   }
   .document-download-button {
-    display: inline-flex;
-    align-items: center;
+    @apply inline-flex items-center rounded-lg text-xs whitespace-nowrap min-h-9;
     gap: 0.4rem;
-    min-height: 2.25rem;
     padding: 0.45rem 0.7rem;
     border: 1px solid var(--site-line);
-    border-radius: 0.5rem;
     color: var(--site-brand);
-    @apply text-xs;
     font-weight: 750;
-    white-space: nowrap;
   }
   .document-row-reference:hover .document-download-button {
     border-color: #c4d1e0;
     background: #fff;
   }
   .document-download-button .icon-tabler {
-    width: 0.9rem;
-    height: 0.9rem;
+    @apply w-3.5 h-3.5;
   }
   .download-sidebar-reference {
-    position: sticky;
+    @apply sticky grid;
     top: 6.5rem;
-    display: grid;
     gap: 0.8rem;
   }
   .download-widget,
   .download-newsletter-widget {
-    padding: 1rem;
+    @apply p-4;
     border: 1px solid var(--site-line);
     border-radius: 0.8rem;
     background: #fff;
     box-shadow: 0 5px 16px rgba(4, 28, 70, 0.035);
   }
   .download-widget h2 {
+    @apply font-display text-base font-medium;
     margin: 0 0 0.75rem;
     color: var(--site-brand);
-    @apply font-display;
-    @apply text-base;
-    font-weight: 500;
   }
   .download-category-links {
-    display: grid;
+    @apply grid;
   }
   .download-category-links a {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.5rem;
+    @apply flex items-center justify-between gap-2 text-xs;
     padding: 0.52rem 0;
     border-bottom: 1px solid var(--site-line);
     color: var(--site-muted);
-    @apply text-xs;
   }
   .download-category-links a:last-child {
     border-bottom: 0;
@@ -239,10 +192,8 @@
     color: var(--site-brand);
   }
   .download-category-links span {
-    display: flex;
-    align-items: center;
+    @apply flex items-center min-w-0;
     gap: 0.2rem;
-    min-width: 0;
   }
   .download-category-links .icon-tabler {
     width: 0.72rem;
@@ -250,20 +201,18 @@
     color: var(--site-accent);
   }
   .download-category-links b {
+    @apply min-w-6 text-xs text-center;
     flex: 0 0 auto;
-    min-width: 1.5rem;
     padding: 0.18rem 0.3rem;
     border-radius: 0.35rem;
     background: #f3f6fa;
     color: var(--site-brand);
-    @apply text-xs;
-    text-align: center;
   }
   .download-popular-list {
-    display: grid;
+    @apply grid;
   }
   .download-popular-list a {
-    display: grid;
+    @apply grid;
     grid-template-columns: 2rem minmax(0, 1fr);
     gap: 0.55rem;
     padding: 0.6rem 0;
@@ -273,36 +222,28 @@
     border-bottom: 0;
   }
   .download-rank {
-    display: grid;
+    @apply grid h-7 text-xs font-extrabold;
     place-items: center;
     width: 1.8rem;
-    height: 1.8rem;
     border-radius: 0.35rem;
     background: #fff2dc;
     color: #bf7100;
-    @apply text-xs;
-    font-weight: 800;
   }
   .download-popular-list strong {
-    display: block;
+    @apply block text-xs;
     color: var(--site-brand);
-    @apply text-xs;
     line-height: 1.35;
   }
   .download-popular-list small {
-    display: block;
+    @apply block text-xs;
     margin-top: 0.12rem;
     color: var(--site-muted);
-    @apply text-xs;
   }
   .download-widget-link {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
+    @apply flex items-center text-xs justify-end;
     gap: 0.35rem;
     margin-top: 0.6rem;
     color: var(--site-brand);
-    @apply text-xs;
     font-weight: 750;
   }
   .download-widget-link .icon-tabler {
@@ -310,38 +251,33 @@
     height: 0.85rem;
   }
   .download-newsletter-widget {
-    position: relative;
-    min-height: 14rem;
-    overflow: hidden;
+    @apply relative overflow-hidden min-h-56;
     border-color: var(--site-brand-deep);
     background: var(--site-brand-deep);
     color: #fff;
   }
   .download-newsletter-widget h2 {
+    @apply text-xl;
     max-width: 15ch;
     color: #fff;
-    @apply text-xl;
   }
   .download-newsletter-widget > p:not(.eyebrow) {
-    position: relative;
+    @apply relative text-xs;
     z-index: 2;
     max-width: 35ch;
     color: rgba(255, 255, 255, 0.75);
-    @apply text-xs;
     line-height: 1.5;
   }
   .download-newsletter-widget .newsletter-form {
-    position: relative;
+    @apply relative flex gap-0;
     z-index: 2;
-    display: flex;
-    gap: 0;
     margin-top: 0.9rem;
   }
   .download-newsletter-widget .newsletter-form input {
+    @apply text-xs;
     min-height: 2.45rem;
     border: 0;
     border-radius: 0.45rem 0 0 0.45rem;
-    @apply text-xs;
   }
   .download-newsletter-widget .newsletter-form .button {
     min-width: 2.7rem;
@@ -353,60 +289,47 @@
     height: 0.95rem;
   }
   .download-newsletter-widget > img {
-    position: absolute;
+    @apply absolute w-48;
     right: -1.2rem;
     bottom: -2.5rem;
-    width: 12rem;
     opacity: 0.38;
   }
   .download-help-banner {
-    position: relative;
-    display: grid;
+    @apply relative grid gap-4 items-center overflow-hidden min-h-36 mt-5;
     grid-template-columns: 11rem minmax(0, 1fr) auto;
-    gap: 1rem;
-    align-items: center;
-    min-height: 9rem;
-    margin-top: 1.25rem;
     padding: 1rem 1.25rem;
-    overflow: hidden;
     border: 1px solid #d8e4f1;
     border-radius: 0.9rem;
     background: #eef5ff;
   }
   .download-help-banner > img {
-    width: 100%;
-    height: 8rem;
-    object-fit: cover;
+    @apply w-full h-32 object-cover;
     border-radius: 0.6rem;
   }
   .download-help-banner h2 {
+    @apply font-display text-2xl font-medium;
     margin: 0.3rem 0 0.35rem;
     color: var(--site-brand);
-    @apply font-display;
-    @apply text-2xl;
     line-height: 1.05;
-    font-weight: 500;
   }
   .download-help-banner p:last-of-type {
+    @apply text-xs;
     max-width: 55ch;
     margin: 0 0 0.7rem;
     color: var(--site-muted);
-    @apply text-xs;
     line-height: 1.5;
   }
   .download-help-banner .button {
     min-width: 7.8rem;
   }
   .download-help-art {
-    position: absolute;
+    @apply absolute opacity-60;
     right: 1.25rem;
     bottom: -1rem;
     color: #cbd9eb;
-    opacity: 0.6;
   }
   .download-help-art .icon-tabler {
-    width: 7rem;
-    height: 7rem;
+    @apply w-28 h-28;
     stroke-width: 1;
   }
 
@@ -415,13 +338,13 @@
       grid-template-columns: minmax(0, 1fr) 15rem;
     }
     .download-toolbar-reference {
+      @apply items-start;
       grid-template-columns: 1fr;
-      align-items: start;
     }
   }
   @variant max-lg {
     .download-sidebar-reference {
-      position: static;
+      @apply static;
     }
     .download-help-banner {
       grid-template-columns: 8rem minmax(0, 1fr);
@@ -431,7 +354,7 @@
       justify-self: start;
     }
     .download-help-art {
-      display: none;
+      @apply hidden;
     }
   }
   @variant max-sm {
@@ -443,9 +366,9 @@
       border-top: 0;
     }
     .document-row-reference {
+      @apply p-3;
       grid-template-columns: 2.8rem minmax(0, 1fr);
       gap: 0.65rem;
-      padding: 0.75rem;
     }
     .document-download-button {
       grid-column: 2;
@@ -456,7 +379,7 @@
       grid-template-columns: 1fr;
     }
     .download-help-banner > img {
-      height: 7rem;
+      @apply h-28;
     }
     .download-help-banner .button {
       grid-column: auto;
@@ -471,29 +394,27 @@
 
   /* Legacy SPA downloads composition. Kept here because native.js still emits these classes. */
   .download-stat-grid {
-    display: grid;
+    @apply grid mb-4;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 0.65rem;
-    margin-bottom: 1rem;
   }
   .download-stat {
-    padding: 1rem;
+    @apply p-4;
     border-radius: 0.8rem;
     background: #f8fafd;
     border: 1px solid var(--site-line);
   }
   .download-stat strong {
-    display: block;
+    @apply block;
     color: var(--site-brand);
   }
   .download-stat span {
     color: var(--site-muted);
   }
   .document-row {
-    display: grid;
+    @apply grid items-center;
     grid-template-columns: 3rem 1fr auto;
     gap: 0.8rem;
-    align-items: center;
     padding: 0.8rem 0.9rem;
     border: 1px solid var(--site-line);
     border-radius: 0.7rem;
@@ -503,27 +424,26 @@
     margin-top: 0.55rem;
   }
   .document-type {
-    display: grid;
+    @apply grid font-extrabold;
     place-items: center;
     width: 2.3rem;
     height: 2.3rem;
     border-radius: 0.45rem;
     background: #eef3f9;
     color: var(--site-brand);
-    font-weight: 800;
   }
   .document-main strong {
-    display: block;
+    @apply block;
     color: var(--site-brand);
   }
   .document-main small {
-    display: block;
+    @apply block;
     margin-top: 0.2rem;
     color: var(--site-muted);
   }
   .document-meta {
+    @apply whitespace-nowrap;
     color: var(--site-muted);
-    white-space: nowrap;
   }
 
   @variant max-lg {
@@ -542,7 +462,7 @@
       grid-template-columns: 2.5rem 1fr;
     }
     .document-meta {
-      display: none;
+      @apply hidden;
     }
   }
 }

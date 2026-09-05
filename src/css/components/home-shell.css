@@ -1,5 +1,6 @@
 @layer components {
   .home-page {
+    @apply text-base;
     --home-container: min(90vw, 108rem);
     --home-navy: #072a63;
     --home-deep: #041c46;
@@ -9,7 +10,6 @@
     --home-line: #e4e9f0;
     --home-soft: #f7f9fc;
     color: var(--home-ink);
-    @apply text-base;
   }
 
   .home-page .theme-container,
@@ -26,16 +26,11 @@
   }
   .home-page .section-kicker,
   .home-page .hero-kicker {
-    display: inline-flex;
-    align-items: center;
+    @apply inline-flex items-center m-0 text-xs font-extrabold uppercase;
     gap: 0.55rem;
-    margin: 0;
     color: var(--home-gold);
-    @apply text-xs;
     line-height: 1.2;
-    font-weight: 800;
     letter-spacing: 0.075em;
-    text-transform: uppercase;
   }
   .home-page .section-kicker::before,
   .home-page .hero-kicker::before {
@@ -129,6 +124,6 @@
 /* Consolidated from legacy compatibility layer. */
 @layer components {
   .home-page .hero-kicker {
-    margin-bottom: 0.25rem;
+    @apply mb-1;
   }
 }

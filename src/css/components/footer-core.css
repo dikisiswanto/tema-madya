@@ -1,17 +1,16 @@
 @layer components {
   /* Footer */
   .footer-intro h2 {
+    @apply font-medium;
     max-width: 18ch;
     margin: 0.65rem 0 1rem;
     line-height: 1.02;
-    font-weight: 500;
   }
   .footer-intro p,
   .footer-intro address {
+    @apply m-0 not-italic;
     max-width: 34rem;
-    margin: 0;
     color: #b7c5c9;
-    font-style: normal;
     line-height: 1.75;
   }
   .footer-intro address {
@@ -19,16 +18,15 @@
   }
   .footer-kicker,
   .footer-title {
+    @apply font-extrabold uppercase;
     color: #d5b26a;
-    font-weight: 800;
     letter-spacing: 0.14em;
-    text-transform: uppercase;
   }
   .footer-title {
     margin: 0 0 0.8rem;
   }
   .footer-links {
-    display: grid;
+    @apply grid;
     gap: 0.6rem;
     color: #c8d4d7;
   }
@@ -36,16 +34,12 @@
     border-top: 1px solid rgba(255, 255, 255, 0.1);
   }
   .madya-footer-bottom .theme-container {
-    @apply text-xs;
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
+    @apply text-xs flex justify-between gap-4;
     padding-block: 1rem;
   }
   .madya-footer-bottom p,
   .madya-footer-bottom a {
-    @apply text-xs leading-5;
-    margin: 0;
+    @apply text-xs leading-5 m-0;
     color: #91a4aa;
   }
 
@@ -78,8 +72,7 @@
 
   @variant max-md {
     .section-heading {
-      align-items: start;
-      flex-direction: column;
+      @apply items-start flex-col;
     }
     .section-heading h2 {
       max-width: 13ch;
@@ -109,7 +102,7 @@
       grid-column: 2;
     }
     .madya-footer-bottom .theme-container {
-      flex-direction: column;
+      @apply flex-col;
     }
   }
 
@@ -124,14 +117,12 @@
     color: #fff;
   }
   .footer-grid-rich {
-    display: grid;
+    @apply grid gap-8;
     grid-template-columns: 1.4fr repeat(4, minmax(0, 1fr));
-    gap: 2rem;
     padding-block: 3rem;
   }
   .madya-footer-brand {
-    display: inline-flex;
-    align-items: center;
+    @apply inline-flex items-center;
     gap: 0.7rem;
   }
   .footer-brand-mark {
@@ -141,28 +132,24 @@
     color: #d89a2b;
   }
   .madya-footer-brand strong {
-    display: block;
+    @apply block text-lg;
     color: #fff;
-    @apply text-lg;
   }
   .madya-footer-brand small {
-    display: block;
+    @apply block text-xs leading-5;
     color: #d89a2b;
-    @apply text-xs leading-5;
   }
   .footer-intro > p {
-    @apply text-xs leading-6;
+    @apply text-xs leading-6 mt-4;
     max-width: 26rem;
-    margin-top: 1rem;
     color: rgba(255, 255, 255, 0.68);
     line-height: 1.6;
   }
   .footer-intro address {
-    @apply text-xs leading-6;
+    @apply text-xs leading-6 not-italic;
     max-width: 26rem;
     margin-top: 0.8rem;
     color: rgba(255, 255, 255, 0.58);
-    font-style: normal;
     line-height: 1.5;
   }
   .footer-title {
@@ -171,7 +158,7 @@
     margin: 0 0 0.8rem;
   }
   .footer-links {
-    display: grid;
+    @apply grid;
     gap: 0.45rem;
   }
   .footer-links a,
@@ -183,17 +170,14 @@
     color: #fff;
   }
   .footer-socials {
-    display: flex;
+    @apply flex;
     gap: 0.4rem;
     margin-top: 0.8rem;
   }
   .footer-socials a {
-    display: grid;
+    @apply grid w-8 h-8 rounded-lg;
     place-items: center;
-    width: 2rem;
-    height: 2rem;
     border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 0.5rem;
   }
   .footer-socials svg {
     width: 0.85rem;
@@ -205,14 +189,11 @@
     color: rgba(255, 255, 255, 0.5);
   }
   .madya-footer-bottom .theme-container {
+    @apply flex items-center justify-between gap-4;
     min-height: 2.8rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
   }
   .madya-footer-bottom p {
-    margin: 0;
+    @apply m-0;
   }
   .madya-footer-bottom strong {
     color: #d89a2b;
@@ -240,9 +221,8 @@
       grid-column: 1 / -1;
     }
     .madya-footer-bottom .theme-container {
+      @apply flex-col items-start;
       padding-block: 0.7rem;
-      flex-direction: column;
-      align-items: flex-start;
     }
   }
 }

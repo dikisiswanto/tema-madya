@@ -12,10 +12,7 @@
   .rich-card-icon i,
   .program-showcase-icon i,
   .brand-mark .brand-icon:is(i) {
-    width: auto;
-    height: auto;
-    min-width: 0;
-    min-height: 0;
+    @apply w-auto h-auto min-w-0 min-h-0;
     flex: none;
     line-height: 1;
   }
@@ -35,10 +32,7 @@
   }
 
   .rich-extra-card .rich-data-icon {
-    width: 3rem;
-    height: 3rem;
-    border-radius: 0.75rem;
-    @apply text-xl;
+    @apply w-12 h-12 text-xl rounded-xl;
   }
 
   .rich-extra-card .rich-data-icon svg {
@@ -47,9 +41,7 @@
   }
 
   .rich-extra-card .rich-data-icon i {
-    width: auto;
-    height: auto;
-    @apply text-xl;
+    @apply w-auto h-auto text-xl;
     line-height: 1;
   }
 
@@ -88,8 +80,7 @@
     @apply size-5;
   }
   .rich-extra-card-head .rich-card-icon i {
-    @apply w-auto h-auto;
-    @apply text-xl;
+    @apply w-auto h-auto text-xl;
     line-height: 1;
   }
   .rich-extra-copy {

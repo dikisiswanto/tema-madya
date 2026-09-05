@@ -1,10 +1,9 @@
 @layer components {
   /* Canonical legacy agenda row. Historical polish layers are folded here. */
   .agenda-row {
-    @apply relative grid rounded-lg bg-white/35 transition-[background-color,padding] duration-200;
+    @apply relative grid rounded-lg bg-white/35 transition-[background-color,padding] duration-200 items-center;
     grid-template-columns: 3.2rem 1fr auto;
     gap: 0.8rem;
-    align-items: center;
     padding: 0.8rem 1rem;
     border-bottom: 1px solid var(--site-line);
     transition-timing-function: var(--ease-madya);
@@ -15,8 +14,8 @@
   }
 
   .agenda-row::after {
-    content: "";
     @apply absolute inset-y-0 left-0 w-0.5 origin-left scale-y-0 bg-accent transition-transform duration-200 ease-out;
+    content: "";
   }
 
   .agenda-row:hover::after {
@@ -32,11 +31,9 @@
   }
 
   .agenda-row time {
-    @apply pt-1 text-xs;
+    @apply pt-1 text-xs font-extrabold uppercase;
     color: var(--site-accent);
-    font-weight: 800;
     letter-spacing: 0.07em;
-    text-transform: uppercase;
   }
 
   .agenda-row h2 {
@@ -45,9 +42,8 @@
   }
 
   .agenda-row h3 {
-    @apply m-0 font-display text-xl md:text-2xl;
+    @apply m-0 font-display text-xl md:text-2xl font-medium;
     line-height: 1.08;
-    font-weight: 500;
   }
 
   .agenda-row p {
@@ -56,9 +52,9 @@
   }
 
   .agenda-panel .agenda-row {
+    @apply rounded-none;
     border: 0;
     border-bottom: 1px solid var(--site-line);
-    border-radius: 0;
   }
 
   .agenda-panel .agenda-row:last-child {

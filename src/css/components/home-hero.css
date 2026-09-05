@@ -1,21 +1,19 @@
 @layer components {
   /* Hero */
   .home-hero {
-    position: relative;
+    @apply relative overflow-hidden;
     isolation: isolate;
     min-height: 31rem;
-    overflow: hidden;
     background-color: #f7faff;
     background-image: var(--hero-bg-image);
     background-size: cover;
     background-position: center right;
   }
   .home-hero::before {
+    @apply absolute pointer-events-none;
     content: "";
-    position: absolute;
     inset: 0;
     z-index: 0;
-    pointer-events: none;
     background:
       radial-gradient(
         ellipse 48% 88% at 14% 50%,
@@ -34,37 +32,29 @@
       );
   }
   .home-hero::after {
+    @apply absolute pointer-events-none;
     content: "";
-    position: absolute;
     inset: 0;
     z-index: 0;
-    pointer-events: none;
     background: linear-gradient(180deg, rgb(4 28 70 / 2%), rgb(4 28 70 / 8%));
   }
   .home-hero-grid {
-    position: relative;
+    @apply relative gap-0 items-stretch;
     z-index: 1;
     min-height: 31rem;
     grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.48fr);
-    gap: 0;
-    align-items: stretch;
   }
   .home-hero-copy {
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    @apply min-w-0 flex flex-col justify-center;
     max-width: 41rem;
     padding: 4rem 3rem 4rem 0;
     z-index: 5;
   }
   .home-hero-copy h1 {
+    @apply m-0 font-display font-medium;
     max-width: 12ch;
-    margin: 0;
     color: var(--home-navy);
-    @apply font-display;
     font-size: clamp(3.8rem, 5.05vw, 6.1rem);
-    font-weight: 500;
     line-height: 0.93;
     letter-spacing: -0.055em;
     text-wrap: balance;
@@ -73,38 +63,32 @@
     color: var(--home-gold);
   }
   .home-hero-copy > .hero-lead {
+    @apply text-base;
     max-width: 38rem;
     margin: 1.5rem 0 0;
     color: var(--home-muted);
-    @apply text-base;
     line-height: 1.7;
   }
   .home-hero-actions {
-    display: flex;
-    flex-wrap: wrap;
+    @apply flex flex-wrap;
     gap: 0.8rem;
     margin-top: 1.65rem;
   }
   .home-hero-actions .button {
-    min-height: 3rem;
+    @apply min-h-12 text-xs;
     padding: 0.78rem 1.05rem;
     border-radius: 0.45rem;
-    @apply text-xs;
   }
   .home-hero-actions .button svg {
-    width: 1rem;
-    height: 1rem;
+    @apply w-4 h-4;
   }
   .home-hero-actions .button-secondary {
     background: #fff;
   }
   .hero-photo img,
   .hero-photo .media-placeholder {
-    width: 100%;
-    height: 100%;
+    @apply w-full h-full object-cover object-center;
     min-height: 31rem;
-    object-fit: cover;
-    object-position: center;
   }
 
   /* Responsive variants co-located from home-responsive.css; cascade values preserved. */
@@ -117,7 +101,7 @@
       grid-template-columns: 42.3% 57.7%;
     }
     .home-hero-copy {
-      max-width: none;
+      @apply max-w-none;
       padding: 2.4rem 1.5rem 2.4rem 0;
     }
     .home-hero-copy h1 {
@@ -127,24 +111,20 @@
       letter-spacing: -0.045em;
     }
     .home-hero-copy > .hero-lead {
-      max-width: 24rem;
-      margin-top: 1rem;
-      @apply text-xs;
+      @apply max-w-96 mt-4 text-xs;
       line-height: 1.55;
     }
     .home-hero-actions {
+      @apply mt-4;
       gap: 0.55rem;
-      margin-top: 1rem;
     }
     .home-hero-actions .button {
-      min-height: 2rem;
+      @apply min-h-8 text-xs;
       padding: 0.5rem 0.75rem;
       border-radius: 0.3rem;
-      @apply text-xs;
     }
     .home-hero-actions .button svg {
-      width: 0.75rem;
-      height: 0.75rem;
+      @apply w-3 h-3;
     }
     .hero-photo img,
     .hero-photo .media-placeholder {
@@ -169,13 +149,13 @@
       line-height: 0.95;
     }
     .home-hero-copy > .hero-lead {
-      max-width: 37rem;
       @apply text-base;
+      max-width: 37rem;
       line-height: 1.7;
     }
     .home-hero-actions .button {
-      min-height: 3.1rem;
       @apply text-sm;
+      min-height: 3.1rem;
     }
     .hero-photo img,
     .hero-photo .media-placeholder {
@@ -254,7 +234,7 @@
   /* Responsive variants kept with the canonical hero owner. */
   @variant max-lg {
     .home-hero-copy {
-      padding-right: 2rem;
+      @apply pr-8;
     }
     .home-hero,
     .home-hero-grid {
@@ -283,11 +263,10 @@
       @apply text-5xl;
     }
     .home-hero-actions {
-      flex-direction: column;
-      align-items: stretch;
+      @apply flex-col items-stretch;
     }
     .home-hero-actions .button {
-      width: 100%;
+      @apply w-full;
     }
   }
 }

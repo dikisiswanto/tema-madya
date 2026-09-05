@@ -21,13 +21,11 @@
   }
 
   .madya-theme .home-stat-icon {
+    @apply w-10 h-10 text-2xl;
     display: inline-grid;
     place-items: center;
-    width: 2.5rem;
-    height: 2.5rem;
     flex: 0 0 2.5rem;
     color: var(--home-gold);
-    @apply text-2xl;
     line-height: 1;
   }
   .madya-theme .home-stat-icon i {
@@ -36,10 +34,8 @@
   }
 
   .madya-theme .madya-media-fallback {
-    display: grid;
+    @apply grid w-full min-h-48;
     place-items: center;
-    width: 100%;
-    min-height: 12rem;
     background: #eef2f5;
     color: var(--home-navy);
   }
@@ -48,8 +44,8 @@
     line-height: 1;
   }
   .madya-theme .madya-media-fallback-teacher {
+    @apply min-h-0;
     aspect-ratio: 9 / 11;
-    min-height: 0;
   }
 
   @variant xl {
@@ -88,7 +84,7 @@
     }
 
     .madya-theme .home-page .contact-strip-grid {
-      gap: 1rem;
+      @apply gap-4;
     }
     .madya-theme .home-page .contact-strip-grid > div {
       min-height: 4.5rem;
@@ -96,9 +92,7 @@
       gap: 0.65rem;
     }
     .madya-theme .home-page .contact-strip-grid > div > :is(svg, i) {
-      width: 1.25rem;
-      height: 1.25rem;
-      @apply text-xl;
+      @apply w-5 h-5 text-xl;
       flex: 0 0 1.25rem;
     }
     .madya-theme .home-page .contact-strip-grid b {
@@ -129,10 +123,8 @@
       line-height: 1.35;
     }
     .madya-theme .home-page .home-stat-icon {
-      width: 2.25rem;
-      height: 2.25rem;
+      @apply w-9 h-9 text-2xl;
       flex-basis: 2.25rem;
-      @apply text-2xl;
     }
     .madya-theme .home-page .madya-media-fallback i {
       @apply text-4xl;
@@ -146,9 +138,9 @@
     .madya-theme .home-page .quick-service-grid-count-4 .quick-service,
     .madya-theme .home-page .quick-service-grid-count-5 .quick-service,
     .madya-theme .home-page .quick-service-grid-count-6 .quick-service {
+      @apply justify-center;
       border-top: 0;
       border-right: 1px solid var(--home-line);
-      justify-content: center;
     }
     .madya-theme
       .home-page

@@ -85,23 +85,21 @@
      (especially headings) globally. Keep Madya's document defaults inside the
      theme root so playground and native MPA render from the same baseline. */
   .madya-theme :where(h1, h2, h3, h4, h5, h6) {
-    margin: 0;
-    @apply font-display;
-    font-weight: 600;
+    @apply m-0 font-display font-semibold;
     line-height: 1.12;
     color: var(--site-ink);
   }
 
   .madya-theme :where(p, ul, ol, dl, figure, blockquote) {
-    margin: 0;
+    @apply m-0;
   }
 
   .madya-theme :where(ul, ol) {
-    padding: 0;
+    @apply p-0;
   }
 
   .madya-theme :where(button, input, textarea, select) {
-    max-width: 100%;
+    @apply max-w-full;
   }
 
   .madya-theme :where(table) {

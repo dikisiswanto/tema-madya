@@ -14,44 +14,38 @@
     @apply inline-flex min-w-max items-center gap-3;
   }
   .brand-mark {
-    @apply grid size-9 place-items-center border font-display text-brand;
+    @apply grid size-9 place-items-center border font-display text-brand text-xl;
     border-color: var(--site-brand);
-    @apply text-xl;
     line-height: 1;
   }
   .brand-copy strong {
+    @apply text-base font-bold;
     color: var(--site-ink);
-    @apply text-base;
-    font-weight: 700;
     letter-spacing: -0.025em;
   }
   .brand-copy small {
-    color: var(--site-muted);
     @apply text-xs;
+    color: var(--site-muted);
     letter-spacing: 0.03em;
   }
   .desktop-nav {
     @apply m-0 flex list-none items-center gap-px p-0;
   }
   .desktop-nav > li {
-    position: relative;
+    @apply relative;
     list-style: none;
   }
   .desktop-nav-link,
   .desktop-nav-trigger {
+    @apply inline-flex items-center justify-center cursor-pointer whitespace-nowrap;
     min-height: 2.7rem;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
     gap: 0.42rem;
     padding: 0.62rem 0.68rem;
     border: 0;
     background: transparent;
     color: #3e4b52;
-    cursor: pointer;
     font-weight: 650;
     letter-spacing: 0.01em;
-    white-space: nowrap;
     transition:
       color 180ms var(--ease-madya),
       background-color 180ms var(--ease-madya),
@@ -80,8 +74,8 @@
   }
 
   .nav-panel {
+    @apply absolute opacity-0 invisible pointer-events-none;
     --panel-x: 0px;
-    position: absolute;
     top: 100%;
     left: var(--panel-x);
     width: min(44rem, 78vw);
@@ -89,9 +83,6 @@
     border: 1px solid var(--site-line);
     background: rgba(255, 255, 255, 0.985);
     box-shadow: var(--shadow-float);
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
     transform: translate3d(-50%, -8px, 0) scale(0.985);
     transform-origin: top center;
     transition:
@@ -100,9 +91,7 @@
       visibility 0s linear var(--menu-duration);
   }
   .desktop-nav > li[data-open="true"] > .nav-panel {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
+    @apply opacity-100 visible pointer-events-auto;
     transform: translate3d(-50%, 0, 0) scale(1);
   }
   .nav-panel[data-placement="right"][data-open="true"] {
@@ -114,41 +103,34 @@
     transform-origin: top right;
   }
   .nav-panel-heading {
-    display: flex;
-    align-items: end;
-    justify-content: space-between;
-    gap: 1rem;
+    @apply flex items-end justify-between gap-4;
     padding: 0.2rem 0.2rem 0.85rem;
     border-bottom: 1px solid var(--site-line);
   }
   .nav-panel-heading span {
+    @apply font-display text-2xl;
     color: var(--site-brand-deep);
-    @apply font-display;
-    @apply text-2xl;
     line-height: 1;
   }
   .nav-panel-heading small {
-    color: var(--site-muted);
     @apply text-xs;
+    color: var(--site-muted);
   }
   .nav-panel-list {
-    display: grid;
+    @apply grid p-0;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.2rem;
     margin: 0.8rem 0 0;
-    padding: 0;
     list-style: none;
   }
   .nav-panel-list > li {
-    position: relative;
+    @apply relative;
     list-style: none;
   }
   .nav-panel-list .desktop-nav-link,
   .nav-panel-list .desktop-nav-trigger {
-    width: 100%;
-    justify-content: space-between;
+    @apply w-full justify-between text-left;
     padding: 0.78rem 0.75rem;
-    text-align: left;
   }
   .nav-panel-list .desktop-nav-link:hover,
   .nav-panel-list .desktop-nav-trigger:hover,
@@ -176,9 +158,8 @@
   }
 
   .mobile-toggle {
-    @apply ml-auto inline-grid size-[2.85rem] place-items-center border bg-white;
+    @apply ml-auto inline-grid size-[2.85rem] place-items-center border bg-white cursor-pointer;
     border-color: var(--site-line);
-    cursor: pointer;
     transition:
       border-color 0.18s ease,
       background 0.18s ease;
@@ -188,12 +169,11 @@
     background: var(--site-surface-alt);
   }
   .menu-icon {
-    position: relative;
+    @apply relative h-3.5;
     width: 1.05rem;
-    height: 0.9rem;
   }
   .menu-icon span {
-    position: absolute;
+    @apply absolute;
     left: 0;
     width: 1.05rem;
     height: 1px;
@@ -219,21 +199,14 @@
   }
 
   .mobile-nav {
-    position: fixed;
+    @apply fixed w-full max-w-full overflow-hidden box-border pointer-events-none opacity-0 invisible;
     inset: var(--header-height) 0 0;
     z-index: 200;
     isolation: isolate;
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-    pointer-events: none;
-    overflow: hidden;
     overflow-x: clip;
     overscroll-behavior-x: none;
     touch-action: pan-y;
     background: var(--site-surface);
-    opacity: 0;
-    visibility: hidden;
     transform: translate3d(0, 2rem, 0);
     transition:
       opacity 260ms ease,
@@ -241,43 +214,26 @@
       visibility 0s linear 360ms;
   }
   body.nav-open .mobile-nav {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
+    @apply opacity-100 visible pointer-events-auto;
     transform: translate3d(0, 0, 0);
     transition-delay: 0s;
   }
   .mobile-nav-inner {
-    position: relative;
-    width: 100%;
-    max-width: 100%;
-    height: 100%;
-    min-width: 0;
-    box-sizing: border-box;
-    overflow: hidden;
+    @apply relative w-full max-w-full h-full min-w-0 overflow-hidden box-border pointer-events-auto;
     overflow-x: clip;
     overscroll-behavior-x: none;
     touch-action: pan-y;
     padding: 1.25rem 0 0;
-    pointer-events: auto;
   }
   .mobile-level {
-    position: absolute;
+    @apply absolute w-full max-w-full min-w-0 box-border pointer-events-none overflow-y-auto opacity-0 invisible;
     inset: 0;
-    width: 100%;
-    max-width: 100%;
-    min-width: 0;
-    box-sizing: border-box;
-    pointer-events: none;
     overflow-x: clip;
-    overflow-y: auto;
     overscroll-behavior: contain;
     overscroll-behavior-x: none;
     touch-action: pan-y;
     padding: 0 var(--site-gutter) 4rem;
     background: var(--site-surface);
-    opacity: 0;
-    visibility: hidden;
     transform: translate3d(2rem, 0, 0);
     transition:
       opacity 220ms ease,
@@ -285,15 +241,13 @@
       visibility 0s linear 320ms;
   }
   .mobile-level[data-active="true"] {
-    opacity: 1;
-    visibility: visible;
+    @apply opacity-100 visible pointer-events-auto;
     transform: translate3d(0, 0, 0);
     z-index: 1;
-    pointer-events: auto;
     transition-delay: 0s;
   }
   .mobile-level[data-active="false"] {
-    pointer-events: none;
+    @apply pointer-events-none;
   }
   .mobile-level[data-direction="back"] {
     transform: translate3d(-2rem, 0, 0);
@@ -302,9 +256,7 @@
     transform: translate3d(0, 0, 0);
   }
   .mobile-level > * {
-    min-width: 0;
-    max-width: 100%;
-    box-sizing: border-box;
+    @apply min-w-0 max-w-full box-border;
     margin-inline: 0;
   }
   .mobile-nav-intro {
@@ -317,17 +269,11 @@
     color: var(--site-muted);
   }
   .mobile-back {
-    display: inline-flex;
-    max-width: 100%;
-    min-width: 0;
-    align-items: center;
-    gap: 0.5rem;
+    @apply inline-flex max-w-full min-w-0 items-center gap-2 p-0 cursor-pointer;
     margin: 0 0 1.1rem;
-    padding: 0;
     border: 0;
     background: none;
     color: var(--site-muted);
-    cursor: pointer;
     transition:
       color 0.18s ease,
       transform 0.2s var(--ease);
@@ -337,44 +283,26 @@
     transform: translateX(-2px);
   }
   .mobile-back svg {
-    width: 1.25rem;
-    height: 1.25rem;
+    @apply w-5 h-5;
     flex: 0 0 1.25rem;
   }
   .mobile-level-title {
-    display: block;
-    width: 100%;
+    @apply block w-full p-0 min-w-0 max-w-full font-display text-4xl font-medium;
     margin: 0 0 0.8rem;
-    padding: 0;
-    min-width: 0;
-    max-width: 100%;
     overflow-wrap: anywhere;
     color: var(--site-brand-deep);
-    @apply font-display;
-    @apply text-4xl;
     line-height: 0.95;
-    font-weight: 500;
     letter-spacing: -0.04em;
   }
   .mobile-menu-link,
   .mobile-menu-trigger {
-    width: 100%;
+    @apply w-full min-w-0 max-w-full flex items-center justify-between gap-4 m-0 text-left cursor-pointer min-h-16;
     inline-size: 100%;
-    min-height: 4rem;
-    min-width: 0;
-    max-width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    margin: 0;
     padding: 0.95rem 0;
     border: 0;
     border-bottom: 1px solid var(--site-line);
     background: transparent;
     color: var(--site-ink);
-    text-align: left;
-    cursor: pointer;
     transition:
       color 180ms var(--ease-madya),
       background-color 180ms var(--ease-madya),
@@ -382,7 +310,7 @@
   }
   .mobile-menu-link > span:first-child,
   .mobile-menu-trigger > span:first-child {
-    min-width: 0;
+    @apply min-w-0;
     max-width: 30ch;
   }
   .mobile-menu-link:hover,
@@ -392,21 +320,15 @@
   }
   .mobile-menu-trigger .menu-arrow,
   .mobile-menu-link > span:last-child {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    @apply inline-flex items-center justify-center w-5 h-5;
     flex: 0 0 1.25rem;
-    width: 1.25rem;
-    height: 1.25rem;
     color: var(--site-accent);
     transition: transform 220ms var(--ease-menu);
   }
   .mobile-menu-trigger .menu-arrow svg,
   .mobile-menu-link > span:last-child svg,
   .mobile-back svg {
-    display: block;
-    width: 1.25rem;
-    height: 1.25rem;
+    @apply block w-5 h-5;
     flex: 0 0 1.25rem;
     stroke: currentColor;
   }
@@ -415,12 +337,7 @@
     transform: translateX(3px);
   }
   .mobile-menu-cta {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    width: 100%;
-    margin-top: 1.5rem;
+    @apply flex items-center justify-center gap-2 w-full mt-6;
     padding: 0.95rem 1rem;
     background: var(--site-brand-deep);
     color: #fff;
@@ -430,8 +347,7 @@
   /* Canonical navigation calibration consolidated from canonical-navigation.css. */
   /* Header / navigation */
   .site-topbar {
-    @apply min-h-9 bg-brand-deep text-white/80;
-    @apply text-xs;
+    @apply min-h-9 bg-brand-deep text-white/80 text-xs;
   }
   .topbar-inner {
     @apply flex min-h-9 items-center justify-between gap-4;
@@ -466,7 +382,7 @@
   /* Level 1 is anchored to the trigger. Nested levels are viewport-positioned
      by navigation.js; no transform is allowed on desktop ancestors. */
   .nav-panel[hidden] {
-    display: none;
+    @apply hidden;
   }
   .nav-panel {
     @apply absolute top-[calc(100%+.45rem)] left-1/2 z-50 w-[min(42rem,calc(100vw-2rem))] rounded-lg border border-line bg-white p-4 opacity-0 invisible pointer-events-none shadow-float;
@@ -515,7 +431,7 @@
     transform: rotate(0deg);
   }
   .nav-panel-list .nav-panel {
-    position: fixed;
+    @apply fixed overflow-visible opacity-0 invisible pointer-events-none;
     top: 0;
     left: 0;
     right: auto;
@@ -526,11 +442,7 @@
            positionPanel() keeps the panel anchored to the viewport; do not turn
            normal nested menus into scroll containers. */
     max-height: none;
-    overflow: visible;
     transform: none !important;
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
     transition:
       opacity 150ms ease,
       visibility 0s linear 150ms;
@@ -540,12 +452,11 @@
        separated, but the transparent bridge is still a descendant of the
        nav item, so moving diagonally never triggers an accidental close. */
   .nav-panel-list .nav-panel::before {
+    @apply absolute w-3;
     content: "";
-    position: absolute;
     top: 0;
     bottom: 0;
     left: -0.75rem;
-    width: 0.75rem;
   }
   .nav-panel-list .nav-panel[data-placement="left"]::before {
     left: auto;
@@ -594,22 +505,22 @@
    JS uses the same 64rem query so desktop submenu behavior and CSS never disagree. */
   @variant lg {
     .desktop-nav-wrap {
-      display: flex;
+      @apply flex;
     }
     .mobile-toggle,
     .mobile-nav {
-      display: none;
+      @apply hidden;
     }
   }
   @variant max-lg {
     .desktop-nav-wrap {
-      display: none;
+      @apply hidden;
     }
     .mobile-toggle {
       display: inline-grid;
     }
     .mobile-nav {
-      display: block;
+      @apply block;
     }
   }
 
@@ -621,13 +532,13 @@
     }
     .site-header,
     .madya-header-inner {
-      min-height: 4rem;
+      @apply min-h-16;
     }
     .brand-copy strong {
       line-height: 1.05;
     }
     .desktop-nav-wrap {
-      display: flex;
+      @apply flex;
     }
     .desktop-nav-link,
     .desktop-nav-trigger {
@@ -638,7 +549,7 @@
       @apply size-9 cursor-pointer;
     }
     .nav-cta {
-      min-height: 2.25rem;
+      @apply min-h-9;
       padding-inline: 0.9rem;
       border-radius: 0.3rem;
     }
@@ -647,7 +558,7 @@
   /* Responsive rules relocated from home-documents-contact.css. */
   @variant max-lg {
     .site-topbar {
-      display: none;
+      @apply hidden;
     }
     .site-header,
     .madya-header-inner {
@@ -659,39 +570,34 @@
 @layer components {
   @variant max-lg {
     .nav-cta {
-      display: none;
+      @apply hidden;
     }
     .madya-header-inner {
-      min-height: 5rem;
-      gap: 0.75rem;
+      @apply min-h-20 gap-3;
     }
     .brand {
-      min-width: 0;
+      @apply min-w-0;
       flex: 1 1 auto;
       gap: 0.65rem;
     }
     .brand-copy {
-      min-width: 0;
+      @apply min-w-0;
     }
     .brand-copy strong {
-      display: block;
+      @apply block overflow-hidden whitespace-nowrap;
       max-width: 24ch;
-      overflow: hidden;
       text-overflow: ellipsis;
-      white-space: nowrap;
     }
     .brand-copy small {
-      display: none;
+      @apply hidden;
     }
     .header-search,
     .mobile-toggle {
+      @apply w-11 h-11;
       flex: 0 0 2.75rem;
-      width: 2.75rem;
-      height: 2.75rem;
     }
     .mobile-menu-cta {
-      margin-top: 1.25rem;
-      min-height: 3rem;
+      @apply mt-5 min-h-12;
     }
   }
 
@@ -699,15 +605,15 @@
   @variant max-lg {
     .topbar-contact span:first-child,
     .topbar-links a:nth-child(n + 3) {
-      display: none;
+      @apply hidden;
     }
     .topbar-inner {
-      justify-content: space-between;
+      @apply justify-between;
     }
   }
   @variant max-sm {
     .site-topbar {
-      display: none;
+      @apply hidden;
     }
   }
 }
@@ -719,23 +625,21 @@
   .gallery-lightbox-close,
   .news-category-pills [data-news-category],
   .nav-overflow-trigger {
-    cursor: pointer;
+    @apply cursor-pointer;
   }
   .nav-overflow-panel {
     width: min(38rem, 78vw);
   }
   .nav-overflow-panel .nav-panel-list {
+    @apply overflow-auto;
     max-height: min(55vh, 32rem);
-    overflow: auto;
   }
   @variant xl {
     .desktop-nav-wrap {
-      min-width: 0;
-      overflow: visible;
+      @apply min-w-0 overflow-visible;
     }
     .desktop-nav {
-      min-width: 0;
-      flex-wrap: nowrap;
+      @apply min-w-0 flex-nowrap;
     }
     .desktop-nav > li {
       flex: none;

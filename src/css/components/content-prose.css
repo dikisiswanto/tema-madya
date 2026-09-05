@@ -5,10 +5,10 @@
   }
 
   .article-prose > :first-child {
-    margin-top: 0;
+    @apply mt-0;
   }
   .article-prose > :last-child {
-    margin-bottom: 0;
+    @apply mb-0;
   }
 
   .article-prose h1,
@@ -53,7 +53,7 @@
   }
   .article-prose em,
   .article-prose i {
-    font-style: italic;
+    @apply italic;
   }
   .article-prose u {
     text-underline-offset: 0.15em;
@@ -117,7 +117,7 @@
     border-radius: 0.45rem;
   }
   .article-prose blockquote > :last-child {
-    margin-bottom: 0;
+    @apply mb-0;
   }
   .article-prose blockquote cite {
     @apply mt-3 block font-sans text-xs font-semibold not-italic leading-5 tracking-[.02em] text-muted;
@@ -192,12 +192,12 @@
     @apply max-w-full overflow-x-auto;
   }
   .article-prose > table {
-    display: block;
+    @apply block;
   }
   .article-prose > table thead,
   .article-prose > table tbody {
+    @apply w-full;
     display: table;
-    width: 100%;
   }
 
   .article-prose dl {
@@ -217,7 +217,7 @@
     @apply cursor-pointer font-semibold text-brand;
   }
   .article-prose details > :last-child {
-    margin-bottom: 0;
+    @apply mb-0;
   }
 
   @variant xl {

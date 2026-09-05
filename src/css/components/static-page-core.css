@@ -3,7 +3,7 @@
     @apply py-8 md:py-10 lg:py-12;
   }
   .profile-no-sidebar {
-    display: block;
+    @apply block;
   }
   .profile-no-sidebar .profile-main {
     max-width: 74rem;
@@ -140,7 +140,7 @@
       line-height: 1.82;
     }
     .static-sidebar-card {
-      padding: 1.25rem;
+      @apply p-5;
     }
     .static-sidebar-links a {
       @apply text-xs;

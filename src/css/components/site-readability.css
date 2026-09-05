@@ -133,16 +133,15 @@
     }
 
     .madya-theme .news-card-media .media-placeholder {
-      width: 100%;
-      height: 100%;
+      @apply w-full h-full;
       min-height: inherit;
       background: #eef2f5;
       color: #52627a;
     }
 
     .madya-theme .news-archive-list .news-card-media .media-placeholder {
+      @apply h-full;
       min-height: 9.75rem;
-      height: 100%;
     }
   }
 
@@ -333,9 +332,8 @@
 
   .madya-theme .article-sidebar-tags a,
   .madya-theme .news-list-sidebar .article-sidebar-tags a {
-    min-height: 2rem;
+    @apply min-h-8 text-xs;
     padding-inline: 0.75rem;
-    @apply text-xs;
     line-height: 1.4;
   }
 
@@ -353,9 +351,7 @@
   }
 
   .madya-theme .document-main-reference > strong {
-    @apply font-sans;
-    @apply text-base;
-    font-weight: 700;
+    @apply font-sans text-base font-bold;
     line-height: 1.4;
   }
 
@@ -368,9 +364,8 @@
   .madya-theme .share-card h2,
   .madya-theme .sidebar-card h2,
   .madya-theme .news-side-card h2 {
-    @apply text-base;
+    @apply text-base font-bold;
     line-height: 1.4;
-    font-weight: 700;
   }
 
   .madya-theme .static-sidebar-links a,
@@ -385,27 +380,25 @@
 
   .madya-theme .static-help-card h2,
   .madya-theme .static-newsletter-card h2 {
-    @apply font-sans;
-    @apply text-lg;
+    @apply font-sans text-lg font-bold;
     line-height: 1.35;
-    font-weight: 700;
   }
 
   /* The PHP contract already emits the combined classes; keep the icon/media
      surface as one component rather than two unrelated wrappers. */
   .madya-theme .program-showcase-media.program-showcase-icon {
-    position: relative;
+    @apply relative;
   }
 
   /* On compact screens each principal fact gets its own readable row. */
   @variant max-md {
     .madya-theme .principal-facts {
+      @apply gap-2;
       grid-template-columns: 1fr;
-      gap: 0.5rem;
     }
 
     .madya-theme .principal-facts > div {
-      min-height: 2.75rem;
+      @apply min-h-11;
       padding: 0.65rem 0.7rem;
     }
 

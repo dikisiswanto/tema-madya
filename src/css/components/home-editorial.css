@@ -1,14 +1,11 @@
 @layer components {
   /* The middle of the homepage is a sequence of balanced 50/50 panels. */
   .home-middle-stack {
-    display: grid;
-    gap: 1rem;
+    @apply grid gap-4;
   }
   .home-middle-grid {
-    display: grid;
+    @apply grid gap-4 items-stretch;
     grid-template-columns: minmax(0, 1fr);
-    gap: 1rem;
-    align-items: stretch;
   }
   @variant md {
     .home-middle-grid {
@@ -16,7 +13,7 @@
     }
   }
   .home-middle-grid > * {
-    min-width: 0;
+    @apply min-w-0;
   }
   .home-middle-grid > :only-child {
     grid-column: 1 / -1;
@@ -24,169 +21,137 @@
   .principal-panel,
   .program-panel,
   .middle-panel {
-    min-width: 0;
+    @apply min-w-0;
     border: 1px solid var(--home-line);
     border-radius: 0.55rem;
     background: #fff;
     box-shadow: 0 5px 18px rgba(4, 28, 70, 0.035);
   }
   .principal-panel {
-    display: grid;
+    @apply grid overflow-hidden min-h-56;
     grid-template-columns: minmax(10rem, 11rem) minmax(0, 1fr);
-    min-height: 14rem;
-    overflow: hidden;
   }
   .principal-photo {
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    min-width: 0;
-    overflow: hidden;
+    @apply flex items-start justify-center min-w-0 overflow-hidden;
     background: #edf1f6;
   }
   .principal-photo img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    min-height: 14rem;
-    object-fit: contain;
+    @apply block w-full h-full min-h-56 object-contain;
     object-position: center top;
   }
   .principal-message {
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
+    @apply flex flex-col min-w-0;
     padding: 1.35rem 1.4rem 1.15rem;
   }
   .principal-message .section-kicker {
-    color: var(--home-gold);
     @apply text-xs;
+    color: var(--home-gold);
   }
   .principal-message blockquote {
+    @apply font-display text-2xl font-medium;
     max-width: 25rem;
     margin: 0.6rem 0 0.7rem;
     color: var(--home-navy);
-    @apply font-display;
-    @apply text-2xl;
-    font-weight: 500;
     line-height: 1.04;
     letter-spacing: -0.025em;
   }
   .principal-message strong {
+    @apply text-xs font-extrabold;
     color: var(--home-navy);
-    @apply text-xs;
-    font-weight: 800;
   }
   .principal-message > span {
+    @apply text-xs;
     margin-top: 0.12rem;
     color: var(--home-muted);
-    @apply text-xs;
   }
   .principal-facts {
-    display: grid;
+    @apply grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 0.35rem;
     margin-top: auto;
     padding-top: 0.8rem;
   }
   .principal-facts > div {
-    display: flex;
-    align-items: center;
+    @apply flex items-center min-w-0;
     gap: 0.35rem;
-    min-width: 0;
     padding: 0.5rem 0.45rem;
     border: 1px solid var(--home-line);
     border-radius: 0.3rem;
   }
   .principal-facts svg {
-    width: 0.9rem;
-    height: 0.9rem;
+    @apply w-3.5 h-3.5;
     flex: none;
     color: var(--home-gold);
   }
   .principal-facts b {
-    display: block;
+    @apply block text-xs;
     color: var(--home-navy);
-    @apply text-xs;
     line-height: 1.1;
   }
   .principal-facts span {
-    display: block;
+    @apply block text-xs;
     color: var(--home-muted);
-    @apply text-xs;
   }
 
   .program-panel {
     padding: 1.35rem;
   }
   .section-head-row {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 1rem;
-    margin-bottom: 1rem;
+    @apply flex justify-between gap-4 items-end mb-4;
   }
   .section-head-row.compact {
     margin-bottom: 0.95rem;
   }
   .section-head-row h2 {
+    @apply font-display text-3xl font-medium;
     max-width: 19ch;
     margin: 0.5rem 0 0;
     color: var(--home-navy);
-    @apply font-display;
-    @apply text-3xl;
-    font-weight: 500;
     line-height: 1.02;
     letter-spacing: -0.035em;
     text-wrap: balance;
   }
   .section-head-row .text-link {
+    @apply text-xs font-bold;
     flex: none;
     color: var(--home-navy);
-    @apply text-xs;
-    font-weight: 700;
   }
   .section-head-row .text-link svg {
     width: 0.82rem;
     height: 0.82rem;
   }
   .program-showcase-grid {
-    display: grid;
+    @apply grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 0.55rem;
   }
   .program-showcase-card {
-    min-width: 0;
-    overflow: hidden;
+    @apply min-w-0 overflow-hidden;
     border: 1px solid var(--home-line);
     border-radius: 0.35rem;
     background: #fff;
   }
   .program-showcase-media {
+    @apply overflow-hidden;
     aspect-ratio: 1.28;
-    overflow: hidden;
     background: #edf1f6;
   }
   .program-showcase-media img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    @apply w-full h-full object-cover;
   }
   .program-showcase-body {
-    min-width: 0;
+    @apply min-w-0;
     padding: 0.65rem 0.65rem 0.75rem;
   }
   .program-showcase-body h3 {
-    margin: 0;
+    @apply m-0 text-xs font-extrabold;
     color: var(--home-navy);
-    @apply text-xs;
-    font-weight: 800;
     line-height: 1.2;
   }
   .program-showcase-body p {
+    @apply text-xs;
     margin: 0.25rem 0 0;
     color: var(--home-muted);
-    @apply text-xs;
     line-height: 1.42;
   }
   .extra-inline {
@@ -195,32 +160,24 @@
     border-top: 1px solid var(--home-line);
   }
   .subsection-label {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    @apply flex justify-between items-center text-xs font-extrabold;
     margin-bottom: 0.45rem;
     color: var(--home-navy);
-    @apply text-xs;
-    font-weight: 800;
   }
   .subsection-label a {
-    display: inline-flex;
-    align-items: center;
+    @apply inline-flex items-center text-xs;
     gap: 0.2rem;
     color: var(--home-navy);
-    @apply text-xs;
   }
   .extra-inline-list {
-    display: grid;
+    @apply grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 0.35rem;
   }
   .empty-inline {
-    min-height: 9rem;
-    display: grid;
+    @apply min-h-36 grid text-xs;
     place-items: center;
     color: var(--home-muted);
-    @apply text-xs;
   }
 
   /* Responsive variants co-located from home-responsive.css; cascade values preserved. */
@@ -256,9 +213,9 @@
       margin-bottom: 0.65rem;
     }
     .section-head-row h2 {
+      @apply text-lg;
       max-width: 22ch;
       margin: 0.3rem 0 0;
-      @apply text-lg;
       line-height: 1.03;
       letter-spacing: -0.025em;
     }
@@ -282,8 +239,8 @@
       @apply text-xs;
     }
     .program-showcase-body p {
-      margin-top: 0.15rem;
       @apply text-xs;
+      margin-top: 0.15rem;
       line-height: 1.3;
     }
     .middle-panel {
@@ -372,14 +329,14 @@
       @apply text-xs;
     }
     .home-middle-stack {
-      gap: 1rem;
+      @apply gap-4;
     }
     .section-head-row h2 {
       font-size: clamp(1.6rem, 4vw, 2rem);
     }
   }
   .section-head-row {
-    align-items: flex-start;
+    @apply items-start;
   }
   .section-head-row h2 {
     font-size: clamp(1.55rem, 7vw, 2rem);
@@ -395,8 +352,7 @@
     @apply text-xs;
   }
   .section-head-row {
-    align-items: flex-start;
-    flex-direction: column;
+    @apply items-start flex-col;
   }
   .section-head-row h2 {
     font-size: clamp(1.9rem, 7.5vw, 2.55rem);
@@ -406,10 +362,9 @@
 /* Consolidated from legacy compatibility layer. */
 @layer components {
   .home-page .principal-message blockquote {
+    @apply font-sans text-lg font-medium;
     max-width: 34rem;
     margin-block: 0.65rem 0.85rem;
-    @apply font-sans text-lg;
-    font-weight: 500;
     line-height: 1.65;
     letter-spacing: 0;
   }
@@ -421,10 +376,10 @@
   .home-page
     .program-showcase-card
     .program-showcase-media.program-showcase-icon {
+    @apply grid;
     min-height: 7.5rem;
     aspect-ratio: auto;
     border-bottom: 0;
-    display: grid;
     place-items: center;
   }
 
@@ -432,9 +387,7 @@
     .program-showcase-card
     .program-showcase-media.program-showcase-icon
     :is(svg, i) {
-    width: 3rem;
-    height: 3rem;
-    @apply text-5xl;
+    @apply w-12 h-12 text-5xl;
   }
 
   .home-page .program-showcase-card:nth-child(8n + 1) .program-showcase-media {
@@ -471,13 +424,12 @@
   }
 
   .home-page .extra-inline-list {
-    display: grid;
+    @apply grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 0.65rem;
   }
   .home-page .extra-inline-item {
-    @apply flex min-w-0 flex-col items-center justify-start gap-3 text-center;
-    min-height: 7rem;
+    @apply flex min-w-0 flex-col items-center justify-start gap-3 text-center min-h-28;
     padding: 0.9rem 0.7rem;
     border: 1px solid
       color-mix(
@@ -493,41 +445,30 @@
     );
   }
   .home-page .extra-inline-icon {
-    display: grid;
+    @apply grid overflow-hidden rounded-full;
     place-items: center;
     inline-size: 3rem;
     block-size: 3rem;
     aspect-ratio: 1;
     flex: 0 0 3rem;
-    overflow: hidden;
     border: 1px solid
       color-mix(in srgb, var(--rich-icon-color, var(--home-navy)) 28%, white);
-    border-radius: 999px;
     background: #fff;
     color: var(--rich-icon-color, var(--home-navy));
   }
   .home-page .extra-inline-icon svg {
-    display: block;
+    @apply block h-7 m-0;
     width: 1.8rem;
-    height: 1.8rem;
-    margin: 0;
   }
   .home-page .extra-inline-icon i {
-    display: inline-block;
-    width: auto;
-    height: auto;
-    margin: 0;
-    @apply text-3xl;
+    @apply inline-block w-auto h-auto m-0 text-3xl;
     line-height: 1;
   }
   .home-page .extra-inline-item > span:last-child {
-    position: static;
+    @apply static font-sans text-sm font-bold text-center;
     max-width: 18ch;
     color: var(--site-ink);
-    @apply font-sans text-sm;
-    font-weight: 700;
     line-height: 1.35;
-    text-align: center;
   }
 
   @variant max-lg {
@@ -550,9 +491,7 @@
       height: 1.55rem;
     }
     .home-page .extra-inline-icon i {
-      width: auto;
-      height: auto;
-      @apply text-2xl;
+      @apply w-auto h-auto text-2xl;
       line-height: 1;
     }
     .home-page .extra-inline-item > span:last-child {
@@ -563,7 +502,7 @@
 
 @layer components {
   .home-page .program-showcase-grid {
-    display: grid;
+    @apply grid;
     grid-template-columns: 1fr;
   }
   @variant md {
@@ -580,9 +519,8 @@
 
 @layer components {
   .home-page .home-middle-grid {
-    display: grid;
+    @apply grid text-sm;
     grid-template-columns: minmax(0, 1fr);
-    @apply text-sm;
   }
   .home-page .home-middle-grid-profile {
     grid-template-columns: minmax(0, 1fr);

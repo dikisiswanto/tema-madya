@@ -350,7 +350,7 @@
     @apply flex cursor-pointer list-none items-center justify-between gap-4 px-4 py-4 font-display text-xs font-semibold text-brand;
   }
   .rich-faq-list summary::-webkit-details-marker {
-    display: none;
+    @apply hidden;
   }
   .rich-faq-list summary svg {
     @apply size-3.5 shrink-0 text-accent;
@@ -909,9 +909,7 @@
 @layer components {
   /* Rich component visual/CMS compatibility exceptions. */
   .rich-program-card .rich-card-icon {
-    width: 3.5rem;
-    height: 3.5rem;
-    @apply text-2xl;
+    @apply w-14 h-14 text-2xl;
   }
 
   .rich-program-card .rich-card-icon svg {
@@ -920,9 +918,7 @@
   }
 
   .rich-program-card .rich-card-icon i {
-    width: auto;
-    height: auto;
-    @apply text-2xl;
+    @apply w-auto h-auto text-2xl;
     line-height: 1;
   }
 
@@ -975,7 +971,7 @@
   }
 
   .rich-extra-card-head .rich-card-icon {
-    display: grid;
+    @apply grid;
     place-items: center;
   }
 
@@ -985,19 +981,17 @@
   }
 
   .rich-extra-card-head .rich-card-icon i {
-    width: auto;
-    height: auto;
-    @apply text-xl;
+    @apply w-auto h-auto text-xl;
     line-height: 1;
   }
 
   .rich-filters button,
   .rich-faq-nav button {
-    cursor: pointer;
+    @apply cursor-pointer;
   }
 
   .rich-main {
-    min-width: 0;
+    @apply min-w-0;
   }
 
   .rich-person-card,
@@ -1017,22 +1011,18 @@
   }
 
   .rich-person-media {
+    @apply overflow-hidden;
     aspect-ratio: 4 / 5;
-    overflow: hidden;
     background: var(--site-surface-alt);
   }
 
   .rich-person-media img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    @apply w-full h-full object-cover;
     object-position: center top;
   }
 
   .rich-person-placeholder {
-    display: grid;
-    width: 100%;
-    height: 100%;
+    @apply grid w-full h-full;
     place-items: center;
     color: var(--site-muted);
     background: var(--site-surface-alt);
@@ -1043,43 +1033,36 @@
   }
 
   .rich-person-role {
-    display: inline-flex;
+    @apply inline-flex text-xs font-extrabold uppercase;
     margin-bottom: 0.45rem;
     color: var(--site-accent);
-    @apply text-xs;
-    font-weight: 800;
     letter-spacing: 0.08em;
-    text-transform: uppercase;
   }
 
   .rich-achievement-card {
-    overflow: hidden;
+    @apply overflow-hidden;
     border: 1px solid var(--site-line);
     background: #fff;
   }
 
   .rich-achievement-media {
-    min-height: 10rem;
+    @apply min-h-40;
     background: var(--site-surface-alt);
   }
 
   .rich-achievement-media img {
-    width: 100%;
-    height: 100%;
-    min-height: 10rem;
-    object-fit: cover;
+    @apply w-full h-full min-h-40 object-cover;
   }
 
   .rich-achievement-placeholder {
-    display: grid;
+    @apply grid;
     place-items: center;
     color: var(--achievement-accent);
     background: color-mix(in srgb, var(--achievement-accent) 8%, white);
   }
 
   .rich-achievement-placeholder svg {
-    width: 3rem;
-    height: 3rem;
+    @apply w-12 h-12;
   }
 
   .rich-achievement-body {
@@ -1103,38 +1086,29 @@
   }
 
   .rich-testimonial blockquote {
-    @apply font-sans;
-    @apply text-lg;
+    @apply font-sans text-lg;
     line-height: 1.7;
     color: var(--site-ink);
   }
 
   .rich-toolbar {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.75rem;
-    margin-bottom: 1.25rem;
-    padding-bottom: 0.75rem;
+    @apply flex items-center justify-between gap-3 flex-wrap mb-5 pb-3;
     border-bottom: 1px solid var(--site-line);
   }
 
   .rich-filters {
-    display: flex;
-    flex-wrap: wrap;
+    @apply flex flex-wrap;
     gap: 0.35rem;
   }
 
   .rich-filters button,
   .rich-faq-nav button {
+    @apply text-xs font-bold;
     border: 1px solid var(--site-line);
     background: #fff;
     color: var(--site-muted);
     padding: 0.55rem 0.75rem;
     border-radius: 0.35rem;
-    @apply text-xs;
-    font-weight: 700;
   }
 
   .rich-filters button:hover,
@@ -1147,24 +1121,22 @@
   }
 
   .rich-toolbar select {
+    @apply text-xs;
     min-height: 2.35rem;
     border: 1px solid var(--site-line);
     background: #fff;
     color: var(--site-ink);
     padding: 0.45rem 0.7rem;
     border-radius: 0.35rem;
-    @apply text-xs;
   }
 
   @variant max-sm {
     .rich-toolbar {
-      align-items: stretch;
+      @apply items-stretch;
     }
 
     .rich-filters {
-      width: 100%;
-      overflow-x: auto;
-      flex-wrap: nowrap;
+      @apply w-full overflow-x-auto flex-nowrap;
       padding-bottom: 0.15rem;
     }
 
@@ -1185,8 +1157,7 @@
 
   .rich-main .rich-section-label p,
   .rich-main .rich-intro-panel > p {
-    @apply font-sans;
-    @apply text-base;
+    @apply font-sans text-base;
     line-height: 1.75;
   }
 
@@ -1202,94 +1173,84 @@
   .rich-main .rich-person-card figcaption,
   .rich-main .rich-achievement-body,
   .rich-main .rich-event-row > div {
-    min-width: 0;
+    @apply min-w-0;
   }
 
   .rich-main .rich-person-card figcaption {
-    padding: 1rem;
+    @apply p-4;
   }
 
   .rich-main .rich-person-card strong {
-    display: block;
-    @apply text-base;
+    @apply block text-base;
     line-height: 1.15;
   }
 
   .rich-main .rich-person-card figcaption > span:last-child {
-    margin-top: 0.25rem;
-    display: block;
-    @apply text-sm;
+    @apply mt-1 block text-sm;
     line-height: 1.5;
     color: var(--site-muted);
   }
 
   .rich-program-card,
   .rich-extra-card {
-    position: relative;
-    overflow: hidden;
+    @apply relative overflow-hidden;
   }
 
   .rich-program-card::after,
   .rich-extra-card::after {
+    @apply absolute opacity-75;
     content: "";
-    position: absolute;
     inset: auto 0 0;
     height: 0.2rem;
     background: var(--rich-icon-color, var(--site-brand));
-    opacity: 0.75;
   }
 
   .rich-program-card .rich-card-icon {
-    display: grid;
+    @apply grid;
     place-items: center;
   }
 
   .rich-extra-card .rich-card-icon {
-    display: grid;
+    @apply grid;
     place-items: center;
   }
 
   .rich-testimonial-grid {
-    align-items: stretch;
+    @apply items-stretch;
   }
 
   .rich-testimonial {
+    @apply p-6;
     min-height: 100%;
-    padding: 1.5rem;
   }
 
   .rich-testimonial blockquote {
-    margin: 0;
+    @apply m-0;
   }
 
   .rich-testimonial figcaption {
-    display: flex;
-    align-items: center;
+    @apply flex items-center pt-4;
     gap: 0.8rem;
     margin-top: 1.2rem;
-    padding-top: 1rem;
     border-top: 1px solid var(--site-line);
   }
 
   .rich-testimonial figcaption img {
-    width: 2.75rem;
-    height: 2.75rem;
-    border-radius: 50%;
-    object-fit: cover;
+    @apply w-11 h-11 rounded-full object-cover;
     flex: none;
   }
 
   .rich-gallery-grid {
-    min-width: 0;
+    @apply min-w-0;
   }
 
   .rich-gallery-item {
-    min-width: 0;
+    @apply min-w-0;
   }
 
   .rich-gallery-item figcaption {
-    padding: 0.65rem 0.1rem;
     @apply text-xs;
+    padding: 0.65rem 0.1rem;
     line-height: 1.5;
     color: var(--site-muted);
   }

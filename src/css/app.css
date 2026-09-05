@@ -66,3 +66,21 @@
 @source "../theme";
 @source "../js";
 @source "../../playground";
+
+@layer components {
+  .madya-surface {
+    @apply bg-surface text-ink;
+  }
+
+  .madya-surface-alt {
+    @apply bg-surface-alt text-ink;
+  }
+
+  .madya-panel {
+    @apply rounded-xl border border-line bg-surface shadow-soft;
+  }
+
+  .madya-muted {
+    @apply text-muted;
+  }
+}

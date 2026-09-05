@@ -21,15 +21,13 @@
     }
 
     .madya-theme .document-group-reference .document-group-heading h2 {
-      @apply text-xl;
+      @apply text-xl font-bold;
       line-height: 1.4;
-      font-weight: 700;
     }
 
     .madya-theme .download-help-banner h2 {
-      @apply text-2xl;
+      @apply text-2xl font-bold;
       line-height: 1.35;
-      font-weight: 700;
     }
 
     .madya-theme .download-widget h2,
@@ -39,16 +37,14 @@
     .madya-theme .share-card h2,
     .madya-theme .sidebar-card h2,
     .madya-theme .static-sidebar-card h2 {
-      @apply text-base;
+      @apply text-base font-bold;
       line-height: 1.4;
-      font-weight: 700;
     }
 
     .madya-theme .static-help-card h2,
     .madya-theme .static-newsletter-card h2 {
-      @apply text-lg;
+      @apply text-lg font-bold;
       line-height: 1.4;
-      font-weight: 700;
     }
 
     .madya-theme .document-main-reference > strong {
@@ -100,7 +96,7 @@
   }
 
   .madya-theme .downloads-page .document-main-reference > strong {
-    font-weight: 700;
+    @apply font-bold;
     letter-spacing: -0.01em;
   }
 
@@ -177,8 +173,7 @@
 
   .madya-theme .madya-faq-item summary,
   .madya-theme .rich-faq-list summary {
-    @apply font-sans;
-    @apply text-base;
+    @apply font-sans text-base;
     line-height: 1.45;
     font-weight: 650;
   }
@@ -186,14 +181,12 @@
   .madya-theme .madya-faq-answer,
   .madya-theme .rich-faq-list details > div,
   .madya-theme .rich-faq-list .rich-faq-answer {
-    @apply font-sans;
-    @apply text-sm;
+    @apply font-sans text-sm;
     line-height: 1.7;
   }
 
   .madya-theme .rich-faq-nav button {
-    @apply font-sans;
-    @apply text-sm;
+    @apply font-sans text-sm;
     line-height: 1.4;
   }
 
@@ -248,15 +241,12 @@
     }
 
     .madya-theme .downloads-page .document-main-reference > strong {
-      @apply font-sans;
-      @apply text-base;
+      @apply font-sans text-base font-bold;
       line-height: 1.45;
-      font-weight: 700;
     }
 
     .madya-theme .downloads-page .download-popular-list strong {
-      @apply font-sans;
-      @apply text-sm;
+      @apply font-sans text-sm;
       line-height: 1.45;
     }
 

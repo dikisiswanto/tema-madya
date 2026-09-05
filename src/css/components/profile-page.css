@@ -99,47 +99,40 @@
   .profile-no-sidebar,
   .profile-no-sidebar .profile-main,
   .profile-no-sidebar .static-content-intro {
-    width: 100%;
-    max-width: none;
+    @apply w-full max-w-none;
   }
 
   .profile-main .static-content-intro h2 {
-    max-width: none;
-    @apply font-display;
+    @apply max-w-none font-display font-bold;
     font-size: clamp(2rem, 3vw, 3rem);
-    font-weight: 700;
     letter-spacing: -0.025em;
     line-height: 1.05;
   }
 
   .profile-main .static-content-intro > p {
-    width: 100%;
-    max-width: none;
-    margin-right: 0;
-    @apply font-sans text-base;
+    @apply w-full max-w-none font-sans text-base mr-0;
     line-height: 1.8;
   }
 
   .static-page-layout {
-    align-items: start;
+    @apply items-start;
   }
 
   .static-page-layout > * {
+    @apply min-h-0;
     align-self: start;
-    min-height: 0;
   }
 }
 
 @layer components {
   .identity-table {
-    overflow: hidden;
+    @apply overflow-hidden;
     border: 1px solid var(--site-line);
     border-radius: 0.85rem;
     background: #fff;
   }
   .identity-table-header {
-    display: block;
-    width: 100%;
+    @apply block w-full;
     padding: 1.15rem 1.25rem;
     border-bottom: 1px solid var(--site-line);
     background: var(--site-surface-alt);
@@ -148,36 +141,30 @@
     margin: 0 0 0.3rem;
   }
   .identity-table-header h2 {
-    margin: 0;
-    @apply font-display text-xl;
-    font-weight: 700;
+    @apply m-0 font-display text-xl font-bold;
     line-height: 1.2;
     color: var(--site-brand);
   }
   .identity-table-body {
-    display: grid;
+    @apply grid;
   }
   .identity-row {
-    display: grid;
+    @apply grid gap-5 font-sans;
     grid-template-columns: minmax(8.5rem, 0.36fr) minmax(0, 1fr);
-    gap: 1.25rem;
     padding: 0.95rem 1.25rem;
     border-bottom: 1px solid var(--site-line);
-    @apply font-sans;
   }
   .identity-row:last-child {
     border-bottom: 0;
   }
   .identity-row span {
-    @apply text-sm;
-    font-weight: 600;
+    @apply text-sm font-semibold;
     line-height: 1.5;
     color: var(--site-muted);
   }
   .identity-row strong {
-    min-width: 0;
+    @apply min-w-0 text-base;
     overflow-wrap: anywhere;
-    @apply text-base;
     font-weight: 650;
     line-height: 1.55;
     color: var(--site-ink);
@@ -193,8 +180,8 @@
   }
   @variant max-sm {
     .identity-row {
+      @apply gap-1;
       grid-template-columns: 1fr;
-      gap: 0.25rem;
     }
   }
 }

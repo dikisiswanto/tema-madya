@@ -4,53 +4,41 @@
     @apply pt-4;
   }
   .home-stat-grid {
-    display: grid;
+    @apply grid overflow-hidden rounded-lg;
     grid-template-columns: repeat(4, 1fr);
-    overflow: hidden;
-    @apply rounded-lg;
     background: var(--home-navy);
     color: #fff;
   }
   .home-stat-item {
-    display: flex;
-    align-items: center;
-    @apply gap-3.5;
+    @apply flex items-center gap-3.5 px-7 py-3;
     min-height: 4.5rem;
-    @apply px-7 py-3;
     border-right: 1px solid rgba(255, 255, 255, 0.14);
   }
   .home-stat-item:last-child {
     border-right: 0;
   }
   .home-stat-item strong {
-    display: block;
-    @apply text-2xl;
-    font-weight: 800;
+    @apply block text-2xl font-extrabold;
     line-height: 1;
   }
   .home-stat-item span {
-    display: block;
+    @apply block text-xs;
     margin-top: 0.3rem;
     color: rgba(255, 255, 255, 0.78);
-    @apply text-xs;
     line-height: 1.35;
   }
 }
 
 @layer components {
   .home-page .home-stat-item {
-    min-width: 0;
+    @apply min-w-0;
   }
   .home-page .home-stat-item > .home-stat-icon {
-    @apply grid shrink-0 place-items-center;
-    width: 2.25rem;
-    height: 2.25rem;
+    @apply grid shrink-0 place-items-center w-9 h-9;
     color: var(--home-gold);
   }
   .home-page .home-stat-item > .home-stat-icon > :is(svg, i) {
-    width: 2.25rem;
-    height: 2.25rem;
-    @apply text-4xl;
+    @apply w-9 h-9 text-4xl;
   }
 
   @variant max-lg {
@@ -82,8 +70,7 @@
     }
     .home-page .home-stat-item > .home-stat-icon,
     .home-page .home-stat-item > .home-stat-icon > :is(svg, i) {
-      width: 2rem;
-      height: 2rem;
+      @apply w-8 h-8;
     }
     .home-page .home-stat-item > .home-stat-icon > :is(svg, i) {
       @apply text-3xl;
@@ -109,8 +96,7 @@
     --stat-icon-color: #7c3aed;
   }
   .home-page .home-stat-item > .home-stat-icon {
-    width: 3rem;
-    height: 3rem;
+    @apply w-12 h-12;
     border-radius: 0.85rem;
     background: var(--stat-icon-bg);
     color: var(--stat-icon-color);

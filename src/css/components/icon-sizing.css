@@ -6,11 +6,8 @@
  * -------------------------------------------------------------------------- */
 
   .icon-tabler {
-    width: 1rem;
-    height: 1rem;
+    @apply w-4 h-4 inline-block align-middle;
     flex: none;
-    display: inline-block;
-    vertical-align: middle;
   }
 
   .contact-summary-icon .theme-icon,
@@ -20,8 +17,7 @@
   }
   .contact-fact-icon .theme-icon,
   .contact-fact-icon .icon-tabler {
-    width: 1rem;
-    height: 1rem;
+    @apply w-4 h-4;
   }
   .contact-map-fallback .theme-icon,
   .contact-map-fallback .icon-tabler {
@@ -30,34 +26,28 @@
   }
   .contact-map-link .theme-icon,
   .contact-map-link .icon-tabler {
-    width: 1rem;
-    height: 1rem;
+    @apply w-4 h-4;
   }
   .contact-form-note .theme-icon,
   .contact-form-note .icon-tabler {
-    width: 1rem;
-    height: 1rem;
+    @apply w-4 h-4;
   }
   .button-contact-submit .theme-icon,
   .button-contact-submit .icon-tabler {
-    width: 1rem;
-    height: 1rem;
+    @apply w-4 h-4;
   }
   .contact-help-links .theme-icon,
   .contact-help-links .icon-tabler {
-    width: 1.25rem;
-    height: 1.25rem;
+    @apply w-5 h-5;
   }
   .contact-newsletter-card .newsletter-form .theme-icon,
   .contact-newsletter-card .newsletter-form .icon-tabler {
-    width: 1rem;
-    height: 1rem;
+    @apply w-4 h-4;
   }
 
   .download-stat-icon .theme-icon,
   .download-stat-icon .icon-tabler {
-    width: 1.75rem;
-    height: 1.75rem;
+    @apply w-7 h-7;
   }
   .document-file-type .theme-icon,
   .document-file-type .icon-tabler {
@@ -66,13 +56,11 @@
   }
   .document-meta-reference .theme-icon,
   .document-meta-reference .icon-tabler {
-    width: 0.75rem;
-    height: 0.75rem;
+    @apply w-3 h-3;
   }
   .document-download-button .theme-icon,
   .document-download-button .icon-tabler {
-    width: 0.9rem;
-    height: 0.9rem;
+    @apply w-3.5 h-3.5;
   }
   .download-category-links .theme-icon,
   .download-category-links .icon-tabler {
@@ -91,7 +79,6 @@
   }
   .download-help-art .theme-icon,
   .download-help-art .icon-tabler {
-    width: 7rem;
-    height: 7rem;
+    @apply w-28 h-28;
   }
 }

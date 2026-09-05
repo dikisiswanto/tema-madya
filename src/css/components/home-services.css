@@ -1,14 +1,13 @@
 @layer components {
   /* Six service rail */
   .home-quick-services {
-    position: relative;
+    @apply relative;
     z-index: 8;
     margin-top: -1.15rem;
   }
   .quick-service-grid {
-    display: grid;
+    @apply grid gap-0;
     grid-template-columns: repeat(6, minmax(0, 1fr));
-    gap: 0;
     padding: 0.9rem 1rem;
     border: 1px solid var(--home-line);
     border-radius: 0.55rem;
@@ -40,28 +39,26 @@
     stroke-width: 1.75;
   }
   .quick-service strong {
+    @apply text-xs font-extrabold;
     color: var(--home-navy);
-    @apply text-xs;
-    font-weight: 800;
     line-height: 1.2;
   }
   .quick-service small {
+    @apply text-xs;
     margin-top: 0.22rem;
     color: var(--home-muted);
-    @apply text-xs;
     line-height: 1.35;
   }
 
   /* Responsive variants co-located from home-responsive.css; cascade values preserved. */
   @variant lg {
     .home-quick-services {
-      margin-top: 0;
+      @apply mt-0;
     }
     .quick-service-grid {
+      @apply p-0 rounded-none;
       grid-template-columns: repeat(6, minmax(0, 1fr));
-      padding: 0;
       border: 0;
-      border-radius: 0;
       box-shadow: none;
     }
     .quick-service {
@@ -74,15 +71,14 @@
       height: 1.65rem;
     }
     .quick-service-icon svg {
-      width: 1.25rem;
-      height: 1.25rem;
+      @apply w-5 h-5;
     }
     .quick-service strong {
       @apply text-xs;
     }
     .quick-service small {
-      margin-top: 0.14rem;
       @apply text-xs;
+      margin-top: 0.14rem;
       line-height: 1.3;
     }
   }
@@ -166,34 +162,29 @@
   }
 
   .home-quick-services {
-    padding-top: 0;
+    @apply pt-0;
   }
   .quick-service-grid {
-    display: grid;
+    @apply grid rounded-2xl;
     grid-template-columns: repeat(6, minmax(0, 1fr));
     gap: 0.65rem;
     padding: 1rem 1.1rem;
     background: #fff;
     border: 1px solid var(--site-line);
-    border-radius: 1rem;
     box-shadow: 0 10px 30px rgba(4, 28, 70, 0.07);
   }
   .quick-service {
-    display: flex;
-    align-items: center;
+    @apply flex items-center min-w-0;
     gap: 0.65rem;
     padding: 0.55rem 0.45rem;
-    min-width: 0;
     border-right: 1px solid var(--site-line);
   }
   .quick-service:last-child {
     border-right: 0;
   }
   .quick-service-icon {
-    display: grid;
+    @apply grid w-8 h-8;
     place-items: center;
-    width: 2rem;
-    height: 2rem;
     flex: none;
     color: var(--site-brand);
   }
@@ -201,16 +192,15 @@
     color: #d89a2b;
   }
   .quick-service-icon svg {
-    width: 1.25rem;
-    height: 1.25rem;
+    @apply w-5 h-5;
   }
   .quick-service strong {
-    display: block;
+    @apply block;
     color: var(--site-brand);
     line-height: 1.15;
   }
   .quick-service small {
-    display: block;
+    @apply block;
     color: var(--site-muted);
     line-height: 1.3;
     margin-top: 0.15rem;
@@ -232,21 +222,15 @@
 
 @layer components {
   .madya-theme .home-page .quick-service-grid {
-    display: grid;
+    @apply grid justify-center gap-0 overflow-hidden rounded-lg;
     grid-template-columns: repeat(6, minmax(0, 1fr));
-    justify-content: center;
-    gap: 0;
-    overflow: hidden;
     border: 1px solid var(--home-line);
-    border-radius: 0.5rem;
   }
 
   .madya-theme .home-page .quick-service-grid .quick-service {
-    min-width: 0;
-    min-height: 6rem;
+    @apply min-w-0 rounded-none min-h-24;
     border-right: 1px solid var(--home-line);
     border-bottom: 0;
-    border-radius: 0;
   }
   .madya-theme .home-page .quick-service-grid .quick-service:last-child {
     border-right: 0;

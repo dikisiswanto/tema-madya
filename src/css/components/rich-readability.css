@@ -124,8 +124,7 @@
   .madya-theme .rich-filters button,
   .madya-theme .rich-selects select,
   .madya-theme .rich-month {
-    @apply text-xs;
-    min-height: 2.25rem;
+    @apply text-xs min-h-9;
   }
   .madya-theme .rich-toolbar {
     @apply text-sm;

@@ -70,7 +70,7 @@
   }
   @variant max-md {
     .section-heading {
-      margin-bottom: 2rem;
+      @apply mb-8;
     }
     .section-heading h2 {
       @apply text-[clamp(1.85rem,8.4vw,2.55rem)];
